@@ -9,58 +9,53 @@ import { useState, useEffect } from "react";
 function Projects() {
     const API = "https://api.github.com";
     const username = "xinyiklin";
+    const repos = ["clinic-scheduler", "crypto-app", "web-game"];
 
-    const projectConfig = [
+    const fallbackProjects = [
         {
-            repo: "clinic-scheduler",
-            title: "Clinic Scheduler",
+            id: 1,
+            name: "Clinic Scheduler",
             description:
-                "A full-stack scheduling application for managing appointments, built with a focus on practical workflow and clean UI.",
-            tech: ["React", "Bootstrap", "Django", "REST API"],
-            demoUrl: "",
+                "A full-stack scheduling application for managing appointments with a clean UI and real-world workflow.",
+            tech: ["React", "Django", "Bootstrap"],
+            github: "https://github.com/xinyiklin/clinic-scheduler",
         },
         {
-            repo: "crypto-app",
-            title: "Crypto App",
+            id: 2,
+            name: "Crypto App",
             description:
-                "A web app for browsing cryptocurrency data with a responsive frontend and API-driven content.",
+                "A responsive web app that displays cryptocurrency data using API integration.",
             tech: ["React", "JavaScript", "Bootstrap"],
-            demoUrl: "",
+            github: "https://github.com/xinyiklin/crypto-app",
         },
         {
-            repo: "web-game",
-            title: "Web Game",
+            id: 3,
+            name: "Web Game",
             description:
-                "A browser-based game project focused on interactive logic, user experience, and front-end development.",
+                "A browser-based game focused on interactive logic and user experience.",
             tech: ["JavaScript", "HTML", "CSS"],
-            demoUrl: "",
+            github: "https://github.com/xinyiklin/web-game",
         },
     ];
 
     const [projects, setProjects] = useState([]);
-    const [loading, setLoading] = useState(true);
-    const [hasError, setHasError] = useState(false);
+    const [useFallback, setUseFallback] = useState(false);
 
     useEffect(() => {
         async function fetchRepos() {
             try {
                 const responses = await Promise.all(
-                    projectConfig.map((project) =>
-                        axios.get(`${API}/repos/${username}/${project.repo}`)
+                    repos.map((repo) =>
+                        axios.get(`${API}/repos/${username}/${repo}`)
                     )
                 );
 
-                const mergedProjects = projectConfig.map((project, index) => ({
-                    ...project,
-                    githubData: responses[index].data,
-                }));
-
-                setProjects(mergedProjects);
+                const repoList = responses.map((res) => res.data);
+                setProjects(repoList);
             } catch (error) {
-                console.error("Failed to fetch repositories:", error.message);
-                setHasError(true);
-            } finally {
-                setLoading(false);
+                console.error("API failed, using fallback:", error.message);
+                setUseFallback(true);
+                setProjects(fallbackProjects);
             }
         }
 
@@ -74,72 +69,61 @@ function Projects() {
                     Projects
                 </div>
 
-                {loading && (
-                    <p className="text-center">Loading projects...</p>
-                )}
+                <Row className="g-4">
+                    {projects.map((project) => (
+                        <Col key={project.id || project.name} md={6} xxl={4}>
+                            <Card className="h-100 shadow-sm border-0">
+                                <Card.Body className="d-flex flex-column p-4">
 
-                {hasError && (
-                    <p className="text-center text-danger">
-                        Unable to load project data right now.
-                    </p>
-                )}
+                                    <Card.Title>
+                                        {useFallback
+                                            ? project.name
+                                            : project.name.replace(/-/g, " ")}
+                                    </Card.Title>
 
-                {!loading && !hasError && (
-                    <Row className="g-4">
-                        {projects.map((project) => (
-                            <Col key={project.repo} md={6} xxl={4}>
-                                <Card className="h-100 shadow-sm border-0">
-                                    <Card.Body className="d-flex flex-column p-4">
-                                        <Card.Title className="mb-3">
-                                            {project.title}
-                                        </Card.Title>
+                                    <Card.Text className="flex-grow-1">
+                                        {project.description || "No description available."}
+                                    </Card.Text>
 
-                                        <Card.Text className="flex-grow-1">
-                                            {project.description}
-                                        </Card.Text>
-
+                                    {/* Tech stack (only for fallback) */}
+                                    {useFallback && (
                                         <div className="mb-3">
                                             <div className="small text-muted mb-2">
                                                 Tech Stack
                                             </div>
                                             <div className="d-flex flex-wrap gap-2">
-                                                {project.tech.map((item) => (
-                                                    <span
-                                                        key={item}
-                                                        className="badge bg-secondary"
-                                                    >
-                                                        {item}
+                                                {project.tech.map((tech) => (
+                                                    <span key={tech} className="badge bg-secondary">
+                                                        {tech}
                                                     </span>
                                                 ))}
                                             </div>
                                         </div>
+                                    )}
 
-                                        <div className="d-flex gap-2 mt-auto">
-                                            <Button
-                                                href={project.githubData.html_url}
-                                                target="_blank"
-                                                rel="noreferrer"
-                                                variant="primary"
-                                            >
-                                                GitHub
-                                            </Button>
+                                    <Button
+                                        href={
+                                            useFallback
+                                                ? project.github
+                                                : project.html_url
+                                        }
+                                        target="_blank"
+                                        rel="noreferrer"
+                                        variant="primary"
+                                    >
+                                        View Project
+                                    </Button>
 
-                                            {project.demoUrl && (
-                                                <Button
-                                                    href={project.demoUrl}
-                                                    target="_blank"
-                                                    rel="noreferrer"
-                                                    variant="outline-primary"
-                                                >
-                                                    Live Demo
-                                                </Button>
-                                            )}
-                                        </div>
-                                    </Card.Body>
-                                </Card>
-                            </Col>
-                        ))}
-                    </Row>
+                                </Card.Body>
+                            </Card>
+                        </Col>
+                    ))}
+                </Row>
+
+                {useFallback && (
+                    <p className="text-center text-muted mt-4">
+                        Showing cached project data (GitHub API limit reached).
+                    </p>
                 )}
             </Container>
         </div>
