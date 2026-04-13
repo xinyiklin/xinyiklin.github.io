@@ -1,29 +1,29 @@
 import Container from "react-bootstrap/Container";
 import Typewriter from "typewriter-effect";
 import { FaGithub, FaLinkedin, FaEnvelope } from "react-icons/fa";
+import { EMAIL, GITHUB, LINKEDIN, NAME, RESUME } from "../constants/app";
 
 function Main() {
-    const resume = "/resume.pdf";
     const gradient = "#4484ce, #1ad7c0, #ff9b11, #9b59b6, #ff7f7f, #ecf0f1";
     const delay = 50;
     const pause = 500;
 
     return (
-        <div
+        <section
             id="home"
             style={{
                 background: `linear-gradient(136deg, ${gradient})`,
                 backgroundSize: "1200% 1200%",
             }}
-            className="text-center text-light main-bg min-vh-100 d-flex align-items-center flex-wrap m-0"
+            className="text-center text-light main-bg min-vh-100 d-flex align-items-center m-0"
         >
             <Container>
-                <h1 className="display-1 fw-bold">Xinyi Lin</h1>
+                <h1 className="display-2 fw-bold">{NAME}</h1>
 
                 <Typewriter
                     options={{
                         cursor: "",
-                        delay: delay,
+                        delay,
                         skipAddStyles: true,
                         wrapperClassName: "lead typewriter",
                         cursorClassName: "",
@@ -36,14 +36,18 @@ function Main() {
                             .typeString("Building practical and user-friendly web applications.")
                             .pauseFor(pause)
                             .deleteAll()
-                            .typeString("Currently focused on React, Node.js, and Python.")
+                            .typeString("Focused on React, Django, and PostgreSQL.")
                             .start();
                     }}
                 />
 
+                <p className="mt-4 text-light-emphasis">
+                    React • Django • PostgreSQL • Full-Stack Projects
+                </p>
+
                 <div className="p-4 d-flex justify-content-center gap-4 flex-wrap">
                     <a
-                        href="https://github.com/xinyiklin"
+                        href={GITHUB}
                         target="_blank"
                         rel="noreferrer"
                         aria-label="My GitHub"
@@ -53,7 +57,7 @@ function Main() {
                     </a>
 
                     <a
-                        href="https://www.linkedin.com/in/xinyiklin/"
+                        href={LINKEDIN}
                         target="_blank"
                         rel="noreferrer"
                         aria-label="My LinkedIn"
@@ -63,7 +67,7 @@ function Main() {
                     </a>
 
                     <a
-                        href="mailto:kevinlin11426@gmail.com"
+                        href={`mailto:${EMAIL}`}
                         aria-label="My email"
                         className="text-light"
                     >
@@ -73,17 +77,17 @@ function Main() {
 
                 <div className="mt-2">
                     <a
-                        className="btn btn-outline-light btn-md mx-2"
-                        href="#about"
+                        className="btn btn-light btn-md mx-2"
+                        href="#projects"
                         role="button"
-                        aria-label="Learn more about me"
+                        aria-label="View my projects"
                     >
-                        About Me
+                        View Project
                     </a>
 
                     <a
-                        className="btn btn-success btn-md mx-2"
-                        href={resume}
+                        className="btn btn-outline-light btn-md mx-2"
+                        href={RESUME}
                         target="_blank"
                         rel="noreferrer"
                         role="button"
@@ -93,7 +97,7 @@ function Main() {
                     </a>
                 </div>
             </Container>
-        </div>
+        </section>
     );
 }
 

@@ -1,10 +1,9 @@
 import Navbar from "react-bootstrap/Navbar";
 import Nav from "react-bootstrap/Nav";
 import Container from "react-bootstrap/Container";
+import { NAME, RESUME } from "../constants/app";
 
 function Navigation() {
-    const resume = "/resume.pdf";
-
     return (
         <Navbar
             expand="md"
@@ -14,7 +13,7 @@ function Navigation() {
         >
             <Container>
                 <Navbar.Brand href="#home" className="fw-bold">
-                    Xinyi Lin
+                    {NAME}
                 </Navbar.Brand>
 
                 <Navbar.Toggle aria-controls="navbar-nav" />
@@ -25,9 +24,8 @@ function Navigation() {
                         <Nav.Link href="#about">About</Nav.Link>
                         <Nav.Link href="#skills">Skills</Nav.Link>
                         <Nav.Link href="#contacts">Contact</Nav.Link>
-
                         <Nav.Link
-                            href={resume}
+                            href={RESUME}
                             target="_blank"
                             rel="noreferrer"
                             className="fw-semibold"

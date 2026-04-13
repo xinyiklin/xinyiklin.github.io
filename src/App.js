@@ -1,9 +1,9 @@
 import Navigation from "./components/Navigation";
-import Main from "./components/home/Main";
-import AboutMe from "./components/home/AboutMe";
-import Skills from "./components/home/Skills";
-import Projects from "./components/home/Projects";
-import Contacts from "./components/home/Contacts";
+import Main from "./sections/Main";
+import AboutMe from "./sections/AboutMe";
+import Skills from "./sections/Skills";
+import Projects from "./sections/Projects";
+import Contacts from "./sections/Contacts";
 import Footer from "./components/Footer";
 
 function App() {
@@ -11,7 +11,7 @@ function App() {
         <>
             <Navigation />
 
-            <main>
+            <main className="d-flex flex-column">
                 <Main />
                 <AboutMe />
                 <Skills />
