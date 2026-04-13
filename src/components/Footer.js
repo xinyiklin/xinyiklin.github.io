@@ -1,5 +1,6 @@
 import { FaGithub, FaLinkedin, FaEnvelope } from "react-icons/fa";
 import Container from "react-bootstrap/Container";
+import { EMAIL, GITHUB, LINKEDIN, NAME } from "../constants/app";
 
 function Footer() {
     return (
@@ -7,41 +8,38 @@ function Footer() {
             <Container>
                 <p className="text-center text-muted py-3 m-0 d-flex justify-content-center align-items-center gap-3 flex-wrap">
 
-                    {/* Copyright */}
                     <span>
-                        © {new Date().getFullYear()} Xinyi Lin
+                        © {new Date().getFullYear()} {NAME}
                     </span>
 
-                    {/* GitHub */}
                     <a
-                        href="https://github.com/xinyiklin"
+                        href={GITHUB}
                         target="_blank"
                         rel="noreferrer"
                         aria-label="GitHub"
                         className="text-muted"
                     >
-                        <FaGithub />
+                        <FaGithub className="footer-icons" />
                     </a>
 
-                    {/* LinkedIn */}
                     <a
-                        href="https://www.linkedin.com/in/xinyiklin/"
+                        href={LINKEDIN}
                         target="_blank"
                         rel="noreferrer"
                         aria-label="LinkedIn"
                         className="text-muted"
                     >
-                        <FaLinkedin />
+                        <FaLinkedin className="footer-icons" />
                     </a>
 
-                    {/* Email */}
                     <a
-                        href="mailto:kevinlin11426@gmail.com"
+                        href={`mailto:${EMAIL}`}
                         aria-label="Email"
                         className="text-muted"
                     >
-                        <FaEnvelope />
+                        <FaEnvelope className="footer-icons" />
                     </a>
+
                 </p>
             </Container>
         </footer>
