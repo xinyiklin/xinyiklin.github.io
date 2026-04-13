@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <!-- Background -->
+  <rect width="64" height="64" rx="12" fill="#0F172A"/>
+
+  <!-- XL Text -->
+  <text
+    x="50%"
+    y="52%"
+    text-anchor="middle"
+    dominant-baseline="middle"
+    font-family="Inter, system-ui, sans-serif"
+    font-size="28"
+    font-weight="700"
+    fill="#F8FAFC"
+  >
+    XL
+  </text>
+
+  <!-- Accent dot -->
+  <circle cx="50" cy="50" r="4" fill="#2563EB"/>
+</svg>
