@@ -3,7 +3,6 @@
 A modern personal portfolio website built to showcase my projects, technical skills, and experience as an aspiring full-stack software engineer.
 
 🌐 Live: https://xinyiklin.com  
-💻 GitHub: https://github.com/xinyiklin/personal-website
 
 ---
 

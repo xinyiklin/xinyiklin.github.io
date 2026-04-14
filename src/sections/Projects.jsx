@@ -17,7 +17,7 @@ function Projects() {
         ],
         tech: ["React", "Django", "PostgreSQL", "React Query", "Tailwind CSS"],
         github: "https://github.com/xinyiklin/clinic-scheduler",
-        live: "https://clinic-scheduler-seven.vercel.app/",
+        live: "https://clinic-scheduler.xinyiklin.com/",
     };
 
     return (
