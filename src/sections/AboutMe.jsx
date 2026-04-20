@@ -1,12 +1,9 @@
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
-import Profilepicture from "../pictures/profilepic.JPG";
 import { NAME } from "../constants/app";
 
 function AboutMe() {
-    const imgSize = 320;
-
     return (
         <section id="about" className="py-5 bg-white">
             <Container>
@@ -18,18 +15,9 @@ function AboutMe() {
                 </div>
 
                 <div className="rounded-4 border bg-white shadow-sm p-4 p-md-5">
-                    <Row className="align-items-center g-4">
-                        <Col lg={5} className="text-center">
-                            <img
-                                src={Profilepicture}
-                                alt={NAME}
-                                width={imgSize}
-                                height={imgSize}
-                                className="img-fluid rounded-4 shadow-sm"
-                            />
-                        </Col>
-
-                        <Col lg={7}>
+                    <Row className="justify-content-center text-center">
+                        {/* Changed lg={7} to lg={10} or 12 for a better readable width when centered */}
+                        <Col lg={10}>
                             <p className="lead">
                                 Hi, I’m <strong>{NAME}</strong>, an aspiring full-stack developer
                                 focused on building clean, practical, and user-friendly web applications.
