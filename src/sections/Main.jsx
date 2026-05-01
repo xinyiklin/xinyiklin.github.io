@@ -4,9 +4,9 @@ import { FaGithub, FaLinkedin, FaEnvelope } from "react-icons/fa";
 import { EMAIL, GITHUB, LINKEDIN, NAME, RESUME } from "../constants/app";
 
 function Main() {
-    const gradient = "#4484ce, #1ad7c0, #ff9b11, #9b59b6, #ff7f7f, #ecf0f1";
+    const gradient = "#2563eb, #14b8a6, #f97316, #7c3aed, #ef4444, #f8fafc";
     const delay = 50;
-    const pause = 500;
+    const pause = 700;
 
     return (
         <section
@@ -15,10 +15,11 @@ function Main() {
                 background: `linear-gradient(136deg, ${gradient})`,
                 backgroundSize: "1200% 1200%",
             }}
-            className="text-center text-light main-bg min-vh-100 d-flex align-items-center m-0"
+            className="hero-section text-center text-light main-bg min-vh-100 d-flex align-items-center m-0"
         >
-            <Container>
-                <h1 className="display-2 fw-bold">{NAME}</h1>
+            <Container className="hero-content">
+                <p className="hero-kicker mb-3">Software Engineer | Full-Stack Projects</p>
+                <h1 className="hero-title fw-bold">{NAME}</h1>
 
                 <Typewriter
                     options={{
@@ -30,10 +31,10 @@ function Main() {
                     }}
                     onInit={(typewriter) => {
                         typewriter
-                            .typeString("Aspiring full-stack developer.")
+                            .typeString("Full-stack developer.")
                             .pauseFor(pause)
                             .deleteAll()
-                            .typeString("Building practical and user-friendly web applications.")
+                            .typeString("Building practical workflow applications.")
                             .pauseFor(pause)
                             .deleteAll()
                             .typeString("Focused on React, Django, and PostgreSQL.")
@@ -41,11 +42,19 @@ function Main() {
                     }}
                 />
 
-                <p className="mt-4 text-light-emphasis">
-                    React • Django • PostgreSQL • Full-Stack Projects
+                <p className="hero-subtitle mt-4">
+                    I build practical React and Django applications with clean workflows,
+                    thoughtful UI, and PostgreSQL-backed data models.
                 </p>
 
-                <div className="p-4 d-flex justify-content-center gap-4 flex-wrap">
+                <div className="hero-stack mt-4">
+                    <span>React</span>
+                    <span>Django REST</span>
+                    <span>PostgreSQL</span>
+                    <span>Product UI</span>
+                </div>
+
+                <div className="hero-socials p-4 d-flex justify-content-center gap-4 flex-wrap">
                     <a
                         href={GITHUB}
                         target="_blank"
@@ -75,18 +84,18 @@ function Main() {
                     </a>
                 </div>
 
-                <div className="mt-2">
+                <div className="hero-actions mt-2">
                     <a
-                        className="btn btn-light btn-md mx-2"
+                        className="btn hero-primary-btn btn-md mx-2"
                         href="#projects"
                         role="button"
                         aria-label="View my projects"
                     >
-                        View Project
+                        View Projects
                     </a>
 
                     <a
-                        className="btn btn-outline-light btn-md mx-2"
+                        className="btn hero-secondary-btn btn-md mx-2"
                         href={RESUME}
                         target="_blank"
                         rel="noreferrer"
