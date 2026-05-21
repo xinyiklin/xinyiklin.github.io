@@ -2,13 +2,13 @@ export const PROJECTS_DATA = [
   {
     id: "careflow",
     name: "CareFlow",
-    meta: "Healthcare Operations Platform | React, Django REST, PostgreSQL",
-    role: "Full-stack product build",
+    meta: "Clinic Workflow Platform | React, Django REST, PostgreSQL",
+    role: "Full-stack build",
     year: "2026",
     status: "Live demo",
     accent: "#0f766e",
     description:
-      "A production-minded clinic workflow app for scheduling, patient registration, document management, and facility administration. CareFlow is organized around real product areas, synthetic demo data, facility-scoped access, and operational UI patterns that feel closer to a clinic workspace than a basic CRUD sample.",
+      "CareFlow is a clinic workflow app for scheduling, registration, documents, and administration. It uses synthetic demo data, facility-scoped access, and UI patterns modeled after real clinic operations.",
     metrics: [
       { value: "8", label: "workflow areas" },
       { value: "Facility-scoped", label: "API access" },
@@ -17,15 +17,15 @@ export const PROJECTS_DATA = [
     quality: [
       {
         title: "Feature boundaries",
-        body: "Scheduling, documents, admin, auth, patients, and permissions are separated into product-owned frontend and backend areas.",
+        body: "Scheduling, documents, admin, auth, patients, and permissions are separated into clear product areas.",
       },
       {
         title: "Facility-scoped API",
-        body: "Django REST endpoints keep clinic data and admin actions scoped to the selected facility.",
+        body: "Django REST endpoints keep clinic data and admin actions scoped to the active facility.",
       },
       {
         title: "Secure auth",
-        body: "Short-lived access tokens, HTTP-only refresh cookies, permission checks, and masked sensitive fields shape the auth boundary.",
+        body: "Short-lived access tokens, HTTP-only refresh cookies, permission checks, and masked fields shape the auth boundary.",
       },
       {
         title: "Demo-safe data",
@@ -33,29 +33,29 @@ export const PROJECTS_DATA = [
       },
       {
         title: "Verified UI",
-        body: "Browser QA and targeted frontend checks cover key scheduling, document, and admin workflows.",
+        body: "Browser QA covers key scheduling, document, and admin workflows.",
       },
     ],
     highlights: [
       {
         title: "Configurable scheduling",
         body:
-          "Facility-local appointment views with visit types, rooms, resources, blocks, and status configuration.",
+          "Facility-local calendars with visit types, rooms, resources, blocks, and status rules.",
       },
       {
         title: "Patient and document workflows",
         body:
-          "Smart patient search, Quick Start registration, a modal Patient Hub, uploads, previews, downloads, and selected-document PDF export.",
+          "Patient search, registration, uploads, previews, downloads, and selected-document PDF export.",
       },
       {
         title: "Admin and permissions",
         body:
-          "Organization and facility tools for staff, roles, permissions, appointment settings, document categories, and pharmacy preferences.",
+          "Facility tools for staff, roles, appointment settings, document categories, and pharmacy preferences.",
       },
       {
         title: "Secure-by-default auth",
         body:
-          "Short-lived access tokens, HTTP-only refresh cookies, masked sensitive fields, and permission-aware API boundaries.",
+          "Short-lived access tokens, HTTP-only refresh cookies, masked fields, and permission-aware APIs.",
       },
     ],
     tech: ["React 19", "Django REST Framework", "PostgreSQL", "React Query", "Tailwind CSS v4", "Simple JWT"],

@@ -36,14 +36,14 @@ function Contacts() {
         <div className="text-center mb-5">
           <span className="contact-avail-badge mb-4 d-inline-flex align-items-center gap-2">
             <span className="contact-pulse" aria-hidden="true" />
-            Available for hire
+            Open to work
           </span>
 
           <h2 className="contact-heading">Let's Work Together</h2>
 
           <p className="contact-sub">
-            Actively seeking full-time Software Engineer roles and open to relocate
-            for the right team building production software.
+            Open to full-time software engineering roles and willing to
+            relocate for the right team.
           </p>
         </div>
 

@@ -58,20 +58,20 @@ function Main() {
           }}
           onInit={(tw) => {
             tw
-              .typeString("React + Django developer.")
+              .typeString("React + Django.")
               .pauseFor(700)
               .deleteAll()
-              .typeString("Building healthcare workflow software.")
+              .typeString("Healthcare workflow software.")
               .pauseFor(700)
               .deleteAll()
-              .typeString("From schema design to shipped UI.")
+              .typeString("Clear data. Clean UI.")
               .start();
           }}
         />
 
         <p className="hero-subtitle mt-4">
-          I build full-stack applications for healthcare and operational workflows—
-          React frontends, Django REST APIs, and PostgreSQL data models that hold up in production.
+          I build React and Django applications for healthcare workflows,
+          with practical interfaces and PostgreSQL-backed data models.
         </p>
 
         <div className="hero-stack mt-5">

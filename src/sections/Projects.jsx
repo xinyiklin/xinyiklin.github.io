@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import Container from "react-bootstrap/Container";
 import Button from "react-bootstrap/Button";
 import Badge from "react-bootstrap/Badge";
-import { ExternalLink } from "lucide-react";
+import { ExternalLink, Calendar, FileText, ShieldCheck } from "lucide-react";
 import { FaGithub } from "react-icons/fa";
 import { PROJECTS_DATA } from "../constants/projects";
 import careflowAdminCapture from "../assets/careflow-admin-capture.png";
@@ -15,23 +15,26 @@ const CHAPTERS = [
   {
     src: careflowScheduleCapture,
     alt: "CareFlow schedule screen with calendar resources and appointment blocks",
+    Icon: Calendar,
     eyebrow: "01 — Scheduling",
     title: "Configurable scheduling",
-    body: "Facility-local appointment views with visit types, rooms, resources, blocks, and configurable status. Each facility controls its own calendar rules.",
+    body: "Facility-local calendars with visit types, rooms, resources, blocks, and status rules.",
   },
   {
     src: careflowDocumentsCapture,
     alt: "CareFlow document center with file cabinet and viewer",
+    Icon: FileText,
     eyebrow: "02 — Documents",
     title: "Patient and document workflows",
-    body: "Smart patient search, Quick Start registration, a modal Patient Hub, uploads, inline previews, downloads, and selected-document PDF export.",
+    body: "Patient search, registration, document upload, inline previews, downloads, and selected-document PDF export.",
   },
   {
     src: careflowAdminCapture,
     alt: "CareFlow admin console facility overview screen",
+    Icon: ShieldCheck,
     eyebrow: "03 — Administration",
     title: "Admin and permissions",
-    body: "Organization and facility tools for staff, roles, document categories, and pharmacy preferences—all scoped to the selected facility.",
+    body: "Facility tools for staff, roles, document categories, pharmacy preferences, and permission-aware access.",
   },
 ];
 
@@ -151,7 +154,12 @@ function Projects() {
                 className={`cf-chapter ${activeChapter === index ? "is-active" : ""}`}
                 ref={(el) => { chapterRefs.current[index] = el; }}
               >
-                <p className="cf-chapter-eyebrow">{chapter.eyebrow}</p>
+                <div className="cf-chapter-head">
+                  <span className="cf-chapter-icon">
+                    <chapter.Icon size={18} strokeWidth={2.2} aria-hidden="true" />
+                  </span>
+                  <p className="cf-chapter-eyebrow">{chapter.eyebrow}</p>
+                </div>
                 <h3 className="cf-chapter-title">{chapter.title}</h3>
                 <p className="cf-chapter-body">{chapter.body}</p>
               </div>

@@ -471,8 +471,10 @@ section { scroll-margin-top: 72px; }
 .section-intro h2 {
     color: var(--c-text);
     font-family: var(--font-display);
-    font-weight: 800;
-    letter-spacing: 0;
+    font-size: clamp(2rem, 4vw, 3rem);
+    font-weight: 900;
+    letter-spacing: -0.02em;
+    line-height: 1.05;
 }
 
 .section-intro p.text-muted { color: var(--c-text-muted) !important; }
@@ -521,7 +523,7 @@ section { scroll-margin-top: 72px; }
 .about-fact-icon {
     align-items: center;
     background: var(--c-accent);
-    border-radius: 999px;
+    border-radius: var(--radius-sm);
     color: var(--c-white);
     display: inline-flex;
     flex: 0 0 auto;
@@ -833,12 +835,39 @@ section { scroll-margin-top: 72px; }
     opacity: 1;
 }
 
+.cf-chapter-head {
+    align-items: center;
+    display: flex;
+    gap: 0.7rem;
+    margin-bottom: 1rem;
+}
+
+.cf-chapter-icon {
+    align-items: center;
+    background: var(--c-accent-lite);
+    border: 1px solid rgba(20,184,166,0.25);
+    border-radius: var(--radius-sm);
+    color: #0f766e;
+    display: inline-flex;
+    flex-shrink: 0;
+    height: 34px;
+    justify-content: center;
+    transition: background var(--transition), border-color var(--transition), color var(--transition);
+    width: 34px;
+}
+
+.cf-chapter.is-active .cf-chapter-icon {
+    background: var(--project-accent, var(--c-accent));
+    border-color: transparent;
+    color: #ffffff;
+}
+
 .cf-chapter-eyebrow {
     color: var(--project-accent, #0f766e);
     font-size: 0.7rem;
     font-weight: 900;
     letter-spacing: 0.1em;
-    margin-bottom: 0.85rem;
+    margin: 0;
     text-transform: uppercase;
 }
 

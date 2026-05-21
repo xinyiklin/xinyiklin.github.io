@@ -1,19 +1,29 @@
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
-import { DiReact, DiJavascript, DiPython, DiGit } from "react-icons/di";
-import { SiPostgresql, SiNodedotjs, SiDjango, SiExpress } from "react-icons/si";
+import {
+    SiReact,
+    SiJavascript,
+    SiNodedotjs,
+    SiExpress,
+    SiDjango,
+    SiPython,
+    SiPostgresql,
+    SiGit,
+    SiCmake,
+    SiVite,
+} from "react-icons/si";
 
 function Skills() {
     const skillGroups = [
         {
             title: "Frontend",
             icons: [
-                <DiReact key="react" className="skillsicons" title="React" />,
-                <DiJavascript key="js" className="skillsicons" title="JavaScript" />,
+                <SiReact key="react" className="skillsicons" title="React" />,
+                <SiJavascript key="js" className="skillsicons" title="JavaScript" />,
             ],
             description:
-                "Build responsive React interfaces with reusable components, accessible navigation, and polished user flows.",
+                "Create responsive React interfaces with reusable components and clear user flows.",
         },
         {
             title: "Backend",
@@ -21,10 +31,10 @@ function Skills() {
                 <SiNodedotjs key="node" className="skillsicons" title="Node.js" />,
                 <SiExpress key="express" className="skillsicons" title="Express" />,
                 <SiDjango key="django" className="skillsicons" title="Django" />,
-                <DiPython key="python" className="skillsicons" title="Python" />,
+                <SiPython key="python" className="skillsicons" title="Python" />,
             ],
             description:
-                "Develop Django and Node APIs that keep business logic clear, validated, and ready for real application workflows.",
+                "Build Django and Node APIs with clear business logic and validated data.",
         },
         {
             title: "Database",
@@ -32,15 +42,17 @@ function Skills() {
                 <SiPostgresql key="postgres" className="skillsicons" title="PostgreSQL" />,
             ],
             description:
-                "Model relational data in PostgreSQL and connect it to application features through thoughtful query design.",
+                "Model relational data in PostgreSQL and connect it cleanly to product features.",
         },
         {
             title: "Tools & Systems",
             icons: [
-                <DiGit key="git" className="skillsicons" title="Git" />,
+                <SiGit key="git" className="skillsicons" title="Git" />,
+                <SiCmake key="cmake" className="skillsicons" title="CMake" />,
+                <SiVite key="vite" className="skillsicons" title="Vite" />,
             ],
             description:
-                "Use Git, CMake, Vite, and deployment tools to keep projects buildable, reviewable, and stable across environments.",
+                "Use Git, CMake, Vite, and deployment tools to keep projects buildable and reviewable.",
         },
     ];
 
@@ -49,9 +61,9 @@ function Skills() {
             <Container>
                 <div className="section-intro text-center mb-5">
                     <p className="section-eyebrow mb-2">Stack</p>
-                    <h2 className="display-5 fw-semibold mb-2">Core Skills</h2>
+                    <h2 className="mb-2">Core Skills</h2>
                     <p className="text-muted mb-0">
-                        Core technologies I use to move from UI idea to working full-stack application.
+                        Tools I use to build usable full-stack applications.
                     </p>
                 </div>
 

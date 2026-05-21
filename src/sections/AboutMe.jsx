@@ -14,7 +14,7 @@ function AboutMe() {
         {
             icon: <BriefcaseBusiness size={20} />,
             label: "Target roles",
-            value: "Full-time healthcare software engineer",
+            value: "Full-time software engineer",
         },
         {
             icon: <MapPin size={20} />,
@@ -28,9 +28,9 @@ function AboutMe() {
             <Container>
                 <div className="section-intro text-center mb-5">
                     <p className="section-eyebrow mb-2">About</p>
-                    <h2 className="display-5 fw-semibold mb-2">Who I Am</h2>
+                    <h2 className="mb-2">Who I Am</h2>
                     <p className="text-muted mb-0">
-                        Full-stack developer focused on building reliable software for healthcare workflows.
+                        Practical software for healthcare teams.
                     </p>
                 </div>
 
@@ -38,25 +38,23 @@ function AboutMe() {
                     <Row className="align-items-center g-4">
                         <Col lg={7}>
                             <p className="lead">
-                                Hi, I’m <strong>{NAME}</strong>—a full-stack developer who builds
-                                clean, reliable software for healthcare and operational workflows.
+                                Hi, I’m <strong>{NAME}</strong>. I build full-stack software for
+                                healthcare workflows.
                             </p>
 
                             <p>
-                                My background is in Computer Science, and I work across the stack with
-                                <strong> React, Python, Django, JavaScript, and PostgreSQL</strong>.
-                                I’m drawn to projects where the UI and the data model both need to be right.
+                                I work with <strong> React, Python, Django, JavaScript, and PostgreSQL</strong>.
+                                I like building features where the interface, API, and data model all need to fit together.
                             </p>
 
                             <p>
-                                My recent focus is CareFlow, a clinic workflow platform I built from the ground up—
-                                covering scheduling, patient registration, document management, admin tools,
-                                and a secure auth layer across a React frontend and Django REST backend.
+                                My recent focus is CareFlow, a clinic workflow platform for scheduling,
+                                patient registration, documents, admin tools, and secure access.
                             </p>
 
                             <p className="mb-0">
                                 I’m looking for a <strong>full-time software engineering role</strong> where I can
-                                ship reliable products that solve real operational problems.
+                                build useful products and keep growing with a strong team.
                             </p>
                         </Col>
 
