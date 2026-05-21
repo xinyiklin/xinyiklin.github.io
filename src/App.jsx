@@ -5,11 +5,9 @@ import Skills from "./sections/Skills";
 import Projects from "./sections/Projects";
 import Contacts from "./sections/Contacts";
 import Footer from "./components/Footer";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 
 function App() {
-    const [projectIndex, setProjectIndex] = useState(0);
-
     useEffect(() => {
         if ("scrollRestoration" in window.history) {
             window.history.scrollRestoration = "manual";
@@ -44,13 +42,13 @@ function App() {
 
     return (
         <>
-            <Navigation onSelectProject={setProjectIndex} />
+            <Navigation />
 
             <main className="d-flex flex-column">
                 <Main />
                 <AboutMe />
                 <Skills />
-                <Projects currentIndex={projectIndex} setCurrentIndex={setProjectIndex} />
+                <Projects />
                 <Contacts />
             </main>
 

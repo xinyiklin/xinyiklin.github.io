@@ -8,11 +8,33 @@ export const PROJECTS_DATA = [
     status: "Live demo",
     accent: "#0f766e",
     description:
-      "A portfolio-grade clinic workflow app for scheduling, patient registration, document management, and facility administration. CareFlow is built around synthetic demo data, facility-scoped access, and operational UI patterns that feel closer to a real clinic workspace than a basic CRUD sample.",
+      "A production-minded clinic workflow app for scheduling, patient registration, document management, and facility administration. CareFlow is organized around real product areas, synthetic demo data, facility-scoped access, and operational UI patterns that feel closer to a clinic workspace than a basic CRUD sample.",
     metrics: [
-      { value: "8", label: "domain modules" },
+      { value: "8", label: "workflow areas" },
       { value: "Facility-scoped", label: "API access" },
       { value: "Synthetic", label: "demo data only" },
+    ],
+    quality: [
+      {
+        title: "Feature boundaries",
+        body: "Scheduling, documents, admin, auth, patients, and permissions are separated into product-owned frontend and backend areas.",
+      },
+      {
+        title: "Facility-scoped API",
+        body: "Django REST endpoints keep clinic data and admin actions scoped to the selected facility.",
+      },
+      {
+        title: "Secure auth",
+        body: "Short-lived access tokens, HTTP-only refresh cookies, permission checks, and masked sensitive fields shape the auth boundary.",
+      },
+      {
+        title: "Demo-safe data",
+        body: "The public demo uses synthetic clinic records, so reviewers can explore workflows without exposing real patient data.",
+      },
+      {
+        title: "Verified UI",
+        body: "Browser QA and targeted frontend checks cover key scheduling, document, and admin workflows.",
+      },
     ],
     highlights: [
       {

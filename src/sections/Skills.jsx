@@ -35,12 +35,12 @@ function Skills() {
                 "Model relational data in PostgreSQL and connect it to application features through thoughtful query design.",
         },
         {
-            title: "Tools",
+            title: "Tools & Systems",
             icons: [
                 <DiGit key="git" className="skillsicons" title="Git" />,
             ],
             description:
-                "Use Git, Vite, deployment tools, and local verification habits to keep projects reviewable and stable.",
+                "Use Git, CMake, Vite, and deployment tools to keep projects buildable, reviewable, and stable across environments.",
         },
     ];
 
@@ -48,8 +48,8 @@ function Skills() {
         <section id="skills" className="section-panel section-panel-muted">
             <Container>
                 <div className="section-intro text-center mb-5">
-                    <p className="section-eyebrow mb-2">Skills</p>
-                    <h2 className="display-5 fw-semibold mb-2">Skills</h2>
+                    <p className="section-eyebrow mb-2">Stack</p>
+                    <h2 className="display-5 fw-semibold mb-2">Core Skills</h2>
                     <p className="text-muted mb-0">
                         Core technologies I use to move from UI idea to working full-stack application.
                     </p>

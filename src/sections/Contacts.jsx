@@ -1,49 +1,78 @@
 import Container from "react-bootstrap/Container";
-import { FaEnvelope } from "react-icons/fa";
-import { ArrowRight } from "lucide-react";
-import { EMAIL, LOCATION, AVAILABILITY } from "../constants/app";
+import { FaEnvelope, FaGithub, FaLinkedin } from "react-icons/fa";
+import { EMAIL, GITHUB, LINKEDIN, LOCATION, AVAILABILITY } from "../constants/app";
+
+const CHANNELS = [
+  {
+    Icon: FaEnvelope,
+    label: "Email",
+    handle: EMAIL,
+    href: `mailto:${EMAIL}`,
+    cta: "Say hello",
+    external: false,
+  },
+  {
+    Icon: FaLinkedin,
+    label: "LinkedIn",
+    handle: "in/xinyiklin",
+    href: LINKEDIN,
+    cta: "Connect",
+    external: true,
+  },
+  {
+    Icon: FaGithub,
+    label: "GitHub",
+    handle: "xinyiklin",
+    href: GITHUB,
+    cta: "View work",
+    external: true,
+  },
+];
 
 function Contacts() {
-    return (
-        <section id="contacts" className="section-panel section-panel-white">
-            <Container>
-                <div className="section-intro text-center mb-5">
-                    <p className="section-eyebrow mb-2">Contact</p>
-                    <h2 className="display-5 fw-semibold mb-2">Get in Touch</h2>
-                    <p className="text-muted mb-0">
-                        I’m open to software engineering opportunities and professional connections.
-                    </p>
-                </div>
+  return (
+    <section id="contacts" className="contact-section">
+      <Container className="position-relative">
+        <div className="text-center mb-5">
+          <span className="contact-avail-badge mb-4 d-inline-flex align-items-center gap-2">
+            <span className="contact-pulse" aria-hidden="true" />
+            Available for hire
+          </span>
 
-                <div
-                    className="contact-card mx-auto"
-                >
-                    <div>
-                        <p className="lead mb-3">
-                            I’m currently seeking entry-level opportunities as a
-                            <strong> Software Engineer</strong>.
-                        </p>
+          <h2 className="contact-heading">Let's Work Together</h2>
 
-                        <p className="mb-0 text-muted">
-                            Based in {LOCATION} • {AVAILABILITY}
-                        </p>
-                    </div>
+          <p className="contact-sub">
+            Actively seeking full-time Software Engineer roles and open to relocate
+            for the right team building production software.
+          </p>
+        </div>
 
-                    <a
-                        href={`mailto:${EMAIL}`}
-                        className="contact-link"
-                        aria-label={`Email ${EMAIL}`}
-                    >
-                        <span>
-                            <FaEnvelope />
-                            {EMAIL}
-                        </span>
-                        <ArrowRight size={20} />
-                    </a>
-                </div>
-            </Container>
-        </section>
-    );
+        <div className="contact-cards">
+          {CHANNELS.map(({ Icon, label, handle, href, cta, external }) => (
+            <a
+              key={label}
+              href={href}
+              target={external ? "_blank" : undefined}
+              rel={external ? "noreferrer" : undefined}
+              className="contact-channel-card"
+              aria-label={`${label}: ${handle}`}
+            >
+              <div className="contact-channel-icon">
+                <Icon />
+              </div>
+              <p className="contact-channel-label">{label}</p>
+              <p className="contact-channel-handle">{handle}</p>
+              <span className="contact-channel-cta">{cta} →</span>
+            </a>
+          ))}
+        </div>
+
+        <p className="contact-location text-center mt-5 mb-0">
+          {LOCATION} · {AVAILABILITY}
+        </p>
+      </Container>
+    </section>
+  );
 }
 
 export default Contacts;

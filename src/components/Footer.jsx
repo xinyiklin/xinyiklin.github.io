@@ -4,7 +4,7 @@ import { EMAIL, GITHUB, LINKEDIN, NAME } from "../constants/app";
 
 function Footer() {
     return (
-        <footer className="bg-light border-top">
+        <footer>
             <Container>
                 <p className="text-center text-muted py-3 m-0 d-flex justify-content-center align-items-center gap-3 flex-wrap">
 

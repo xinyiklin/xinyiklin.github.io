@@ -1,6 +1,6 @@
 # Xinyi Lin — Personal Portfolio
 
-A modern personal portfolio website built to showcase my projects, technical skills, and experience as an aspiring full-stack software engineer.
+A modern personal portfolio website built to showcase my projects, technical skills, and experience as a full-stack developer seeking full-time healthcare software engineering roles.
 
 🌐 Live: https://xinyiklin.com  
 
