@@ -120,44 +120,51 @@ function CareFlowStudy({ reduced }) {
       </header>
 
       <div className="cs-meta">
-        <dl className="cs-meta-list">
-          <div className="cs-meta-item">
-            <dt>Year</dt>
-            <dd>{CAREFLOW.year}</dd>
-          </div>
-          <div className="cs-meta-item">
-            <dt>Role</dt>
-            <dd>{CAREFLOW.role}</dd>
-          </div>
-          <div className="cs-meta-item">
-            <dt>Status</dt>
-            <dd className="cs-meta-status">
-              <span className="cs-status-dot" aria-hidden="true" />
-              Live
-            </dd>
-          </div>
-        </dl>
+        <div className="cs-meta-top">
+          <dl className="cs-meta-list">
+            <div className="cs-meta-item">
+              <dt>Year</dt>
+              <dd>{CAREFLOW.year}</dd>
+            </div>
+            <div className="cs-meta-item">
+              <dt>Role</dt>
+              <dd>{CAREFLOW.role}</dd>
+            </div>
+            <div className="cs-meta-item">
+              <dt>Status</dt>
+              <dd className="cs-meta-status">
+                <span className="cs-status-dot" aria-hidden="true" />
+                Live
+              </dd>
+            </div>
+          </dl>
 
-        <div className="cs-actions">
-          <Button
-            href={CAREFLOW.live}
-            target="_blank"
-            rel="noreferrer"
-            className="cs-action cs-action-primary"
-          >
-            Open live demo
-            <ArrowUpRight size={16} />
-          </Button>
-          <Button
-            href={CAREFLOW.github}
-            target="_blank"
-            rel="noreferrer"
-            variant="outline-dark"
-            className="cs-action cs-action-secondary"
-          >
-            <FaGithub />
-            View source
-          </Button>
+          <div className="cs-actions">
+            <Button
+              href={CAREFLOW.live}
+              target="_blank"
+              rel="noreferrer"
+              className="cs-action cs-action-primary"
+            >
+              Open live demo
+              <ArrowUpRight size={16} />
+            </Button>
+            <Button
+              href={CAREFLOW.github}
+              target="_blank"
+              rel="noreferrer"
+              variant="outline-dark"
+              className="cs-action cs-action-secondary"
+            >
+              <FaGithub />
+              View source
+            </Button>
+          </div>
+        </div>
+
+        <div className="cs-meta-stack">
+          <span className="cs-meta-stack-label">Stack</span>
+          <span className="cs-meta-stack-value">{CAREFLOW.tech.join(", ")}</span>
         </div>
       </div>
 
@@ -247,10 +254,6 @@ function CareFlowStudy({ reduced }) {
         </ul>
       </div>
 
-      <footer className="cs-stack">
-        <p className="cs-stack-label">Stack</p>
-        <p className="cs-stack-tech">{CAREFLOW.tech.join(", ")}</p>
-      </footer>
     </article>
   );
 }
@@ -269,33 +272,40 @@ function RoleFitStudy() {
       </header>
 
       <div className="cs-meta">
-        <dl className="cs-meta-list">
-          <div className="cs-meta-item">
-            <dt>Year</dt>
-            <dd>{ROLEFIT.year}</dd>
-          </div>
-          <div className="cs-meta-item">
-            <dt>Role</dt>
-            <dd>{ROLEFIT.role}</dd>
-          </div>
-          <div className="cs-meta-item">
-            <dt>Status</dt>
-            <dd className="cs-meta-status cs-meta-status--quiet">
-              Source available
-            </dd>
-          </div>
-        </dl>
+        <div className="cs-meta-top">
+          <dl className="cs-meta-list">
+            <div className="cs-meta-item">
+              <dt>Year</dt>
+              <dd>{ROLEFIT.year}</dd>
+            </div>
+            <div className="cs-meta-item">
+              <dt>Role</dt>
+              <dd>{ROLEFIT.role}</dd>
+            </div>
+            <div className="cs-meta-item">
+              <dt>Status</dt>
+              <dd className="cs-meta-status cs-meta-status--quiet">
+                Source available
+              </dd>
+            </div>
+          </dl>
 
-        <div className="cs-actions">
-          <Button
-            href={ROLEFIT.github}
-            target="_blank"
-            rel="noreferrer"
-            className="cs-action cs-action-primary"
-          >
-            View source
-            <ArrowUpRight size={16} />
-          </Button>
+          <div className="cs-actions">
+            <Button
+              href={ROLEFIT.github}
+              target="_blank"
+              rel="noreferrer"
+              className="cs-action cs-action-primary"
+            >
+              View source
+              <ArrowUpRight size={16} />
+            </Button>
+          </div>
+        </div>
+
+        <div className="cs-meta-stack">
+          <span className="cs-meta-stack-label">Stack</span>
+          <span className="cs-meta-stack-value">{ROLEFIT.tech.join(", ")}</span>
         </div>
       </div>
 
@@ -308,10 +318,6 @@ function RoleFitStudy() {
         ))}
       </div>
 
-      <footer className="cs-stack">
-        <p className="cs-stack-label">Stack</p>
-        <p className="cs-stack-tech">{ROLEFIT.tech.join(", ")}</p>
-      </footer>
     </article>
   );
 }

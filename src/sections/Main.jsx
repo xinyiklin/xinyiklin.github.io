@@ -57,14 +57,18 @@ function Main() {
             cursorClassName: "typewriter-cursor",
           }}
           onInit={(tw) => {
-            tw
-              .typeString("React + Django.")
-              .pauseFor(700)
-              .deleteAll()
-              .typeString("Healthcare workflow software.")
-              .pauseFor(700)
-              .deleteAll()
-              .typeString("Clear data. Clean UI.")
+            const phrases = [
+              "React + Django.",
+              "Healthcare workflow software.",
+              "Clear data. Clean UI.",
+            ];
+            const pauseFor = (s) => 700 + s.length * 50;
+            phrases
+              .reduce(
+                (chain, phrase) =>
+                  chain.typeString(phrase).pauseFor(pauseFor(phrase)).deleteAll(),
+                tw
+              )
               .start();
           }}
         />
