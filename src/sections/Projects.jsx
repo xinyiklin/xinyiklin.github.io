@@ -168,7 +168,7 @@ function CareFlowStudy({ reduced }) {
         >
           <div className="cs-stage-frame">
             <span className="cs-stage-label" aria-hidden="true">
-              {String(activeIdx + 1).padStart(2, "0")} of 0{CAREFLOW_SCENES.length}
+              {CAREFLOW_SCENES[activeIdx]?.label ?? `Scene ${activeIdx + 1}`}
             </span>
             {CAREFLOW_SCENES.map((scene, i) => {
               const src =
@@ -186,7 +186,7 @@ function CareFlowStudy({ reduced }) {
                       : "cs-stage-img"
                   }
                   loading="lazy"
-                  aria-hidden={i === activeIdx ? "false" : "true"}
+                  aria-hidden={i !== activeIdx}
                 />
               );
             })}
