@@ -1,0 +1,255 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-05-27T12:00:00Z",
+  "title": "Design System: Xinyi Lin Portfolio",
+  "extensions": {
+    "colorMeta": {
+      "operating-teal": {
+        "role": "primary",
+        "displayName": "Operating Teal",
+        "canonical": "oklch(45% 0.075 180)",
+        "tonalRamp": [
+          "oklch(15% 0.04 180)",
+          "oklch(25% 0.06 180)",
+          "oklch(35% 0.075 180)",
+          "oklch(45% 0.075 180)",
+          "oklch(55% 0.075 180)",
+          "oklch(70% 0.06 180)",
+          "oklch(85% 0.03 180)",
+          "oklch(96% 0.008 180)"
+        ]
+      },
+      "polish-violet": {
+        "role": "secondary",
+        "displayName": "Polish Violet",
+        "canonical": "oklch(50% 0.25 290)",
+        "tonalRamp": [
+          "oklch(15% 0.1 290)",
+          "oklch(25% 0.16 290)",
+          "oklch(35% 0.22 290)",
+          "oklch(50% 0.25 290)",
+          "oklch(62% 0.22 290)",
+          "oklch(75% 0.16 290)",
+          "oklch(86% 0.08 290)",
+          "oklch(96% 0.02 290)"
+        ]
+      },
+      "beacon-teal": {
+        "role": "tertiary",
+        "displayName": "Beacon Teal",
+        "canonical": "oklch(72% 0.135 180)",
+        "tonalRamp": [
+          "oklch(18% 0.05 180)",
+          "oklch(32% 0.09 180)",
+          "oklch(50% 0.13 180)",
+          "oklch(60% 0.14 180)",
+          "oklch(72% 0.135 180)",
+          "oklch(82% 0.1 180)",
+          "oklch(90% 0.05 180)",
+          "oklch(97% 0.012 180)"
+        ]
+      },
+      "drafting-paper": {
+        "role": "neutral",
+        "displayName": "Drafting Paper",
+        "canonical": "oklch(97.5% 0.01 220)",
+        "tonalRamp": [
+          "oklch(15% 0.02 220)",
+          "oklch(30% 0.02 220)",
+          "oklch(45% 0.015 220)",
+          "oklch(60% 0.012 220)",
+          "oklch(75% 0.012 220)",
+          "oklch(88% 0.011 220)",
+          "oklch(95% 0.01 220)",
+          "oklch(97.5% 0.01 220)"
+        ]
+      },
+      "specimen-white": {
+        "role": "neutral",
+        "displayName": "Specimen White",
+        "canonical": "oklch(100% 0.005 220)",
+        "tonalRamp": [
+          "oklch(15% 0.01 220)",
+          "oklch(35% 0.01 220)",
+          "oklch(55% 0.008 220)",
+          "oklch(72% 0.008 220)",
+          "oklch(85% 0.007 220)",
+          "oklch(92% 0.006 220)",
+          "oklch(97% 0.005 220)",
+          "oklch(100% 0.005 220)"
+        ]
+      },
+      "trace-paper": {
+        "role": "neutral",
+        "displayName": "Trace Paper",
+        "canonical": "oklch(95% 0.015 220)",
+        "tonalRamp": [
+          "oklch(15% 0.03 220)",
+          "oklch(35% 0.02 220)",
+          "oklch(55% 0.018 220)",
+          "oklch(72% 0.017 220)",
+          "oklch(85% 0.016 220)",
+          "oklch(92% 0.015 220)",
+          "oklch(95% 0.015 220)",
+          "oklch(98% 0.012 220)"
+        ]
+      },
+      "chart-ink": {
+        "role": "neutral",
+        "displayName": "Chart Ink",
+        "canonical": "oklch(20% 0.04 240)",
+        "tonalRamp": [
+          "oklch(10% 0.03 240)",
+          "oklch(20% 0.04 240)",
+          "oklch(32% 0.04 240)",
+          "oklch(45% 0.035 240)",
+          "oklch(60% 0.025 240)",
+          "oklch(75% 0.02 240)",
+          "oklch(88% 0.015 240)",
+          "oklch(97% 0.01 240)"
+        ]
+      },
+      "quiet-slate": {
+        "role": "neutral",
+        "displayName": "Quiet Slate",
+        "canonical": "oklch(52% 0.025 230)",
+        "tonalRamp": [
+          "oklch(12% 0.02 230)",
+          "oklch(25% 0.025 230)",
+          "oklch(40% 0.025 230)",
+          "oklch(52% 0.025 230)",
+          "oklch(65% 0.025 230)",
+          "oklch(78% 0.02 230)",
+          "oklch(90% 0.012 230)",
+          "oklch(97% 0.008 230)"
+        ]
+      }
+    },
+    "typographyMeta": {
+      "headline": { "displayName": "Section Headline", "purpose": "Once per section (About, Skills, Contact). Sized as a section anchor." },
+      "title": { "displayName": "Project Title", "purpose": "Project name (CareFlow) in the Projects section, used in place of an eyebrow + section heading. Sits in Chart Ink at clamp(2.5rem, 6vw, 4.5rem)." },
+      "subtitle": { "displayName": "Scene Title", "purpose": "Scene heading inside the sticky-scroll case study (e.g., 'A schedule that thinks in facility time')." },
+      "body": { "displayName": "Body", "purpose": "Description copy, scene bodies, about copy. Max line 60-65ch." },
+      "label": { "displayName": "Eyebrow Label", "purpose": "Uppercase tracked labels: scene labels above each scene title, the Stack footer label, the meta strip terms (Year/Role/Status), the stage label badge. Always 0.14em+ tracking. Rationed across the page." }
+    },
+    "shadows": [
+      { "name": "shadow-sm", "value": "0 2px 8px rgba(15,42,61,0.08)", "purpose": "Resting card surfaces (about, skills, contact). Almost invisible; suggests material." },
+      { "name": "shadow-md", "value": "0 12px 32px rgba(15,42,61,0.1)", "purpose": "Hover lift on primary buttons and plates. Used only as response to state." },
+      { "name": "shadow-lg", "value": "0 24px 64px rgba(15,42,61,0.14)", "purpose": "Reserved for hero / floating prominent elements. Used sparingly." }
+    ],
+    "motion": [
+      { "name": "transition-base", "value": "0.2s ease", "purpose": "Default state-change transition for color, background, border, transform." },
+      { "name": "fade-stagger", "value": "0.32s ease-out", "purpose": "Plate entrance fade-in. ProjectFadeIn keyframe." },
+      { "name": "chapter-opacity", "value": "0.45s ease", "purpose": "Chapter scroll opacity transition between active/inactive." }
+    ],
+    "breakpoints": [
+      { "name": "xs", "value": "575.98px" },
+      { "name": "sm", "value": "768px" },
+      { "name": "md", "value": "992px" },
+      { "name": "lg", "value": "1200px" }
+    ]
+  },
+  "components": [
+    {
+      "name": "Primary Button",
+      "kind": "button",
+      "refersTo": "button-primary",
+      "description": "Solid Operating Teal background, used for the chief CTA on each plate (Live Demo).",
+      "html": "<button class=\"ds-btn-primary\"><svg width=\"15\" height=\"15\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2.4\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6\"/><polyline points=\"15 3 21 3 21 9\"/><line x1=\"10\" y1=\"14\" x2=\"21\" y2=\"3\"/></svg>Live Demo</button>",
+      "css": ".ds-btn-primary { align-items: center; background: #0f766e; border: 1px solid #0f766e; border-radius: 10px; color: #fff; cursor: pointer; display: inline-flex; font-family: 'Manrope', system-ui, sans-serif; font-size: 0.9rem; font-weight: 700; gap: 0.5rem; letter-spacing: 0.01em; padding: 0.6rem 1.05rem; transition: background 0.2s ease, transform 0.2s ease; } .ds-btn-primary:hover { background: oklch(38% 0.07 180); transform: translateY(-1px); } .ds-btn-primary:focus-visible { outline: 2px solid #14b8a6; outline-offset: 2px; }"
+    },
+    {
+      "name": "Secondary Button",
+      "kind": "button",
+      "refersTo": "button-secondary",
+      "description": "Hard-edge outlined button for non-primary actions (GitHub, Resume).",
+      "html": "<button class=\"ds-btn-secondary\"><svg width=\"15\" height=\"15\" viewBox=\"0 0 24 24\" fill=\"currentColor\"><path d=\"M12 .3a12 12 0 0 0-3.8 23.4c.6.1.8-.3.8-.6V21c-3.3.7-4-1.6-4-1.6-.6-1.4-1.4-1.8-1.4-1.8-1.1-.8.1-.8.1-.8 1.2.1 1.9 1.3 1.9 1.3 1.1 1.9 2.9 1.4 3.6 1 .1-.8.4-1.3.8-1.6-2.7-.3-5.5-1.3-5.5-6 0-1.3.5-2.4 1.3-3.2-.1-.3-.5-1.6.1-3.2 0 0 1-.3 3.3 1.2a11.6 11.6 0 0 1 6 0c2.3-1.5 3.3-1.2 3.3-1.2.6 1.6.2 2.9.1 3.2.8.9 1.3 2 1.3 3.2 0 4.7-2.8 5.7-5.5 6 .4.4.8 1.1.8 2.2v3.3c0 .3.2.7.8.6A12 12 0 0 0 12 .3\"/></svg>GitHub</button>",
+      "css": ".ds-btn-secondary { align-items: center; background: rgba(255,255,255,0.65); border: 1px solid rgba(15,42,61,0.29); border-radius: 10px; color: #102033; cursor: pointer; display: inline-flex; font-family: 'Manrope', system-ui, sans-serif; font-size: 0.9rem; font-weight: 700; gap: 0.5rem; padding: 0.6rem 1.05rem; transition: background 0.2s ease, border-color 0.2s ease, transform 0.2s ease; } .ds-btn-secondary:hover { background: #fff; border-color: #102033; transform: translateY(-1px); } .ds-btn-secondary:focus-visible { outline: 2px solid #0f766e; outline-offset: 2px; }"
+    },
+    {
+      "name": "Accent Status Pill",
+      "kind": "chip",
+      "refersTo": "chip-accent",
+      "description": "Pill with a pulsing accent dot. Used for the 'Live demo' status on the CareFlow plate.",
+      "html": "<span class=\"ds-chip-accent\"><span class=\"ds-chip-dot\" aria-hidden=\"true\"></span>Live demo</span>",
+      "css": ".ds-chip-accent { align-items: center; background: color-mix(in oklch, #0f766e 14%, transparent); border: 1px solid color-mix(in oklch, #0f766e 28%, transparent); border-radius: 999px; color: #0f766e; display: inline-flex; font-family: 'Manrope', system-ui, sans-serif; font-size: 0.74rem; font-weight: 700; gap: 0.45rem; letter-spacing: 0.03em; padding: 0.32rem 0.8rem; } .ds-chip-dot { background: #0f766e; border-radius: 999px; flex-shrink: 0; height: 7px; width: 7px; animation: ds-pulse 2.2s ease-in-out infinite; } @keyframes ds-pulse { 0%,100% { opacity: 1; transform: scale(1); } 50% { opacity: 0.5; transform: scale(0.8); } }"
+    },
+    {
+      "name": "Neutral Status Pill",
+      "kind": "chip",
+      "refersTo": "chip-neutral",
+      "description": "Pill for year and role meta on each plate.",
+      "html": "<span class=\"ds-chip-neutral\">2026</span>",
+      "css": ".ds-chip-neutral { align-items: center; background: rgba(255,255,255,0.5); border: 1px solid rgba(15,42,61,0.17); border-radius: 999px; color: #607083; display: inline-flex; font-family: 'Manrope', system-ui, sans-serif; font-size: 0.74rem; font-weight: 700; gap: 0.45rem; letter-spacing: 0.03em; padding: 0.32rem 0.8rem; }"
+    },
+    {
+      "name": "Sticky Stage Frame",
+      "kind": "card",
+      "refersTo": "stage",
+      "description": "The signature interactive component. The CareFlow case study's left column pins on scroll; four screenshots stack absolutely inside this 1.86:1 frame, and only the active one is at opacity 1. Below the frame, four pip buttons (tablist) allow click-to-jump between scenes; an IntersectionObserver in the React component also flips the active index as scenes scroll past the viewport center band.",
+      "html": "<aside class=\"ds-stage\"><div class=\"ds-stage-frame\"><span class=\"ds-stage-label\">01 OF 04</span><img class=\"ds-stage-img is-active\" alt=\"CareFlow schedule view\" src=\"/careflow-schedule.gif\"></div><ol class=\"ds-stage-pips\" role=\"tablist\"><li><button class=\"ds-stage-pip is-active\" role=\"tab\" aria-selected=\"true\">Schedule</button></li><li><button class=\"ds-stage-pip\" role=\"tab\">Patient hub</button></li><li><button class=\"ds-stage-pip\" role=\"tab\">Timeline</button></li><li><button class=\"ds-stage-pip\" role=\"tab\">Permissions</button></li></ol></aside>",
+      "css": ".ds-stage { position: sticky; top: 92px; display: flex; flex-direction: column; gap: 0.95rem; font-family: 'Manrope', system-ui, sans-serif; } .ds-stage-frame { aspect-ratio: 1.86/1; background: #fff; border: 1px solid rgba(15,42,61,0.09); border-radius: 16px; box-shadow: inset 0 1px 0 rgba(255,255,255,0.55), 0 1px 3px rgba(15,42,61,0.04), 0 18px 50px rgba(15,42,61,0.12); isolation: isolate; overflow: hidden; position: relative; } .ds-stage-frame::before { content: \"\"; inset: 0; position: absolute; z-index: 2; pointer-events: none; opacity: 0.6; background: radial-gradient(circle at 88% -10%, color-mix(in oklch, #0f766e 18%, transparent), transparent 55%), radial-gradient(circle at -10% 110%, color-mix(in oklch, #0f766e 10%, transparent), transparent 60%); } .ds-stage-label { position: absolute; bottom: 0.85rem; left: 0.85rem; z-index: 3; background: rgba(10,22,40,0.78); backdrop-filter: blur(8px); border: 1px solid rgba(255,255,255,0.08); border-radius: 999px; color: #d6f5ee; font-size: 0.7rem; font-weight: 800; letter-spacing: 0.12em; padding: 0.3rem 0.7rem; text-transform: uppercase; font-variant-numeric: tabular-nums; } .ds-stage-img { position: absolute; inset: 0; height: 100%; width: 100%; object-fit: cover; object-position: center top; opacity: 0; transform: scale(1.012); transition: opacity 0.5s ease, transform 0.7s ease; z-index: 1; } .ds-stage-img.is-active { opacity: 1; transform: scale(1); } .ds-stage-pips { display: flex; flex-wrap: wrap; gap: 0.45rem; list-style: none; margin: 0; padding: 0; } .ds-stage-pip { background: rgba(255,255,255,0.7); border: 1px solid rgba(15,42,61,0.09); border-radius: 999px; color: #607083; cursor: pointer; font-family: inherit; font-size: 0.82rem; font-weight: 700; padding: 0.42rem 0.95rem; transition: background 0.2s ease, border-color 0.2s ease, color 0.2s ease, transform 0.2s ease; } .ds-stage-pip:hover { border-color: #102033; color: #102033; transform: translateY(-1px); } .ds-stage-pip.is-active { background: color-mix(in oklch, #0f766e 14%, transparent); border-color: color-mix(in oklch, #0f766e 32%, transparent); color: #0f766e; } @media (prefers-reduced-motion: reduce) { .ds-stage-img { transform: none; transition: opacity 0.15s linear; } }"
+    },
+    {
+      "name": "Tech Pill",
+      "kind": "chip",
+      "description": "Stack-tag at the bottom of each plate. Reads like a specimen label.",
+      "html": "<span class=\"ds-tech-pill\">React 19</span>",
+      "css": ".ds-tech-pill { background: rgba(255,255,255,0.55); border: 1px solid rgba(15,42,61,0.17); border-radius: 6px; color: #102033; font-family: 'Manrope', system-ui, sans-serif; font-size: 0.78rem; font-weight: 700; padding: 0.32rem 0.62rem; }"
+    },
+    {
+      "name": "Eyebrow Label",
+      "kind": "custom",
+      "description": "Uppercase tracked label used above section headings.",
+      "html": "<p class=\"ds-eyebrow\">Work · 2025–2026</p>",
+      "css": ".ds-eyebrow { color: #607083; font-family: 'Manrope', system-ui, sans-serif; font-size: 0.78rem; font-weight: 800; letter-spacing: 0.16em; margin: 0; text-transform: uppercase; }"
+    }
+  ],
+  "narrative": {
+    "northStar": "An Engineer's Case Study, Interactive",
+    "overview": "This portfolio reads like a working engineer presenting two builds with care, not a marketing site. The Projects section is a two-tier case study. CareFlow leads as an interactive sticky-scroll showcase: the product visual pins on the left, four scene blocks scroll on the right, and an IntersectionObserver swaps the active screenshot as the reader scrolls. Pip pills below the visual allow click-to-jump. RoleFit AI follows below a hairline divider as a quieter, text-only case study with three notes, a Polish Violet accent, and a View source CTA. CareFlow earns the interactive proof; RoleFit AI signals breadth without inventing a UI it cannot honestly demo.\n\nThe system rejects the AI-generated SaaS landing template that has flooded the internet by 2026 (purple gradients, four-card icon grids, hero metric tiles, Inter on white, glass cards). It also rejects the editorial-magazine reflex (italic Cormorant, ruled columns, lowercase tracked metadata) that has saturated tech brand sites. The right register is engineer-pragmatic with quiet authority and one moment of confident interactivity.",
+    "keyCharacteristics": [
+      "Two case studies, one section. CareFlow as the primary interactive showcase, RoleFit AI as a compact text-only secondary below.",
+      "Sticky-scroll case study for CareFlow. A pinned left stage swaps between four real screens as the right column scrolls through four scene blocks.",
+      "Text-only case study for RoleFit AI. No fabricated UI. Three short notes, Polish Violet top divider per note, View source CTA only.",
+      "One accent per case study. Operating Teal for CareFlow, Polish Violet for RoleFit AI. Accents are scoped to each <article> via --project-accent.",
+      "Restrained backgrounds, committed identity. The page is near-white. Identity moments commit fully to scale and accent.",
+      "Show, don't tell. The CareFlow case study leads with real product visuals. RoleFit AI's copy and GitHub link carry their own weight without screenshots.",
+      "No invented claims. Every spec maps to something shipping."
+    ],
+    "rules": [
+      { "name": "The One-Accent-Per-Case-Study Rule", "body": "Each case study commits to exactly one accent via --project-accent on its <article> wrapper. CareFlow uses Operating Teal end-to-end (tagline, active pip pill, scene label, status dot, stage halo, primary CTA). RoleFit AI uses Polish Violet end-to-end (tagline, View source CTA, note dividers). Accents never bleed between case studies.", "section": "colors" },
+      { "name": "The Color-Mix Rule", "body": "Accent-tinted backgrounds for status pill, pip pill, and stage halo are derived from var(--project-accent) via color-mix(in oklch, ...) rather than hand-tuned. The recipe scales across both case studies.", "section": "colors" },
+      { "name": "The No-Gradient-Text Rule", "body": "Text is always one solid color. background-clip: text with a gradient is forbidden.", "section": "colors" },
+      { "name": "The Single-Family Rule", "body": "One typeface family across the whole portfolio. A serif companion is forbidden.", "section": "typography" },
+      { "name": "The Tracking-Out-Loud Rule", "body": "Uppercase labels always use letter-spacing 0.14em or more. Tightly-set uppercase reads as shouty.", "section": "typography" },
+      { "name": "The Headline-Anchor Rule", "body": "Every section has one Headline and only one. The case study uses the project Title (CareFlow) as its anchor in place of a section H2 + eyebrow.", "section": "typography" },
+      { "name": "The Flat-By-Default Rule", "body": "Surfaces are flat at rest. Shadows appear only as a response to state.", "section": "elevation" },
+      { "name": "The No-Side-Stripe Rule", "body": "border-left or border-right greater than 1px as a colored accent is forbidden.", "section": "elevation" },
+      { "name": "The Sticky-Stage Rule", "body": "The case study's product visual pins (position: sticky) on the left at ≥ 992px. Its active screenshot is driven by an IntersectionObserver watching scene-text elements on the right, with rootMargin '-40% 0px -40% 0px' so exactly one scene activates at a time. Pip clicks bypass the observer and set the index directly.", "section": "components" },
+      { "name": "The Native-Scale Rule", "body": "The schedule gif renders at or below its native 960px width inside the sticky frame (≈ 600px wide at desktop). Stretching past native blurs the gif and reads as careless.", "section": "components" }
+    ],
+    "dos": [
+      "Do lead the case study with real product visuals (real screenshots, the real schedule gif, real product copy from the live demo).",
+      "Do commit fully on identity moments: project Title at clamp(2.5rem, 6vw, 4.5rem), scene Title at clamp(1.55rem, 2.7vw, 2.1rem), primary CTA in solid Operating Teal.",
+      "Do use color-mix(in oklch, var(--project-accent) X%, ...) for status pill, pip pill, and stage halo.",
+      "Do keep neutrals tinted toward the brand teal. Drafting Paper (#f5f9fc) is the right base; never use #fff or #000.",
+      "Do use ≥1.25 ratios between Headline → Title → Subtitle → Body → Label.",
+      "Do cap body line length at 60-65ch (scene body at 52ch).",
+      "Do respect prefers-reduced-motion: swap the schedule gif to a static still, collapse stage crossfades to a 0.15s linear opacity fade, degrade smooth-scroll on pip click to instant.",
+      "Do attach role='tab' and aria-selected to pip buttons; mark inactive sticky-stage images aria-hidden='true' so screen readers announce only the visible scene."
+    ],
+    "donts": [
+      "Don't ever generate the AI-slop SaaS template described in PRODUCT.md: purple gradients, four-card icon grids, hero-metric blocks, gradient text, glass cards, Inter on white.",
+      "Don't drift into the editorial-magazine reflex (italic Cormorant or Recoleta or Fraunces, three rule-separated columns, drop caps).",
+      "Don't add a second typeface family. Manrope alone, with weight contrast doing the work.",
+      "Don't use border-left or border-right greater than 1px as a colored accent. Side-stripe borders are an absolute ban.",
+      "Don't use background-clip: text with a gradient anywhere.",
+      "Don't use decorative status dots on every nav link, list row, or badge. Acceptable only when conveying real semantic state (the live status pill, the active stepper pip), one per page section.",
+      "Don't invent metrics or outcomes in project copy. If it isn't in the live demo, it isn't in the case study.",
+      "Don't apply bounce or elastic easings. Ease-out exponential curves only.",
+      "Don't drive the sticky stage with window.addEventListener('scroll', ...). Use IntersectionObserver; the pip click handler provides a direct, scroll-independent path.",
+      "Don't stretch the schedule gif past its native 960px width. The sticky stage frame keeps it at or below 600px wide, which keeps it sharp on Retina displays."
+    ]
+  }
+}

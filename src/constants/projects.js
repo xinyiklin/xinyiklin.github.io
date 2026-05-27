@@ -2,65 +2,108 @@ export const PROJECTS_DATA = [
   {
     id: "careflow",
     name: "CareFlow",
+    tagline: "EHR-style clinic workspace, built end to end.",
     meta: "Clinic Workflow Platform | React, Django REST, PostgreSQL",
     role: "Full-stack build",
     year: "2026",
     status: "Live demo",
     accent: "#0f766e",
     description:
-      "CareFlow is a clinic workflow app for scheduling, registration, documents, and administration. It uses synthetic demo data, facility-scoped access, and UI patterns modeled after real clinic operations.",
+      "A practice-grade demo for clinic operations: scheduling, patient records, clinical charting, billing, documents, and facility administration. Synthetic data only. Facility-scoped APIs. SSN encrypted at rest.",
+    areas: [
+      "Scheduling",
+      "Patient hub",
+      "Clinical charting",
+      "Documents",
+      "Medications",
+      "Allergies",
+      "Billing",
+      "Facility admin",
+    ],
     metrics: [
-      { value: "8", label: "workflow areas" },
+      { value: "8", label: "feature areas" },
       { value: "Facility-scoped", label: "API access" },
-      { value: "Synthetic", label: "demo data only" },
+      { value: "SSN encrypted", label: "at rest" },
     ],
     quality: [
       {
         title: "Feature boundaries",
-        body: "Scheduling, documents, admin, auth, patients, and permissions are separated into clear product areas.",
+        body: "Scheduling, patient hub, clinical charting, billing, documents, admin, auth, and permissions are separated into clear product areas.",
       },
       {
         title: "Facility-scoped API",
-        body: "Django REST endpoints keep clinic data and admin actions scoped to the active facility.",
+        body: "Django REST endpoints keep clinic data, audit events, and admin actions scoped to the active facility.",
       },
       {
         title: "Secure auth",
-        body: "Short-lived access tokens, HTTP-only refresh cookies, permission checks, and masked fields shape the auth boundary.",
+        body: "Short-lived access tokens, HTTP-only refresh cookies, CSRF on cookie-backed routes, and a permission matrix at org and facility scope.",
       },
       {
         title: "Demo-safe data",
-        body: "The public demo uses synthetic clinic records, so reviewers can explore workflows without exposing real patient data.",
+        body: "Synthetic clinic records, SSN encrypted with Fernet, masked sensitive fields, and audit events for sensitive mutations.",
       },
       {
         title: "Verified UI",
-        body: "Browser QA covers key scheduling, document, and admin workflows.",
+        body: "Browser QA covers scheduling, patient hub, charting, documents, billing, and admin workflows.",
       },
     ],
     highlights: [
       {
         title: "Configurable scheduling",
         body:
-          "Facility-local calendars with visit types, rooms, resources, blocks, and status rules.",
+          "Facility-local calendars with visit types, rooms, resources, blocks, reschedule guards, heatmap, and per-day interval customization.",
       },
       {
-        title: "Patient and document workflows",
+        title: "Patient hub and charting",
         body:
-          "Patient search, registration, uploads, previews, downloads, and selected-document PDF export.",
+          "Smart search, Quick Start registration, masked SSN reveal, medications and allergies, SOAP progress notes per encounter, and a patient timeline.",
       },
       {
-        title: "Admin and permissions",
+        title: "Billing and documents",
         body:
-          "Facility tools for staff, roles, appointment settings, document categories, and pharmacy preferences.",
+          "Encounter-linked superbills backed by a CPT catalog, organization fee schedules with payer overrides, patient-scoped uploads, and combined PDF export.",
       },
       {
-        title: "Secure-by-default auth",
+        title: "Admin, permissions, hardening",
         body:
-          "Short-lived access tokens, HTTP-only refresh cookies, masked fields, and permission-aware APIs.",
+          "Staff, roles, payers, pharmacies, and fee schedules under org and facility admin; permission matrix; audit events; SSN encrypted at rest.",
       },
     ],
-    tech: ["React 19", "Django REST Framework", "PostgreSQL", "React Query", "Tailwind CSS v4", "Simple JWT"],
+    tech: ["React 19", "Vite", "Django", "Django REST Framework", "PostgreSQL", "React Query", "Tailwind CSS", "Material UI", "Simple JWT"],
     github: "https://github.com/xinyiklin/careflow",
     live: "https://careflow.xinyiklin.com/",
+    sectionId: "#projects"
+  },
+  {
+    id: "role-fit-ai",
+    name: "RoleFit AI",
+    tagline: "Local-first resume tailoring, without invented experience.",
+    role: "Full-stack build",
+    year: "2026",
+    status: "Source available",
+    accent: "#7c3aed",
+    description:
+      "A local-first web app that scores a resume against a target job description and drafts a polished version without inventing employers, dates, metrics, or tools. AI is optional; a deterministic local rewrite is the offline fallback.",
+    notes: [
+      {
+        title: "Local-first by design",
+        body:
+          "Paste a job link and description, then upload or auto-load a base resume from a local workspace. Personal data stays on disk, out of any repo or remote service.",
+      },
+      {
+        title: "Score, polish, review",
+        body:
+          "Quantifies keyword fit, bullet quality, action verbs, metrics, and section structure. Strict review surfaces recruiter-style audit notes. A deterministic local rewrite stands in when the AI call cannot run.",
+      },
+      {
+        title: "ATS-friendly export",
+        body:
+          "Three LaTeX templates render the polished draft into a single-page PDF or .tex. Copy plain text for in-app editing, or hand the .tex to a local Tectonic install for an offline PDF.",
+      },
+    ],
+    tech: ["React 19", "TypeScript", "Vite", "Node", "Multi-provider AI", "LaTeX templates"],
+    github: "https://github.com/xinyiklin/rolefit-ai",
+    live: null,
     sectionId: "#projects"
   },
   {

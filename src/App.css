@@ -391,7 +391,7 @@ section { scroll-margin-top: 72px; }
     gap: 0.42rem;
     letter-spacing: 0.01em;
     padding: 0.46rem 0.9rem;
-    transition: background var(--transition), border-color var(--transition), box-shadow var(--transition);
+    transition: background var(--transition), border-color var(--transition), box-shadow var(--transition), transform var(--transition);
 }
 
 .hero-chip:hover {
@@ -622,348 +622,6 @@ section { scroll-margin-top: 72px; }
 .skill-card h3 { color: var(--c-text); font-weight: 800; }
 .skill-card p { color: var(--c-text-muted); line-height: 1.65; }
 
-/* Projects */
-.projects-section {
-    background: linear-gradient(180deg, #f8fcff 0%, #eef5f8 48%, #f5f9fc 100%);
-    border-top: 1px solid var(--c-border);
-    color: var(--c-text);
-    padding: 5rem 0 6rem;
-    position: relative;
-}
-
-/* Heading */
-.projects-heading {
-    display: grid;
-    gap: 1.25rem;
-    grid-template-columns: 1fr;
-    position: relative;
-    z-index: 1;
-}
-
-.projects-heading-title {
-    color: var(--c-text);
-    font-family: var(--font-display);
-    font-size: clamp(2.5rem, 5.5vw, 4.25rem);
-    font-weight: 900;
-    letter-spacing: -0.02em;
-    line-height: 1;
-}
-
-.project-eyebrow, .project-label {
-    display: inline-block;
-    background: var(--c-accent-lite);
-    border: 1px solid rgba(20,184,166,0.28);
-    border-radius: 999px;
-    color: #0f766e;
-    font-size: 0.68rem;
-    font-weight: 800;
-    letter-spacing: 0.1em;
-    padding: 0.3rem 0.75rem;
-    text-transform: uppercase;
-}
-
-.project-meta { color: #0f766e; font-size: 0.86rem; font-weight: 700; }
-
-.project-status {
-    background: #ffffff !important;
-    border: 1px solid var(--c-border-hard) !important;
-    border-radius: 999px !important;
-    color: var(--c-text-muted) !important;
-    font-size: 0.72rem;
-    font-weight: 700;
-    padding: 0.34rem 0.66rem;
-}
-
-/* Buttons */
-.project-primary-action {
-    align-items: center;
-    background: #0f766e !important;
-    border: none !important;
-    border-radius: var(--radius-sm) !important;
-    color: var(--c-white) !important;
-    display: inline-flex !important;
-    font-size: 0.83rem !important;
-    font-weight: 800 !important;
-    gap: 0.42rem;
-    min-height: 40px;
-    padding: 0.52rem 0.95rem !important;
-    transition: opacity var(--transition), transform var(--transition) !important;
-}
-
-.project-primary-action:hover { opacity: 0.86 !important; transform: translateY(-1px) !important; }
-
-.project-secondary-action {
-    align-items: center;
-    background: #ffffff !important;
-    border: 1px solid var(--c-border-hard) !important;
-    border-radius: var(--radius-sm) !important;
-    color: var(--c-text) !important;
-    display: inline-flex !important;
-    font-size: 0.83rem !important;
-    font-weight: 700 !important;
-    gap: 0.42rem;
-    min-height: 40px;
-    padding: 0.52rem 0.95rem !important;
-    transition: border-color var(--transition), background var(--transition) !important;
-}
-
-.project-secondary-action:hover {
-    background: var(--c-accent-lite) !important;
-    border-color: var(--c-accent) !important;
-    color: #0f766e !important;
-}
-
-.project-tech-pill {
-    background: rgba(20,184,166,0.09) !important;
-    border: 1px solid rgba(20,184,166,0.22) !important;
-    border-radius: 999px !important;
-    color: #0f766e !important;
-    font-size: 0.74rem !important;
-    font-weight: 700 !important;
-    padding: 0.3rem 0.6rem !important;
-}
-
-/* CareFlow scroll showcase */
-.cf-showcase {
-    display: grid;
-    gap: 0 4rem;
-    grid-template-columns: minmax(0, 1fr) minmax(0, 1.05fr);
-    position: relative;
-    z-index: 1;
-}
-
-/* Left sticky panel */
-.cf-sticky-panel {
-    align-self: start;
-    display: flex;
-    flex-direction: column;
-    gap: 1.25rem;
-    position: sticky;
-    top: 88px;
-}
-
-.cf-description {
-    color: var(--c-text-muted);
-    font-size: 0.93rem;
-    line-height: 1.76;
-}
-
-.cf-actions { display: flex; flex-wrap: wrap; gap: 0.6rem; }
-
-/* App window wrapper + chrome */
-.cf-visual-wrapper {
-    border: 1px solid rgba(15,42,61,0.22);
-    border-radius: var(--radius);
-    box-shadow: 0 2px 4px rgba(15,42,61,0.04), 0 24px 72px rgba(15,42,61,0.16);
-    overflow: hidden;
-}
-
-.cf-window-chrome {
-    align-items: center;
-    background: #1a1f2e;
-    border-bottom: 1px solid rgba(255,255,255,0.06);
-    display: flex;
-    gap: 6px;
-    padding: 10px 14px;
-}
-
-.cf-dot {
-    border-radius: 50%;
-    display: block;
-    flex-shrink: 0;
-    height: 10px;
-    width: 10px;
-}
-
-.cf-dot-red    { background: #ff5f57; }
-.cf-dot-yellow { background: #febc2e; }
-.cf-dot-green  { background: #28c840; }
-
-.cf-window-title {
-    color: rgba(255,255,255,0.35);
-    font-size: 0.7rem;
-    font-weight: 600;
-    letter-spacing: 0.01em;
-    margin-left: 0.6rem;
-}
-
-/* Screenshot frame */
-.cf-visual-frame {
-    aspect-ratio: 16 / 10;
-    background: #e4eef5;
-    overflow: hidden;
-    position: relative;
-}
-
-.cf-capture {
-    display: block;
-    height: 100%;
-    left: 0;
-    object-fit: contain;
-    object-position: center top;
-    opacity: 0;
-    position: absolute;
-    top: 0;
-    transition: opacity 0.5s ease;
-    width: 100%;
-}
-
-.cf-capture.is-active { opacity: 1; }
-
-.cf-capture-badge {
-    background: rgba(10,20,38,0.76);
-    backdrop-filter: blur(6px);
-    border: 1px solid rgba(255,255,255,0.1);
-    border-radius: var(--radius-sm);
-    bottom: 0.85rem;
-    left: 0.85rem;
-    padding: 0.38rem 0.62rem;
-    position: absolute;
-    z-index: 1;
-}
-
-.cf-capture-badge-text {
-    color: #99f6e4;
-    font-size: 0.64rem;
-    font-weight: 800;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-}
-
-/* Step dots */
-.cf-steps {
-    align-items: center;
-    display: flex;
-    gap: 0.55rem;
-}
-
-.cf-step-dot {
-    background: rgba(15,42,61,0.18);
-    border: none;
-    border-radius: 999px;
-    cursor: pointer;
-    height: 8px;
-    padding: 0;
-    transition: background var(--transition), width 0.25s ease;
-    width: 8px;
-}
-
-.cf-step-dot.is-active {
-    background: var(--project-accent, var(--c-accent));
-    width: 24px;
-}
-
-.cf-step-label {
-    color: var(--c-text-muted);
-    font-size: 0.78rem;
-    font-weight: 700;
-    margin-left: 0.2rem;
-}
-
-/* Right scrolling chapters */
-.cf-chapters {
-    display: flex;
-    flex-direction: column;
-    padding-bottom: 4rem;
-}
-
-.cf-chapter {
-    border-left: 3px solid transparent;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    min-height: 64vh;
-    opacity: 0.3;
-    padding: 3rem 0 3rem 2rem;
-    transition: opacity 0.45s ease, border-color 0.45s ease;
-}
-
-.cf-chapter.is-active {
-    border-left-color: var(--project-accent, var(--c-accent));
-    opacity: 1;
-}
-
-.cf-chapter-head {
-    align-items: center;
-    display: flex;
-    gap: 0.7rem;
-    margin-bottom: 1rem;
-}
-
-.cf-chapter-icon {
-    align-items: center;
-    background: var(--c-accent-lite);
-    border: 1px solid rgba(20,184,166,0.25);
-    border-radius: var(--radius-sm);
-    color: #0f766e;
-    display: inline-flex;
-    flex-shrink: 0;
-    height: 34px;
-    justify-content: center;
-    transition: background var(--transition), border-color var(--transition), color var(--transition);
-    width: 34px;
-}
-
-.cf-chapter.is-active .cf-chapter-icon {
-    background: var(--project-accent, var(--c-accent));
-    border-color: transparent;
-    color: #ffffff;
-}
-
-.cf-chapter-eyebrow {
-    color: var(--project-accent, #0f766e);
-    font-size: 0.7rem;
-    font-weight: 900;
-    letter-spacing: 0.1em;
-    margin: 0;
-    text-transform: uppercase;
-}
-
-.cf-chapter-title {
-    color: var(--c-text);
-    font-family: var(--font-display);
-    font-size: clamp(1.45rem, 2.6vw, 2rem);
-    font-weight: 900;
-    line-height: 1.15;
-    margin-bottom: 1rem;
-}
-
-.cf-chapter-body {
-    color: var(--c-text-muted);
-    font-size: 1.02rem;
-    line-height: 1.78;
-    margin: 0;
-    max-width: 420px;
-}
-
-/* Tech footer */
-.cf-footer {
-    border-top: 1px solid var(--c-border);
-    margin-top: 2.5rem;
-    padding-top: 2rem;
-    position: relative;
-    z-index: 1;
-}
-
-/* Responsive */
-@media (min-width: 992px) {
-    .projects-heading { align-items: start; grid-template-columns: 1fr 1fr; }
-}
-
-@media (max-width: 991.98px) {
-    .projects-section { padding: 4rem 0 5rem; }
-    .cf-showcase { gap: 2.5rem; grid-template-columns: 1fr; }
-    .cf-sticky-panel { position: static; }
-    .cf-chapter { border-left: none; min-height: 40vh; opacity: 1; padding-left: 0; }
-}
-
-@media (max-width: 767.98px) {
-    .projects-section { padding: 3.5rem 0 4rem; }
-    .projects-heading-title { letter-spacing: -0.01em; }
-    .cf-chapter { min-height: 0; padding: 2rem 0; border-left: none; padding-left: 0; }
-    .cf-actions { flex-direction: column; }
-    .project-primary-action, .project-secondary-action { justify-content: center; width: 100%; }
-}
 
 /* Contact */
 .contact-section {
@@ -1122,6 +780,560 @@ footer a:hover { color: #0f766e !important; }
 /* Bootstrap overrides for dark theme */
 .text-muted { color: var(--c-text-muted) !important; }
 .display-5 { letter-spacing: 0; }
+
+/* =========================================================================
+   Projects, CareFlow case study (restart, May 2026)
+   Single project. Asymmetric left-aligned intro. Meta strip + actions.
+   Hero gif. Feature index. Three zigzag chapters. Stack strip.
+   ========================================================================= */
+
+.projects-section {
+    background: linear-gradient(180deg, #f8fcff 0%, #eef5f8 50%, #f5f9fc 100%);
+    border-top: 1px solid var(--c-border);
+    color: var(--c-text);
+    padding: clamp(4rem, 8vw, 7rem) 0;
+    position: relative;
+}
+
+/* Intro: left-aligned, asymmetric, no eyebrow */
+.cs-intro {
+    margin: 0 0 clamp(2rem, 4vw, 2.75rem);
+    max-width: 62ch;
+}
+
+.cs-name {
+    color: var(--c-text);
+    font-family: var(--font-display);
+    font-size: clamp(2.5rem, 6vw, 4.5rem);
+    font-weight: 900;
+    letter-spacing: -0.03em;
+    line-height: 1;
+    margin: 0 0 0.85rem;
+}
+
+.cs-tagline {
+    color: var(--project-accent);
+    font-size: clamp(1.1rem, 1.8vw, 1.4rem);
+    font-weight: 700;
+    line-height: 1.4;
+    margin: 0 0 1.25rem;
+    max-width: 40ch;
+}
+
+.cs-description {
+    color: var(--c-text-muted);
+    font-size: 1.04rem;
+    line-height: 1.7;
+    margin: 0;
+    max-width: 60ch;
+}
+
+/* Meta strip: horizontal kv list on the left, action buttons on the right */
+.cs-meta {
+    align-items: center;
+    border-top: 1px solid var(--c-border);
+    border-bottom: 1px solid var(--c-border);
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.5rem clamp(1.5rem, 3vw, 2.5rem);
+    justify-content: space-between;
+    margin: 0 0 clamp(2.5rem, 5vw, 3.75rem);
+    padding: 1.5rem 0;
+}
+
+.cs-meta-list {
+    align-items: flex-start;
+    column-gap: clamp(1.75rem, 3.5vw, 3.5rem);
+    display: flex;
+    flex-wrap: wrap;
+    margin: 0;
+    row-gap: 1rem;
+}
+
+.cs-meta-item {
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
+    margin: 0;
+}
+
+.cs-meta-item dt {
+    color: var(--c-text-muted);
+    font-size: 0.7rem;
+    font-weight: 800;
+    letter-spacing: 0.16em;
+    margin: 0;
+    text-transform: uppercase;
+}
+
+.cs-meta-item dd {
+    color: var(--c-text);
+    font-size: 0.98rem;
+    font-weight: 700;
+    margin: 0;
+}
+
+.cs-meta-status {
+    align-items: center;
+    color: var(--project-accent);
+    display: inline-flex;
+    gap: 0.45rem;
+}
+
+.cs-status-dot {
+    animation: csStatusPulse 2.4s ease-in-out infinite;
+    background: var(--project-accent);
+    border-radius: 999px;
+    display: inline-block;
+    flex-shrink: 0;
+    height: 8px;
+    width: 8px;
+}
+
+@keyframes csStatusPulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50%      { opacity: 0.45; transform: scale(0.78); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .cs-status-dot { animation: none; }
+}
+
+.cs-actions {
+    align-items: center;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.6rem;
+}
+
+.cs-action {
+    align-items: center;
+    border-radius: var(--radius);
+    display: inline-flex;
+    font-size: 0.92rem;
+    font-weight: 700;
+    gap: 0.5rem;
+    letter-spacing: 0;
+    padding: 0.65rem 1.15rem;
+    transition: background var(--transition), border-color var(--transition), color var(--transition), transform var(--transition);
+}
+
+.cs-action-primary {
+    background: var(--project-accent) !important;
+    border: 1px solid var(--project-accent) !important;
+    color: var(--c-white) !important;
+}
+
+.cs-action-primary:hover {
+    background: color-mix(in oklch, var(--project-accent) 82%, black) !important;
+    border-color: color-mix(in oklch, var(--project-accent) 82%, black) !important;
+    color: var(--c-white) !important;
+    transform: translateY(-1px);
+}
+
+.cs-action-secondary {
+    background: var(--c-white) !important;
+    border: 1px solid var(--c-border-hard) !important;
+    color: var(--c-text) !important;
+}
+
+.cs-action-secondary:hover {
+    background: var(--c-white) !important;
+    border-color: var(--c-text) !important;
+    color: var(--c-text) !important;
+    transform: translateY(-1px);
+}
+
+/* Showcase: interactive sticky-scroll case study.
+   LEFT (sticky) holds a stage frame with stacked screenshots, only the
+   active one visible; pip pills below jump between scenes. RIGHT scrolls
+   through scene blocks; an IntersectionObserver in Projects.jsx flips the
+   active index as each scene crosses the viewport center band. */
+.cs-showcase {
+    display: grid;
+    gap: clamp(2rem, 4vw, 3.25rem);
+    grid-template-columns: 1fr;
+    margin: 0 0 clamp(3rem, 6vw, 4.5rem);
+}
+
+@media (min-width: 992px) {
+    .cs-showcase {
+        align-items: start;
+        grid-template-columns: minmax(0, 1fr) minmax(0, 1.05fr);
+        gap: clamp(2.5rem, 4.5vw, 4rem);
+    }
+}
+
+.cs-stage {
+    align-self: start;
+    display: flex;
+    flex-direction: column;
+    gap: 0.95rem;
+}
+
+@media (min-width: 992px) {
+    .cs-stage {
+        position: sticky;
+        top: 92px;
+    }
+}
+
+/* Mobile: hide the sticky stage entirely (we render inline figures per
+   scene at small breakpoints to avoid the duplicated visual). */
+@media (max-width: 991.98px) {
+    .cs-stage { display: none; }
+}
+
+.cs-stage-frame {
+    aspect-ratio: 1.86 / 1;
+    background: var(--c-surface);
+    border: 1px solid var(--c-border);
+    border-radius: var(--radius-lg);
+    box-shadow:
+        0 1px 0 rgba(255, 255, 255, 0.55) inset,
+        0 1px 3px rgba(15, 42, 61, 0.04),
+        0 18px 50px rgba(15, 42, 61, 0.12);
+    isolation: isolate;
+    overflow: hidden;
+    position: relative;
+}
+
+/* Subtle accent halo on the active screenshot's frame */
+.cs-stage-frame::before {
+    background:
+        radial-gradient(circle at 88% -10%, color-mix(in oklch, var(--project-accent) 18%, transparent), transparent 55%),
+        radial-gradient(circle at -10% 110%, color-mix(in oklch, var(--project-accent) 10%, transparent), transparent 60%);
+    content: "";
+    inset: 0;
+    opacity: 0.6;
+    pointer-events: none;
+    position: absolute;
+    z-index: 2;
+}
+
+.cs-stage-label {
+    background: rgba(10, 22, 40, 0.78);
+    backdrop-filter: blur(8px);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 999px;
+    bottom: 0.85rem;
+    color: #d6f5ee;
+    font-family: var(--font-display);
+    font-size: 0.7rem;
+    font-variant-numeric: tabular-nums;
+    font-weight: 800;
+    left: 0.85rem;
+    letter-spacing: 0.12em;
+    padding: 0.3rem 0.7rem;
+    position: absolute;
+    text-transform: uppercase;
+    z-index: 3;
+}
+
+.cs-stage-img {
+    height: 100%;
+    left: 0;
+    object-fit: cover;
+    object-position: center top;
+    opacity: 0;
+    position: absolute;
+    top: 0;
+    transform: scale(1.012);
+    transition: opacity 0.5s ease, transform 0.7s ease;
+    width: 100%;
+    z-index: 1;
+}
+
+.cs-stage-img.is-active {
+    opacity: 1;
+    transform: scale(1);
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .cs-stage-img,
+    .cs-stage-img.is-active {
+        transform: none;
+        transition: opacity 0.15s linear;
+    }
+}
+
+.cs-stage-pips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.45rem;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.cs-stage-pip {
+    background: rgba(255, 255, 255, 0.7);
+    border: 1px solid var(--c-border);
+    border-radius: 999px;
+    color: var(--c-text-muted);
+    cursor: pointer;
+    font-family: var(--font-display);
+    font-size: 0.82rem;
+    font-weight: 700;
+    padding: 0.42rem 0.95rem;
+    transition: background var(--transition), border-color var(--transition),
+                color var(--transition), transform var(--transition);
+}
+
+.cs-stage-pip:hover {
+    border-color: var(--c-text);
+    color: var(--c-text);
+    transform: translateY(-1px);
+}
+
+.cs-stage-pip:focus-visible {
+    outline: 2px solid var(--project-accent);
+    outline-offset: 2px;
+}
+
+.cs-stage-pip.is-active {
+    background: color-mix(in oklch, var(--project-accent) 14%, transparent);
+    border-color: color-mix(in oklch, var(--project-accent) 32%, transparent);
+    color: var(--project-accent);
+}
+
+.cs-stage-pip.is-active:hover {
+    color: var(--project-accent);
+}
+
+/* Scrolling scenes (RIGHT column) */
+.cs-scenes {
+    display: flex;
+    flex-direction: column;
+}
+
+.cs-scene {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    opacity: 1;
+    padding: 0.75rem 0;
+    transition: opacity 0.45s ease;
+}
+
+@media (min-width: 992px) {
+    .cs-scene {
+        min-height: 68vh;
+        opacity: 0.32;
+        padding: 3rem 0;
+    }
+    .cs-scene.is-active {
+        opacity: 1;
+    }
+}
+
+.cs-scene-label {
+    color: var(--project-accent);
+    font-family: var(--font-display);
+    font-size: 0.76rem;
+    font-weight: 800;
+    letter-spacing: 0.18em;
+    margin: 0 0 0.85rem;
+    text-transform: uppercase;
+}
+
+.cs-scene-title {
+    color: var(--c-text);
+    font-family: var(--font-display);
+    font-size: clamp(1.55rem, 2.7vw, 2.1rem);
+    font-weight: 900;
+    letter-spacing: -0.02em;
+    line-height: 1.15;
+    margin: 0 0 1rem;
+}
+
+.cs-scene-body {
+    color: var(--c-text-muted);
+    font-size: 1rem;
+    line-height: 1.72;
+    margin: 0;
+    max-width: 52ch;
+}
+
+/* Inline figure inside each scene, shown only on mobile */
+.cs-scene-fig {
+    background: var(--c-surface);
+    border: 1px solid var(--c-border);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow-sm);
+    margin: 0 0 1.1rem;
+    overflow: hidden;
+}
+
+.cs-scene-fig img {
+    display: block;
+    height: auto;
+    width: 100%;
+}
+
+@media (min-width: 992px) {
+    .cs-scene-fig { display: none; }
+}
+
+/* Feature index: 8 areas as a typographic grid, no icons, no cards */
+.cs-areas {
+    border-top: 1px solid var(--c-border);
+    margin: 0 0 clamp(3rem, 6vw, 4.5rem);
+    padding-top: clamp(1.75rem, 3vw, 2.25rem);
+}
+
+.cs-areas-lede {
+    color: var(--c-text);
+    font-family: var(--font-display);
+    font-size: clamp(1.15rem, 2vw, 1.45rem);
+    font-weight: 800;
+    letter-spacing: -0.01em;
+    line-height: 1.3;
+    margin: 0 0 1.5rem;
+}
+
+.cs-areas-list {
+    display: grid;
+    gap: 0.5rem clamp(2rem, 5vw, 4rem);
+    grid-template-columns: 1fr 1fr;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+@media (min-width: 768px) {
+    .cs-areas-list { grid-template-columns: repeat(4, 1fr); }
+}
+
+.cs-areas-list li {
+    color: var(--c-text);
+    font-size: 1rem;
+    font-weight: 600;
+    padding: 0.42rem 0;
+}
+
+/* Stack strip: label + tech as a sentence */
+.cs-stack {
+    align-items: baseline;
+    border-top: 1px solid var(--c-border);
+    display: grid;
+    gap: 0.4rem 1.5rem;
+    grid-template-columns: 1fr;
+    padding-top: 1.75rem;
+}
+
+@media (min-width: 768px) {
+    .cs-stack {
+        gap: 0 2rem;
+        grid-template-columns: auto 1fr;
+    }
+}
+
+.cs-stack-label {
+    color: var(--c-text-muted);
+    font-size: 0.74rem;
+    font-weight: 800;
+    letter-spacing: 0.16em;
+    margin: 0;
+    text-transform: uppercase;
+}
+
+.cs-stack-tech {
+    color: var(--c-text);
+    font-size: 0.98rem;
+    line-height: 1.6;
+    margin: 0;
+}
+
+/* Case-study article wrappers */
+.cs {
+    /* --project-accent set inline per article */
+}
+
+.cs--primary {
+    margin: 0;
+}
+
+/* Divider between primary and secondary case studies */
+.cs-divider {
+    background: var(--c-border);
+    border: 0;
+    height: 1px;
+    margin: clamp(3rem, 6vw, 5rem) 0 clamp(3rem, 6vw, 5rem);
+}
+
+/* Secondary case study: a quieter text-only treatment for the source-only
+   build. Same .cs-* tokens, scaled-down headline and no interactive
+   showcase. Polish Violet accent. */
+.cs--secondary .cs-name {
+    font-size: clamp(2rem, 4.4vw, 3.25rem);
+}
+
+.cs--secondary .cs-tagline {
+    font-size: clamp(1rem, 1.6vw, 1.2rem);
+}
+
+.cs--secondary .cs-description {
+    font-size: 1rem;
+}
+
+.cs--secondary .cs-intro {
+    max-width: 60ch;
+}
+
+/* Secondary status: no pulsing dot, neutral pill weight */
+.cs-meta-status--quiet {
+    color: var(--c-text);
+}
+
+/* Notes grid for the secondary case study, no images */
+.cs-notes {
+    display: grid;
+    gap: clamp(1.5rem, 3vw, 2.25rem);
+    grid-template-columns: 1fr;
+    margin: 0 0 clamp(2.5rem, 5vw, 3.5rem);
+}
+
+@media (min-width: 768px) {
+    .cs-notes { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+}
+
+.cs-note {
+    border-top: 2px solid var(--project-accent);
+    padding-top: 1.1rem;
+}
+
+.cs-note-title {
+    color: var(--c-text);
+    font-family: var(--font-display);
+    font-size: clamp(1.05rem, 1.6vw, 1.2rem);
+    font-weight: 800;
+    letter-spacing: -0.005em;
+    line-height: 1.25;
+    margin: 0 0 0.55rem;
+}
+
+.cs-note-body {
+    color: var(--c-text-muted);
+    font-size: 0.96rem;
+    line-height: 1.7;
+    margin: 0;
+}
+
+/* Mobile tuning */
+@media (max-width: 575.98px) {
+    .cs-meta {
+        align-items: flex-start;
+        flex-direction: column;
+        gap: 1.5rem;
+    }
+    .cs-actions .cs-action {
+        justify-content: center;
+        width: 100%;
+    }
+    .cs-areas-list { grid-template-columns: 1fr; }
+}
+
 /* =========================================================================
    Resume overlay
    Modal frame + inline HTML/CSS rendition of the LaTeX resume.
