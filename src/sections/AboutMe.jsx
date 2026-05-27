@@ -43,13 +43,12 @@ function AboutMe() {
                             </p>
 
                             <p>
-                                I work with <strong> React, Python, Django, JavaScript, and PostgreSQL</strong>.
-                                I like building features where the interface, API, and data model all need to fit together.
+                                I like building features where the interface, API, and data model all need to fit together, getting scheduling logic, access control, and document workflows right at once.
                             </p>
 
                             <p>
                                 My recent focus is CareFlow, a clinic workflow platform for scheduling,
-                                patient registration, documents, admin tools, and secure access.
+                                a patient hub, clinical charting, billing, documents, and facility admin.
                             </p>
 
                             <p className="mb-0">

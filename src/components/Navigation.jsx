@@ -1,83 +1,140 @@
-import Navbar from "react-bootstrap/Navbar";
-import Nav from "react-bootstrap/Nav";
-import Container from "react-bootstrap/Container";
-import { useEffect, useState } from "react";
-import { NAME, RESUME } from "../constants/app";
+import { useCallback, useEffect, useRef, useState } from "react";
+import { NAME } from "../constants/app";
+import ResumeOverlay from "./ResumeOverlay";
+
+const DOTS = [
+    { id: "home", label: "Home", href: "#home" },
+    { id: "about", label: "About", href: "#about" },
+    { id: "skills", label: "Skills", href: "#skills" },
+    { id: "projects", label: "Projects", href: "#projects" },
+    { id: "contacts", label: "Contact", href: "#contacts" },
+];
+
+const SECTION_IDS = DOTS.map((d) => d.id);
 
 function Navigation() {
-    const [navProgress, setNavProgress] = useState(0);
+    const [activeSection, setActiveSection] = useState("home");
+    const [hoveredId, setHoveredId] = useState(null);
+    const [resumeOpen, setResumeOpen] = useState(false);
+    const constellationRef = useRef(null);
+
+    const closeResume = useCallback(() => setResumeOpen(false), []);
 
     useEffect(() => {
-        let ticking = false;
+        const handleOpenResume = () => setResumeOpen(true);
+        window.addEventListener("open-resume", handleOpenResume);
+        return () => window.removeEventListener("open-resume", handleOpenResume);
+    }, []);
 
-        const updateNavState = () => {
-            const hero = document.getElementById("home");
-            const fadeDistance = hero ? Math.max(320, hero.offsetHeight - 80) : 520;
-            const nextProgress = Math.min(1, Math.max(0, window.scrollY / fadeDistance));
-
-            setNavProgress((currentProgress) =>
-                Math.abs(currentProgress - nextProgress) < 0.01
-                    ? currentProgress
-                    : Number(nextProgress.toFixed(3))
-            );
-            ticking = false;
-        };
-
-        const requestNavUpdate = () => {
-            if (ticking) {
-                return;
+    useEffect(() => {
+        const updateActive = () => {
+            const triggerLine = window.innerHeight * 0.4;
+            let next = "home";
+            for (const id of SECTION_IDS) {
+                const el = document.getElementById(id);
+                if (!el) continue;
+                const rect = el.getBoundingClientRect();
+                if (rect.top <= triggerLine && rect.bottom > triggerLine) {
+                    next = id;
+                    break;
+                }
             }
-
-            ticking = true;
-            window.requestAnimationFrame(updateNavState);
+            setActiveSection((prev) => (prev === next ? prev : next));
         };
 
-        updateNavState();
-        window.addEventListener("scroll", requestNavUpdate, { passive: true });
-        window.addEventListener("resize", requestNavUpdate);
-
+        updateActive();
+        window.addEventListener("scroll", updateActive, { passive: true });
+        window.addEventListener("resize", updateActive);
         return () => {
-            window.removeEventListener("scroll", requestNavUpdate);
-            window.removeEventListener("resize", requestNavUpdate);
+            window.removeEventListener("scroll", updateActive);
+            window.removeEventListener("resize", updateActive);
         };
     }, []);
 
-    const isAtTop = navProgress <= 0.001;
-    const isScrolled = navProgress > 0.96;
+    const goTo = (event, href) => {
+        event.preventDefault();
+        const target = document.querySelector(href);
+        if (!target) return;
+        const top = target.getBoundingClientRect().top + window.scrollY - 24;
+        window.scrollTo({ top, behavior: "smooth" });
+        window.history.replaceState(null, "", href);
+    };
+
+    const openResume = (event) => {
+        event.preventDefault();
+        window.dispatchEvent(new Event("open-resume"));
+    };
+
+    const focusedId = hoveredId || activeSection;
+    const focusedIdx = DOTS.findIndex((d) => d.id === focusedId);
 
     return (
-        <Navbar
-            expand="md"
-            fixed="top"
-            variant="light"
-            className={`site-navbar ${isAtTop ? "navbar-transparent" : ""} ${isScrolled ? "navbar-scrolled" : "navbar-hero"}`}
-            style={{ "--nav-progress": navProgress }}
-        >
-            <Container>
-                <Navbar.Brand href="#home" className="fw-bold">
-                    {NAME}
-                </Navbar.Brand>
+        <>
+            <a
+                href="#home"
+                className="cn-brand"
+                onClick={(e) => goTo(e, "#home")}
+            >
+                <span className="cn-brand-dot" aria-hidden="true" />
+                <span className="cn-brand-name">{NAME}</span>
+            </a>
 
-                <Navbar.Toggle aria-controls="navbar-nav" />
+            <nav className="cn-constellation" ref={constellationRef} aria-label="Sections">
+                <ul className="cn-dots">
+                    {DOTS.map((dot, idx) => {
+                        const isActive = dot.id === activeSection;
+                        const isHovered = dot.id === hoveredId;
+                        const isFocused = dot.id === focusedId;
+                        const distance = focusedIdx >= 0 ? Math.abs(idx - focusedIdx) : 99;
+                        return (
+                            <li
+                                key={dot.id}
+                                className={`cn-dot-slot ${isFocused ? "is-focused" : ""}`}
+                                style={{ "--cn-distance": distance }}
+                            >
+                                <a
+                                    href={dot.href}
+                                    className={`cn-dot ${isActive ? "is-active" : ""} ${
+                                        isHovered ? "is-hovered" : ""
+                                    }`}
+                                    onClick={(e) => goTo(e, dot.href)}
+                                    onMouseEnter={() => setHoveredId(dot.id)}
+                                    onMouseLeave={() => setHoveredId(null)}
+                                    onFocus={() => setHoveredId(dot.id)}
+                                    onBlur={() => setHoveredId(null)}
+                                    aria-current={isActive ? "true" : undefined}
+                                    aria-label={dot.label}
+                                >
+                                    <span className="cn-dot-mark" aria-hidden="true" />
+                                    <span className="cn-dot-label">{dot.label}</span>
+                                </a>
+                            </li>
+                        );
+                    })}
+                </ul>
+            </nav>
 
-                <Navbar.Collapse id="navbar-nav">
-                    <Nav className="ms-auto align-items-center">
-                        <Nav.Link href="#about" className="px-2">About</Nav.Link>
-                        <Nav.Link href="#skills" className="px-2">Skills</Nav.Link>
-                        <Nav.Link href="#projects" className="px-2">Projects</Nav.Link>
-                        <Nav.Link href="#contacts" className="px-2">Contact</Nav.Link>
-                        <Nav.Link
-                            href={RESUME}
-                            target="_blank"
-                            rel="noreferrer"
-                            className="nav-resume-link ms-md-3 btn btn-sm px-4 fw-semibold"
-                        >
-                            Resume
-                        </Nav.Link>
-                    </Nav>
-                </Navbar.Collapse>
-            </Container>
-        </Navbar>
+            <a
+                href="#resume"
+                className={`cn-resume ${resumeOpen ? "is-active" : ""}`}
+                onClick={openResume}
+            >
+                <span className="cn-resume-text">Resume</span>
+                <span className="cn-resume-arrow" aria-hidden="true">
+                    <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
+                        <path
+                            d="M3 9L9 3M9 3H4M9 3V8"
+                            stroke="currentColor"
+                            strokeWidth="1.3"
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                        />
+                    </svg>
+                </span>
+            </a>
+
+            <ResumeOverlay open={resumeOpen} onClose={closeResume} />
+        </>
     );
 }
 

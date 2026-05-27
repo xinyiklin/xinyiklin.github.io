@@ -3,7 +3,7 @@ import Typewriter from "typewriter-effect";
 import { useEffect, useRef } from "react";
 import { FaGithub, FaLinkedin, FaEnvelope, FaReact, FaPython } from "react-icons/fa";
 import { SiDjango, SiPostgresql, SiCplusplus } from "react-icons/si";
-import { EMAIL, GITHUB, LINKEDIN, NAME, RESUME } from "../constants/app";
+import { EMAIL, GITHUB, LINKEDIN, NAME } from "../constants/app";
 
 const TECH = [
   { label: "React",      Icon: FaReact,      delay: "0s"    },
@@ -83,28 +83,7 @@ function Main() {
           ))}
         </div>
 
-        <div className="hero-actions mt-4">
-          <a
-            className="btn hero-primary-btn btn-md mx-2"
-            href="#projects"
-            role="button"
-            aria-label="View my projects"
-          >
-            View Projects
-          </a>
-          <a
-            className="btn hero-secondary-btn btn-md mx-2"
-            href={RESUME}
-            target="_blank"
-            rel="noreferrer"
-            role="button"
-            aria-label="View my resume"
-          >
-            Resume
-          </a>
-        </div>
-
-        <div className="hero-socials mt-3 d-flex justify-content-center gap-4">
+        <div className="hero-socials mt-4 d-flex justify-content-center gap-4">
           <a href={GITHUB}  target="_blank" rel="noreferrer" aria-label="My GitHub"   className="hero-social-link"><FaGithub   /></a>
           <a href={LINKEDIN} target="_blank" rel="noreferrer" aria-label="My LinkedIn" className="hero-social-link"><FaLinkedin /></a>
           <a href={`mailto:${EMAIL}`}        aria-label="My email"                    className="hero-social-link"><FaEnvelope /></a>

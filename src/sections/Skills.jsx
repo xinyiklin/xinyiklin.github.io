@@ -12,6 +12,7 @@ import {
     SiGit,
     SiCmake,
     SiVite,
+    SiCplusplus,
 } from "react-icons/si";
 
 function Skills() {
@@ -50,9 +51,10 @@ function Skills() {
                 <SiGit key="git" className="skillsicons" title="Git" />,
                 <SiCmake key="cmake" className="skillsicons" title="CMake" />,
                 <SiVite key="vite" className="skillsicons" title="Vite" />,
+                <SiCplusplus key="cpp" className="skillsicons" title="C++" />,
             ],
             description:
-                "Use Git, CMake, Vite, and deployment tools to keep projects buildable and reviewable.",
+                "Use Git, CMake, Vite, and C++ for systems builds, version control, and frontend tooling.",
         },
     ];
 
