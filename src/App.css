@@ -397,6 +397,8 @@ section { scroll-margin-top: 72px; }
     font-weight: 900;
     letter-spacing: -0.025em;
     line-height: 0.95;
+    margin-bottom: 1rem;
+    padding-bottom: 0.1em;
 }
 
 .typewriter {
