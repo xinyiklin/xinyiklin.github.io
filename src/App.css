@@ -39,155 +39,203 @@ a { text-decoration: none; }
 
 section { scroll-margin-top: 72px; }
 
-/* Navbar */
-.site-navbar {
+/* =========================================================================
+   Navbar, morphing capsule
+   --nav-progress drives the morph: 0 = floating capsule at hero,
+   1 = full-width frosted bar pinned to viewport top.
+   --scroll-progress drives the reading-progress bar.
+   ========================================================================= */
+
+.navbar-shell {
     --nav-progress: 0;
-    background:
-        linear-gradient(
-            180deg,
-            rgba(255,255,255, calc(var(--nav-progress) * 0.74)),
-            rgba(245,249,252, calc(var(--nav-progress) * 0.52))
-        );
-    border-bottom: 1px solid transparent;
-    box-shadow:
-        inset 0 1px 0 rgba(255,255,255, calc(var(--nav-progress) * 0.72)),
-        0 18px 44px rgba(15,42,61, calc(var(--nav-progress) * 0.08));
-    backdrop-filter: blur(calc(var(--nav-progress) * 24px)) saturate(180%);
-    -webkit-backdrop-filter: blur(calc(var(--nav-progress) * 24px)) saturate(180%);
-    min-height: 68px;
-    overflow: visible;
-    transition: background var(--transition), border-color var(--transition), box-shadow var(--transition), backdrop-filter var(--transition);
+    --nav-rest: 1;
+    --scroll-progress: 0;
+    --shell-inset: calc(var(--nav-rest) * 14px);
+    --shell-top: calc(var(--nav-rest) * 14px);
+    --capsule-radius: calc(var(--nav-rest) * 999px);
+    --capsule-max: min(100vw, calc(960px + (100vw - 960px) * var(--nav-progress)));
+    --indicator-color: var(--c-accent);
+    left: 0;
+    pointer-events: none;
+    position: fixed;
+    right: 0;
+    top: 0;
     z-index: 1000;
 }
 
-.site-navbar::after {
+.navbar-shell .site-navbar {
     background:
         linear-gradient(
             180deg,
-            rgba(245,249,252, calc(var(--nav-progress) * 0.32)),
-            rgba(245,249,252, calc(var(--nav-progress) * 0.12)) 48%,
-            transparent 100%
+            rgba(255, 255, 255, calc(0.62 + var(--nav-progress) * 0.16)),
+            rgba(245, 249, 252, calc(0.48 + var(--nav-progress) * 0.14))
         );
-    bottom: -22px;
-    content: "";
-    height: 22px;
-    left: 0;
-    opacity: var(--nav-progress);
-    pointer-events: none;
-    position: absolute;
-    right: 0;
-    transform: translateZ(0);
-}
-
-.site-navbar > .container {
+    backdrop-filter: blur(calc(16px + var(--nav-progress) * 8px)) saturate(180%);
+    -webkit-backdrop-filter: blur(calc(16px + var(--nav-progress) * 8px)) saturate(180%);
+    border: 1px solid rgba(255, 255, 255, calc(0.62 - var(--nav-progress) * 0.45));
+    border-radius: var(--capsule-radius);
+    box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, 0.7),
+        0 calc(8px + var(--nav-rest) * 14px) calc(28px + var(--nav-rest) * 18px) rgba(15, 42, 61, calc(0.09 + var(--nav-rest) * 0.06));
+    margin: var(--shell-top) auto 0;
+    max-width: var(--capsule-max);
+    min-height: 60px;
+    overflow: hidden;
+    padding: 0 var(--shell-inset);
+    pointer-events: auto;
     position: relative;
-    z-index: 1;
+    transition: border-color var(--transition), box-shadow var(--transition);
 }
 
-.navbar-transparent {
-    background: transparent !important;
-    border-bottom-color: transparent !important;
-    box-shadow: none !important;
-    backdrop-filter: none !important;
-    -webkit-backdrop-filter: none !important;
+.navbar-shell.is-pinned .site-navbar {
+    border-color: var(--c-border);
 }
 
-.navbar-transparent::after {
-    opacity: 0;
+@media (prefers-reduced-motion: reduce) {
+    .navbar-shell .site-navbar {
+        transition: none;
+    }
 }
 
-.navbar-hero {
-    background:
-        linear-gradient(
-            180deg,
-            rgba(255,255,255, calc(var(--nav-progress) * 0.68)),
-            rgba(245,249,252, calc(var(--nav-progress) * 0.46))
-        );
+.site-navbar-inner {
+    align-items: center;
+    display: flex;
+    min-height: 60px;
+    padding-inline: clamp(0.4rem, 2vw, 1rem);
+    position: relative;
 }
 
-.navbar-hero .navbar-brand,
-.navbar-hero .nav-link,
-.navbar-hero .navbar-nav .nav-link.active,
-.navbar-hero .navbar-nav .nav-link.show {
-    color: rgba(16,32,51,0.82);
-    font-weight: 700;
+.site-navbar .site-brand {
+    color: var(--c-text);
+    font-family: var(--font-display);
+    font-size: 1.02rem;
+    font-weight: 800;
+    letter-spacing: 0;
+    padding: 0.4rem 0.55rem;
+    position: relative;
+    transition: color var(--transition), transform var(--transition);
 }
 
-.navbar-hero .navbar-brand { color: var(--c-text) !important; font-weight: 800; }
-.navbar-hero .nav-link:hover { color: var(--c-text) !important; }
-
-.navbar-scrolled {
-    background:
-        linear-gradient(180deg, rgba(255,255,255,0.76), rgba(245,249,252,0.58));
-    border-bottom: 1px solid transparent;
-    box-shadow: inset 0 1px 0 rgba(255,255,255,0.74), 0 18px 44px rgba(15,42,61,0.08);
-    backdrop-filter: blur(24px) saturate(180%);
-    -webkit-backdrop-filter: blur(24px) saturate(180%);
-}
-
-.navbar-scrolled .navbar-brand,
-.navbar-scrolled .nav-link {
+.site-navbar .site-brand:hover,
+.site-navbar .site-brand:focus-visible {
     color: var(--c-text) !important;
-    font-weight: 700;
-}
-
-.navbar-scrolled .nav-link:hover { color: #0f766e !important; }
-
-.site-navbar .navbar-brand { font-size: 1.05rem; letter-spacing: 0; }
-
-/* toggler */
-.site-navbar .navbar-toggler { border: 1px solid var(--c-border-hard); border-radius: var(--radius-sm); }
-.navbar-hero .navbar-toggler-icon { filter: none; }
-
-/* resume CTA */
-.nav-resume-link {
-    background: rgba(255,255,255,0.42) !important;
-    border: 1px solid rgba(15,42,61,0.14) !important;
-    border-radius: var(--radius-sm) !important;
-    box-shadow: inset 0 1px 0 rgba(255,255,255,0.6);
-    color: var(--c-text) !important;
-    font-size: 0.82rem;
-    font-weight: 700;
-    letter-spacing: 0.02em;
-    padding: 0.42rem 1rem !important;
-    transition: background var(--transition), border-color var(--transition), color var(--transition), transform var(--transition);
-}
-
-.nav-resume-link:hover {
-    background: var(--c-accent-lite) !important;
-    border-color: rgba(20,184,166,0.34) !important;
-    color: #0f766e !important;
     transform: translateY(-1px);
 }
 
-.site-navbar .navbar-nav .nav-resume-link,
-.site-navbar .navbar-nav .nav-resume-link:hover,
-.site-navbar .navbar-nav .nav-resume-link:focus,
-.navbar-hero .navbar-nav .nav-resume-link,
-.navbar-scrolled .navbar-nav .nav-resume-link {
+.site-navbar .nav {
+    gap: 0.15rem;
+}
+
+.site-navbar .site-nav-link {
+    color: rgba(16, 32, 51, 0.78) !important;
+    font-size: 0.92rem;
+    font-weight: 700;
+    letter-spacing: 0.005em;
+    padding: 0.45rem 0.7rem !important;
+    position: relative;
+    transition: color var(--transition), transform var(--transition);
+}
+
+.site-navbar .site-nav-link:hover,
+.site-navbar .site-nav-link:focus-visible {
     color: var(--c-text) !important;
+    transform: translateY(-1px);
 }
 
-.site-navbar .navbar-nav .nav-resume-link:hover,
-.site-navbar .navbar-nav .nav-resume-link:focus {
-    color: #0f766e !important;
+/* Sliding active/hover indicator */
+.nav-indicator {
+    background: linear-gradient(90deg, var(--indicator-color), #0f766e);
+    border-radius: 2px;
+    bottom: 10px;
+    height: 2px;
+    left: 0;
+    opacity: 0;
+    pointer-events: none;
+    position: absolute;
+    top: auto;
+    transform: translateX(0);
+    transition: transform 0.42s cubic-bezier(0.22, 1, 0.36, 1),
+                width 0.42s cubic-bezier(0.22, 1, 0.36, 1),
+                opacity 0.18s ease-out;
+    width: 0;
+    will-change: transform, width;
+    z-index: 0;
 }
 
-/* mobile nav */
-@media (max-width: 767.98px) {
-    .navbar-hero .navbar-collapse,
-    .navbar-scrolled .navbar-collapse {
-        background: linear-gradient(180deg, rgba(255,255,255,0.84), rgba(245,249,252,0.72));
-        border: 1px solid rgba(255,255,255,0.64);
-        border-radius: var(--radius);
-        box-shadow: inset 0 1px 0 rgba(255,255,255,0.7), 0 18px 44px rgba(15,42,61,0.12);
-        margin-top: 0.6rem;
-        padding: 0.75rem;
-        backdrop-filter: blur(24px) saturate(180%);
-        -webkit-backdrop-filter: blur(24px) saturate(180%);
+@media (prefers-reduced-motion: reduce) {
+    .nav-indicator {
+        transition: opacity 0.12s linear;
     }
-    .navbar-scrolled .navbar-collapse .nav-link { color: var(--c-text) !important; }
-    .navbar-hero .navbar-collapse .nav-link { color: var(--c-text) !important; }
+}
+
+/* Reading-progress bar, rides the navbar's bottom edge */
+.nav-scroll-bar {
+    background: linear-gradient(90deg, var(--c-accent), #0f766e);
+    bottom: 0;
+    height: 2px;
+    left: 0;
+    opacity: calc(0.35 + var(--nav-progress) * 0.6);
+    pointer-events: none;
+    position: absolute;
+    right: 0;
+    transform: scaleX(var(--scroll-progress));
+    transform-origin: left;
+    transition: opacity 0.2s ease-out;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .nav-scroll-bar {
+        transition: none;
+    }
+}
+
+/* Toggler */
+.site-navbar .navbar-toggler {
+    border: 1px solid var(--c-border-hard);
+    border-radius: var(--radius-sm);
+    padding: 0.35rem 0.55rem;
+}
+
+.site-navbar .navbar-toggler:focus {
+    box-shadow: 0 0 0 2px var(--c-accent-lite);
+}
+
+/* Mobile collapse */
+@media (max-width: 767.98px) {
+    .navbar-shell {
+        --shell-inset: calc(var(--nav-rest) * 10px);
+        --shell-top: calc(var(--nav-rest) * 10px);
+        --capsule-max: 100vw;
+    }
+
+    .navbar-shell .site-navbar {
+        border-radius: calc(var(--nav-rest) * 18px);
+    }
+
+    .site-navbar .site-navbar-inner {
+        flex-wrap: wrap;
+    }
+
+    .site-navbar .navbar-collapse {
+        background: linear-gradient(180deg, rgba(255, 255, 255, 0.92), rgba(245, 249, 252, 0.84));
+        border: 1px solid rgba(255, 255, 255, 0.7);
+        border-radius: var(--radius);
+        box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.72), 0 18px 36px rgba(15, 42, 61, 0.1);
+        margin-top: 0.6rem;
+        padding: 0.5rem 0.4rem;
+    }
+
+    .site-navbar .nav {
+        gap: 0;
+    }
+
+    .site-navbar .site-nav-link {
+        padding: 0.6rem 0.85rem !important;
+    }
+
+    .nav-indicator {
+        display: none;
+    }
 }
 
 /* Hero */
@@ -1074,3 +1122,316 @@ footer a:hover { color: #0f766e !important; }
 /* Bootstrap overrides for dark theme */
 .text-muted { color: var(--c-text-muted) !important; }
 .display-5 { letter-spacing: 0; }
+/* =========================================================================
+   Resume overlay
+   Modal frame + inline HTML/CSS rendition of the LaTeX resume.
+   Navy accent matches the LaTeX template's section rule.
+   ========================================================================= */
+
+.resume-overlay {
+    --resume-accent: #1f3a60;
+    align-items: stretch;
+    background: rgba(15, 32, 51, 0.58);
+    backdrop-filter: blur(8px) saturate(140%);
+    -webkit-backdrop-filter: blur(8px) saturate(140%);
+    display: flex;
+    inset: 0;
+    justify-content: center;
+    overflow-y: auto;
+    padding: clamp(0.75rem, 3vw, 2.5rem);
+    position: fixed;
+    z-index: 1050;
+    animation: resumeOverlayFade 0.18s ease-out;
+}
+
+@keyframes resumeOverlayFade {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+}
+
+.resume-overlay-dialog {
+    background: var(--c-surface);
+    border: 1px solid var(--c-border);
+    border-radius: var(--radius-lg);
+    box-shadow: 0 32px 80px rgba(15, 42, 61, 0.32);
+    display: flex;
+    flex-direction: column;
+    margin: auto;
+    max-width: 920px;
+    overflow: hidden;
+    width: 100%;
+    animation: resumeOverlayRise 0.22s cubic-bezier(0.16, 0.84, 0.32, 1);
+}
+
+@keyframes resumeOverlayRise {
+    from { opacity: 0; transform: translateY(12px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .resume-overlay,
+    .resume-overlay-dialog {
+        animation: none;
+    }
+}
+
+/* Action bar */
+.resume-overlay-bar {
+    align-items: center;
+    background: linear-gradient(180deg, #ffffff 0%, #f8fafd 100%);
+    border-bottom: 1px solid var(--c-border);
+    display: flex;
+    gap: 1rem;
+    justify-content: space-between;
+    padding: 0.75rem 1rem 0.75rem 1.25rem;
+}
+
+.resume-overlay-bar-title {
+    display: flex;
+    flex-direction: column;
+    gap: 0.1rem;
+    line-height: 1.2;
+    min-width: 0;
+}
+
+.resume-overlay-bar-label {
+    color: var(--c-text-muted);
+    font-size: 0.68rem;
+    font-weight: 800;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+}
+
+.resume-overlay-bar-meta {
+    color: var(--c-text);
+    font-size: 0.88rem;
+    font-weight: 700;
+}
+
+.resume-overlay-close {
+    align-items: center;
+    background: transparent;
+    border: 1px solid var(--c-border-hard);
+    border-radius: var(--radius-sm);
+    color: var(--c-text);
+    cursor: pointer;
+    display: inline-flex;
+    font-size: 1.35rem;
+    height: 36px;
+    justify-content: center;
+    line-height: 1;
+    transition: background var(--transition), border-color var(--transition),
+                color var(--transition);
+    width: 36px;
+}
+
+.resume-overlay-close:hover {
+    background: var(--c-surface-2);
+    border-color: var(--c-text);
+}
+
+.resume-overlay-close:focus-visible {
+    outline: 2px solid var(--c-accent);
+    outline-offset: 2px;
+}
+
+/* Scroll container holding the resume document */
+.resume-overlay-scroll {
+    background: var(--c-surface);
+    max-height: calc(100vh - 6rem);
+    overflow-y: auto;
+}
+
+/* Resume document */
+.resume-doc {
+    color: var(--c-text);
+    font-family: var(--font-body);
+    font-size: 0.95rem;
+    line-height: 1.55;
+    margin: 0 auto;
+    max-width: 780px;
+    padding: clamp(1.75rem, 4vw, 2.75rem) clamp(1.25rem, 4vw, 2.5rem) clamp(2rem, 5vw, 3rem);
+}
+
+.resume-doc a {
+    color: var(--resume-accent);
+    text-decoration: none;
+}
+
+.resume-doc a:hover {
+    text-decoration: underline;
+}
+
+.resume-head {
+    margin-bottom: 1.25rem;
+}
+
+.resume-name {
+    color: var(--c-text);
+    font-family: var(--font-display);
+    font-size: clamp(2rem, 4.5vw, 2.8rem);
+    font-weight: 900;
+    letter-spacing: 0.01em;
+    line-height: 1.05;
+    margin: 0 0 0.4rem;
+    text-transform: uppercase;
+}
+
+.resume-contact {
+    color: var(--c-text-muted);
+    font-size: 0.86rem;
+    line-height: 1.7;
+    margin: 0;
+    overflow-wrap: anywhere;
+    word-break: break-word;
+}
+
+.resume-contact-sep {
+    color: var(--c-text-muted);
+    margin: 0 0.5rem;
+    opacity: 0.55;
+}
+
+.resume-section {
+    margin-top: 1.25rem;
+}
+
+.resume-section-title {
+    border-bottom: 1px solid var(--resume-accent);
+    color: var(--c-text);
+    font-family: var(--font-display);
+    font-size: 1.05rem;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    margin: 0 0 0.6rem;
+    padding-bottom: 0.2rem;
+    text-transform: uppercase;
+}
+
+.resume-entry {
+    margin-bottom: 0.85rem;
+}
+
+.resume-entry:last-child {
+    margin-bottom: 0;
+}
+
+.resume-entry-row {
+    align-items: baseline;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem 1rem;
+    justify-content: space-between;
+}
+
+.resume-entry-row-sub {
+    margin-top: 0.05rem;
+}
+
+.resume-entry-primary {
+    color: var(--c-text);
+    font-size: 0.98rem;
+    font-weight: 700;
+}
+
+.resume-entry-secondary {
+    color: var(--c-text);
+    font-size: 0.92rem;
+    font-style: italic;
+    font-weight: 500;
+}
+
+.resume-entry-aside {
+    color: var(--c-text);
+    font-size: 0.9rem;
+    font-weight: 500;
+    white-space: nowrap;
+}
+
+.resume-entry-aside-sub {
+    color: var(--c-text);
+    font-size: 0.88rem;
+    font-style: italic;
+    font-weight: 500;
+    white-space: nowrap;
+}
+
+.resume-bullets {
+    color: var(--c-text);
+    font-size: 0.93rem;
+    line-height: 1.55;
+    list-style: disc;
+    margin: 0.4rem 0 0;
+    padding-left: 1.15rem;
+}
+
+.resume-bullets li {
+    margin-bottom: 0.3rem;
+}
+
+.resume-bullets li:last-child {
+    margin-bottom: 0;
+}
+
+.resume-bullets strong {
+    color: var(--c-text);
+    font-weight: 700;
+}
+
+.resume-skills {
+    color: var(--c-text);
+    font-size: 0.93rem;
+    line-height: 1.6;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.resume-skills li {
+    margin-bottom: 0.25rem;
+}
+
+.resume-skills strong {
+    font-weight: 700;
+}
+
+/* Mobile tuning */
+@media (max-width: 575.98px) {
+    .resume-overlay {
+        padding: 0;
+    }
+
+    .resume-overlay-dialog {
+        border-radius: 0;
+        height: 100%;
+        max-width: 100%;
+    }
+
+    .resume-overlay-scroll {
+        max-height: none;
+        flex: 1;
+    }
+
+    .resume-overlay-bar {
+        padding: 0.6rem 0.75rem 0.6rem 1rem;
+    }
+
+    .resume-overlay-bar-meta {
+        display: none;
+    }
+
+    .resume-entry-row {
+        flex-direction: column;
+        gap: 0.1rem;
+    }
+
+    .resume-entry-aside,
+    .resume-entry-aside-sub {
+        white-space: normal;
+    }
+
+    .resume-contact-sep {
+        margin: 0 0.35rem;
+    }
+}
+

@@ -3,7 +3,7 @@ import Typewriter from "typewriter-effect";
 import { useEffect, useRef } from "react";
 import { FaGithub, FaLinkedin, FaEnvelope, FaReact, FaPython } from "react-icons/fa";
 import { SiDjango, SiPostgresql, SiCplusplus } from "react-icons/si";
-import { EMAIL, GITHUB, LINKEDIN, NAME, RESUME } from "../constants/app";
+import { EMAIL, GITHUB, LINKEDIN, NAME } from "../constants/app";
 
 const TECH = [
   { label: "React",      Icon: FaReact,      delay: "0s"    },
@@ -94,11 +94,13 @@ function Main() {
           </a>
           <a
             className="btn hero-secondary-btn btn-md mx-2"
-            href={RESUME}
-            target="_blank"
-            rel="noreferrer"
+            href="#resume"
             role="button"
             aria-label="View my resume"
+            onClick={(event) => {
+              event.preventDefault();
+              window.dispatchEvent(new Event("open-resume"));
+            }}
           >
             Resume
           </a>
