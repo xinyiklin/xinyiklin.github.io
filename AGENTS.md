@@ -4,15 +4,17 @@ Operational rules for coding agents working in the Portfolio repository.
 
 Portfolio is a personal website that showcases projects, skills, and contact
 info for a full-stack engineer targeting healthcare software roles. It is a
-React 18 + Vite frontend with Bootstrap, React Icons, and Lucide React,
-deployed to GitHub Pages on a custom domain. There is no backend, no database,
+React 18 + Vite frontend styled with hand-written CSS (no UI framework), using
+React Icons and Lucide React, deployed to GitHub Pages on a custom domain.
+There is no backend, no database,
 and no authenticated surface. Framework and dependency versions live in
 `package.json`; check that file instead of copying version numbers here.
 
 The site is content-driven: a small set of sections (Main, AboutMe, Skills,
-Projects, Contacts) plus a Navigation and Footer. The Projects section is
-intentionally CareFlow-only, secondary projects are kept in `constants/`
-but deliberately hidden from the rendered page.
+Projects, Contacts) plus a Navigation and Footer. The Projects section renders
+two case studies: CareFlow as the primary interactive showcase and RoleFit AI
+as a quieter secondary study. Other `PROJECTS_DATA` entries (Catch the Ball,
+the portfolio itself) stay in `constants/` but are deliberately unrendered.
 
 ---
 
@@ -43,8 +45,8 @@ copy for stylistic consistency.
   in `CONTINUITY.md`.
 - Do not overwrite unrelated work or user-edited files.
 - Do not invent project details, metrics, or experience in portfolio copy.
-- Do not broaden scope without justification (the Projects section is
-  CareFlow-only by design).
+- Do not broaden scope without justification (the Projects section renders
+  CareFlow and RoleFit AI only; other constants entries stay unrendered).
 - Do not invent speculative abstractions (CMS, dynamic routing, auth, blog
   engines, analytics dashboards).
 - Verify important changes before finalizing.
@@ -92,8 +94,8 @@ dependencies.
 Do not:
 
 - overwrite unrelated work or broaden scope without justification
-- unhide secondary projects without an explicit user request, the
-  Projects section is CareFlow-only by design
+- unhide further projects (Catch the Ball, the portfolio itself) without an
+  explicit user request; the Projects section renders only CareFlow and RoleFit AI
 - invent speculative abstractions or premature configurability
 - silently swallow errors or hide failures with fallback behavior
 - build fake loading states or skeleton placeholders
@@ -151,7 +153,7 @@ pointer to the relevant commit or doc path.
 ### Durable Decisions
 
 Use lightweight ADR-style entries:
-`D001 ACTIVE: keep Projects section CareFlow-only.`
+`D001 ACTIVE: Projects renders CareFlow plus RoleFit AI, others hidden.`
 
 Entries should be specific and verifiable, include what changed, what was
 verified, and any required follow-up. Avoid vague summaries.
@@ -173,8 +175,11 @@ Before changing UI:
 
 - Reuse tokens from `src/App.css` (CSS custom properties under `:root`).
   Match the existing Manrope display/body font and the teal-accented palette.
-- Reuse React Bootstrap primitives (`Container`, `Row`, `Col`, `Button`,
-  `Badge`) and Lucide / React Icons sets already imported in the file.
+- Layout is hand-written CSS in `src/App.css`: the `.container` wrapper, CSS
+  Grid (`.about-grid`, `.skills-grid`), and a small utility layer (`.d-flex`,
+  `.text-center`, spacing and gap helpers). Action buttons are anchors styled
+  with `.cs-action*`. No Bootstrap, react-bootstrap, or Tailwind. Reuse the
+  Lucide / React Icons sets already imported in the file.
 - Keep sections compact and recruiter-friendly. Density beats decoration.
 - Prefer composition over giant section components. If a section grows past
   the soft target, extract focused pieces into `src/components/`.
@@ -194,12 +199,13 @@ abstraction.
 - Portfolio copy should be concrete, recruiter-oriented, and free of
   marketing fluff or vague superlatives.
 - Project entries in `src/constants/projects.js` should match the actual
-  state of the project they describe. When updating CareFlow copy, cross-check
-  the sibling `../careflow/README.md` and `../careflow/CONTINUITY.md` for the
-  current feature set.
-- The Projects section currently renders only CareFlow. The `PROJECTS_DATA`
-  array can keep additional entries for future surfaces, but do not unhide
-  them in the rendered section without an explicit user request.
+  state of the project they describe. When updating CareFlow or RoleFit AI
+  copy, cross-check the sibling repos (`../careflow/` and `../role-fit-ai/`
+  README and CONTINUITY) for the current feature set.
+- The Projects section renders CareFlow (primary) and RoleFit AI (secondary).
+  The `PROJECTS_DATA` array keeps further entries (Catch the Ball, the
+  portfolio itself), but do not unhide them in the rendered section without an
+  explicit user request.
 - The hero, About, Skills, and Contacts copy should stay aligned with what
   the user says about themselves elsewhere (resume, AboutMe). Do not invent
   hobbies, locations, role types, or tech the user has not stated.
@@ -236,8 +242,8 @@ tokens-and-section stylesheet, not hand-written logic.
   but treat the `gh-pages` deploy token (if any) as sensitive.
 - Do not embed real user contact info beyond what already appears in tracked
   files. If asked to add new contact channels, confirm them with the user.
-- Do not log or echo raw resume content from `public/resume.pdf` unless the
-  user explicitly asks for local debugging.
+- The resume renders inline from `src/constants/resume.js` (mirrored from a
+  local LaTeX source); keep personal data to what already ships there.
 
 ---
 
