@@ -30,3 +30,6 @@ yarn-error.log*
 
 # misc
 *.swp
+
+# agent workspace memory (local only)
+CONTINUITY.md

@@ -1,6 +1,3 @@
-import Container from "react-bootstrap/Container";
-import Row from "react-bootstrap/Row";
-import Col from "react-bootstrap/Col";
 import {
     SiReact,
     SiJavascript,
@@ -60,7 +57,7 @@ function Skills() {
 
     return (
         <section id="skills" className="section-panel section-panel-muted">
-            <Container>
+            <div className="container">
                 <div className="section-intro text-center mb-5">
                     <p className="section-eyebrow mb-2">Stack</p>
                     <h2 className="mb-2">Core Skills</h2>
@@ -69,10 +66,9 @@ function Skills() {
                     </p>
                 </div>
 
-                <Row className="g-4">
+                <div className="skills-grid">
                     {skillGroups.map((group) => (
-                        <Col key={group.title} xs={12} md={6}>
-                            <div className="skill-card h-100">
+                        <div className="skill-card h-100" key={group.title}>
                                 <div className="skill-icon-row mb-3 d-flex gap-3 align-items-center">
                                     {group.icons}
                                 </div>
@@ -80,10 +76,9 @@ function Skills() {
                                 <h3 className="h5 mb-2">{group.title}</h3>
                                 <p className="mb-0 text-muted">{group.description}</p>
                             </div>
-                        </Col>
                     ))}
-                </Row>
-            </Container>
+                </div>
+            </div>
         </section>
     );
 }

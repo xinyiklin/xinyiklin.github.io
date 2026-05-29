@@ -1,4 +1,3 @@
-import Container from "react-bootstrap/Container";
 import Typewriter from "typewriter-effect";
 import { useEffect, useRef } from "react";
 import { FaGithub, FaLinkedin, FaEnvelope, FaReact, FaPython } from "react-icons/fa";
@@ -41,7 +40,7 @@ function Main() {
       <div className="hero-blob hero-blob-a"      aria-hidden="true" />
       <div className="hero-blob hero-blob-b"      aria-hidden="true" />
 
-      <Container className="hero-content text-center">
+      <div className="container hero-content text-center">
         <p className="hero-kicker mb-3">Software Engineer · Full-Time Roles</p>
 
         <h1 className="hero-title">{NAME}</h1>
@@ -92,7 +91,7 @@ function Main() {
           <a href={LINKEDIN} target="_blank" rel="noreferrer" aria-label="My LinkedIn" className="hero-social-link"><FaLinkedin /></a>
           <a href={`mailto:${EMAIL}`}        aria-label="My email"                    className="hero-social-link"><FaEnvelope /></a>
         </div>
-      </Container>
+      </div>
     </section>
   );
 }

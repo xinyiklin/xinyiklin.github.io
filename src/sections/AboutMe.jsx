@@ -1,6 +1,3 @@
-import Container from "react-bootstrap/Container";
-import Row from "react-bootstrap/Row";
-import Col from "react-bootstrap/Col";
 import { BriefcaseBusiness, Code2, MapPin } from "lucide-react";
 import { NAME } from "../constants/app";
 
@@ -25,7 +22,7 @@ function AboutMe() {
 
     return (
         <section id="about" className="section-panel section-panel-white">
-            <Container>
+            <div className="container">
                 <div className="section-intro text-center mb-5">
                     <p className="section-eyebrow mb-2">About</p>
                     <h2 className="mb-2">Who I Am</h2>
@@ -35,8 +32,8 @@ function AboutMe() {
                 </div>
 
                 <div className="about-card">
-                    <Row className="align-items-center g-4">
-                        <Col lg={7}>
+                    <div className="about-grid">
+                        <div>
                             <p className="lead">
                                 Hi, I’m <strong>{NAME}</strong>. I build full-stack software for
                                 healthcare workflows.
@@ -55,9 +52,9 @@ function AboutMe() {
                                 I’m looking for a <strong>full-time software engineering role</strong> where I can
                                 build useful products and keep growing with a strong team.
                             </p>
-                        </Col>
+                        </div>
 
-                        <Col lg={5}>
+                        <div>
                             <div className="about-facts">
                                 {quickFacts.map((fact) => (
                                     <div className="about-fact" key={fact.label}>
@@ -69,10 +66,10 @@ function AboutMe() {
                                     </div>
                                 ))}
                             </div>
-                        </Col>
-                    </Row>
+                        </div>
+                    </div>
                 </div>
-            </Container>
+            </div>
         </section>
     );
 }

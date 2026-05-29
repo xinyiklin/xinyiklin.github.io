@@ -9,7 +9,7 @@ export const PROJECTS_DATA = [
     status: "Live demo",
     accent: "#0f766e",
     description:
-      "A practice-grade demo for clinic operations: scheduling, patient records, clinical charting, billing, documents, and facility administration. Synthetic data only. Facility-scoped APIs. SSN encrypted at rest.",
+      "A practice-grade demo for clinic operations: scheduling, patient records, clinical charting, billing, documents, and facility administration. A separate patient portal covers records, secure messaging, and refill requests. Synthetic data only. Facility-scoped APIs. SSN encrypted at rest.",
     areas: [
       "Scheduling",
       "Patient hub",
@@ -69,9 +69,10 @@ export const PROJECTS_DATA = [
           "Staff, roles, payers, pharmacies, and fee schedules under org and facility admin; permission matrix; audit events; SSN encrypted at rest.",
       },
     ],
-    tech: ["React 19", "Vite", "Django", "Django REST Framework", "PostgreSQL", "React Query", "Tailwind CSS", "Material UI", "Simple JWT"],
+    tech: ["React 19", "TypeScript", "Vite", "React Router", "Django", "Django REST Framework", "PostgreSQL", "React Query", "Tailwind CSS", "Material UI", "Simple JWT"],
     github: "https://github.com/xinyiklin/careflow",
     live: "https://careflow.xinyiklin.com/",
+    portal: "https://portal.careflow.xinyiklin.com/",
     sectionId: "#projects"
   },
   {
@@ -88,20 +89,20 @@ export const PROJECTS_DATA = [
       {
         title: "Local-first by design",
         body:
-          "Paste a job link and description, then upload or auto-load a base resume from a local workspace. Personal data stays on disk, out of any repo or remote service.",
+          "Paste a job link and description, then auto-load a base resume from a local workspace that reads DOCX, PDF, LaTeX, or plain text. Personal data and an on-disk application tracker stay on your machine; API keys never leave the server.",
       },
       {
-        title: "Score, polish, review",
+        title: "Score and review like a recruiter",
         body:
-          "Quantifies keyword fit, bullet quality, action verbs, metrics, and section structure. Strict review surfaces recruiter-style audit notes. A deterministic local rewrite stands in when the AI call cannot run.",
+          "Scores keyword fit, bullet quality, and structure, then runs a four-category keyword-gap analysis and a strict review that returns a verdict, gap severity, and targeted rewrites. A deterministic local rewriter stands in when no AI provider is reachable.",
       },
       {
-        title: "ATS-friendly export",
+        title: "Any model, export anywhere",
         body:
-          "Three LaTeX templates render the polished draft into a single-page PDF or .tex. Copy plain text for in-app editing, or hand the .tex to a local Tectonic install for an offline PDF.",
+          "Routes through ten AI backends, including subscription CLIs (Claude Code, Codex) that reuse an existing plan instead of per-token billing. Exports to three LaTeX templates with one-click Overleaf, an offline Tectonic PDF, or format-preserving DOCX.",
       },
     ],
-    tech: ["React 19", "TypeScript", "Vite", "Node", "Multi-provider AI", "LaTeX templates"],
+    tech: ["React 19", "TypeScript", "Vite", "Node.js", "Multi-provider AI", "LaTeX templates"],
     github: "https://github.com/xinyiklin/rolefit-ai",
     live: null,
     sectionId: "#projects"

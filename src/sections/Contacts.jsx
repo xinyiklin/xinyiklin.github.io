@@ -1,4 +1,3 @@
-import Container from "react-bootstrap/Container";
 import { FaEnvelope, FaGithub, FaLinkedin } from "react-icons/fa";
 import { EMAIL, GITHUB, LINKEDIN, LOCATION, AVAILABILITY } from "../constants/app";
 
@@ -32,7 +31,7 @@ const CHANNELS = [
 function Contacts() {
   return (
     <section id="contacts" className="contact-section">
-      <Container className="position-relative">
+      <div className="container position-relative">
         <div className="text-center mb-5">
           <span className="contact-avail-badge mb-4 d-inline-flex align-items-center gap-2">
             <span className="contact-pulse" aria-hidden="true" />
@@ -70,7 +69,7 @@ function Contacts() {
         <p className="contact-location text-center mt-5 mb-0">
           {LOCATION} · {AVAILABILITY}
         </p>
-      </Container>
+      </div>
     </section>
   );
 }

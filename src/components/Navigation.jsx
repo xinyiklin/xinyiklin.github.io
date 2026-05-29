@@ -55,7 +55,7 @@ function Navigation() {
         event.preventDefault();
         const target = document.querySelector(href);
         if (!target) return;
-        const top = target.getBoundingClientRect().top + window.scrollY - 24;
+        const top = target.getBoundingClientRect().top + window.scrollY - 72;
         window.scrollTo({ top, behavior: "smooth" });
         window.history.replaceState(null, "", href);
     };

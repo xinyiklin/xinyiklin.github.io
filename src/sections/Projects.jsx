@@ -1,6 +1,4 @@
 import { useEffect, useRef, useState } from "react";
-import Container from "react-bootstrap/Container";
-import Button from "react-bootstrap/Button";
 import { ArrowUpRight } from "lucide-react";
 import { FaGithub } from "react-icons/fa";
 import { PROJECTS_DATA } from "../constants/projects";
@@ -140,7 +138,7 @@ function CareFlowStudy({ reduced }) {
           </dl>
 
           <div className="cs-actions">
-            <Button
+            <a
               href={CAREFLOW.live}
               target="_blank"
               rel="noreferrer"
@@ -148,17 +146,25 @@ function CareFlowStudy({ reduced }) {
             >
               Open live demo
               <ArrowUpRight size={16} />
-            </Button>
-            <Button
+            </a>
+            <a
+              href={CAREFLOW.portal}
+              target="_blank"
+              rel="noreferrer"
+              className="cs-action cs-action-secondary"
+            >
+              Patient portal
+              <ArrowUpRight size={16} />
+            </a>
+            <a
               href={CAREFLOW.github}
               target="_blank"
               rel="noreferrer"
-              variant="outline-dark"
               className="cs-action cs-action-secondary"
             >
               <FaGithub />
               View source
-            </Button>
+            </a>
           </div>
         </div>
 
@@ -198,13 +204,13 @@ function CareFlowStudy({ reduced }) {
               );
             })}
           </div>
-          <ol className="cs-stage-pips" role="tablist">
+          <ol className="cs-stage-pips">
             {CAREFLOW_SCENES.map((scene, i) => (
               <li key={scene.id}>
                 <button
                   type="button"
-                  role="tab"
-                  aria-selected={i === activeIdx}
+                  aria-current={i === activeIdx ? "true" : undefined}
+                  aria-label={`Show ${scene.label}`}
                   className={
                     i === activeIdx
                       ? "cs-stage-pip is-active"
@@ -291,7 +297,7 @@ function RoleFitStudy() {
           </dl>
 
           <div className="cs-actions">
-            <Button
+            <a
               href={ROLEFIT.github}
               target="_blank"
               rel="noreferrer"
@@ -299,7 +305,7 @@ function RoleFitStudy() {
             >
               View source
               <ArrowUpRight size={16} />
-            </Button>
+            </a>
           </div>
         </div>
 
@@ -327,11 +333,11 @@ function Projects() {
 
   return (
     <section id="projects" className="projects-section">
-      <Container>
+      <div className="container">
         <CareFlowStudy reduced={reduced} />
         <hr className="cs-divider" />
         <RoleFitStudy />
-      </Container>
+      </div>
     </section>
   );
 }

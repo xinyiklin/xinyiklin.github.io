@@ -1,11 +1,10 @@
 import { FaGithub, FaLinkedin, FaEnvelope } from "react-icons/fa";
-import Container from "react-bootstrap/Container";
 import { EMAIL, GITHUB, LINKEDIN, NAME } from "../constants/app";
 
 function Footer() {
     return (
         <footer>
-            <Container>
+            <div className="container">
                 <p className="text-center text-muted py-3 m-0 d-flex justify-content-center align-items-center gap-3 flex-wrap">
 
                     <span>
@@ -41,7 +40,7 @@ function Footer() {
                     </a>
 
                 </p>
-            </Container>
+            </div>
         </footer>
     );
 }
