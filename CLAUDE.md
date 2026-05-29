@@ -35,12 +35,13 @@ Note the gap in the final response if preview tooling is unavailable.
 
 ## Content And Copy
 
-- Do not invent project copy. Cross-check the CareFlow constants against
-  `../careflow/README.md` and `../careflow/CONTINUITY.md` when refreshing
-  the Projects section.
-- The Projects section is CareFlow-only by design. Do not unhide secondary
-  projects from `src/constants/projects.js` without an explicit user
-  request.
+- Do not invent project copy. Cross-check the CareFlow and RoleFit AI
+  constants against the sibling repos (`../careflow/` and `../role-fit-ai/`
+  README and CONTINUITY) when refreshing the Projects section.
+- The Projects section renders two case studies: CareFlow (primary) and
+  RoleFit AI (secondary). Other `PROJECTS_DATA` entries (Catch the Ball, the
+  portfolio itself) stay in `src/constants/projects.js` but unrendered; do
+  not surface them without an explicit user request.
 - Do not add or remove emoji in tracked files unless the user asks.
 
 ## Deploy Safety
