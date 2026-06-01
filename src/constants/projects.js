@@ -9,19 +9,20 @@ export const PROJECTS_DATA = [
     status: "Live demo",
     accent: "#0f766e",
     description:
-      "A practice-grade demo for clinic operations: scheduling, patient records, clinical charting, billing, documents, and facility administration. A separate patient portal covers records, secure messaging, and refill requests. Synthetic data only. Facility-scoped APIs. SSN encrypted at rest.",
+      "A practice-grade demo for clinic operations: scheduling, patient records, clinical charting, refill workflows, secure messaging, billing, documents, and facility administration. A separate patient portal covers dashboard, appointments, profile, medications, allergies, medical summary, and care-team messaging. Synthetic data only. Facility-scoped APIs. SSN encrypted at rest.",
     areas: [
       "Scheduling",
       "Patient hub",
       "Clinical charting",
+      "Refills",
+      "Secure messaging",
       "Documents",
-      "Medications",
-      "Allergies",
       "Billing",
       "Facility admin",
+      "Patient portal",
     ],
     metrics: [
-      { value: "8", label: "feature areas" },
+      { value: "9", label: "product areas" },
       { value: "Facility-scoped", label: "API access" },
       { value: "SSN encrypted", label: "at rest" },
     ],
@@ -69,7 +70,7 @@ export const PROJECTS_DATA = [
           "Staff, roles, payers, pharmacies, and fee schedules under org and facility admin; permission matrix; audit events; SSN encrypted at rest.",
       },
     ],
-    tech: ["React 19", "TypeScript", "Vite", "React Router", "Django", "Django REST Framework", "PostgreSQL", "React Query", "Tailwind CSS", "Material UI", "Simple JWT"],
+    tech: ["React 19", "TypeScript", "Vite", "React Router", "Django", "Django REST Framework", "PostgreSQL", "TanStack Query", "Tailwind CSS v4", "Material UI", "i18next", "Simple JWT"],
     github: "https://github.com/xinyiklin/careflow",
     live: "https://careflow.xinyiklin.com/",
     portal: "https://portal.careflow.xinyiklin.com/",
@@ -84,25 +85,25 @@ export const PROJECTS_DATA = [
     status: "Source available",
     accent: "#7c3aed",
     description:
-      "A local-first web app that scores a resume against a target job description and drafts a polished version without inventing employers, dates, metrics, or tools. AI is optional; a deterministic local rewrite is the offline fallback.",
+      "A local-first web app that imports a job posting, tailors a workspace resume, scores the draft against the target role, and exports to LaTeX, DOCX, or PDF without storing personal data in a hosted app. AI is optional; deterministic local scoring and rewrite paths keep the workflow usable offline.",
     notes: [
       {
         title: "Local-first by design",
         body:
-          "Paste a job link and description, then auto-load a base resume from a local workspace that reads DOCX, PDF, LaTeX, or plain text. Personal data and an on-disk application tracker stay on your machine; API keys never leave the server.",
+          "Paste a job link or description, then auto-load a base resume from a local workspace that reads DOCX, PDF, LaTeX, Markdown, CSV, or plain text. Personal data and the pipeline tracker stay on disk; API keys stay server-side.",
       },
       {
         title: "Score and review like a recruiter",
         body:
-          "Scores keyword fit, bullet quality, and structure, then runs a four-category keyword-gap analysis and a strict review that returns a verdict, gap severity, and targeted rewrites. A deterministic local rewriter stands in when no AI provider is reachable.",
+          "Scores keyword fit, bullet quality, and structure, then runs a four-category keyword-gap analysis and strict review with a verdict, risk flags, recommendation, and targeted bullet rewrites.",
       },
       {
         title: "Any model, export anywhere",
         body:
-          "Routes through ten AI backends, including subscription CLIs (Claude Code, Codex) that reuse an existing plan instead of per-token billing. Exports to three LaTeX templates with one-click Overleaf, an offline Tectonic PDF, or format-preserving DOCX.",
+          "Routes through ten AI backends, including Claude Code and Codex CLI subscription paths. Export options include three LaTeX templates, one-click Overleaf, optional Tectonic PDF compile, clean ATS PDF, and format-preserving DOCX.",
       },
     ],
-    tech: ["React 19", "TypeScript", "Vite", "Node.js", "Multi-provider AI", "LaTeX templates"],
+    tech: ["React 19", "TypeScript", "Vite", "Node.js", "Custom CSS", "Multi-provider AI", "LaTeX templates"],
     github: "https://github.com/xinyiklin/rolefit-ai",
     live: null,
     sectionId: "#projects"
@@ -152,7 +153,7 @@ export const PROJECTS_DATA = [
   {
     id: "personal-portfolio",
     name: "Portfolio",
-    meta: "Personal Branding | React, Bootstrap, Vite",
+    meta: "Personal Branding | React, Vite, hand-written CSS",
     role: "Frontend presentation system",
     year: "2026",
     status: "Live site",
@@ -186,7 +187,7 @@ export const PROJECTS_DATA = [
           "Custom favicon, resume link, contact paths, and concise copy support recruiter review.",
       },
     ],
-    tech: ["React", "Bootstrap", "Vite", "Lucide React"],
+    tech: ["React", "Vite", "Hand-written CSS", "Lucide React"],
     github: "https://github.com/xinyiklin/xinyiklin.github.io",
     live: "https://xinyiklin.com",
     sectionId: "#projects"

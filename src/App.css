@@ -218,7 +218,7 @@ section { scroll-margin-top: 72px; }
     transition: transform 0.85s cubic-bezier(0.32, 1, 0.4, 1);
 }
 
-/* Magnetic scaling — neighbors of the focused dot breathe up barely */
+/* Magnetic scaling: neighbors of the focused dot breathe up barely */
 .cn-dot-slot[style*="--cn-distance: 1"] { transform: scale(1.018); }
 .cn-dot-slot[style*="--cn-distance: 2"] { transform: scale(1.006); }
 
@@ -922,14 +922,14 @@ footer a:hover { color: var(--c-accent-deep) !important; }
 /* Misc helpers */
 .hover-opacity:hover { opacity: 0.72; transition: opacity var(--transition); }
 
-/* Bootstrap overrides for dark theme */
+/* Compatibility helpers retained for existing markup */
 .text-muted { color: var(--c-text-muted) !important; }
 .display-5 { letter-spacing: 0; }
 
 /* =========================================================================
-   Projects, CareFlow case study (restart, May 2026)
-   Single project. Asymmetric left-aligned intro. Meta strip + actions.
-   Hero gif. Feature index. Three zigzag chapters. Stack strip.
+   Projects, two case studies
+   CareFlow gets the sticky-scroll showcase. RoleFit AI gets a compact
+   source-linked study with a single real proof screenshot.
    ========================================================================= */
 
 .projects-section {
@@ -1408,9 +1408,9 @@ footer a:hover { color: var(--c-accent-deep) !important; }
     margin: clamp(3rem, 6vw, 5rem) 0 clamp(3rem, 6vw, 5rem);
 }
 
-/* Secondary case study: a quieter text-only treatment for the source-only
-   build. Same .cs-* tokens, scaled-down headline and no interactive
-   showcase. Polish Violet accent. */
+/* Secondary case study: a quieter treatment for the source-only build.
+   Same .cs-* tokens, scaled-down headline, one proof image, and no
+   interactive showcase. Polish Violet accent. */
 .cs--secondary .cs-name {
     font-size: clamp(2rem, 4.4vw, 3.25rem);
 }
@@ -1432,12 +1432,12 @@ footer a:hover { color: var(--c-accent-deep) !important; }
     color: var(--c-text);
 }
 
-/* Notes grid for the secondary case study, no images */
+/* Notes grid for the secondary case study */
 .cs-notes {
     display: grid;
     gap: clamp(1.5rem, 3vw, 2.25rem);
     grid-template-columns: 1fr;
-    margin: 0 0 clamp(2.5rem, 5vw, 3.5rem);
+    margin: 0 0 clamp(1.8rem, 4vw, 2.5rem);
 }
 
 @media (min-width: 768px) {
@@ -1464,6 +1464,23 @@ footer a:hover { color: var(--c-accent-deep) !important; }
     font-size: 0.96rem;
     line-height: 1.7;
     margin: 0;
+}
+
+.cs-proof-shot {
+    background: var(--c-surface);
+    border: 1px solid var(--c-border);
+    border-radius: var(--radius-lg);
+    box-shadow:
+        0 1px 0 rgba(255, 255, 255, 0.55) inset,
+        0 14px 44px rgba(15, 42, 61, 0.1);
+    margin: 0;
+    overflow: hidden;
+}
+
+.cs-proof-shot img {
+    display: block;
+    height: auto;
+    width: 100%;
 }
 
 /* Mobile tuning */
@@ -1792,4 +1809,3 @@ footer a:hover { color: var(--c-accent-deep) !important; }
         margin: 0 0.35rem;
     }
 }
-
