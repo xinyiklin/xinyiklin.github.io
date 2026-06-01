@@ -98,12 +98,12 @@ export const PROJECTS_DATA = [
           "Scores keyword fit, bullet quality, and structure, then runs a four-category keyword-gap analysis and strict review with a verdict, risk flags, recommendation, and targeted bullet rewrites.",
       },
       {
-        title: "Any model, export anywhere",
+        title: "Subscription AI, export anywhere",
         body:
-          "Routes through ten AI backends, including Claude Code and Codex CLI subscription paths. Export options include three LaTeX templates, one-click Overleaf, optional Tectonic PDF compile, clean ATS PDF, and format-preserving DOCX.",
+          "Runs a subscription-based AI workflow built on Claude Code, Codex, and Antigravity, with deterministic local fallbacks. Export options include three LaTeX templates, one-click Overleaf, optional Tectonic PDF compile, clean ATS PDF, and format-preserving DOCX.",
       },
     ],
-    tech: ["React 19", "TypeScript", "Vite", "Node.js", "Custom CSS", "Multi-provider AI", "LaTeX templates"],
+    tech: ["React 19", "TypeScript", "Vite", "Node.js", "Claude Code", "Codex", "Antigravity", "LaTeX"],
     github: "https://github.com/xinyiklin/rolefit-ai",
     live: null,
     sectionId: "#projects"

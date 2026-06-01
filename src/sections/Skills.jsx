@@ -1,16 +1,17 @@
 import {
     SiReact,
-    SiJavascript,
+    SiTypescript,
+    SiVite,
     SiNodedotjs,
-    SiExpress,
     SiDjango,
     SiPython,
     SiPostgresql,
+    SiDocker,
     SiGit,
-    SiCmake,
-    SiVite,
-    SiCplusplus,
+    SiVercel,
+    SiOpenai,
 } from "react-icons/si";
+import { LuSparkles, LuTerminal } from "react-icons/lu";
 
 function Skills() {
     const skillGroups = [
@@ -18,40 +19,42 @@ function Skills() {
             title: "Frontend",
             icons: [
                 <SiReact key="react" className="skillsicons" title="React" />,
-                <SiJavascript key="js" className="skillsicons" title="JavaScript" />,
+                <SiTypescript key="ts" className="skillsicons" title="TypeScript" />,
+                <SiVite key="vite" className="skillsicons" title="Vite" />,
             ],
             description:
-                "Create responsive React interfaces with reusable components and clear user flows.",
+                "Build responsive React and TypeScript interfaces with reusable components and clear user flows.",
         },
         {
             title: "Backend",
             icons: [
                 <SiNodedotjs key="node" className="skillsicons" title="Node.js" />,
-                <SiExpress key="express" className="skillsicons" title="Express" />,
                 <SiDjango key="django" className="skillsicons" title="Django" />,
                 <SiPython key="python" className="skillsicons" title="Python" />,
             ],
             description:
-                "Build Django and Node APIs with clear business logic and validated data.",
+                "Build Django REST and Node APIs with typed OpenAPI clients, validated data, and JWT and CSRF auth.",
         },
         {
-            title: "Database",
+            title: "Data & Tooling",
             icons: [
                 <SiPostgresql key="postgres" className="skillsicons" title="PostgreSQL" />,
+                <SiGit key="git" className="skillsicons" title="Git" />,
+                <SiDocker key="docker" className="skillsicons" title="Docker" />,
+                <SiVercel key="vercel" className="skillsicons" title="Vercel" />,
             ],
             description:
-                "Model relational data in PostgreSQL and connect it cleanly to product features.",
+                "Model relational data in PostgreSQL and ship with Git, Docker, Render, and Vercel.",
         },
         {
-            title: "Tools & Systems",
+            title: "AI / LLM tooling",
             icons: [
-                <SiGit key="git" className="skillsicons" title="Git" />,
-                <SiCmake key="cmake" className="skillsicons" title="CMake" />,
-                <SiVite key="vite" className="skillsicons" title="Vite" />,
-                <SiCplusplus key="cpp" className="skillsicons" title="C++" />,
+                <SiOpenai key="codex" className="skillsicons" title="Codex" />,
+                <LuTerminal key="cli" className="skillsicons" title="Coding CLIs" />,
+                <LuSparkles key="agentic" className="skillsicons" title="Agentic workflows" />,
             ],
             description:
-                "Use Git, CMake, Vite, and C++ for systems builds, version control, and frontend tooling.",
+                "Build agentic workflows with Claude Code, Codex, and Antigravity, plus prompt engineering and deterministic fallbacks.",
         },
     ];
 

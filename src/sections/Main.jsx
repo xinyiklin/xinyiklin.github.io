@@ -1,7 +1,7 @@
 import Typewriter from "typewriter-effect";
 import { useEffect, useRef } from "react";
 import { FaGithub, FaLinkedin, FaEnvelope, FaReact, FaPython } from "react-icons/fa";
-import { SiDjango, SiPostgresql, SiCplusplus } from "react-icons/si";
+import { SiDjango, SiPostgresql, SiTypescript } from "react-icons/si";
 import { EMAIL, GITHUB, LINKEDIN, NAME } from "../constants/app";
 
 const TECH = [
@@ -9,7 +9,7 @@ const TECH = [
   { label: "Django",     Icon: SiDjango,     delay: "0.5s"  },
   { label: "PostgreSQL", Icon: SiPostgresql, delay: "1.0s"  },
   { label: "Python",     Icon: FaPython,     delay: "1.5s"  },
-  { label: "C++",        Icon: SiCplusplus,  delay: "2.0s"  },
+  { label: "TypeScript", Icon: SiTypescript, delay: "2.0s"  },
 ];
 
 function Main() {

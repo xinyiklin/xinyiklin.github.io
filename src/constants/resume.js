@@ -24,100 +24,74 @@ export const RESUME_EDUCATION = [
 export const RESUME_PROJECTS = [
     {
         name: "CareFlow",
-        stack: "React, TypeScript, Django REST Framework, PostgreSQL, React Query, Tailwind CSS",
+        stack: "React 19, TypeScript, Django REST Framework, PostgreSQL, React Query, Tailwind CSS v4",
         link: { label: "careflow.xinyiklin.com", href: "https://careflow.xinyiklin.com" },
         bullets: [
             {
                 segments: [
                     { text: "Built and deployed a " },
-                    { text: "full-stack EHR-style web app", bold: true },
-                    { text: " for clinic scheduling, clinical charting, billing, document management, and organization/facility administration." },
+                    { text: "full-stack clinic workflow app", bold: true },
+                    { text: " spanning scheduling, patient records, clinical charting, billing, documents, refills, and facility administration." },
+                ],
+            },
+            {
+                segments: [
+                    { text: "Designed " },
+                    { text: "React + TypeScript workflows", bold: true },
+                    { text: " for a clinician workspace and patient portal, including SOAP progress notes, a unified patient timeline, refill queues, and responsive dashboard surfaces." },
                 ],
             },
             {
                 segments: [
                     { text: "Implemented " },
-                    { text: "clinical charting with SOAP progress notes", bold: true },
-                    { text: " (states: draft, signed, unsigned), a " },
-                    { text: "68-code CPT catalog", bold: true },
-                    { text: ", configurable fee schedules with payer and facility overrides, and a " },
-                    { text: "patient timeline", bold: true },
-                    { text: " that combines appointments, encounters, medications, and allergies into one chronological view." },
-                ],
-            },
-            {
-                segments: [
-                    { text: "Added security and access controls: " },
-                    { text: "SSN encryption at rest using Fernet", bold: true },
-                    { text: ", JWT access tokens with HTTP-only refresh cookies, " },
-                    { text: "CSRF protection", bold: true },
-                    { text: ", " },
-                    { text: "role-based permissions", bold: true },
-                    { text: " scoped per facility, and an audit log for sensitive actions." },
+                    { text: "Django REST APIs", bold: true },
+                    { text: " with PostgreSQL models, org/facility-scoped permissions, audit logging, encrypted SSNs at rest, JWT access tokens, HTTP-only refresh cookies, and CSRF protection." },
                 ],
             },
             {
                 segments: [
                     { text: "Generated " },
-                    { text: "TypeScript API clients", bold: true },
-                    { text: " from a live OpenAPI schema, organized the React code into " },
-                    { text: "feature modules", bold: true },
-                    { text: " with shared components, and deployed via " },
+                    { text: "TypeScript API types", bold: true },
+                    { text: " from OpenAPI, organized the front end as an " },
+                    { text: "npm-workspaces monorepo", bold: true },
+                    { text: ", and deployed the backend/frontend split on " },
                     { text: "Render and Vercel", bold: true },
-                    { text: " with Docker Compose for local development." },
+                    { text: "." },
                 ],
             },
         ],
     },
     {
         name: "RoleFit AI",
-        stack: "React 19, TypeScript, Vite, Node.js, OpenAI/Anthropic/Gemini APIs, LaTeX",
+        stack: "React 19, TypeScript, Vite, Node.js, Claude Code/Codex/Antigravity, LaTeX",
         link: null,
         bullets: [
             {
                 segments: [
-                    { text: "Built and deployed a " },
-                    { text: "local-first resume tailoring webapp", bold: true },
-                    { text: " with a React 19 + TypeScript frontend and a Node.js API server that ingests " },
-                    { text: "DOCX, PDF, LaTeX, and plain-text", bold: true },
-                    { text: " resumes and round-trips polished drafts back to each input format." },
+                    { text: "Built a " },
+                    { text: "local-first resume tailoring platform", bold: true },
+                    { text: " that ingests DOCX, PDF, LaTeX, and plain-text resumes, tracks applications on disk, and exports polished drafts in the user's chosen format." },
                 ],
             },
             {
                 segments: [
                     { text: "Designed a " },
-                    { text: "multi-provider AI layer", bold: true },
-                    { text: " supporting " },
-                    { text: "10 backends", bold: true },
-                    { text: " (OpenAI Responses, Anthropic Messages, Gemini, OpenRouter, Groq, Together, Mistral, local Ollama) plus " },
-                    { text: "subscription-CLI providers", bold: true },
-                    { text: " (Claude Code, Codex CLI) that route through existing subscriptions instead of per-token API billing." },
+                    { text: "subscription-based AI workflow layer", bold: true },
+                    { text: " around Claude Code, Codex, Antigravity, and CLI runs, standardizing prompts, structured review outputs, error handling, and deterministic fallbacks." },
                 ],
             },
             {
                 segments: [
                     { text: "Implemented " },
-                    { text: "fit scoring", bold: true },
-                    { text: " across keyword coverage, bullet quality, structure, and concision; " },
-                    { text: "4-category keyword-gap analysis", bold: true },
-                    { text: " (experience, knowledge, required skills, technical tools); a " },
-                    { text: "before/after line-level diff", bold: true },
-                    { text: "; and a " },
-                    { text: "deterministic local rewriter", bold: true },
-                    { text: " as a fallback when AI providers fail." },
+                    { text: "fit scoring and review workflows", bold: true },
+                    { text: " across keyword coverage, bullet quality, structure, and concision, with keyword-gap analysis, recruiter-style risk flags, and apply/no-apply guidance." },
                 ],
             },
             {
                 segments: [
-                    { text: "Built a " },
-                    { text: "LaTeX export pipeline", bold: true },
-                    { text: " with three resume templates (Jake's, Awesome-CV, Deedy) supporting " },
-                    { text: "one-click Overleaf submission", bold: true },
-                    { text: " via form POST and optional local PDF compile through " },
-                    { text: "Tectonic", bold: true },
-                    { text: "; " },
-                    { text: "DOCX export preserves uploaded formatting", bold: true },
-                    { text: " through direct OpenXML paragraph edits." },
+                    { text: "Engineered " },
+                    { text: "format-preserving document pipelines", bold: true },
+                    { text: " for LaTeX and DOCX, including OpenXML paragraph edits, template-based LaTeX export, optional Tectonic PDF compile, and Overleaf submission." },
                 ],
             },
         ],
@@ -133,21 +107,21 @@ export const RESUME_EXPERIENCE = [
         bullets: [
             {
                 segments: [
-                    { text: "Collaborated directly with physicians and staff to troubleshoot " },
+                    { text: "Troubleshot " },
                     { text: "EHR, scheduling, and clinical workflow issues", bold: true },
-                    { text: " in a high-volume cardiovascular clinic." },
+                    { text: " with physicians and staff in a high-volume cardiovascular clinic." },
                 ],
             },
             {
                 segments: [
                     { text: "Led an " },
-                    { text: "Electronic Health Record (EHR) migration", bold: true },
-                    { text: ", ensuring accurate data transfer, validation, and integration with minimal disruption to daily operations." },
+                    { text: "EHR migration", bold: true },
+                    { text: ", coordinating data transfer, validation, and workflow continuity with minimal disruption." },
                 ],
             },
             {
                 segments: [
-                    { text: "Identified patient flow bottlenecks during intake and testing workflows; proposed and implemented a revised " },
+                    { text: "Identified patient-flow bottlenecks in intake and testing; proposed and implemented a revised " },
                     { text: "room-assignment process", bold: true },
                     { text: " that " },
                     { text: "reduced patient wait times by over 50%", bold: true },
@@ -158,9 +132,7 @@ export const RESUME_EXPERIENCE = [
                 segments: [
                     { text: "Designed a " },
                     { text: "Google Sheets-based scheduling workflow", bold: true },
-                    { text: " that preserved the simplicity of the clinic's existing process while enabling " },
-                    { text: "concurrent scheduling", bold: true },
-                    { text: " and improving visibility across staff." },
+                    { text: " for concurrent scheduling, improving cross-staff visibility while preserving the clinic's existing process." },
                 ],
             },
         ],
@@ -173,16 +145,16 @@ export const RESUME_EXPERIENCE = [
         bullets: [
             {
                 segments: [
-                    { text: "Reinforced " },
-                    { text: "object-oriented programming and data-structure concepts", bold: true },
-                    { text: ", improving student code quality and conceptual understanding." },
+                    { text: "Supported students on " },
+                    { text: "object-oriented programming, data structures, and Java fundamentals", bold: true },
+                    { text: " through labs, code reviews, and debugging help." },
                 ],
             },
             {
                 segments: [
                     { text: "Guided " },
-                    { text: "debugging and algorithmic problem-solving", bold: true },
-                    { text: " with a focus on efficiency, correctness, and readability." },
+                    { text: "algorithmic problem-solving", bold: true },
+                    { text: " for correctness, efficiency, and readable implementation." },
                 ],
             },
         ],
@@ -190,9 +162,10 @@ export const RESUME_EXPERIENCE = [
 ];
 
 export const RESUME_SKILLS = [
-    { label: "Languages", value: "Python, Java, C++, JavaScript, TypeScript, SQL, HTML/CSS" },
-    { label: "Frontend", value: "React, TypeScript, Vite, React Query, React Router, Tailwind CSS" },
-    { label: "Backend", value: "Django, Django REST Framework, Node.js, REST APIs, JWT + CSRF auth" },
+    { label: "Languages", value: "Python, Java, JavaScript, TypeScript, SQL, HTML/CSS" },
+    { label: "Frontend", value: "React, Vite, React Query, React Router, Tailwind CSS" },
+    { label: "Backend", value: "Django, Django REST Framework, Node.js, REST APIs, OpenAPI, JWT + CSRF auth" },
+    { label: "AI/LLM Tooling", value: "Claude Code, Codex, Antigravity, prompt engineering, agentic workflow design" },
     { label: "Data & Storage", value: "PostgreSQL, Cloudflare R2 / S3-compatible object storage" },
-    { label: "Tooling & Deployment", value: "Git, GitHub, Docker, Docker Compose, Render, Vercel, ESLint, Prettier" },
+    { label: "Tooling & Deployment", value: "Git, GitHub, Docker, Docker Compose, Render, Vercel, ESLint, Prettier, Tectonic" },
 ];

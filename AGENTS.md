@@ -202,6 +202,12 @@ abstraction.
   state of the project they describe. When updating CareFlow or RoleFit AI
   copy, cross-check the sibling repos (`../careflow/` and `../role-fit-ai/`
   README and CONTINUITY) for the current feature set.
+- The inline resume renders from `src/constants/resume.js`, which mirrors the
+  user's LaTeX resume source. Treat that resume as the source of truth for
+  resume and skills copy. When the user supplies an updated resume, mirror it
+  directly into `resume.js` and align the hero (`Main.jsx`), Skills section,
+  and Projects-card tech to match. If the resume conflicts with a sibling repo,
+  follow the user's instruction on which source wins.
 - The Projects section renders CareFlow (primary) and RoleFit AI (secondary).
   The `PROJECTS_DATA` array keeps further entries (Catch the Ball, the
   portfolio itself), but do not unhide them in the rendered section without an
@@ -323,13 +329,14 @@ Run from the project root.
 - **Deploy**: `npm run deploy` (only on explicit user instruction; publishes
   the `dist/` build to GitHub Pages and overwrites the live site)
 
-> Port `5175` is the canonical port for this project. `vite.config.js` sets
-> `strictPort: true`, so Vite will not silently switch ports. If `5175` is
-> already bound, treat that as a signal the app is already running, connect
-> to `http://localhost:5175` instead of launching another `npm run dev`, and
-> do not change the port to dodge the conflict.
-> Sibling projects: careflow uses `5173`, role-fit-ai uses `5174`. Do not
-> confuse the three.
+> Port `5184` is the canonical port for this project (reserved range
+> `5184-5185`). `vite.config.js` sets `strictPort: true`, so Vite will
+> not silently switch ports. If `5184` is already bound, treat that as a
+> signal the app is already running, connect to `http://localhost:5184`
+> instead of launching another `npm run dev`, and do not change the port
+> to dodge the conflict.
+> Sibling reservations: careflow `5173-5180`, role-fit-ai `5181-5183`.
+> Do not confuse them.
 
 Notes:
 
