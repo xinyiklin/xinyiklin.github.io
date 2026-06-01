@@ -54,6 +54,10 @@ Project claims should be cross-checked against:
 - `../role-fit-ai/README.md`
 - `../role-fit-ai/CONTINUITY.md`
 
+The inline resume (`src/constants/resume.js`) mirrors the user's LaTeX resume
+and is the source of truth for resume and skills copy. The rendered hero,
+Skills section, and Projects-card tech should stay aligned with it.
+
 Do not invent employers, dates, metrics, education, tools, or project scope.
 When a stronger claim depends on a missing fact, ask first or use a bracketed
 placeholder.

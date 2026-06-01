@@ -11,12 +11,13 @@ acting. This file adds Claude-specific behavior; when it conflicts with
 - Use `Edit` for targeted changes; reserve `Write` for new files or
   intentional full-file replacements after first reading the existing file.
 - Run commands via `Bash` from the project root. The dev server uses
-  port `5175` and `vite.config.js` sets `strictPort: true`. If `5175` is
-  already bound, the app is almost certainly already running, connect to
-  `http://localhost:5175` instead of launching another `npm run dev`, and
-  do not switch ports to sidestep the conflict.
-  Sibling projects: careflow uses `5173`, role-fit-ai uses `5174`. Do not
-  confuse the three.
+  port `5184` (reserved range `5184-5185`) and `vite.config.js` sets
+  `strictPort: true`. If `5184` is already bound, the app is almost
+  certainly already running, connect to `http://localhost:5184` instead
+  of launching another `npm run dev`, and do not switch ports to sidestep
+  the conflict.
+  Sibling reservations: careflow `5173-5180`, role-fit-ai `5181-5183`.
+  Do not confuse them.
 
 ## Visual QA
 
@@ -38,6 +39,10 @@ Note the gap in the final response if preview tooling is unavailable.
 - Do not invent project copy. Cross-check the CareFlow and RoleFit AI
   constants against the sibling repos (`../careflow/` and `../role-fit-ai/`
   README and CONTINUITY) when refreshing the Projects section.
+- The inline resume (`src/constants/resume.js`) mirrors the user's LaTeX
+  resume and is the source of truth for resume and skills copy. When the user
+  supplies an updated resume, mirror it directly; if it conflicts with a
+  sibling repo, follow the user's instruction on which source wins.
 - The Projects section renders two case studies: CareFlow (primary) and
   RoleFit AI (secondary). Other `PROJECTS_DATA` entries (Catch the Ball, the
   portfolio itself) stay in `src/constants/projects.js` but unrendered; do

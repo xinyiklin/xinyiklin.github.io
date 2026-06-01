@@ -31,5 +31,6 @@ yarn-error.log*
 # misc
 *.swp
 
-# agent workspace memory (local only)
+# agent workspace memory + local tooling (local only)
 CONTINUITY.md
+.claude/
