@@ -2,11 +2,12 @@ import { useEffect, useRef, useState } from "react";
 import { ArrowUpRight } from "lucide-react";
 import { FaGithub } from "react-icons/fa";
 import { PROJECTS_DATA } from "../constants/projects";
-import careflowSchedule from "../assets/careflow-schedule.gif";
-import careflowScheduleStill from "../assets/careflow-schedule-capture.png";
+import careflowSchedule from "../assets/careflow-schedule.png";
 import careflowPatientHub from "../assets/careflow-patient-hub.png";
 import careflowTimeline from "../assets/careflow-timeline.png";
+import careflowRefills from "../assets/careflow-refills.png";
 import careflowSecurity from "../assets/careflow-security.png";
+import rolefitPipeline from "../assets/rolefit-pipeline.png";
 
 const CAREFLOW = PROJECTS_DATA.find((p) => p.id === "careflow");
 const ROLEFIT = PROJECTS_DATA.find((p) => p.id === "role-fit-ai");
@@ -17,10 +18,9 @@ const CAREFLOW_SCENES = [
     label: "Schedule",
     title: "A schedule that thinks in facility time",
     body:
-      "Day calendar with rooms, providers, and visit blocks. Drag-to-reschedule guards, appointment heatmap, and per-day interval customization, all on facility-local time.",
+      "Day calendar with rooms, providers, visit types, operating hours, and closed-slot blocks. Appointment status chips and heatmap density stay compact enough for real queue work.",
     media: {
       src: careflowSchedule,
-      still: careflowScheduleStill,
       alt: "CareFlow schedule view with rooms, providers, and visit blocks on a day calendar",
     },
   },
@@ -29,7 +29,7 @@ const CAREFLOW_SCENES = [
     label: "Patient hub",
     title: "Patient hub with masked PII",
     body:
-      "Smart search opens to demographics, insurance, emergency contact, and care team. SSN stays masked by default; full reveal is an audited action, and the last four digits remain visible for ID workflows.",
+      "Smart search opens to demographics, insurance, emergency contacts, care team, pharmacy preferences, and security-aware tabs. SSN stays masked by default; full reveal is audited.",
     media: {
       src: careflowPatientHub,
       alt: "CareFlow patient hub showing demographics, insurance, and a masked SSN field",
@@ -40,10 +40,21 @@ const CAREFLOW_SCENES = [
     label: "Timeline",
     title: "A timeline that crosses domains",
     body:
-      "One feed across appointments, encounters, SOAP progress notes, medications, and allergies, filterable by source. Encounters carry draft and signed states with a sign and unsign workflow that emits audit events.",
+      "One feed across appointments, encounters, SOAP progress notes, medications, allergies, and message events. Encounters carry draft and signed states with audit-aware sign and unsign flows.",
     media: {
       src: careflowTimeline,
       alt: "Patient timeline aggregating appointments, encounters, progress notes, medications, and allergies",
+    },
+  },
+  {
+    id: "refills",
+    label: "Refills",
+    title: "A refill queue for clinician handoff",
+    body:
+      "Patient-initiated refill requests flow into a shared clinician inbox with source, status, prescriber, pharmacy, and approve or deny actions visible in the same workspace.",
+    media: {
+      src: careflowRefills,
+      alt: "CareFlow refill inbox with patient, pharmacy, prescriber, status, and approve or deny actions",
     },
   },
   {
@@ -51,7 +62,7 @@ const CAREFLOW_SCENES = [
     label: "Permissions",
     title: "Permissions and audit at facility scope",
     body:
-      "Org and facility admin for staff, roles, payers, pharmacies, and fee schedules, with a permission matrix at org and facility scope. Sensitive actions are flagged audited; the audit log is read-only and facility-scoped.",
+      "Org and facility admin covers staff, roles, payers, pharmacies, and fee schedules. The permission matrix flags audited actions and protects the last facility administrator path.",
     media: {
       src: careflowSecurity,
       alt: "Facility-scoped role and permission matrix with audited actions flagged per row",
@@ -183,26 +194,20 @@ function CareFlowStudy({ reduced }) {
             <span className="cs-stage-label" aria-hidden="true">
               {CAREFLOW_SCENES[activeIdx]?.label ?? `Scene ${activeIdx + 1}`}
             </span>
-            {CAREFLOW_SCENES.map((scene, i) => {
-              const src =
-                scene.id === "schedule" && reduced
-                  ? scene.media.still
-                  : scene.media.src;
-              return (
-                <img
-                  key={scene.id}
-                  src={src}
-                  alt={scene.media.alt}
-                  className={
-                    i === activeIdx
-                      ? "cs-stage-img is-active"
-                      : "cs-stage-img"
-                  }
-                  loading="lazy"
-                  aria-hidden={i !== activeIdx}
-                />
-              );
-            })}
+            {CAREFLOW_SCENES.map((scene, i) => (
+              <img
+                key={scene.id}
+                src={scene.media.src}
+                alt={scene.media.alt}
+                className={
+                  i === activeIdx
+                    ? "cs-stage-img is-active"
+                    : "cs-stage-img"
+                }
+                loading="lazy"
+                aria-hidden={i !== activeIdx}
+              />
+            ))}
           </div>
           <ol className="cs-stage-pips">
             {CAREFLOW_SCENES.map((scene, i) => (
@@ -228,10 +233,6 @@ function CareFlowStudy({ reduced }) {
         <div className="cs-scenes">
           {CAREFLOW_SCENES.map((scene, i) => {
             const isActive = i === activeIdx;
-            const src =
-              scene.id === "schedule" && reduced
-                ? scene.media.still
-                : scene.media.src;
             return (
               <article
                 ref={(el) => (sceneRefs.current[i] = el)}
@@ -242,7 +243,7 @@ function CareFlowStudy({ reduced }) {
                 <p className="cs-scene-label">{scene.label}</p>
                 <h3 className="cs-scene-title">{scene.title}</h3>
                 <figure className="cs-scene-fig">
-                  <img src={src} alt={scene.media.alt} loading="lazy" />
+                  <img src={scene.media.src} alt={scene.media.alt} loading="lazy" />
                 </figure>
                 <p className="cs-scene-body">{scene.body}</p>
               </article>
@@ -252,7 +253,7 @@ function CareFlowStudy({ reduced }) {
       </div>
 
       <div className="cs-areas">
-        <p className="cs-areas-lede">Eight feature areas, end to end.</p>
+        <p className="cs-areas-lede">Core product areas, end to end.</p>
         <ul className="cs-areas-list">
           {CAREFLOW.areas.map((area) => (
             <li key={area}>{area}</li>
@@ -323,6 +324,14 @@ function RoleFitStudy() {
           </article>
         ))}
       </div>
+
+      <figure className="cs-proof-shot">
+        <img
+          src={rolefitPipeline}
+          alt="RoleFit AI pipeline workspace with source controls, recruiter review, and application tracking"
+          loading="lazy"
+        />
+      </figure>
 
     </article>
   );

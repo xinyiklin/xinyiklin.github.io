@@ -1,60 +1,59 @@
-# Xinyi Lin — Personal Portfolio
+# Xinyi Lin Personal Portfolio
 
-A modern personal portfolio website built to showcase my projects, technical skills, and experience as a full-stack developer seeking full-time healthcare software engineering roles.
+A focused portfolio site for full-stack engineering roles with a healthcare
+software angle. The site leads with CareFlow as the primary case study, then
+uses RoleFit AI as a compact secondary build to show breadth.
 
-🌐 Live: https://xinyiklin.com  
-
----
+Live: https://xinyiklin.com
 
 ## Overview
 
-This portfolio highlights my work in full-stack development, with a focus on building practical, user-friendly applications. It features a clean UI, responsive design, and structured sections for projects, skills, and contact information.
+The portfolio is a React 18 and Vite frontend styled with hand-written CSS. It
+is content-driven: Main, About, Skills, Projects, Contacts, Navigation, and
+Footer. There is no backend, database, auth, CMS, or analytics layer.
 
----
+The Projects section renders two case studies:
+
+- CareFlow: an interactive sticky-scroll showcase using current product
+  screenshots from the sibling `../careflow` repo.
+- RoleFit AI: a quieter source-linked case study with three notes and one
+  sanitized product screenshot from `../role-fit-ai/docs/screenshot.png`.
+
+Additional entries stay in `src/constants/projects.js` for archive/reference
+use, but are intentionally not rendered.
 
 ## Tech Stack
 
-- React (Create React App)
-- Bootstrap / React-Bootstrap
-- SCSS
-- JavaScript (ES6+)
+- React 18
+- Vite
+- Hand-written CSS in `src/App.css`
+- Lucide React and React Icons
+- GitHub Pages with the custom domain in `public/CNAME`
 
----
-
-## Features
-
-- Responsive design across desktop and mobile
-- Project showcase with detailed descriptions
-- Skills section organized by category
-- Contact section with direct email integration
-- Custom domain deployment (GitHub Pages)
-
----
-
-## Featured Project
-
-### Clinic Scheduler
-
-A full-stack clinic scheduling application simulating real-world healthcare workflows.
-
-**Key Highlights:**
-- Day-view scheduler with appointment management
-- Patient search, create, and edit flows
-- Drag-and-drop rescheduling
-- Facility-based configurations
-- Role-aware data handling
-
-**Tech Stack:**
-React, Django, PostgreSQL, React Query, Tailwind CSS
-
----
-
-## Deployment
-
-This site is deployed using GitHub Pages with a custom domain.
-
-To deploy locally:
+## Commands
 
 ```bash
 npm install
-npm start
+npm run dev
+npm run build
+npm run preview
+```
+
+The canonical local dev port is `5184`; `vite.config.js` uses strict port
+binding.
+
+Do not run `npm run deploy` unless production publishing is explicitly
+requested.
+
+## Content Sources
+
+Project claims should be cross-checked against:
+
+- `../careflow/README.md`
+- `../careflow/CONTINUITY.md`
+- `../role-fit-ai/README.md`
+- `../role-fit-ai/CONTINUITY.md`
+
+Do not invent employers, dates, metrics, education, tools, or project scope.
+When a stronger claim depends on a missing fact, ask first or use a bracketed
+placeholder.

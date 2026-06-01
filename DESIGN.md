@@ -1,6 +1,6 @@
 ---
 name: Xinyi Lin Portfolio
-description: A working engineer's portfolio. CareFlow as an interactive sticky-scroll case study, RoleFit AI as a compact text-only secondary case study below.
+description: A working engineer's portfolio. CareFlow as an interactive sticky-scroll case study, RoleFit AI as a compact secondary case study with one real screenshot below.
 colors:
   operating-teal: "#0f766e"
   polish-violet: "#7c3aed"
@@ -87,17 +87,17 @@ components:
 
 **Creative North Star: "An engineer's case study, interactive"**
 
-This portfolio reads like a working engineer presenting two builds with care, not a marketing site. The Projects section is a two-tier case study. CareFlow leads as an interactive sticky-scroll showcase: a single product visual (the schedule, patient hub, timeline, or permission matrix) pins on the left while four scene blocks scroll on the right. As each scene crosses the viewport center band, the pinned visual crossfades to the matching screen. Pip pills below the visual allow click-to-jump. RoleFit AI follows below a hairline divider as a quieter, compact case study: text-only, three notes, Polish Violet accent, View source CTA only. The contrast in treatment is intentional, CareFlow earns the interactive proof; RoleFit AI signals breadth without inventing a UI it cannot honestly demo.
+This portfolio reads like a working engineer presenting two builds with care, not a marketing site. The Projects section is a two-tier case study. CareFlow leads as an interactive sticky-scroll showcase: a single product visual (schedule, patient hub, timeline, refill inbox, or permission matrix) pins on the left while five scene blocks scroll on the right. As each scene crosses the viewport center band, the pinned visual crossfades to the matching screen. Pip pills below the visual allow click-to-jump. RoleFit AI follows below a hairline divider as a quieter, compact case study: three notes, one real sanitized pipeline screenshot, Polish Violet accent, View source CTA only. The contrast in treatment is intentional, CareFlow earns the interactive proof; RoleFit AI signals breadth with a real source-backed visual.
 
 The system rejects the AI-generated SaaS landing template that flooded the internet by 2026 (purple gradients, four-card icon grids, hero metric tiles, gradient text, glass cards, Inter on white). It also rejects the editorial-magazine reflex (italic Cormorant, ruled columns, lowercase tracked metadata, drop caps) that has saturated tech brand sites. The right register is engineer-pragmatic with quiet authority and one moment of confident interactivity.
 
 **Key Characteristics:**
-- **Two case studies, one section.** CareFlow as the primary interactive showcase, RoleFit AI as a compact text-only secondary below.
-- **Sticky-scroll case study for CareFlow.** A pinned left stage swaps between four real screens as the right column scrolls through four scene blocks. IntersectionObserver drives the active index; pip pills also offer click-to-jump.
-- **Text-only case study for RoleFit AI.** No fabricated UI. Three short notes (Local-first by design, Score-polish-review, ATS-friendly export), Polish Violet top-border per note, View source CTA.
+- **Two case studies, one section.** CareFlow as the primary interactive showcase, RoleFit AI as a compact secondary with one real screenshot below.
+- **Sticky-scroll case study for CareFlow.** A pinned left stage swaps between five real screens as the right column scrolls through five scene blocks. IntersectionObserver drives the active index; pip pills also offer click-to-jump.
+- **Quiet case study for RoleFit AI.** No fabricated UI. Three short notes, one real sanitized pipeline screenshot, Polish Violet top-border per note, View source CTA.
 - **One accent per case study.** Operating Teal for CareFlow, Polish Violet for RoleFit AI. Accents are scoped to each `<article>` via `--project-accent`, never bleed across.
 - **Restrained backgrounds, committed identity.** The page is near-white. The project name, the tagline color, the sticky stage, and the primary CTA carry identity.
-- **Show, don't tell.** The CareFlow case study leads with real product visuals. RoleFit AI's copy and GitHub link carry their own weight without screenshots.
+- **Show, don't tell.** The CareFlow case study leads with real product visuals. RoleFit AI adds one real product screenshot from its source repo, without pretending it has a live demo.
 - **No invented claims.** Every spec maps to something shipping. No fake product previews for RoleFit AI.
 
 ## 2. Colors: The Operating Palette
@@ -197,9 +197,9 @@ When a button is hovered or focused, a subtle translate-Y appears. State, not st
 
 The Projects section renders two case studies in order:
 
-1. **CareFlow (primary, interactive)** — the long-form sticky-scroll showcase described below.
-2. **Hairline divider** — a 1px `var(--c-border)` rule with `clamp(3rem, 6vw, 5rem)` top and bottom margins, separating the two case studies.
-3. **RoleFit AI (secondary, text-only)** — a compact case study with no showcase. Three text notes, View source CTA only.
+1. **CareFlow (primary, interactive):** the long-form sticky-scroll showcase described below.
+2. **Hairline divider:** a 1px `var(--c-border)` rule with `clamp(3rem, 6vw, 5rem)` top and bottom margins, separating the two case studies.
+3. **RoleFit AI (secondary, compact):** a compact case study with no interactive showcase. Three text notes, one proof screenshot, View source CTA only.
 
 Each case study is wrapped in an `<article class="cs">` element that sets `--project-accent` inline. The shared `.cs-*` token vocabulary applies to both; the secondary variant uses `.cs--secondary` to scale down the headline and tagline.
 
@@ -207,25 +207,25 @@ Each case study is wrapped in an `<article class="cs">` element that sets `--pro
 
 1. **Intro.** Left-aligned, asymmetric (max 62ch). The project Name in Title scale, the tagline in `var(--project-accent)` weight 700, the description in Quiet Slate body. No eyebrow. The H2 itself is the section anchor.
 2. **Meta strip + actions.** A horizontal kv strip (`<dl>`) with three terms (Year / Role / Status) on the left, two action buttons on the right. Bounded top and bottom by 1px Hairline. The Status definition carries a pulsing accent dot when the project is live; the dot animation respects `prefers-reduced-motion`.
-3. **Showcase.** A two-column grid on `≥ lg`. The left column is a sticky stage (`position: sticky; top: 92px`) containing a `1.86:1` aspect-ratio frame with all scene screenshots stacked at the same coordinates, only the active one at opacity 1. Below the frame, a row of pip pills (one per scene) acts as a tablist; clicking a pip calls `setActiveIdx(idx)` and `scrollIntoView({ block: 'center' })`. The right column scrolls through scene blocks; an IntersectionObserver with `rootMargin: '-40% 0px -40% 0px'` flips the active index as each scene crosses the viewport center band. On `< lg` the sticky stage is hidden; each scene renders an inline figure instead.
-4. **Feature index.** A short typographic grid listing all eight feature areas, no icons, no cards, no hairlines per item. Lede "Eight feature areas, end to end." then a 4-column grid on `≥ md` (2-column on tablet, 1-column on mobile).
+3. **Showcase.** A two-column grid on `≥ lg`. The left column is a sticky stage (`position: sticky; top: 92px`) containing a `1.86:1` aspect-ratio frame with all scene screenshots stacked at the same coordinates, only the active one at opacity 1. Below the frame, a row of pip pills (one per scene) acts as a scene switcher; clicking a pip calls `setActiveIdx(idx)` and `scrollIntoView({ block: 'center' })`. The right column scrolls through scene blocks; an IntersectionObserver with `rootMargin: '-40% 0px -40% 0px'` flips the active index as each scene crosses the viewport center band. On `< lg` the sticky stage is hidden; each scene renders an inline figure instead.
+4. **Feature index.** A short typographic grid listing core product areas, no icons, no cards, no hairlines per item. Lede "Core product areas, end to end." then a 4-column grid on `≥ md` (2-column on tablet, 1-column on mobile).
 5. **Stack strip.** A single line. Label "STACK" in Quiet Slate, then the tech list as a plain comma-separated sentence in Chart Ink. No pill grid.
 
 ### Sticky Stage and Scenes
 
 - **Stage frame.** `aspect-ratio: 1.86 / 1`, Specimen White background, Hairline border, `var(--radius-lg)` corners, a soft accent-tinted halo at two opposite corners via `::before`, shadow-sm + a 50px ambient drop.
-- **Stage images.** All four scene screenshots are positioned absolutely in the same frame. The active one has `opacity: 1` and `transform: scale(1)`; inactives have `opacity: 0` and `transform: scale(1.012)`. Transition: `opacity 0.5s ease, transform 0.7s ease`. Under reduced motion this collapses to a 0.15s linear opacity fade with no transform.
-- **Schedule still fallback.** The schedule scene uses an animated gif by default and swaps to a static screenshot capture under `prefers-reduced-motion`. The swap is driven in React, not CSS.
-- **Pip pills.** Specimen White at rest with a Hairline border and Quiet Slate text. On hover: Chart Ink border and Chart Ink text plus a 1px translateY lift. When active: accent-tinted background, accent border, and accent text via `color-mix`. Buttons carry `role="tab"` and `aria-selected`.
-- **Stage label.** A small mono-cased badge in the bottom-left of the frame (e.g., "02 OF 04"), Beacon Teal text on a translucent dark backdrop. Tabular nums. Updates with the active index.
+- **Stage images.** All five scene screenshots are positioned absolutely in the same frame. The active one has `opacity: 1` and `transform: scale(1)`; inactives have `opacity: 0` and `transform: scale(1.012)`. Transition: `opacity 0.5s ease, transform 0.7s ease`. Under reduced motion this collapses to a 0.15s linear opacity fade with no transform.
+- **Pip pills.** Specimen White at rest with a Hairline border and Quiet Slate text. On hover: Chart Ink border and Chart Ink text plus a 1px translateY lift. When active: accent-tinted background, accent border, and accent text via `color-mix`. Buttons carry `aria-current` for the active scene.
+- **Stage label.** A small badge in the bottom-left of the frame names the active scene. It updates with the active index.
 - **Scenes.** Each scene is at least 68vh tall on desktop (3rem padding) so the IntersectionObserver activation band has enough runway to land on exactly one scene at a time. Inactive scenes drop to `opacity: 0.32`; active jumps to 1 via a 0.45s ease transition. On `< lg`, all scenes stay at opacity 1 since the visual cue is absent.
 
-#### Secondary case study (RoleFit AI), four vertical regions:
+#### Secondary case study (RoleFit AI), five vertical regions:
 
 1. **Intro.** Same layout pattern as CareFlow but smaller. Name at `clamp(2rem, 4.4vw, 3.25rem)`, tagline at `clamp(1rem, 1.6vw, 1.2rem)`. Polish Violet accent.
 2. **Meta strip + actions.** Same three-term `<dl>` (Year / Role / Status). Status reads "Source available" in Chart Ink (no pulsing dot, since there is no live demo). Only one action button: "View source" in Polish Violet, full-width on mobile.
-3. **Notes.** Three text-only notes in a 3-column grid at `≥ md` (1-column below). Each note has a 2px Polish Violet top border, a Subtitle, and a body paragraph. No images. The top border is the per-note brand commitment beat.
-4. **Stack strip.** Identical to CareFlow's: "STACK" label + tech as a plain comma sentence.
+3. **Notes.** Three text notes in a 3-column grid at `≥ md` (1-column below). Each note has a 2px Polish Violet top border, a Subtitle, and a body paragraph. The top border is the per-note brand commitment beat.
+4. **Proof screenshot.** One real sanitized pipeline screenshot from the RoleFit AI repo, framed as a quiet proof image below the notes. No carousel, no overlays, no invented UI.
+5. **Stack strip.** Identical to CareFlow's: "STACK" label + tech as a plain comma sentence.
 
 The secondary case study deliberately has no `.cs-showcase`, no `.cs-areas` feature index, and no live demo button. It says less because it has less to honestly show. The contrast in treatment between the two case studies is itself the design signal: the candidate knows when to commit and when to restrain.
 
@@ -245,16 +245,16 @@ The secondary case study deliberately has no `.cs-showcase`, no `.cs-areas` feat
 ## 6. Do's and Don'ts
 
 ### Do:
-- **Do** lead the primary case study with real product visuals (real screenshots, the real schedule gif, real product copy from the live demo).
+- **Do** lead the primary case study with real product visuals and real product copy from the live demo.
 - **Do** keep one accent per case study, scoped to its `<article>` via `--project-accent`. Operating Teal for CareFlow; Polish Violet for RoleFit AI. No accent rotation between scenes, no accent bleeding between case studies.
-- **Do** keep the secondary case study deliberately quieter: text-only notes, no showcase, no live demo CTA, smaller heading scale. Restraint is the right move when there is no shippable UI to honestly demo.
+- **Do** keep the secondary case study deliberately quieter: three notes, one real screenshot, no interactive showcase, no live demo CTA, smaller heading scale. Restraint is the right move when there is no public live demo.
 - **Do** use `color-mix(in oklch, var(--project-accent) X%, ...)` for status pill, pip pill, and stage halo. The recipe scales to any future project accent.
 - **Do** keep neutrals tinted toward teal. Drafting Paper (`#f5f9fc`) is the right base; never `#fff` or `#000`.
 - **Do** use ≥1.25 ratios between Headline, Title, Subtitle, Body, Label. Flat scales read as uncommitted.
 - **Do** cap body line length at 60ch. Wider lines lose recruiters fast.
 - **Do** ration eyebrows: maximum 1 per 3 sections across the whole page. The case study itself carries zero eyebrows; the H2 project name anchors the section.
-- **Do** respect `prefers-reduced-motion` for hero animation, stage-image crossfades, the schedule gif (swap to a static still), and smooth-scroll on pip click (degrade to instant).
-- **Do** size the schedule gif so it renders at or below its native 960px width. The sticky stage frame keeps the gif sharp; never let it stretch across the full container.
+- **Do** respect `prefers-reduced-motion` for hero animation, stage-image crossfades, and smooth-scroll on pip click (degrade to instant).
+- **Do** size project screenshots so they render crisply inside the sticky stage and proof frame; never stretch them across the full container without constraints.
 
 ### Don't:
 - **Don't** ever use the em-dash character (`,` or `:` is the replacement) anywhere user-visible: headlines, taglines, blurbs, eyebrows, status pills, button labels, captions, alt text. Also no en-dash as a separator. The em-dash is the single most-violated AI tell.
@@ -272,4 +272,4 @@ The secondary case study deliberately has no `.cs-showcase`, no `.cs-areas` feat
 - **Don't** apply bounce or elastic easings. Ease-out exponential curves only.
 - **Don't** repeat identical card grids (four cards, same size, icon + heading + body). If a layout starts looking like a SaaS feature row, restructure.
 - **Don't** add `window.addEventListener("scroll", ...)` to drive the sticky-scroll active index. Use IntersectionObserver instead. The click handler on each pip pill provides a direct, scroll-independent path to switch scenes.
-- **Don't** stretch the schedule gif past its native 960px width. The sticky stage frame keeps it at or below 600px wide, which keeps it sharp on Retina displays.
+- **Don't** stretch source screenshots beyond the stage or proof frame constraints.

@@ -28,14 +28,15 @@ reader read every line.
 
 The Projects section is a two-tier case study. CareFlow leads as an
 interactive sticky-scroll showcase: a single pinned product visual on the
-left swaps between four real screens as the reader scrolls four scenes on
-the right. RoleFit AI follows below a hairline divider as a compact,
-text-only case study (Polish Violet accent, three notes, View source CTA
-only, no live demo). The contrast in treatment is intentional: CareFlow is
-the proof; RoleFit AI is the signal that more than one shipped build lives
-in the catalogue. The interactive showcase itself is part of the proof: the
-candidate ships frontend interactions, not just static pages. Success is
-qualified inbound for full-time software engineering roles.
+left swaps between five real screens as the reader scrolls five scenes on
+the right. RoleFit AI follows below a hairline divider as a compact
+secondary case study with three notes, one real sanitized product screenshot,
+a Polish Violet accent, a View source CTA, and no live demo CTA. The contrast
+in treatment is intentional: CareFlow is the primary proof; RoleFit AI is the
+signal that more than one shipped build lives in the catalogue. The
+interactive showcase itself is part of the proof: the candidate ships
+frontend interactions, not just static pages. Success is qualified inbound
+for full-time software engineering roles.
 
 This is a brand surface, not an app. Design IS the product. The visitor's
 impression is the deliverable.
@@ -109,7 +110,8 @@ project unless an explicit brand reason overrides them.
 ## Design Principles
 
 1. **Show, don't tell.** The case study leads with real product visuals (the
-   schedule gif, the patient hub, the timeline, the permission matrix).
+   schedule, patient hub, timeline, refill inbox, permission matrix, and
+   RoleFit pipeline screenshot).
    Copy supports the visual, not the other way around.
 2. **Interaction is part of the proof.** The CareFlow case study is a
    sticky-scroll showcase. As the reader scrolls scene text on the right,
@@ -118,9 +120,9 @@ project unless an explicit brand reason overrides them.
    is evidence the candidate ships frontend work.
 3. **Truthful claims only.** Every spec corresponds to something that is
    actually shipped. No fabricated outcomes, no "10x" copy, no inflated tech
-   stack lists. If a feature is not in the live demo, it is not in the
-   write-up. RoleFit AI carries no fabricated screenshots; it earns its
-   place through copy and the GitHub link alone.
+   stack lists. If a feature is not in the live demo or the source repo, it
+   is not in the write-up. RoleFit AI uses its real sanitized pipeline
+   screenshot from the source repo, not a fabricated preview.
 4. **One commitment per case study.** CareFlow commits to Operating Teal;
    RoleFit AI commits to Polish Violet. Each case study uses its accent
    end to end (tagline, status, primary CTA, note dividers). Accents do
@@ -141,11 +143,11 @@ Default target: WCAG 2.1 AA.
   backgrounds at the sizes they appear.
 - All actionable elements are keyboard-reachable and have visible focus
   states. Tab order follows the visual reading order. Pip pills in the
-  sticky-scroll case study are real buttons with `role="tab"` and
-  `aria-selected`; clicking jumps to the matching scene.
-- The scheduling demo gif swaps to a static still under
-  `prefers-reduced-motion`. Stage-frame crossfades collapse to a 0.15s
-  linear fade. Smooth-scroll on pip click degrades to instant scroll.
+  sticky-scroll case study are real buttons with `aria-current` on the active
+  scene; clicking jumps to the matching scene.
+- Stage-frame crossfades collapse to a 0.15s linear fade under
+  `prefers-reduced-motion`. Smooth-scroll on pip click degrades to instant
+  scroll.
 - Hash-based navigation (`#projects`, `#about`, etc.) preserves history and
   works with screen-reader skip links.
 - Alt text on every project screenshot is specific to what is shown, not a
