@@ -62,7 +62,6 @@ function Skills() {
         <section id="skills" className="section-panel section-panel-muted">
             <div className="container">
                 <div className="section-intro text-center mb-5">
-                    <p className="section-eyebrow mb-2">Stack</p>
                     <h2 className="mb-2">Core Skills</h2>
                     <p className="text-muted mb-0">
                         Tools I use to build usable full-stack applications.

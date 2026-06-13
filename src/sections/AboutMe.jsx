@@ -24,7 +24,6 @@ function AboutMe() {
         <section id="about" className="section-panel section-panel-white">
             <div className="container">
                 <div className="section-intro text-center mb-5">
-                    <p className="section-eyebrow mb-2">About</p>
                     <h2 className="mb-2">Who I Am</h2>
                     <p className="text-muted mb-0">
                         Practical software for healthcare teams.

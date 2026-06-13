@@ -87,14 +87,14 @@ components:
 
 **Creative North Star: "An engineer's case study, interactive"**
 
-This portfolio reads like a working engineer presenting two builds with care, not a marketing site. The Projects section is a two-tier case study. CareFlow leads as an interactive sticky-scroll showcase: a single product visual (schedule, patient hub, timeline, refill inbox, or permission matrix) pins on the left while five scene blocks scroll on the right. As each scene crosses the viewport center band, the pinned visual crossfades to the matching screen. Pip pills below the visual allow click-to-jump. RoleFit AI follows below a hairline divider as a quieter, compact case study: three notes, one real sanitized pipeline screenshot, Polish Violet accent, View source CTA only. The contrast in treatment is intentional, CareFlow earns the interactive proof; RoleFit AI signals breadth with a real source-backed visual.
+This portfolio reads like a working engineer presenting two builds with care, not a marketing site. The Projects section is a two-tier case study. CareFlow leads as an interactive sticky-scroll showcase: a single product visual (schedule, patient hub, timeline, refill inbox, or permission matrix) pins on the left while five scene blocks scroll on the right. As each scene crosses the viewport center band, the pinned visual crossfades to the matching screen. Pip pills below the visual allow click-to-jump. RoleFit AI follows below a hairline divider as a quieter, compact case study: three notes, one real resume-workspace screenshot (the app's drafting-desk UI with demo starter data), Polish Violet accent, View source CTA only. The contrast in treatment is intentional, CareFlow earns the interactive proof; RoleFit AI signals breadth with a real source-backed visual.
 
 The system rejects the AI-generated SaaS landing template that flooded the internet by 2026 (purple gradients, four-card icon grids, hero metric tiles, gradient text, glass cards, Inter on white). It also rejects the editorial-magazine reflex (italic Cormorant, ruled columns, lowercase tracked metadata, drop caps) that has saturated tech brand sites. The right register is engineer-pragmatic with quiet authority and one moment of confident interactivity.
 
 **Key Characteristics:**
 - **Two case studies, one section.** CareFlow as the primary interactive showcase, RoleFit AI as a compact secondary with one real screenshot below.
 - **Sticky-scroll case study for CareFlow.** A pinned left stage swaps between five real screens as the right column scrolls through five scene blocks. IntersectionObserver drives the active index; pip pills also offer click-to-jump.
-- **Quiet case study for RoleFit AI.** No fabricated UI. Three short notes, one real sanitized pipeline screenshot, Polish Violet top-border per note, View source CTA.
+- **Quiet case study for RoleFit AI.** No fabricated UI. Three short notes, one real resume-workspace screenshot (demo starter data), Polish Violet top-border per note, View source CTA.
 - **One accent per case study.** Operating Teal for CareFlow, Polish Violet for RoleFit AI. Accents are scoped to each `<article>` via `--project-accent`, never bleed across.
 - **Restrained backgrounds, committed identity.** The page is near-white. The project name, the tagline color, the sticky stage, and the primary CTA carry identity.
 - **Show, don't tell.** The CareFlow case study leads with real product visuals. RoleFit AI adds one real product screenshot from its source repo, without pretending it has a live demo.
@@ -149,7 +149,7 @@ A two-accent system over a near-white drafting surface. Accents stay rare and pr
 - **Subtitle** (800, `clamp(1.25rem, 2vw, 1.6rem)`, line-height 1.2, tracking -0.01em): the note titles inside a case study ("Patient hub with masked PII by default").
 - **Tagline** (700, `1.02rem`, line-height 1.5): the one-line positioning under each project name, in the project accent color.
 - **Body** (400, `1rem`, line-height 1.7): blurbs, note bodies, about-section copy. Max line length 60ch.
-- **Label** (800, `0.78rem`, tracking 0.16em, uppercase): section eyebrows ("PROJECTS", "ABOUT", "STACK", "TECH"). Rationed: maximum 1 eyebrow per 3 sections across the page. Never used as a section-numbering or section-categorizing label inside a case study.
+- **Label** (800, `0.78rem`, tracking 0.16em, uppercase): the hero kicker and the nav labels. Rationed: maximum 1 section eyebrow per 3 sections across the page; the About and Skills sections carry none (their H2 anchors the section), so the hero kicker is the page's single eyebrow. Never used as a section-numbering or section-categorizing label inside a case study.
 
 ### Named Rules
 
@@ -224,7 +224,7 @@ Each case study is wrapped in an `<article class="cs">` element that sets `--pro
 1. **Intro.** Same layout pattern as CareFlow but smaller. Name at `clamp(2rem, 4.4vw, 3.25rem)`, tagline at `clamp(1rem, 1.6vw, 1.2rem)`. Polish Violet accent.
 2. **Meta strip + actions.** Same three-term `<dl>` (Year / Role / Status). Status reads "Source available" in Chart Ink (no pulsing dot, since there is no live demo). Only one action button: "View source" in Polish Violet, full-width on mobile.
 3. **Notes.** Three text notes in a 3-column grid at `≥ md` (1-column below). Each note has a 2px Polish Violet top border, a Subtitle, and a body paragraph. The top border is the per-note brand commitment beat.
-4. **Proof screenshot.** One real sanitized pipeline screenshot from the RoleFit AI repo, framed as a quiet proof image below the notes. No carousel, no overlays, no invented UI.
+4. **Proof screenshot.** One real screenshot of the RoleFit AI resume workspace, captured from the live app with demo starter data, framed as a quiet proof image below the notes. No carousel, no overlays, no invented UI.
 5. **Stack strip.** Identical to CareFlow's: "STACK" label + tech as a plain comma sentence.
 
 The secondary case study deliberately has no `.cs-showcase`, no `.cs-areas` feature index, and no live demo button. It says less because it has less to honestly show. The contrast in treatment between the two case studies is itself the design signal: the candidate knows when to commit and when to restrain.
@@ -238,9 +238,9 @@ The secondary case study deliberately has no `.cs-showcase`, no `.cs-areas` feat
 
 ### Navigation
 
-- **Style:** transparent over hero, transitioning via `--nav-progress` to a frosted Specimen-White-tinted bar with backdrop-filter blur when scrolled.
-- **Typography:** brand name 800, nav links 700, all in Chart Ink.
-- **States:** active link hover is Operating Teal; resume CTA is a Specimen-White-tinted button with Hard Edge border.
+- **Style:** a fixed, centered dot constellation. The section links sit in a frosted translucent-white pill (`backdrop-filter` blur, hairline border, soft shadow), with the brand wordmark on the left and the Resume CTA on the right. Always present, not a full-width bar.
+- **Typography:** brand name 800, nav labels 700, all in Chart Ink.
+- **States:** the active dot and hover are Operating Teal; each dot reveals its section label on hover or focus; the Resume CTA is a Chart Ink pill button with white text.
 
 ## 6. Do's and Don'ts
 

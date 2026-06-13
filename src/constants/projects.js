@@ -85,22 +85,22 @@ export const PROJECTS_DATA = [
     status: "Source available",
     accent: "#7c3aed",
     description:
-      "A local-first web app that imports a job posting, tailors a workspace resume, scores the draft against the target role, and exports to LaTeX, DOCX, or PDF without storing personal data in a hosted app. AI is optional; deterministic local scoring and rewrite paths keep the workflow usable offline.",
+      "A local-first web app for tailoring a resume to a specific role without inventing experience. Import a job posting by paste or link, edit and tailor a base resume in a structured editor, score the draft with recruiter-style review, then export to LaTeX, DOCX, or PDF and track the application on disk. AI is optional; deterministic local scoring and rewrite paths keep the core workflow usable offline.",
     notes: [
       {
         title: "Local-first by design",
         body:
-          "Paste a job link or description, then auto-load a base resume from a local workspace that reads DOCX, PDF, LaTeX, Markdown, CSV, or plain text. Personal data and the pipeline tracker stay on disk; API keys stay server-side.",
+          "Import a job posting by paste or link, then tailor a base resume loaded from a local workspace that reads DOCX, LaTeX, Markdown, CSV, or text. Personal data, API keys, and the application tracker stay on the machine, and a scraped job link is kept for tracking only, never sent to the model.",
       },
       {
         title: "Score and review like a recruiter",
         body:
-          "Scores keyword fit, bullet quality, and structure, then runs a four-category keyword-gap analysis and strict review with a verdict, risk flags, recommendation, and targeted bullet rewrites.",
+          "A structured editor tailors the resume section by section while scoring keyword fit, bullet quality, and structure. A four-category keyword-gap analysis and strict review return a verdict band, base versus tailored fit scores, interview risk flags, targeted bullet rewrites, and an apply or edit-first call.",
       },
       {
-        title: "Subscription AI, export anywhere",
+        title: "Subscription AI, export and track",
         body:
-          "Runs a subscription-based AI workflow built on Claude Code, Codex, and Antigravity, with deterministic local fallbacks. Export options include three LaTeX templates, one-click Overleaf, optional Tectonic PDF compile, clean ATS PDF, and format-preserving DOCX.",
+          "The default AI path runs through a Claude Code subscription, with Codex and Antigravity CLI options and hosted API backends behind one interface, plus deterministic local fallbacks. Export through a LaTeX pipeline with optional Tectonic PDF, a clean ATS PDF, or format-preserving DOCX, then log each application in a table, board, or calendar tracker.",
       },
     ],
     tech: ["React 19", "TypeScript", "Vite", "Node.js", "Claude Code", "Codex", "Antigravity", "LaTeX"],

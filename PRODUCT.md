@@ -30,7 +30,8 @@ The Projects section is a two-tier case study. CareFlow leads as an
 interactive sticky-scroll showcase: a single pinned product visual on the
 left swaps between five real screens as the reader scrolls five scenes on
 the right. RoleFit AI follows below a hairline divider as a compact
-secondary case study with three notes, one real sanitized product screenshot,
+secondary case study with three notes, one real product screenshot of the
+resume workspace (the app's drafting-desk UI shown with demo starter data),
 a Polish Violet accent, a View source CTA, and no live demo CTA. The contrast
 in treatment is intentional: CareFlow is the primary proof; RoleFit AI is the
 signal that more than one shipped build lives in the catalogue. The
@@ -111,7 +112,7 @@ project unless an explicit brand reason overrides them.
 
 1. **Show, don't tell.** The case study leads with real product visuals (the
    schedule, patient hub, timeline, refill inbox, permission matrix, and
-   RoleFit pipeline screenshot).
+   RoleFit resume-workspace screenshot).
    Copy supports the visual, not the other way around.
 2. **Interaction is part of the proof.** The CareFlow case study is a
    sticky-scroll showcase. As the reader scrolls scene text on the right,
@@ -121,8 +122,9 @@ project unless an explicit brand reason overrides them.
 3. **Truthful claims only.** Every spec corresponds to something that is
    actually shipped. No fabricated outcomes, no "10x" copy, no inflated tech
    stack lists. If a feature is not in the live demo or the source repo, it
-   is not in the write-up. RoleFit AI uses its real sanitized pipeline
-   screenshot from the source repo, not a fabricated preview.
+   is not in the write-up. RoleFit AI uses a real screenshot of its resume
+   workspace, captured from the live app with demo starter data, not a
+   fabricated preview.
 4. **One commitment per case study.** CareFlow commits to Operating Teal;
    RoleFit AI commits to Polish Violet. Each case study uses its accent
    end to end (tagline, status, primary CTA, note dividers). Accents do

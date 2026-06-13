@@ -38,7 +38,7 @@ function Contacts() {
             Open to work
           </span>
 
-          <h2 className="contact-heading">Let's Work Together</h2>
+          <h2 className="contact-heading">Let’s Work Together</h2>
 
           <p className="contact-sub">
             Open to full-time software engineering roles and willing to
