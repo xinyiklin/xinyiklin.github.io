@@ -17,7 +17,8 @@ The Projects section renders two case studies:
 - CareFlow: an interactive sticky-scroll showcase using current product
   screenshots from the sibling `../careflow` repo.
 - RoleFit AI: a quieter source-linked case study with three notes and one
-  sanitized product screenshot from `../role-fit-ai/docs/screenshot.png`.
+  product screenshot of the resume workspace (the app's drafting-desk UI shown
+  with demo starter data) in `src/assets/rolefit-workspace.png`.
 
 Additional entries stay in `src/constants/projects.js` for archive/reference
 use, but are intentionally not rendered.
@@ -55,8 +56,10 @@ Project claims should be cross-checked against:
 - `../role-fit-ai/CONTINUITY.md`
 
 The inline resume (`src/constants/resume.js`) mirrors the user's LaTeX resume
-and is the source of truth for resume and skills copy. The rendered hero,
-Skills section, and Projects-card tech should stay aligned with it.
+(currently RoleFit AI's general SDE resume,
+`../role-fit-ai/job-search-workspace/base-resume-general-sde.tex`) and is the
+source of truth for resume and skills copy. The rendered hero, Skills section,
+and Projects-card tech should stay aligned with it.
 
 Do not invent employers, dates, metrics, education, tools, or project scope.
 When a stronger claim depends on a missing fact, ask first or use a bracketed

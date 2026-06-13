@@ -7,7 +7,7 @@ import careflowPatientHub from "../assets/careflow-patient-hub.png";
 import careflowTimeline from "../assets/careflow-timeline.png";
 import careflowRefills from "../assets/careflow-refills.png";
 import careflowSecurity from "../assets/careflow-security.png";
-import rolefitPipeline from "../assets/rolefit-pipeline.png";
+import rolefitWorkspace from "../assets/rolefit-workspace.png";
 
 const CAREFLOW = PROJECTS_DATA.find((p) => p.id === "careflow");
 const ROLEFIT = PROJECTS_DATA.find((p) => p.id === "role-fit-ai");
@@ -327,8 +327,8 @@ function RoleFitStudy() {
 
       <figure className="cs-proof-shot">
         <img
-          src={rolefitPipeline}
-          alt="RoleFit AI pipeline workspace with source controls, recruiter review, and application tracking"
+          src={rolefitWorkspace}
+          alt="RoleFit AI resume workspace showing the structured editor, section tailoring toggles, and the export toolbar"
           loading="lazy"
         />
       </figure>
