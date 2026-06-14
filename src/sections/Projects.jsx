@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { ArrowUpRight } from "lucide-react";
 import { FaGithub } from "react-icons/fa";
+import { useInView, useReducedMotion, useTilt } from "../hooks/useMotion";
 import { PROJECTS_DATA } from "../constants/projects";
 import careflowSchedule from "../assets/careflow-schedule.png";
 import careflowPatientHub from "../assets/careflow-patient-hub.png";
@@ -70,21 +71,11 @@ const CAREFLOW_SCENES = [
   },
 ];
 
-function useReducedMotion() {
-  const [reduced, setReduced] = useState(false);
-  useEffect(() => {
-    const mq = window.matchMedia("(prefers-reduced-motion: reduce)");
-    const sync = () => setReduced(mq.matches);
-    sync();
-    mq.addEventListener("change", sync);
-    return () => mq.removeEventListener("change", sync);
-  }, []);
-  return reduced;
-}
-
 function CareFlowStudy({ reduced }) {
   const [activeIdx, setActiveIdx] = useState(0);
   const sceneRefs = useRef([]);
+  const [revealRef, revealed] = useInView();
+  const stageTilt = useTilt(reduced, { max: 9, axisRatio: 1.1, scale: 1.02 });
 
   useEffect(() => {
     const els = sceneRefs.current.filter(Boolean);
@@ -118,7 +109,8 @@ function CareFlowStudy({ reduced }) {
 
   return (
     <article
-      className="cs cs--primary"
+      ref={revealRef}
+      className={revealed ? "cs cs--primary is-revealed" : "cs cs--primary"}
       style={{ "--project-accent": CAREFLOW.accent }}
       id="project-careflow"
     >
@@ -190,8 +182,16 @@ function CareFlowStudy({ reduced }) {
           className="cs-stage"
           aria-label="CareFlow product screenshots, current view changes with scroll"
         >
-          <div className="cs-stage-frame">
+          <div
+            className="cs-stage-frame"
+            ref={stageTilt.ref}
+            onPointerMove={stageTilt.onPointerMove}
+            onPointerLeave={stageTilt.onPointerLeave}
+          >
             <span className="cs-stage-label" aria-hidden="true">
+              <span className="cs-stage-count">
+                {String(activeIdx + 1).padStart(2, "0")} / {String(CAREFLOW_SCENES.length).padStart(2, "0")}
+              </span>
               {CAREFLOW_SCENES[activeIdx]?.label ?? `Scene ${activeIdx + 1}`}
             </span>
             {CAREFLOW_SCENES.map((scene, i) => (
@@ -208,6 +208,14 @@ function CareFlowStudy({ reduced }) {
                 aria-hidden={i !== activeIdx}
               />
             ))}
+          </div>
+          <div className="cs-stage-progress" aria-hidden="true">
+            <span
+              className="cs-stage-progress-fill"
+              style={{
+                "--p": `${(activeIdx / (CAREFLOW_SCENES.length - 1)) * 100}%`,
+              }}
+            />
           </div>
           <ol className="cs-stage-pips">
             {CAREFLOW_SCENES.map((scene, i) => (
@@ -265,10 +273,13 @@ function CareFlowStudy({ reduced }) {
   );
 }
 
-function RoleFitStudy() {
+function RoleFitStudy({ reduced }) {
+  const [revealRef, revealed] = useInView();
+  const proofTilt = useTilt(reduced, { max: 6, axisRatio: 1, scale: 1.05 });
   return (
     <article
-      className="cs cs--secondary"
+      ref={revealRef}
+      className={revealed ? "cs cs--secondary is-revealed" : "cs cs--secondary"}
       style={{ "--project-accent": ROLEFIT.accent }}
       id="project-rolefit"
     >
@@ -325,7 +336,12 @@ function RoleFitStudy() {
         ))}
       </div>
 
-      <figure className="cs-proof-shot">
+      <figure
+        className="cs-proof-shot"
+        ref={proofTilt.ref}
+        onPointerMove={proofTilt.onPointerMove}
+        onPointerLeave={proofTilt.onPointerLeave}
+      >
         <img
           src={rolefitWorkspace}
           alt="RoleFit AI resume workspace showing the structured editor, section tailoring toggles, and the export toolbar"
@@ -345,7 +361,7 @@ function Projects() {
       <div className="container">
         <CareFlowStudy reduced={reduced} />
         <hr className="cs-divider" />
-        <RoleFitStudy />
+        <RoleFitStudy reduced={reduced} />
       </div>
     </section>
   );

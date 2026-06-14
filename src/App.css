@@ -739,19 +739,82 @@ section { scroll-margin-top: 72px; }
 .about-fact strong { color: var(--c-text); line-height: 1.35; font-size: 0.93rem; }
 
 /* Skills */
+/* Outer card is the perspective container + scroll-reveal target; the visual
+   surface lives on .skill-card-inner so the reveal transform (outer) and the
+   3D tilt transform (inner) never collide. */
 .skill-card {
+    opacity: 0;
+    perspective: 800px;
+    transform: translateY(24px);
+    transition: opacity 0.6s cubic-bezier(0.22, 1, 0.36, 1),
+                transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.skills-grid.is-revealed .skill-card {
+    opacity: 1;
+    transform: none;
+}
+
+.skills-grid.is-revealed .skill-card:nth-child(2) { transition-delay: 0.08s; }
+.skills-grid.is-revealed .skill-card:nth-child(3) { transition-delay: 0.16s; }
+.skills-grid.is-revealed .skill-card:nth-child(4) { transition-delay: 0.24s; }
+
+.skill-card-inner {
     background: var(--c-surface);
     border: 1px solid var(--c-border-hard);
     border-radius: var(--radius-lg);
     box-shadow: var(--shadow-sm);
+    height: 100%;
+    overflow: hidden;
     padding: 1.6rem;
-    transition: border-color var(--transition), box-shadow var(--transition), transform var(--transition);
+    position: relative;
+    transform:
+        rotateX(var(--tilt-x, 0deg))
+        rotateY(var(--tilt-y, 0deg))
+        scale(var(--tilt-scale, 1));
+    transition: border-color var(--transition),
+                box-shadow 0.3s cubic-bezier(0.22, 1, 0.36, 1),
+                transform 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+    will-change: transform;
 }
 
-.skill-card:hover {
+.skill-card-inner:hover {
     border-color: var(--c-accent);
     box-shadow: 0 0 0 1px var(--c-accent), var(--shadow-md);
-    transform: translateY(-3px);
+}
+
+/* Accent-tinted cursor glow; sits above the card surface but below content */
+.skill-card-inner::after {
+    background: radial-gradient(
+        circle at var(--glow-x, 50%) var(--glow-y, 0%),
+        color-mix(in oklch, var(--c-accent) 18%, transparent),
+        transparent 50%
+    );
+    border-radius: inherit;
+    content: "";
+    inset: 0;
+    opacity: 0;
+    pointer-events: none;
+    position: absolute;
+    transition: opacity 0.3s ease;
+    z-index: 1;
+}
+
+.skill-card-inner:hover::after { opacity: 1; }
+
+.skill-card-inner > * { position: relative; z-index: 2; }
+
+@media (prefers-reduced-motion: reduce) {
+    .skill-card {
+        opacity: 1;
+        transform: none;
+        transition: none;
+    }
+    .skill-card-inner {
+        transform: none;
+        transition: border-color var(--transition), box-shadow var(--transition);
+    }
+    .skill-card-inner::after { display: none; }
 }
 
 .skill-icon-row { min-height: 36px; }
@@ -1175,6 +1238,52 @@ footer a:hover { color: var(--c-accent-deep) !important; }
     isolation: isolate;
     overflow: hidden;
     position: relative;
+    /* Pointer-driven 3D tilt; vars set inline from Projects.jsx (useTilt) */
+    transform:
+        perspective(900px)
+        rotateX(var(--tilt-x, 0deg))
+        rotateY(var(--tilt-y, 0deg))
+        scale(var(--tilt-scale, 1));
+    transform-style: preserve-3d;
+    transition: transform 0.3s cubic-bezier(0.22, 1, 0.36, 1),
+                box-shadow 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+    will-change: transform;
+}
+
+.cs-stage-frame:hover {
+    box-shadow:
+        0 1px 0 rgba(255, 255, 255, 0.55) inset,
+        0 1px 3px rgba(15, 42, 61, 0.04),
+        0 28px 70px rgba(15, 42, 61, 0.18);
+}
+
+/* Cursor-following sheen, lights up only while the pointer is over the frame */
+.cs-stage-frame::after {
+    background: radial-gradient(
+        circle at var(--glow-x, 50%) var(--glow-y, 0%),
+        rgba(255, 255, 255, 0.38),
+        transparent 42%
+    );
+    content: "";
+    inset: 0;
+    mix-blend-mode: screen;
+    opacity: 0;
+    pointer-events: none;
+    position: absolute;
+    transition: opacity 0.3s ease;
+    z-index: 2;
+}
+
+.cs-stage-frame:hover::after {
+    opacity: 1;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .cs-stage-frame {
+        transform: none;
+        transition: none;
+    }
+    .cs-stage-frame::after { display: none; }
 }
 
 /* Subtle accent halo on the active screenshot's frame */
@@ -1191,22 +1300,44 @@ footer a:hover { color: var(--c-accent-deep) !important; }
 }
 
 .cs-stage-label {
+    align-items: center;
     background: rgba(10, 22, 40, 0.78);
     backdrop-filter: blur(8px);
     border: 1px solid rgba(255, 255, 255, 0.08);
     border-radius: 999px;
     bottom: 0.85rem;
     color: #d6f5ee;
+    display: inline-flex;
     font-family: var(--font-display);
     font-size: 0.7rem;
     font-variant-numeric: tabular-nums;
     font-weight: 800;
+    gap: 0.5rem;
     left: 0.85rem;
     letter-spacing: 0.12em;
     padding: 0.3rem 0.7rem;
     position: absolute;
     text-transform: uppercase;
+    /* Floats toward the viewer while the stage is tilted, for parallax depth */
+    transform: translateZ(calc(var(--tilt-active, 0) * 55px));
+    transition: transform 0.3s cubic-bezier(0.22, 1, 0.36, 1);
     z-index: 3;
+}
+
+.cs-stage-count {
+    color: color-mix(in oklch, var(--project-accent) 60%, white);
+    font-variant-numeric: tabular-nums;
+    opacity: 0.95;
+}
+
+.cs-stage-count::after {
+    background: rgba(255, 255, 255, 0.18);
+    content: "";
+    display: inline-block;
+    height: 0.8em;
+    margin-left: 0.5rem;
+    vertical-align: -0.05em;
+    width: 1px;
 }
 
 .cs-stage-img {
@@ -1234,6 +1365,29 @@ footer a:hover { color: var(--c-accent-deep) !important; }
         transform: none;
         transition: opacity 0.15s linear;
     }
+}
+
+/* Scene progress rail: fills as the active scene advances through the five
+   blocks. Mirrors the pip stepper as a continuous, animated indicator. */
+.cs-stage-progress {
+    background: var(--c-border);
+    border-radius: 999px;
+    height: 3px;
+    overflow: hidden;
+    width: 100%;
+}
+
+.cs-stage-progress-fill {
+    background: var(--project-accent);
+    border-radius: 999px;
+    display: block;
+    height: 100%;
+    transition: width 0.55s cubic-bezier(0.22, 1, 0.36, 1);
+    width: var(--p, 0%);
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .cs-stage-progress-fill { transition: width 0.15s linear; }
 }
 
 .cs-stage-pips {
@@ -1307,13 +1461,38 @@ footer a:hover { color: var(--c-accent-deep) !important; }
 }
 
 .cs-scene-label {
+    align-items: center;
     color: var(--project-accent);
+    display: inline-flex;
     font-family: var(--font-display);
     font-size: 0.76rem;
     font-weight: 800;
+    gap: 0.6rem;
     letter-spacing: 0.18em;
     margin: 0 0 0.85rem;
     text-transform: uppercase;
+}
+
+/* Leading accent rule that grows in when the scene becomes active (desktop). */
+.cs-scene-label::before {
+    background: var(--project-accent);
+    border-radius: 999px;
+    content: "";
+    height: 2px;
+    transition: width 0.45s cubic-bezier(0.22, 1, 0.36, 1);
+    width: 0;
+}
+
+@media (min-width: 992px) {
+    .cs-scene.is-active .cs-scene-label::before { width: 1.8rem; }
+}
+
+@media (max-width: 991.98px) {
+    .cs-scene-label::before { width: 1.8rem; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .cs-scene-label::before { transition: none; }
 }
 
 .cs-scene-title {
@@ -1400,6 +1579,52 @@ footer a:hover { color: var(--c-accent-deep) !important; }
     margin: 0;
 }
 
+/* Scroll-reveal entrance: blocks rise and fade in once the case study first
+   enters the viewport (driven by useInView in Projects.jsx). Staggered so the
+   intro lands first, then the meta strip, then the showcase. Final state is
+   transform: none so the sticky stage inside .cs-showcase is never trapped in
+   a transformed ancestor after the entrance completes. */
+.cs .cs-intro,
+.cs .cs-meta,
+.cs .cs-showcase,
+.cs .cs-areas,
+.cs .cs-notes,
+.cs .cs-proof-shot {
+    opacity: 0;
+    transform: translateY(24px);
+    transition: opacity 0.7s cubic-bezier(0.22, 1, 0.36, 1),
+                transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.cs.is-revealed .cs-intro,
+.cs.is-revealed .cs-meta,
+.cs.is-revealed .cs-showcase,
+.cs.is-revealed .cs-areas,
+.cs.is-revealed .cs-notes,
+.cs.is-revealed .cs-proof-shot {
+    opacity: 1;
+    transform: none;
+}
+
+.cs.is-revealed .cs-meta { transition-delay: 0.09s; }
+.cs.is-revealed .cs-showcase { transition-delay: 0.18s; }
+.cs.is-revealed .cs-areas { transition-delay: 0.12s; }
+.cs.is-revealed .cs-notes { transition-delay: 0.09s; }
+.cs.is-revealed .cs-proof-shot { transition-delay: 0.18s; }
+
+@media (prefers-reduced-motion: reduce) {
+    .cs .cs-intro,
+    .cs .cs-meta,
+    .cs .cs-showcase,
+    .cs .cs-areas,
+    .cs .cs-notes,
+    .cs .cs-proof-shot {
+        opacity: 1;
+        transform: none;
+        transition: none;
+    }
+}
+
 /* Divider between primary and secondary case studies */
 .cs-divider {
     background: var(--c-border);
@@ -1475,12 +1700,56 @@ footer a:hover { color: var(--c-accent-deep) !important; }
         0 14px 44px rgba(15, 42, 61, 0.1);
     margin: 0;
     overflow: hidden;
+    /* Establishes the 3D space for the image tilt (vars set by useTilt) */
+    perspective: 1100px;
+    position: relative;
+    transition: box-shadow 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.cs-proof-shot:hover {
+    box-shadow:
+        0 1px 0 rgba(255, 255, 255, 0.55) inset,
+        0 22px 60px rgba(15, 42, 61, 0.16);
 }
 
 .cs-proof-shot img {
     display: block;
     height: auto;
+    transform:
+        rotateX(var(--tilt-x, 0deg))
+        rotateY(var(--tilt-y, 0deg))
+        scale(var(--tilt-scale, 1));
+    transition: transform 0.3s cubic-bezier(0.22, 1, 0.36, 1);
     width: 100%;
+    will-change: transform;
+}
+
+/* Cursor-following sheen on the proof shot, lit only while hovered */
+.cs-proof-shot::after {
+    background: radial-gradient(
+        circle at var(--glow-x, 50%) var(--glow-y, 0%),
+        rgba(255, 255, 255, 0.32),
+        transparent 45%
+    );
+    border-radius: inherit;
+    content: "";
+    inset: 0;
+    mix-blend-mode: screen;
+    opacity: 0;
+    pointer-events: none;
+    position: absolute;
+    transition: opacity 0.3s ease;
+    z-index: 2;
+}
+
+.cs-proof-shot:hover::after { opacity: 1; }
+
+@media (prefers-reduced-motion: reduce) {
+    .cs-proof-shot img {
+        transform: none;
+        transition: none;
+    }
+    .cs-proof-shot::after { display: none; }
 }
 
 /* Mobile tuning */

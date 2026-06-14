@@ -12,8 +12,32 @@ import {
     SiOpenai,
 } from "react-icons/si";
 import { LuSparkles, LuTerminal } from "react-icons/lu";
+import { useInView, useReducedMotion, useTilt } from "../hooks/useMotion";
+
+function SkillCard({ group, reduced }) {
+    const tilt = useTilt(reduced, { max: 7, axisRatio: 1, scale: 1.03 });
+    return (
+        <div className="skill-card h-100">
+            <div
+                className="skill-card-inner"
+                ref={tilt.ref}
+                onPointerMove={tilt.onPointerMove}
+                onPointerLeave={tilt.onPointerLeave}
+            >
+                <div className="skill-icon-row mb-3 d-flex gap-3 align-items-center">
+                    {group.icons}
+                </div>
+
+                <h3 className="h5 mb-2">{group.title}</h3>
+                <p className="mb-0 text-muted">{group.description}</p>
+            </div>
+        </div>
+    );
+}
 
 function Skills() {
+    const reduced = useReducedMotion();
+    const [gridRef, revealed] = useInView();
     const skillGroups = [
         {
             title: "Frontend",
@@ -68,16 +92,12 @@ function Skills() {
                     </p>
                 </div>
 
-                <div className="skills-grid">
+                <div
+                    className={revealed ? "skills-grid is-revealed" : "skills-grid"}
+                    ref={gridRef}
+                >
                     {skillGroups.map((group) => (
-                        <div className="skill-card h-100" key={group.title}>
-                                <div className="skill-icon-row mb-3 d-flex gap-3 align-items-center">
-                                    {group.icons}
-                                </div>
-
-                                <h3 className="h5 mb-2">{group.title}</h3>
-                                <p className="mb-0 text-muted">{group.description}</p>
-                            </div>
+                        <SkillCard key={group.title} group={group} reduced={reduced} />
                     ))}
                 </div>
             </div>
