@@ -85,7 +85,7 @@ export const PROJECTS_DATA = [
     status: "Source available",
     accent: "#7c3aed",
     description:
-      "A local-first web app for tailoring a resume to a specific role without inventing experience. Import a job posting by paste or link, edit and tailor a base resume in a structured editor, score the draft with recruiter-style review, then export to LaTeX, DOCX, or PDF and track the application on disk. AI is optional; deterministic local scoring and rewrite paths keep the core workflow usable offline.",
+      "A local-first web app for tailoring a resume to a specific role without inventing experience. Import a job posting by paste or link, edit and tailor a base resume in a structured editor, score the draft with recruiter-style review, then export to LaTeX or PDF and track the application on disk. AI is optional; deterministic local scoring and rewrite paths keep the core workflow usable offline.",
     notes: [
       {
         title: "Local-first by design",
@@ -100,7 +100,7 @@ export const PROJECTS_DATA = [
       {
         title: "Subscription AI, export and track",
         body:
-          "The default AI path runs through a Claude Code subscription, with Codex and Antigravity CLI options and hosted API backends behind one interface, plus deterministic local fallbacks. Export through a LaTeX pipeline with optional Tectonic PDF, a clean ATS PDF, or format-preserving DOCX, then log each application in a table, board, or calendar tracker.",
+          "The default AI path runs through a Claude Code subscription, with Codex and Antigravity CLI options and hosted API backends behind one interface, plus deterministic local fallbacks. Export through a LaTeX pipeline with optional Tectonic PDF, or a clean ATS PDF (DOCX, like the other formats, is supported on import), then track each application in a sortable, paginated table with right-click quick actions and in-app PDF preview, or a calendar of submissions and follow-ups.",
       },
     ],
     tech: ["React 19", "TypeScript", "Vite", "Node.js", "Claude Code", "Codex", "Antigravity", "LaTeX"],
@@ -163,7 +163,7 @@ export const PROJECTS_DATA = [
     metrics: [
       { value: "Vite", label: "frontend tooling" },
       { value: "Responsive", label: "mobile-first layout" },
-      { value: "SEO", label: "clean metadata path" },
+      { value: "GitHub Pages", label: "static deploy" },
     ],
     highlights: [
       {
@@ -187,7 +187,7 @@ export const PROJECTS_DATA = [
           "Custom favicon, resume link, contact paths, and concise copy support recruiter review.",
       },
     ],
-    tech: ["React", "Vite", "Hand-written CSS", "Lucide React"],
+    tech: ["React", "Vite", "Hand-written CSS", "Lucide React", "React Icons"],
     github: "https://github.com/xinyiklin/xinyiklin.github.io",
     live: "https://xinyiklin.com",
     sectionId: "#projects"
