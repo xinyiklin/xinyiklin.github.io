@@ -1,8 +1,8 @@
-import Typewriter from "typewriter-effect";
 import { useEffect, useRef } from "react";
-import { FaGithub, FaLinkedin, FaEnvelope, FaReact, FaPython } from "react-icons/fa";
+import Typewriter from "typewriter-effect";
+import { FaReact, FaPython } from "react-icons/fa";
 import { SiDjango, SiPostgresql, SiTypescript } from "react-icons/si";
-import { EMAIL, GITHUB, LINKEDIN, NAME } from "../constants/app";
+import { NAME } from "../constants/app";
 
 const TECH = [
   { label: "React",      Icon: FaReact,      delay: "0s"    },
@@ -12,31 +12,24 @@ const TECH = [
   { label: "TypeScript", Icon: SiTypescript, delay: "2.0s"  },
 ];
 
-function Main() {
-  const sectionRef = useRef(null);
-  const glowRef   = useRef(null);
+function Main({ sectionId = "home", deferTyping = false }) {
+  const typewriterRef = useRef(null);
 
+  // In the cinematic path the hero is the desktop wallpaper; hold the typewriter
+  // until the zoom settles (DesktopScene fires `desktop-settled`) so it starts
+  // typing only once the desktop has finished arriving, not behind the splash.
   useEffect(() => {
-    const section = sectionRef.current;
-    const glow    = glowRef.current;
-    if (!section || !glow) return;
-
-    const onMove = (e) => {
-      const { left, top } = section.getBoundingClientRect();
-      glow.style.background = `radial-gradient(700px circle at ${e.clientX - left}px ${e.clientY - top}px, rgba(20,184,166,0.12), transparent 65%)`;
-    };
-
-    section.addEventListener("mousemove", onMove, { passive: true });
-    return () => section.removeEventListener("mousemove", onMove);
-  }, []);
+    if (!deferTyping) return undefined;
+    const start = () => typewriterRef.current?.start();
+    window.addEventListener("desktop-settled", start);
+    return () => window.removeEventListener("desktop-settled", start);
+  }, [deferTyping]);
 
   return (
     <section
-      id="home"
-      ref={sectionRef}
+      id={sectionId ?? undefined}
       className="hero-section min-vh-100 d-flex align-items-center"
     >
-      <div ref={glowRef} className="hero-glow"    aria-hidden="true" />
       <div className="hero-blob hero-blob-a"      aria-hidden="true" />
       <div className="hero-blob hero-blob-b"      aria-hidden="true" />
 
@@ -56,19 +49,20 @@ function Main() {
             cursorClassName: "typewriter-cursor",
           }}
           onInit={(tw) => {
+            typewriterRef.current = tw;
             const phrases = [
               "React + Django.",
               "Healthcare workflow software.",
               "Clear data. Clean UI.",
             ];
             const pauseFor = (s) => 700 + s.length * 50;
-            phrases
-              .reduce(
-                (chain, phrase) =>
-                  chain.typeString(phrase).pauseFor(pauseFor(phrase)).deleteAll(),
-                tw
-              )
-              .start();
+            phrases.reduce(
+              (chain, phrase) =>
+                chain.typeString(phrase).pauseFor(pauseFor(phrase)).deleteAll(),
+              tw
+            );
+            // Cinematic path waits for `desktop-settled`; otherwise start now.
+            if (!deferTyping) tw.start();
           }}
         />
 
@@ -86,11 +80,6 @@ function Main() {
           ))}
         </div>
 
-        <div className="hero-socials mt-4 d-flex justify-content-center gap-4">
-          <a href={GITHUB}  target="_blank" rel="noreferrer" aria-label="My GitHub"   className="hero-social-link"><FaGithub   /></a>
-          <a href={LINKEDIN} target="_blank" rel="noreferrer" aria-label="My LinkedIn" className="hero-social-link"><FaLinkedin /></a>
-          <a href={`mailto:${EMAIL}`}        aria-label="My email"                    className="hero-social-link"><FaEnvelope /></a>
-        </div>
       </div>
     </section>
   );
