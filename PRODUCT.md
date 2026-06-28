@@ -26,18 +26,17 @@ answer "is this person worth a screen?" within a minute, then go deeper if
 interested. Make the engineering decisions visible without demanding the
 reader read every line.
 
-The Projects section is a two-tier case study. CareFlow leads as an
-interactive sticky-scroll showcase: a single pinned product visual on the
-left swaps between five real screens as the reader scrolls five scenes on
-the right. RoleFit AI follows below a hairline divider as a compact
-secondary case study with three notes, one real product screenshot of the
-resume workspace (the app's drafting-desk UI shown with demo starter data),
-a Polish Violet accent, a View source CTA, and no live demo CTA. The contrast
-in treatment is intentional: CareFlow is the primary proof; RoleFit AI is the
-signal that more than one shipped build lives in the catalogue. The
-interactive showcase itself is part of the proof: the candidate ships
-frontend interactions, not just static pages. Success is qualified inbound
-for full-time software engineering roles.
+The Projects section is a two-tier desktop showcase. CareFlow leads as the
+primary interactive app window: a clinic-workspace shell with Schedule,
+Documents, Billing, Refills, Admin, a Patient hub path, draggable appointments,
+and working demo controls. RoleFit AI sits beside it as the quieter secondary
+window: a resume-tailor workspace with Resume, Materials, Applications, and
+Analytics tabs, source-linked rather than live-demo linked. The contrast in
+treatment is intentional: CareFlow is the primary proof; RoleFit AI is the
+signal that more than one shipped build lives in the catalogue. The interaction
+itself is part of the proof: the candidate ships frontend workflows, not just
+static images. Success is qualified inbound for full-time software engineering
+roles.
 
 This is a brand surface, not an app. Design IS the product. The visitor's
 impression is the deliverable.
@@ -47,7 +46,7 @@ impression is the deliverable.
 Practical · Crafted · Confident.
 
 - **Practical**: a working engineer's portfolio, not a marketing campaign. Real
-  screenshots, real GitHub links, real product flow. No invented metrics, no
+  GitHub links, real product flow, interactive demos. No invented metrics, no
   fictional case studies.
 - **Crafted**: attention to detail is visible. Type hierarchy, color
   commitment, motion restraint, micro-copy all suggest the same hand that
@@ -98,9 +97,9 @@ project unless an explicit brand reason overrides them.
   link, or badge is a tell. Acceptable only when conveying real semantic
   state (the live availability flag on the CareFlow status pill, for
   example) and limited to one per page section.
-- **No pill-on-image overlays.** No tag overlays painted on top of a
-  screenshot ("Plate, 02", "Field notes"). Caption goes below the image, or
-  the image speaks alone.
+- **No pill-on-media overlays.** No tag overlays painted on top of an app
+  surface ("Plate, 02", "Field notes"). Caption goes below, or the interface
+  speaks alone.
 - **The middle-dot (`·`) is rationed.** Maximum 1 per line in any metadata
   strip. The reflex to use it as the default separator for everything is a
   tell.
@@ -110,28 +109,26 @@ project unless an explicit brand reason overrides them.
 
 ## Design Principles
 
-1. **Show, don't tell.** The case study leads with real product visuals (the
-   schedule, patient hub, timeline, refill inbox, permission matrix, and
-   RoleFit resume-workspace screenshot).
-   Copy supports the visual, not the other way around.
-2. **Interaction is part of the proof.** The CareFlow case study is a
-   sticky-scroll showcase. As the reader scrolls scene text on the right,
-   the pinned product visual on the left crossfades to the matching screen.
-   Pip pills below the visual allow click-to-jump. The interaction itself
-   is evidence the candidate ships frontend work.
+1. **Show, don't tell.** The case study leads with working product-like
+   surfaces: CareFlow's schedule, documents, billing, refills, permissions, and
+   patient hub; RoleFit's resume workspace, materials, applications, and
+   analytics. Copy supports the interface, not the other way around.
+2. **Interaction is part of the proof.** The Projects section is a desktop
+   workspace. The dock opens app windows; the CareFlow schedule can be dragged
+   and opened into a details modal; RoleFit tabs and controls update local
+   state. The interaction itself is evidence the candidate ships frontend work.
 3. **Truthful claims only.** Every spec corresponds to something that is
    actually shipped. No fabricated outcomes, no "10x" copy, no inflated tech
-   stack lists. If a feature is not in the live demo or the source repo, it
-   is not in the write-up. RoleFit AI uses a real screenshot of its resume
-   workspace, captured from the live app with demo starter data, not a
-   fabricated preview.
+   stack lists. If a feature is not in the live demo, local demo surface, or
+   source repo, it is not in the write-up. RoleFit AI uses a source-linked mock
+   of the real resume workflow, not a fabricated product claim.
 4. **One commitment per case study.** CareFlow commits to Operating Teal;
    RoleFit AI commits to Polish Violet. Each case study uses its accent
    end to end (tagline, status, primary CTA, note dividers). Accents do
    not bleed across case studies.
 5. **Quiet by default, bold on identity.** Backgrounds and supporting copy
    stay restrained. Identity moments (the project name, the primary CTA,
-   the sticky product visual) commit fully to scale and accent.
+   the desktop window and primary CTA) commit fully to scale and accent.
 6. **Density over decoration.** Tight typographic hierarchy and concrete
    copy beat decorative ornament. Every word and pill earns its place.
    Eyebrows are not free; spend them carefully.
@@ -144,14 +141,13 @@ Default target: WCAG 2.1 AA.
   light backgrounds. Accent colors used for decoration also pass against
   backgrounds at the sizes they appear.
 - All actionable elements are keyboard-reachable and have visible focus
-  states. Tab order follows the visual reading order. Pip pills in the
-  sticky-scroll case study are real buttons with `aria-current` on the active
-  scene; clicking jumps to the matching scene.
-- Stage-frame crossfades collapse to a 0.15s linear fade under
-  `prefers-reduced-motion`. Smooth-scroll on pip click degrades to instant
-  scroll.
+  states. Tab order follows the visual reading order. Dock tiles, window
+  actions, modal controls, filters, and segmented controls are real buttons or
+  links with current state exposed where appropriate.
+- The cinematic desktop is skipped under `prefers-reduced-motion`; reduced
+  motion and mobile users receive the flat stacked layout.
 - Hash-based navigation (`#projects`, `#about`, etc.) preserves history and
   works with screen-reader skip links.
-- Alt text on every project screenshot is specific to what is shown, not a
-  generic label. Inactive sticky-stage images carry `aria-hidden="true"` so
-  screen readers announce only the visible scene.
+- Decorative favicon images are hidden from assistive tech. Interactive demo
+  state is expressed through visible labels, button text, and ARIA state instead
+  of image alt text.

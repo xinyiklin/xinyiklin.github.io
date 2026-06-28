@@ -17,17 +17,21 @@ stacked layout. About and Skills are merged into the desktop's About window, so
 there are no standalone About/Skills sections or a separate Navigation bar.
 There is no backend, database, auth, CMS, or analytics layer.
 
-The Projects section renders two case studies as desktop windows:
+The Projects section renders two case studies as interactive desktop windows
+with hand-built, fake-data mock UIs (`src/components/CareFlowDemo.jsx` and
+`src/components/RoleFitDemo.jsx`), not screenshots:
 
-- CareFlow: the primary window, an auto-cycling screenshot slideshow (pausing on
-  hover/focus, with a keyboard- and touch-accessible screen selector) using
-  current product screenshots from the sibling `../careflow` repo.
-- RoleFit AI: a quieter source-linked window with one product screenshot of the
-  resume workspace (the app's drafting-desk UI shown with demo starter data) in
-  `src/assets/rolefit-workspace.png` and a short caption.
+- CareFlow: the primary window, a clinic-workspace app shell with a sidebar
+  (Schedule, Documents, Billing, Refills, Admin). Schedule has draggable
+  appointment blocks that open a details modal linking to a Patient hub; Refills
+  and Admin carry working approve/deny and permission toggles.
+- RoleFit AI: a quieter source-linked window mocking the resume tailor — a rail
+  (Resume, Materials, Applications, Analytics), section Tailor/Include/Off
+  controls with a derived fit score, and a zoom selector.
 
-Additional entries stay in `src/constants/projects.js` for archive/reference
-use, but are intentionally not rendered.
+`src/constants/projects.js` now holds only the external action URLs used by the
+window chrome; resume/project copy lives in the relevant components and
+`src/constants/resume.js`.
 
 ## Tech Stack
 
@@ -64,7 +68,8 @@ There is no manual `npm run deploy` step anymore.
 
 ## Content Sources
 
-Project claims should be cross-checked against:
+Project claims in the demo components, resume overlay, and docs should be
+cross-checked against:
 
 - `../careflow/README.md`
 - `../careflow/CONTINUITY.md`
@@ -75,7 +80,7 @@ The inline resume (`src/constants/resume.js`) mirrors the user's LaTeX resume
 (currently RoleFit AI's general SDE resume,
 `../role-fit-ai/job-search-workspace/base-resume-general-sde.tex`) and is the
 source of truth for resume and skills copy. The rendered hero, the desktop
-About window, and Projects-card tech should stay aligned with it.
+About window, and RoleFit demo resume should stay aligned with it.
 
 Do not invent employers, dates, metrics, education, tools, or project scope.
 When a stronger claim depends on a missing fact, ask first or use a bracketed

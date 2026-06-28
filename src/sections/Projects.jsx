@@ -4,52 +4,14 @@ import { ArrowUpRight, Mail } from "lucide-react";
 import { FaGithub, FaLinkedin } from "react-icons/fa";
 import { useInView, useMediaQuery, useReducedMotion, WIDE_QUERY } from "../hooks/useMotion";
 import { GITHUB, LINKEDIN, NAME } from "../constants/app";
-import { PROJECTS_DATA } from "../constants/projects";
-import careflowSchedule from "../assets/careflow-schedule.png";
-import careflowPatientHub from "../assets/careflow-patient-hub.png";
-import careflowRefills from "../assets/careflow-refills.png";
-import careflowSecurity from "../assets/careflow-security.png";
-import rolefitWorkspace from "../assets/rolefit-workspace.png";
+import { PROJECT_LINKS } from "../constants/projects";
+import CareFlowDemo from "../components/CareFlowDemo";
+import RoleFitDemo from "../components/RoleFitDemo";
 import careflowFavicon from "../assets/careflow-favicon.svg";
 import rolefitFavicon from "../assets/rolefit-favicon.svg";
 
-const CAREFLOW = PROJECTS_DATA.find((p) => p.id === "careflow");
-const ROLEFIT = PROJECTS_DATA.find((p) => p.id === "role-fit-ai");
-
-const CAREFLOW_SCENES = [
-  {
-    id: "schedule",
-    label: "Schedule",
-    body:
-      "Day calendar with rooms, providers, visit types, operating hours, and closed-slot blocks. Status chips and heatmap density stay compact enough for real queue work.",
-    src: careflowSchedule,
-    alt: "CareFlow schedule view with rooms, providers, and visit blocks on a day calendar",
-  },
-  {
-    id: "patient-hub",
-    label: "Patient hub",
-    body:
-      "Smart search opens to demographics, insurance, care team, and pharmacy preferences. SSN stays masked by default and full reveal is audited.",
-    src: careflowPatientHub,
-    alt: "CareFlow patient hub showing demographics, insurance, and a masked SSN field",
-  },
-  {
-    id: "refills",
-    label: "Refills",
-    body:
-      "Patient-initiated refill requests flow into a shared clinician inbox with source, status, prescriber, pharmacy, and approve or deny actions in one workspace.",
-    src: careflowRefills,
-    alt: "CareFlow refill inbox with patient, pharmacy, prescriber, status, and approve or deny actions",
-  },
-  {
-    id: "permissions",
-    label: "Permissions",
-    body:
-      "Org and facility admin covers staff, roles, payers, pharmacies, and fee schedules. The permission matrix flags audited actions and guards the last-admin path.",
-    src: careflowSecurity,
-    alt: "Facility-scoped role and permission matrix with audited actions flagged per row",
-  },
-];
+const CAREFLOW = PROJECT_LINKS.careflow;
+const ROLEFIT = PROJECT_LINKS.rolefitAi;
 
 // The three desktop apps shown in the dock (and targeted by the right-click menu).
 const DOCK_APPS = [
@@ -66,7 +28,6 @@ const DOCK_LINKS = [
   { id: "contact", label: "Contact", target: "contacts", accent: "#0f766e", icon: <Mail size={20} aria-hidden="true" /> },
 ];
 
-const AUTOPLAY_MS = 5200;
 // Smallest each window may be dragged/resized to, so content never gets crushed.
 const MIN_SIZE = { about: { w: 300, h: 300 }, careflow: { w: 400, h: 340 }, rolefit: { w: 320, h: 320 } };
 
@@ -159,134 +120,6 @@ const ROLEFIT_ACTIONS = (
     <FaGithub aria-hidden="true" />
   </WinAction>
 );
-
-// CareFlow.app: a single auto-cycling screen with a live caption. The screens
-// advance on their own (pausing on hover) and the status line narrates each.
-function CareFlowApp({ reduced, running }) {
-  const [activeIdx, setActiveIdx] = useState(0);
-  const [leavingIdx, setLeavingIdx] = useState(-1);
-  // Paused when the pointer is over the screenshot OR keyboard focus is inside
-  // the component, so keyboard users can read a slide without it advancing.
-  const [paused, setPaused] = useState(false);
-  const prevIdxRef = useRef(0);
-  const screensRef = useRef(null);
-  const elapsedRef = useRef(0);
-  const segStartRef = useRef(0);
-  const scene = CAREFLOW_SCENES[activeIdx];
-  const count = CAREFLOW_SCENES.length;
-
-  useEffect(() => {
-    const prev = prevIdxRef.current;
-    if (prev === activeIdx) return;
-    screensRef.current?.style.setProperty("--enter-dir", String(activeIdx > prev ? 1 : -1));
-    setLeavingIdx(prev);
-    prevIdxRef.current = activeIdx;
-    elapsedRef.current = 0;
-  }, [activeIdx]);
-
-  // Auto-advance the slideshow. Pausing (hover or focus) freezes the timer (and
-  // the progress bar) while keeping the time already elapsed, so resuming
-  // continues the current slide rather than restarting it.
-  useEffect(() => {
-    if (reduced || paused || !running) return undefined;
-    segStartRef.current = Date.now();
-    let timer = setTimeout(function tick() {
-      elapsedRef.current = 0;
-      segStartRef.current = Date.now();
-      setActiveIdx((i) => (i + 1) % count);
-      timer = setTimeout(tick, AUTOPLAY_MS);
-    }, Math.max(0, AUTOPLAY_MS - elapsedRef.current));
-    return () => {
-      clearTimeout(timer);
-      elapsedRef.current = Math.min(AUTOPLAY_MS, elapsedRef.current + (Date.now() - segStartRef.current));
-    };
-  }, [reduced, paused, running, count]);
-
-  const showProgress = !reduced && running;
-
-  return (
-    <>
-      <div
-        className="pj-screens"
-        ref={screensRef}
-        onMouseEnter={() => setPaused(true)}
-        onMouseLeave={() => setPaused(false)}
-      >
-        {CAREFLOW_SCENES.map((s, i) => (
-          <img
-            key={s.id}
-            src={s.src}
-            alt={s.alt}
-            loading="lazy"
-            aria-hidden={i !== activeIdx}
-            className={i === activeIdx ? "pj-screen is-active" : i === leavingIdx ? "pj-screen is-prev" : "pj-screen"}
-          />
-        ))}
-        {showProgress && (
-          <div className="pj-progress" aria-hidden="true">
-            <span
-              key={activeIdx}
-              className={paused ? "pj-progress-fill is-paused" : "pj-progress-fill"}
-              style={{ "--demo-ms": `${AUTOPLAY_MS}ms` }}
-            />
-          </div>
-        )}
-      </div>
-
-      <div className="pj-app-status">
-        <span className="pj-app-path">careflow.xinyiklin.com/{scene.id}</span>
-        {/* Caption is NOT a live region: autoplay would otherwise re-announce it
-            every few seconds. Screen-reader users navigate with the tab list
-            below, whose labels name each screen. */}
-        <p className="pj-app-desc">{scene.body}</p>
-        {/* Keyboard/touch/reduced-motion controls: a real tablist so every screen
-            is reachable without relying on the mouse-only hover pause. Focusing a
-            tab pauses autoplay via the wrapper's focus handlers. */}
-        <div
-          className="pj-tabs"
-          role="tablist"
-          aria-label="CareFlow screens"
-          onFocus={() => setPaused(true)}
-          onBlur={() => setPaused(false)}
-        >
-          {CAREFLOW_SCENES.map((s, i) => (
-            <button
-              key={s.id}
-              type="button"
-              role="tab"
-              aria-selected={i === activeIdx}
-              aria-label={s.label}
-              className={i === activeIdx ? "pj-tab is-active" : "pj-tab"}
-              onClick={() => setActiveIdx(i)}
-            >
-              <span aria-hidden="true">{s.label}</span>
-            </button>
-          ))}
-        </div>
-      </div>
-    </>
-  );
-}
-
-function RoleFitApp() {
-  return (
-    <>
-      <div className="pj-screens pj-screens--static">
-        <img
-          src={rolefitWorkspace}
-          alt="RoleFit AI resume workspace showing the structured editor, section tailoring, and the export toolbar"
-          loading="lazy"
-        />
-      </div>
-      <div className="pj-app-status">
-        <p className="pj-app-desc">
-          A local-first resume tailor: it scores fit against a posting, suggests section-scoped edits you accept or
-          discard, and refuses to invent experience the resume cannot back.
-        </p>
-      </div>
-    </>
-  );
-}
 
 // About.app: a macOS "About This Mac"-style system readout. One bold moment (the
 // gradient monogram + name); identity, then an aligned label -> value spec sheet.
@@ -843,7 +676,7 @@ function Projects({ sectionId = "projects", cinematic = false }) {
               actions={CAREFLOW_ACTIONS}
               {...windowProps("careflow")}
             >
-              <CareFlowApp reduced={reduced} running={osIn && !(wins?.careflow?.min || wins?.careflow?.closed)} />
+              <CareFlowDemo />
             </AppWindow>
 
             <AppWindow
@@ -855,7 +688,7 @@ function Projects({ sectionId = "projects", cinematic = false }) {
               actions={ROLEFIT_ACTIONS}
               {...windowProps("rolefit")}
             >
-              <RoleFitApp />
+              <RoleFitDemo />
             </AppWindow>
           </div>
 

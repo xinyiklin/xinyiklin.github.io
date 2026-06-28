@@ -8,12 +8,12 @@ Icons, and Lucide React, deployed to GitHub Pages on a custom domain. There is
 no backend, database, authentication, CMS, blog engine, or analytics surface.
 Framework and dependency versions live in `package.json`.
 
-The app is content-driven: sections (`Main`, `AboutMe`, `Skills`, `Projects`,
-`Contacts`) under `src/sections/`, plus `Navigation` and `Footer` in
-`src/components/`. The rendered Projects section shows exactly two case studies:
-CareFlow as the primary interactive showcase and RoleFit AI as the quieter
-secondary study. Other entries remain in `PROJECTS_DATA` but stay unrendered
-unless the user explicitly asks.
+The app is content-driven: sections (`Main`, `Projects`, `Contacts`) under
+`src/sections/`, plus desktop/demo components and `Footer` in `src/components/`.
+There are no standalone `AboutMe`, `Skills`, or `Navigation` components; About
+and Skills are folded into the desktop's About window. The rendered Projects
+section shows exactly two case-study windows: CareFlow as the primary
+interactive showcase and RoleFit AI as the quieter secondary study.
 
 ---
 
@@ -87,19 +87,21 @@ changing workflow-critical UI patterns, or taking destructive actions.
 ## Content Rules
 
 - Keep copy concrete, recruiter-oriented, and free of marketing fluff.
-- `src/constants/projects.js` must match the real project state. For CareFlow
-  or RoleFit AI updates, cross-check sibling repo `README` and `CONTINUITY`
-  files under `../careflow/` and `../role-fit-ai/`.
+- `src/constants/projects.js` is only the link registry used by project window
+  actions. For CareFlow or RoleFit AI claim/copy updates in components, resume
+  data, or docs, cross-check sibling repo `README` and `CONTINUITY` files under
+  `../careflow/` and `../role-fit-ai/`.
 - `src/constants/resume.js` mirrors the user's LaTeX resume and is the source
   of truth for resume and skills copy. When the user provides an updated
-  resume, mirror it directly and align `Main.jsx`, `Skills.jsx`, and
-  project-card tech with it.
+  resume, mirror it directly and align `Main.jsx`, the desktop About window,
+  `ResumeOverlay.jsx`, and the RoleFit demo resume with it.
 - If resume facts conflict with sibling repo facts, follow the user's explicit
   instruction on which source wins and record meaningful divergence in
   `CONTINUITY.md`.
-- Keep hero, About, Skills, Projects, and Contacts aligned with facts the user
-  has stated. Do not invent hobbies, locations, role types, tech, or contact
-  channels; confirm any new contact channel with the user before adding it.
+- Keep hero, desktop About, RoleFit resume, Projects demos, and Contacts
+  aligned with facts the user has stated. Do not invent hobbies, locations,
+  role types, tech, or contact channels; confirm any new contact channel with
+  the user before adding it.
 - Keep interface labels short and obvious. Do not add multi-sentence in-app
   help blocks. Do not add or remove emoji in tracked files unless requested.
 
@@ -117,14 +119,14 @@ snippets).
 - Reuse tokens from `src/App.css`, especially CSS custom properties under
   `:root`.
 - Match the existing Manrope-only typography and teal-accented palette.
-- Use plain CSS in `src/App.css`: `.container`, CSS Grid layouts such as
-  `.about-grid` and `.skills-grid`, small utilities, and `.cs-action*` anchor
-  buttons.
+- Use plain CSS in `src/App.css`: `.container`, small utilities, desktop
+  window classes (`.pj-*`), CareFlow demo classes (`.cf-*`), RoleFit demo
+  classes (`.rf-*`), and resume overlay classes.
 - Do not add Bootstrap, react-bootstrap, Tailwind, or a component library.
 - Reuse existing Lucide React and React Icons imports when appropriate.
 - Keep sections compact and recruiter-friendly; density beats decoration.
-- Respect the existing breakpoints and sticky/hash-scroll behavior. Do not add
-  a parallel mobile system.
+- Respect the existing breakpoints, cinematic desktop gate, and reduced-motion
+  stacked fallback. Do not add a parallel mobile system.
 - For major UI changes, run the app on the canonical port and visually inspect
   the changed section in the preview browser when feasible.
 
@@ -167,7 +169,7 @@ lines, Done to 7 bullets, Working Set to 12 paths, and Receipts to the last
 Durable decisions use this shape:
 
 ```text
-D001 ACTIVE: Projects renders CareFlow plus RoleFit AI, others hidden.
+D001 ACTIVE: Projects renders CareFlow plus RoleFit AI windows only.
 ```
 
 ---
@@ -204,16 +206,16 @@ Examples:
 
 ```text
 docs(projects): refresh careflow chapter copy
-fix(nav): preserve hash-scroll offset under sticky navbar
+fix(projects): keep dock actions keyboard-safe
 ```
 
 ---
 
 ## Verification
 
-- UI: no console errors, stable layout at existing breakpoints, no sticky-nav
-  or hash-scroll regression. Major UI changes need `npm run dev` plus visual QA
-  on the canonical port when feasible.
+- UI: no console errors, stable layout at existing breakpoints, no cinematic
+  desktop, reduced-motion, or in-page contact-scroll regression. Major UI
+  changes need `npm run dev` plus visual QA on the canonical port when feasible.
 - Build: `npm run build` succeeds when source or config changed.
 - Content: re-read changed copy in full and confirm it matches the source of
   truth.
