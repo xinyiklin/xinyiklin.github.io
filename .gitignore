@@ -34,3 +34,4 @@ yarn-error.log*
 # agent workspace memory + local tooling (local only)
 CONTINUITY.md
 .claude/
+.playwright-cli/

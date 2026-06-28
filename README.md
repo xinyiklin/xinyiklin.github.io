@@ -17,13 +17,14 @@ stacked layout. About and Skills are merged into the desktop's About window, so
 there are no standalone About/Skills sections or a separate Navigation bar.
 There is no backend, database, auth, CMS, or analytics layer.
 
-The Projects section renders two case studies:
+The Projects section renders two case studies as desktop windows:
 
-- CareFlow: an interactive sticky-scroll showcase using current product
-  screenshots from the sibling `../careflow` repo.
-- RoleFit AI: a quieter source-linked case study with three notes and one
-  product screenshot of the resume workspace (the app's drafting-desk UI shown
-  with demo starter data) in `src/assets/rolefit-workspace.png`.
+- CareFlow: the primary window, an auto-cycling screenshot slideshow (pausing on
+  hover/focus, with a keyboard- and touch-accessible screen selector) using
+  current product screenshots from the sibling `../careflow` repo.
+- RoleFit AI: a quieter source-linked window with one product screenshot of the
+  resume workspace (the app's drafting-desk UI shown with demo starter data) in
+  `src/assets/rolefit-workspace.png` and a short caption.
 
 Additional entries stay in `src/constants/projects.js` for archive/reference
 use, but are intentionally not rendered.
@@ -48,8 +49,18 @@ npm run preview
 The canonical local dev port is `5184`; `vite.config.js` uses strict port
 binding.
 
-Do not run `npm run deploy` unless production publishing is explicitly
-requested.
+## Deployment
+
+Deployment is automated with GitHub Actions
+(`.github/workflows/deploy.yml`). On every push to `main` (i.e. when a PR
+merges) the workflow builds the site and publishes `dist/` to GitHub Pages;
+the Pages source is set to "GitHub Actions". The custom domain is carried by
+`public/CNAME` (copied to `dist/CNAME` at build), so `xinyiklin.com` keeps
+resolving. The workflow can also be run on demand from the Actions tab
+("Run workflow").
+
+Merging to `main` therefore publishes to the live site — review before merge.
+There is no manual `npm run deploy` step anymore.
 
 ## Content Sources
 
