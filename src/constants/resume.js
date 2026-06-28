@@ -26,20 +26,23 @@ export const RESUME_PROJECTS = [
     {
         name: "CareFlow",
         stack: "React 19, TypeScript, Django REST Framework, PostgreSQL, React Query, Tailwind CSS v4",
-        link: { label: "careflow.xinyiklin.com", href: "https://careflow.xinyiklin.com" },
+        links: [
+            { label: "careflow.xinyiklin.com", href: "https://careflow.xinyiklin.com" },
+            { label: "portal.careflow.xinyiklin.com", href: "https://portal.careflow.xinyiklin.com" },
+        ],
         bullets: [
             {
                 segments: [
                     { text: "Built and deployed a " },
                     { text: "React + Django REST", bold: true },
-                    { text: " clinic platform spanning 14 domain apps, 45+ PostgreSQL models, and 60+ endpoints for scheduling, charting, billing, and patient records." },
+                    { text: " clinic platform spanning 10+ domain apps, 45+ PostgreSQL models, and 200+ endpoints for scheduling, charting, billing, and patient records." },
                 ],
             },
             {
                 segments: [
-                    { text: "Implemented clinician and patient workflows with " },
+                    { text: "Implemented clinician and patient workflows on a " },
                     { text: "React Query", bold: true },
-                    { text: " state management across 100+ mutations, cache invalidation paths, RBAC, audit logging, encrypted SSNs, JWT auth, and CSRF protection." },
+                    { text: " data layer of 60+ mutations, with role-based access scoped to org and facility, audit logging on sensitive actions, and Fernet-encrypted SSNs." },
                 ],
             },
             {
@@ -51,34 +54,48 @@ export const RESUME_PROJECTS = [
                     { text: " for auth, validation, and facility isolation." },
                 ],
             },
+            {
+                segments: [
+                    { text: "Built a separate " },
+                    { text: "patient-portal React app", bold: true },
+                    { text: " backed by a dedicated /v1/portal/ API namespace, with generated OpenAPI types keeping both frontends type-safe against the backend contract." },
+                ],
+            },
         ],
     },
     {
         name: "RoleFit AI",
         stack: "React 19, TypeScript, Vite, Node.js, LLM APIs, LaTeX/Tectonic",
-        link: null,
+        links: [{ label: "github.com/xinyiklin/rolefit-ai", href: "https://github.com/xinyiklin/rolefit-ai" }],
         bullets: [
             {
                 segments: [
                     { text: "Built a " },
                     { text: "local-first React + Node.js", bold: true },
-                    { text: " job-prep app with a structured WYSIWYG resume editor, Tectonic PDF compilation, and a multi-view application tracker; applied React.lazy code-splitting to cut initial JS from 906 kB to " },
-                    { text: "480 kB", bold: true },
+                    { text: " app that tailors resumes to a posting without inventing experience, with a structured editor, server-side Tectonic PDF export, and an on-disk tracker." },
+                ],
+            },
+            {
+                segments: [
+                    { text: "Built a " },
+                    { text: "recruiter-style review engine", bold: true },
+                    { text: " that scores resume-to-role fit without grading above grounded evidence, on a provider adapter spanning " },
+                    { text: "10+ AI backends", bold: true },
+                    { text: " with a deterministic local fallback." },
+                ],
+            },
+            {
+                segments: [
+                    { text: "Constrained AI edits to " },
+                    { text: "schema-validated, section-scoped suggestions", bold: true },
+                    { text: " surfaced as accept/edit/discard diffs in the editor." },
+                ],
+            },
+            {
+                segments: [
+                    { text: "Hardened the AI pipeline with prompt-injection fencing, SSRF-guarded job import, DOCX zip-slip validation, a grounded-output sanitizer, and " },
+                    { text: "35+ offline anti-fabrication evals", bold: true },
                     { text: "." },
-                ],
-            },
-            {
-                segments: [
-                    { text: "Implemented a provider adapter layer for " },
-                    { text: "12 AI backends", bold: true },
-                    { text: " (hosted, local, and CLI) with schema-validated section-scoped edit suggestions, per-bucket fit scoring, and a deterministic local rewriter fallback." },
-                ],
-            },
-            {
-                segments: [
-                    { text: "Hardened prompt/data paths with prompt-injection fencing, SSRF-protected job import, DOCX zip-slip validation, a 3-detector grounded-output sanitizer, and " },
-                    { text: "38 offline regression evals", bold: true },
-                    { text: " against fabricated skill claims." },
                 ],
             },
         ],
@@ -86,16 +103,11 @@ export const RESUME_PROJECTS = [
     {
         name: "Catch the Ball",
         stack: "C++17, OpenGL, GLFW, CMake",
-        link: { label: "github.com/xinyiklin/catch-the-ball", href: "https://github.com/xinyiklin/catch-the-ball" },
+        links: [{ label: "github.com/xinyiklin/catch-the-ball", href: "https://github.com/xinyiklin/catch-the-ball" }],
         bullets: [
             {
                 segments: [
-                    { text: "Built a C++17 game engine course project with separate engine and game modules, GLFW window/input handling, OpenGL rendering, shaders, sprites, and CMake build configuration." },
-                ],
-            },
-            {
-                segments: [
-                    { text: "Implemented menu state, keyboard controls, score tracking, collision detection, boundary checks, and increasing ball speed for a playable arcade-style game loop." },
+                    { text: "Built a C++17 game with separate engine and game modules: GLFW input handling, OpenGL rendering with shaders and sprites, collision detection, score tracking, and a CMake build." },
                 ],
             },
         ],
@@ -142,16 +154,9 @@ export const RESUME_EXPERIENCE = [
         bullets: [
             {
                 segments: [
-                    { text: "Supported students on " },
-                    { text: "object-oriented programming, data structures, and Java fundamentals", bold: true },
-                    { text: " through labs, code reviews, and debugging help." },
-                ],
-            },
-            {
-                segments: [
-                    { text: "Guided students through " },
-                    { text: "algorithmic problem-solving", bold: true },
-                    { text: ", correctness checks, and readable implementation patterns for introductory Java assignments." },
+                    { text: "Supported students in introductory Java through labs, code reviews, and debugging, covering " },
+                    { text: "object-oriented programming, data structures, and algorithmic problem-solving", bold: true },
+                    { text: "." },
                 ],
             },
         ],

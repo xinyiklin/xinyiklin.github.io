@@ -9,16 +9,22 @@ Live: https://xinyiklin.com
 ## Overview
 
 The portfolio is a React 18 and Vite frontend styled with hand-written CSS. It
-is content-driven: Main, About, Skills, Projects, Contacts, Navigation, and
-Footer. There is no backend, database, auth, CMS, or analytics layer.
+is content-driven: Main (hero), Projects, and Contacts under `src/sections/`,
+plus Footer. On wide, motion-allowed viewports the landing is a cinematic
+macOS-style desktop (`src/components/DesktopScene.jsx`) where the hero is the
+wallpaper and apps open from a dock; mobile and reduced-motion get a flat
+stacked layout. About and Skills are merged into the desktop's About window, so
+there are no standalone About/Skills sections or a separate Navigation bar.
+There is no backend, database, auth, CMS, or analytics layer.
 
-The Projects section renders two case studies:
+The Projects section renders two case studies as desktop windows:
 
-- CareFlow: an interactive sticky-scroll showcase using current product
-  screenshots from the sibling `../careflow` repo.
-- RoleFit AI: a quieter source-linked case study with three notes and one
-  product screenshot of the resume workspace (the app's drafting-desk UI shown
-  with demo starter data) in `src/assets/rolefit-workspace.png`.
+- CareFlow: the primary window, an auto-cycling screenshot slideshow (pausing on
+  hover/focus, with a keyboard- and touch-accessible screen selector) using
+  current product screenshots from the sibling `../careflow` repo.
+- RoleFit AI: a quieter source-linked window with one product screenshot of the
+  resume workspace (the app's drafting-desk UI shown with demo starter data) in
+  `src/assets/rolefit-workspace.png` and a short caption.
 
 Additional entries stay in `src/constants/projects.js` for archive/reference
 use, but are intentionally not rendered.
@@ -43,8 +49,18 @@ npm run preview
 The canonical local dev port is `5184`; `vite.config.js` uses strict port
 binding.
 
-Do not run `npm run deploy` unless production publishing is explicitly
-requested.
+## Deployment
+
+Deployment is automated with GitHub Actions
+(`.github/workflows/deploy.yml`). On every push to `main` (i.e. when a PR
+merges) the workflow builds the site and publishes `dist/` to GitHub Pages;
+the Pages source is set to "GitHub Actions". The custom domain is carried by
+`public/CNAME` (copied to `dist/CNAME` at build), so `xinyiklin.com` keeps
+resolving. The workflow can also be run on demand from the Actions tab
+("Run workflow").
+
+Merging to `main` therefore publishes to the live site — review before merge.
+There is no manual `npm run deploy` step anymore.
 
 ## Content Sources
 
@@ -58,8 +74,8 @@ Project claims should be cross-checked against:
 The inline resume (`src/constants/resume.js`) mirrors the user's LaTeX resume
 (currently RoleFit AI's general SDE resume,
 `../role-fit-ai/job-search-workspace/base-resume-general-sde.tex`) and is the
-source of truth for resume and skills copy. The rendered hero, Skills section,
-and Projects-card tech should stay aligned with it.
+source of truth for resume and skills copy. The rendered hero, the desktop
+About window, and Projects-card tech should stay aligned with it.
 
 Do not invent employers, dates, metrics, education, tools, or project scope.
 When a stronger claim depends on a missing fact, ask first or use a bracketed

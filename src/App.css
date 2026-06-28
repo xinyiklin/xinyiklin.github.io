@@ -26,6 +26,10 @@
 /* Reset essentials (replaces Bootstrap Reboot) */
 *, *::before, *::after { box-sizing: border-box; }
 
+/* Hide scrollbars everywhere while keeping scroll (clean desktop-app look). */
+* { scrollbar-width: none; -ms-overflow-style: none; }
+*::-webkit-scrollbar { width: 0; height: 0; display: none; }
+
 h1, h2, h3, h4, h5, h6 {
     margin-top: 0;
     margin-bottom: 0.5rem;
@@ -44,7 +48,9 @@ html, body {
     font-size: 16px;
     font-family: var(--font-body);
     scroll-behavior: smooth;
-    background: var(--c-bg);
+    background:
+        linear-gradient(180deg, #edf9f7 0%, #f0f7ff 45%, var(--c-bg) 100%);
+    background-attachment: fixed;
     color: var(--c-text);
 }
 
@@ -56,7 +62,42 @@ body { margin: 0; line-height: 1.5; }
 
 a { text-decoration: none; }
 
-section { scroll-margin-top: 72px; }
+/* Small breathing room for hash jumps (the old 72px compensated for the now-removed sticky navbar). */
+section { scroll-margin-top: 1.5rem; }
+
+.site-cursor-glow {
+    background: radial-gradient(
+        700px circle at var(--cursor-x, 50vw) var(--cursor-y, 40vh),
+        rgba(20, 184, 166, 0.12),
+        transparent 65%
+    );
+    inset: 0;
+    opacity: 0;
+    pointer-events: none;
+    position: fixed;
+    transition: opacity 0.18s ease, background 0.18s ease;
+    z-index: 0;
+}
+
+:root.has-cursor-glow .site-cursor-glow {
+    opacity: 1;
+}
+
+main {
+    position: relative;
+    z-index: 1;
+}
+
+footer {
+    position: relative;
+    z-index: 1;
+}
+
+@media (pointer: coarse), (prefers-reduced-motion: reduce) {
+    .site-cursor-glow {
+        display: none;
+    }
+}
 
 /* =========================================================================
    Layout primitives + utilities (replaces Bootstrap grid, Container, and the
@@ -77,27 +118,6 @@ section { scroll-margin-top: 72px; }
 @media (min-width: 1200px) { .container { max-width: 1140px; } }
 @media (min-width: 1400px) { .container { max-width: 1320px; } }
 
-.about-grid {
-    align-items: center;
-    display: grid;
-    gap: 1.5rem;
-    grid-template-columns: 1fr;
-}
-
-@media (min-width: 992px) {
-    .about-grid { grid-template-columns: 7fr 5fr; }
-}
-
-.skills-grid {
-    display: grid;
-    gap: 1.5rem;
-    grid-template-columns: 1fr;
-}
-
-@media (min-width: 768px) {
-    .skills-grid { grid-template-columns: repeat(2, 1fr); }
-}
-
 .d-flex { display: flex; }
 .d-inline-flex { display: inline-flex; }
 .flex-column { flex-direction: column; }
@@ -107,7 +127,6 @@ section { scroll-margin-top: 72px; }
 
 .gap-2 { gap: 0.5rem; }
 .gap-3 { gap: 1rem; }
-.gap-4 { gap: 1.5rem; }
 
 .min-vh-100 { min-height: 100vh; }
 .h-100 { height: 100%; }
@@ -115,7 +134,6 @@ section { scroll-margin-top: 72px; }
 
 .m-0 { margin: 0; }
 .mb-0 { margin-bottom: 0; }
-.mb-2 { margin-bottom: 0.5rem; }
 .mb-3 { margin-bottom: 1rem; }
 .mb-4 { margin-bottom: 1.5rem; }
 .mb-5 { margin-bottom: 3rem; }
@@ -126,283 +144,18 @@ section { scroll-margin-top: 72px; }
 .text-center { text-align: center; }
 
 .lead { font-size: 1.25rem; font-weight: 300; }
-.h5 { font-size: 1.25rem; }
-
-/* =========================================================================
-   Navigation, magnetic dot constellation
-   - Brand mark top-left as a quiet floating tag with a pulsing accent dot.
-   - Top-center horizontal row of small section dots. The active or hovered
-     dot enlarges and reveals its label inline; adjacent dots scale slightly
-     (magnetic feel) as the focused dot grows.
-   - Resume is a separate compact pill anchored top-right with a corner
-     arrow glyph.
-   - Mobile keeps the constellation centered and shrinks spacing; Resume
-     becomes icon-only on very narrow screens.
-   ========================================================================= */
-
-/* Brand tag, top-left */
-.cn-brand {
-    align-items: center;
-    color: var(--c-text);
-    display: inline-flex;
-    font-family: var(--font-display);
-    font-size: 0.92rem;
-    font-weight: 800;
-    gap: 0.55rem;
-    left: clamp(1rem, 2.5vw, 2rem);
-    line-height: 1;
-    padding: 0.55rem 0.8rem;
-    position: fixed;
-    text-decoration: none;
-    top: clamp(0.85rem, 2vw, 1.4rem);
-    transition: color var(--transition), transform var(--transition);
-    z-index: 1000;
-}
-
-.cn-brand:hover,
-.cn-brand:focus-visible { transform: translateY(-1px); color: var(--c-text); }
-
-.cn-brand:focus-visible {
-    outline: 2px solid var(--c-accent);
-    outline-offset: 4px;
-    border-radius: var(--radius-sm);
-}
-
-.cn-brand-dot {
-    background: var(--c-accent);
-    border-radius: 999px;
-    flex-shrink: 0;
-    height: 7px;
-    width: 7px;
-    animation: cnBrandPulse 2.6s ease-in-out infinite;
-}
-
-@keyframes cnBrandPulse {
-    0%, 100% { box-shadow: 0 0 0 0 rgba(20, 184, 166, 0.42); }
-    50%      { box-shadow: 0 0 0 6px rgba(20, 184, 166, 0); }
-}
-
-@media (prefers-reduced-motion: reduce) {
-    .cn-brand-dot { animation: none; }
-}
-
-/* Constellation, top-center */
-.cn-constellation {
-    left: 50%;
-    pointer-events: none;
-    position: fixed;
-    top: clamp(0.85rem, 2vw, 1.4rem);
-    transform: translateX(-50%);
-    z-index: 1000;
-}
-
-.cn-dots {
-    align-items: center;
-    background: rgba(255, 255, 255, 0.7);
-    backdrop-filter: blur(18px) saturate(180%);
-    -webkit-backdrop-filter: blur(18px) saturate(180%);
-    border: 1px solid rgba(15, 42, 61, 0.08);
-    border-radius: 999px;
-    box-shadow: 0 6px 18px rgba(15, 42, 61, 0.08);
-    display: inline-flex;
-    gap: 0.2rem;
-    list-style: none;
-    margin: 0;
-    padding: 0.45rem 0.65rem;
-    pointer-events: auto;
-}
-
-.cn-dot-slot {
-    --cn-distance: 99;
-    display: inline-flex;
-    transition: transform 0.85s cubic-bezier(0.32, 1, 0.4, 1);
-}
-
-/* Magnetic scaling: neighbors of the focused dot breathe up barely */
-.cn-dot-slot[style*="--cn-distance: 1"] { transform: scale(1.018); }
-.cn-dot-slot[style*="--cn-distance: 2"] { transform: scale(1.006); }
-
-.cn-dot {
-    align-items: center;
-    border-radius: 999px;
-    color: var(--c-text-muted);
-    cursor: pointer;
-    display: inline-flex;
-    gap: 0.4rem;
-    padding: 0.45rem 0.65rem;
-    position: relative;
-    text-decoration: none;
-    transition: background var(--transition), color var(--transition),
-                gap 0.32s cubic-bezier(0.22, 1, 0.36, 1),
-                padding 0.32s cubic-bezier(0.22, 1, 0.36, 1);
-}
-
-.cn-dot:hover { color: var(--c-text); }
-
-.cn-dot:focus-visible {
-    outline: 2px solid color-mix(in oklch, var(--c-accent) 60%, transparent);
-    outline-offset: 2px;
-}
-
-.cn-dot-mark {
-    background: rgba(96, 112, 131, 0.5);
-    border-radius: 999px;
-    flex-shrink: 0;
-    height: 8px;
-    transition: background 0.22s ease-out, transform 0.32s cubic-bezier(0.22, 1, 0.36, 1),
-                box-shadow 0.22s ease-out;
-    width: 8px;
-}
-
-.cn-dot:hover .cn-dot-mark { background: var(--c-text); }
-
-.cn-dot.is-active .cn-dot-mark {
-    background: var(--c-accent);
-    box-shadow: 0 0 0 4px rgba(20, 184, 166, 0.16);
-}
-
-.cn-dot-label {
-    color: var(--c-text);
-    font-family: var(--font-display);
-    font-size: 0.78rem;
-    font-weight: 800;
-    letter-spacing: 0.04em;
-    line-height: 1;
-    max-width: 0;
-    opacity: 0;
-    overflow: hidden;
-    text-transform: uppercase;
-    transition: max-width 0.32s cubic-bezier(0.22, 1, 0.36, 1),
-                opacity 0.22s ease-out;
-    white-space: nowrap;
-}
-
-/* Active dot reveals its label inline; hovered dot does the same */
-.cn-dot.is-active .cn-dot-label,
-.cn-dot.is-hovered .cn-dot-label,
-.cn-dot:hover .cn-dot-label,
-.cn-dot:focus-visible .cn-dot-label {
-    max-width: 8rem;
-    opacity: 1;
-    margin-left: 0.05rem;
-}
-
-.cn-dot.is-active .cn-dot-label {
-    color: var(--c-accent-deep);
-}
-
-/* Resume, top-right */
-.cn-resume {
-    align-items: center;
-    background: var(--c-text);
-    border-radius: 999px;
-    box-shadow: 0 6px 18px rgba(15, 42, 61, 0.18);
-    color: var(--c-white);
-    display: inline-flex;
-    font-family: var(--font-display);
-    font-size: 0.78rem;
-    font-weight: 800;
-    gap: 0.45rem;
-    letter-spacing: 0.05em;
-    padding: 0.5rem 0.95rem;
-    position: fixed;
-    right: clamp(1rem, 2.5vw, 2rem);
-    text-decoration: none;
-    text-transform: uppercase;
-    top: clamp(0.85rem, 2vw, 1.4rem);
-    transition: background var(--transition), color var(--transition),
-                transform var(--transition), box-shadow var(--transition);
-    z-index: 1000;
-}
-
-.cn-resume:hover,
-.cn-resume:focus-visible {
-    background: var(--c-accent-deep);
-    color: var(--c-white);
-    transform: translateY(-1px);
-    box-shadow: 0 10px 24px rgba(20, 184, 166, 0.32);
-}
-
-.cn-resume.is-active {
-    background: var(--c-accent-deep);
-}
-
-.cn-resume:focus-visible {
-    outline: 2px solid var(--c-accent);
-    outline-offset: 2px;
-}
-
-.cn-resume-arrow {
-    align-items: center;
-    display: inline-flex;
-    transition: transform 0.22s cubic-bezier(0.22, 1, 0.36, 1);
-}
-
-.cn-resume:hover .cn-resume-arrow {
-    transform: translate(1.5px, -1.5px);
-}
-
-@media (prefers-reduced-motion: reduce) {
-    .cn-dot-slot, .cn-dot, .cn-dot-mark, .cn-dot-label, .cn-resume, .cn-resume-arrow {
-        transition: none;
-    }
-}
-
-/* Mobile */
-@media (max-width: 575.98px) {
-    .cn-brand {
-        font-size: 0.78rem;
-        padding: 0.4rem 0.6rem;
-    }
-
-    .cn-dots {
-        gap: 0;
-        padding: 0.35rem 0.4rem;
-    }
-
-    .cn-dot {
-        gap: 0;
-        padding: 0.4rem 0.45rem;
-    }
-
-    .cn-dot-mark {
-        height: 7px;
-        width: 7px;
-    }
-
-    .cn-dot.is-active .cn-dot-label,
-    .cn-dot.is-hovered .cn-dot-label,
-    .cn-dot:hover .cn-dot-label,
-    .cn-dot:focus-visible .cn-dot-label {
-        max-width: 5rem;
-        margin-left: 0.35rem;
-    }
-
-    .cn-resume {
-        font-size: 0.7rem;
-        padding: 0.4rem 0.65rem;
-    }
-
-    .cn-resume-text {
-        display: none;
-    }
-}
 
 /* Hero */
 .hero-section {
-    background: linear-gradient(155deg, #edf9f7 0%, #f0f7ff 45%, #f5f9fc 100%);
+    background: transparent;
     isolation: isolate;
-    overflow: hidden;
+    /* Clip the decorative blobs (positioned off-canvas) to the hero box so they
+       can't push horizontal page scroll on narrow viewports. `clip` (not
+       `hidden`) keeps the vertical axis truly `visible` rather than forcing a
+       scroll container. */
+    overflow-x: clip;
     position: relative;
     min-height: 100vh;
-}
-
-/* Cursor-tracking spotlight updated via JS mousemove */
-.hero-glow {
-    inset: 0;
-    pointer-events: none;
-    position: absolute;
-    z-index: 0;
 }
 
 /* Drifting colour blobs */
@@ -451,10 +204,6 @@ section { scroll-margin-top: 72px; }
     .typewriter-cursor {
         animation: none;
     }
-
-    .site-navbar {
-        transition: none;
-    }
 }
 
 .hero-content {
@@ -489,12 +238,22 @@ section { scroll-margin-top: 72px; }
     padding-bottom: 0.1em;
 }
 
+/* The library renders <div.Typewriter> wrapping the typed-text span and the
+   cursor. Reserve the line height HERE (a constant-height centered row) instead
+   of on the inline-block text span: when the span empties between phrases its
+   baseline drops to its bottom edge and grows the line box, which is what made
+   the spacing jump. font-size is set so the em-based min-height matches the text. */
+.Typewriter {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 1.8em;
+    font-size: clamp(1rem, 1.7vw, 1.22rem);
+}
 .typewriter {
-    display: inline-block;
     font-size: clamp(1rem, 1.7vw, 1.22rem);
     font-weight: 700;
     line-height: 1.35;
-    min-height: 1.8em;
     color: var(--c-accent-deep);
 }
 
@@ -557,285 +316,19 @@ section { scroll-margin-top: 72px; }
     50%       { transform: translateY(-7px); }
 }
 
-.hero-social-link {
-    align-items: center;
-    color: var(--c-text-muted) !important;
-    display: inline-flex;
-    font-size: 1.25rem;
-    height: 44px;
-    justify-content: center;
-    transition: color var(--transition), transform var(--transition);
-    width: 44px;
-}
-
-.hero-social-link:hover {
-    color: var(--c-accent) !important;
-    transform: translateY(-2px);
-}
-
-.hero-actions {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.75rem;
-    justify-content: center;
-}
-
-.hero-primary-btn {
-    background: var(--c-accent-deep) !important;
-    border: none !important;
-    border-radius: var(--radius-sm) !important;
-    color: var(--c-white) !important;
-    font-weight: 800 !important;
-    font-size: 0.88rem !important;
-    letter-spacing: 0.02em;
-    min-height: 46px;
-    padding: 0.62rem 1.4rem !important;
-    transition: opacity var(--transition), transform var(--transition) !important;
-    box-shadow: 0 0 0 0 var(--c-accent-glow);
-}
-
-.hero-primary-btn:hover {
-    opacity: 0.9 !important;
-    transform: translateY(-2px) !important;
-    box-shadow: 0 8px 24px var(--c-accent-glow) !important;
-}
-
-.hero-secondary-btn {
-    background: rgba(255,255,255,0.5) !important;
-    border: 1px solid var(--c-border-hard) !important;
-    border-radius: var(--radius-sm) !important;
-    color: var(--c-text) !important;
-    font-weight: 700 !important;
-    font-size: 0.88rem !important;
-    min-height: 46px;
-    padding: 0.62rem 1.4rem !important;
-    transition: border-color var(--transition), background var(--transition), transform var(--transition) !important;
-}
-
-.hero-secondary-btn:hover {
-    border-color: var(--c-accent) !important;
-    background: var(--c-accent-lite) !important;
-    transform: translateY(-2px) !important;
-    color: var(--c-accent-deep) !important;
-}
-
 @media (max-width: 767.98px) {
     .hero-content { padding-top: 4.5rem; }
+    /* Taller reserve for phrases that wrap to two lines on narrow screens. */
+    .Typewriter { min-height: 3.3em; }
     .typewriter {
-        min-height: 3.3em;
         padding-left: 0.5rem;
         padding-right: 0.5rem;
     }
-    .hero-socials { padding-left: 0 !important; padding-right: 0 !important; }
 }
-
-/* Section shells */
-.section-panel { padding: 6rem 0; }
-
-.section-panel-white {
-    background: #ffffff;
-    border-top: 1px solid var(--c-border);
-}
-
-.section-panel-muted {
-    background: #eef5f8;
-    border-top: 1px solid var(--c-border);
-}
-
-.section-intro {
-    max-width: 720px;
-    margin-left: auto;
-    margin-right: auto;
-}
-
-.section-eyebrow {
-    display: inline-block;
-    background: var(--c-accent-lite);
-    border: 1px solid rgba(20,184,166,0.28);
-    border-radius: 999px;
-    color: var(--c-accent-deep);
-    font-size: 0.68rem;
-    font-weight: 800;
-    letter-spacing: 0.1em;
-    padding: 0.32rem 0.8rem;
-    text-transform: uppercase;
-}
-
-.section-intro h2 {
-    color: var(--c-text);
-    font-family: var(--font-display);
-    font-size: clamp(2rem, 4vw, 3rem);
-    font-weight: 900;
-    letter-spacing: -0.02em;
-    line-height: 1.05;
-}
-
-.section-intro p.text-muted { color: var(--c-text-muted) !important; }
-
-@media (max-width: 767.98px) {
-    .section-panel { padding: 4rem 0; }
-}
-
-/* About */
-.about-card {
-    background: var(--c-surface);
-    border: 1px solid var(--c-border-hard);
-    border-radius: var(--radius-lg);
-    box-shadow: var(--shadow-md);
-    padding: clamp(1.5rem, 3.5vw, 2.75rem);
-}
-
-.about-card p {
-    color: var(--c-text-muted);
-    line-height: 1.78;
-}
-
-.about-card .lead {
-    color: var(--c-text);
-    font-family: var(--font-display);
-    font-size: clamp(1.05rem, 2vw, 1.28rem);
-    font-weight: 700;
-    letter-spacing: 0;
-}
-
-.about-facts { display: grid; gap: 0.85rem; }
-
-.about-fact {
-    align-items: center;
-    background: var(--c-surface-2);
-    border: 1px solid var(--c-border-hard);
-    border-radius: var(--radius);
-    display: flex;
-    gap: 0.9rem;
-    padding: 1rem 1.1rem;
-    transition: border-color var(--transition);
-}
-
-.about-fact:hover { border-color: var(--c-accent); }
-
-.about-fact-icon {
-    align-items: center;
-    background: var(--c-accent);
-    border-radius: var(--radius-sm);
-    color: var(--c-white);
-    display: inline-flex;
-    flex: 0 0 auto;
-    height: 40px;
-    justify-content: center;
-    width: 40px;
-}
-
-.about-fact small, .about-fact strong { display: block; }
-
-.about-fact small {
-    color: var(--c-text-muted);
-    font-size: 0.7rem;
-    font-weight: 800;
-    letter-spacing: 0.08em;
-    margin-bottom: 0.1rem;
-    text-transform: uppercase;
-}
-
-.about-fact strong { color: var(--c-text); line-height: 1.35; font-size: 0.93rem; }
-
-/* Skills */
-/* Outer card is the perspective container + scroll-reveal target; the visual
-   surface lives on .skill-card-inner so the reveal transform (outer) and the
-   3D tilt transform (inner) never collide. */
-.skill-card {
-    opacity: 0;
-    perspective: 800px;
-    transform: translateY(24px);
-    transition: opacity 0.6s cubic-bezier(0.22, 1, 0.36, 1),
-                transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
-}
-
-.skills-grid.is-revealed .skill-card {
-    opacity: 1;
-    transform: none;
-}
-
-.skills-grid.is-revealed .skill-card:nth-child(2) { transition-delay: 0.08s; }
-.skills-grid.is-revealed .skill-card:nth-child(3) { transition-delay: 0.16s; }
-.skills-grid.is-revealed .skill-card:nth-child(4) { transition-delay: 0.24s; }
-
-.skill-card-inner {
-    background: var(--c-surface);
-    border: 1px solid var(--c-border-hard);
-    border-radius: var(--radius-lg);
-    box-shadow: var(--shadow-sm);
-    height: 100%;
-    overflow: hidden;
-    padding: 1.6rem;
-    position: relative;
-    transform:
-        rotateX(var(--tilt-x, 0deg))
-        rotateY(var(--tilt-y, 0deg))
-        scale(var(--tilt-scale, 1));
-    transition: border-color var(--transition),
-                box-shadow 0.3s cubic-bezier(0.22, 1, 0.36, 1),
-                transform 0.3s cubic-bezier(0.22, 1, 0.36, 1);
-    will-change: transform;
-}
-
-.skill-card-inner:hover {
-    border-color: var(--c-accent);
-    box-shadow: 0 0 0 1px var(--c-accent), var(--shadow-md);
-}
-
-/* Accent-tinted cursor glow; sits above the card surface but below content */
-.skill-card-inner::after {
-    background: radial-gradient(
-        circle at var(--glow-x, 50%) var(--glow-y, 0%),
-        color-mix(in oklch, var(--c-accent) 18%, transparent),
-        transparent 50%
-    );
-    border-radius: inherit;
-    content: "";
-    inset: 0;
-    opacity: 0;
-    pointer-events: none;
-    position: absolute;
-    transition: opacity 0.3s ease;
-    z-index: 1;
-}
-
-.skill-card-inner:hover::after { opacity: 1; }
-
-.skill-card-inner > * { position: relative; z-index: 2; }
-
-@media (prefers-reduced-motion: reduce) {
-    .skill-card {
-        opacity: 1;
-        transform: none;
-        transition: none;
-    }
-    .skill-card-inner {
-        transform: none;
-        transition: border-color var(--transition), box-shadow var(--transition);
-    }
-    .skill-card-inner::after { display: none; }
-}
-
-.skill-icon-row { min-height: 36px; }
-
-.skillsicons {
-    font-size: 1.9rem;
-    color: var(--c-accent);
-    transition: transform var(--transition), color var(--transition);
-}
-
-.skillsicons:hover { transform: translateY(-2px); color: var(--c-accent-deep); }
-
-.skill-card h3 { color: var(--c-text); font-weight: 800; }
-.skill-card p { color: var(--c-text-muted); line-height: 1.65; }
-
 
 /* Contact */
 .contact-section {
-    background:
-        linear-gradient(180deg, #f8fcff 0%, #eef5f8 100%);
-    border-top: 1px solid var(--c-border);
+    background: transparent;
     overflow: hidden;
     padding: 5.5rem 0 4.75rem;
     position: relative;
@@ -971,8 +464,8 @@ section { scroll-margin-top: 72px; }
 
 /* Footer */
 footer {
-    background: var(--c-surface) !important;
-    border-top: 1px solid var(--c-border) !important;
+    background: transparent !important;
+    border-top: 0 !important;
 }
 
 footer p, footer span { color: var(--c-text-muted) !important; }
@@ -982,789 +475,8 @@ footer a:hover { color: var(--c-accent-deep) !important; }
 .footer-icons { font-size: 1.1rem; color: var(--c-text-muted); transition: color var(--transition), transform var(--transition); }
 .footer-icons:hover { color: var(--c-accent); transform: translateY(-2px); }
 
-/* Misc helpers */
-.hover-opacity:hover { opacity: 0.72; transition: opacity var(--transition); }
-
 /* Compatibility helpers retained for existing markup */
 .text-muted { color: var(--c-text-muted) !important; }
-.display-5 { letter-spacing: 0; }
-
-/* =========================================================================
-   Projects, two case studies
-   CareFlow gets the sticky-scroll showcase. RoleFit AI gets a compact
-   source-linked study with a single real proof screenshot.
-   ========================================================================= */
-
-.projects-section {
-    background: linear-gradient(180deg, #f8fcff 0%, #eef5f8 50%, #f5f9fc 100%);
-    border-top: 1px solid var(--c-border);
-    color: var(--c-text);
-    padding: clamp(4rem, 8vw, 7rem) 0;
-    position: relative;
-}
-
-/* Intro: left-aligned, asymmetric, no eyebrow */
-.cs-intro {
-    margin: 0 0 clamp(2rem, 4vw, 2.75rem);
-    max-width: 62ch;
-}
-
-.cs-name {
-    color: var(--c-text);
-    font-family: var(--font-display);
-    font-size: clamp(2.5rem, 6vw, 4.5rem);
-    font-weight: 900;
-    letter-spacing: -0.03em;
-    line-height: 1;
-    margin: 0 0 0.85rem;
-}
-
-.cs-tagline {
-    color: var(--project-accent);
-    font-size: clamp(1.1rem, 1.8vw, 1.4rem);
-    font-weight: 700;
-    line-height: 1.4;
-    margin: 0 0 1.25rem;
-    max-width: 40ch;
-}
-
-.cs-description {
-    color: var(--c-text-muted);
-    font-size: 1.04rem;
-    line-height: 1.7;
-    margin: 0;
-    max-width: 60ch;
-}
-
-/* Meta strip: horizontal kv list on the left, action buttons on the right */
-.cs-meta {
-    border-top: 1px solid var(--c-border);
-    border-bottom: 1px solid var(--c-border);
-    display: flex;
-    flex-direction: column;
-    gap: 1.25rem;
-    margin: 0 0 clamp(2.5rem, 5vw, 3.75rem);
-    padding: 1.5rem 0;
-}
-
-.cs-meta-top {
-    align-items: center;
-    display: flex;
-    flex-wrap: wrap;
-    gap: 1.5rem clamp(1.5rem, 3vw, 2.5rem);
-    justify-content: space-between;
-}
-
-.cs-meta-stack {
-    align-items: baseline;
-    display: grid;
-    gap: 0.3rem 1.5rem;
-    grid-template-columns: 1fr;
-}
-
-@media (min-width: 768px) {
-    .cs-meta-stack {
-        gap: 0 1.75rem;
-        grid-template-columns: auto 1fr;
-    }
-}
-
-.cs-meta-stack-label {
-    color: var(--c-text-muted);
-    font-size: 0.72rem;
-    font-weight: 800;
-    letter-spacing: 0.16em;
-    text-transform: uppercase;
-}
-
-.cs-meta-stack-value {
-    color: var(--c-text);
-    font-size: 0.95rem;
-    line-height: 1.55;
-}
-
-.cs-meta-list {
-    align-items: flex-start;
-    column-gap: clamp(1.75rem, 3.5vw, 3.5rem);
-    display: flex;
-    flex-wrap: wrap;
-    margin: 0;
-    row-gap: 1rem;
-}
-
-.cs-meta-item {
-    display: flex;
-    flex-direction: column;
-    gap: 0.3rem;
-    margin: 0;
-}
-
-.cs-meta-item dt {
-    color: var(--c-text-muted);
-    font-size: 0.7rem;
-    font-weight: 800;
-    letter-spacing: 0.16em;
-    margin: 0;
-    text-transform: uppercase;
-}
-
-.cs-meta-item dd {
-    color: var(--c-text);
-    font-size: 0.98rem;
-    font-weight: 700;
-    margin: 0;
-}
-
-.cs-meta-status {
-    align-items: center;
-    color: var(--project-accent);
-    display: inline-flex;
-    gap: 0.45rem;
-}
-
-.cs-status-dot {
-    animation: csStatusPulse 2.4s ease-in-out infinite;
-    background: var(--project-accent);
-    border-radius: 999px;
-    display: inline-block;
-    flex-shrink: 0;
-    height: 8px;
-    width: 8px;
-}
-
-@keyframes csStatusPulse {
-    0%, 100% { opacity: 1; transform: scale(1); }
-    50%      { opacity: 0.45; transform: scale(0.78); }
-}
-
-@media (prefers-reduced-motion: reduce) {
-    .cs-status-dot { animation: none; }
-}
-
-.cs-actions {
-    align-items: center;
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.6rem;
-}
-
-.cs-action {
-    align-items: center;
-    border-radius: var(--radius);
-    display: inline-flex;
-    font-size: 0.92rem;
-    font-weight: 700;
-    gap: 0.5rem;
-    letter-spacing: 0;
-    padding: 0.65rem 1.15rem;
-    transition: background var(--transition), border-color var(--transition), color var(--transition), transform var(--transition);
-}
-
-.cs-action-primary {
-    background: var(--project-accent) !important;
-    border: 1px solid var(--project-accent) !important;
-    color: var(--c-white) !important;
-}
-
-.cs-action-primary:hover {
-    background: color-mix(in oklch, var(--project-accent) 82%, black) !important;
-    border-color: color-mix(in oklch, var(--project-accent) 82%, black) !important;
-    color: var(--c-white) !important;
-    transform: translateY(-1px);
-}
-
-.cs-action-secondary {
-    background: var(--c-white) !important;
-    border: 1px solid var(--c-border-hard) !important;
-    color: var(--c-text) !important;
-}
-
-.cs-action-secondary:hover {
-    background: var(--c-white) !important;
-    border-color: var(--c-text) !important;
-    color: var(--c-text) !important;
-    transform: translateY(-1px);
-}
-
-/* Showcase: interactive sticky-scroll case study.
-   LEFT (sticky) holds a stage frame with stacked screenshots, only the
-   active one visible; pip pills below jump between scenes. RIGHT scrolls
-   through scene blocks; an IntersectionObserver in Projects.jsx flips the
-   active index as each scene crosses the viewport center band. */
-.cs-showcase {
-    display: grid;
-    gap: clamp(2rem, 4vw, 3.25rem);
-    grid-template-columns: 1fr;
-    margin: 0 0 clamp(3rem, 6vw, 4.5rem);
-}
-
-@media (min-width: 992px) {
-    .cs-showcase {
-        align-items: start;
-        grid-template-columns: minmax(0, 1fr) minmax(0, 1.05fr);
-        gap: clamp(2.5rem, 4.5vw, 4rem);
-    }
-}
-
-.cs-stage {
-    align-self: start;
-    display: flex;
-    flex-direction: column;
-    gap: 0.95rem;
-}
-
-@media (min-width: 992px) {
-    .cs-stage {
-        position: sticky;
-        top: 92px;
-    }
-}
-
-/* Mobile: hide the sticky stage entirely (we render inline figures per
-   scene at small breakpoints to avoid the duplicated visual). */
-@media (max-width: 991.98px) {
-    .cs-stage { display: none; }
-}
-
-.cs-stage-frame {
-    aspect-ratio: 1.86 / 1;
-    background: var(--c-surface);
-    border: 1px solid var(--c-border);
-    border-radius: var(--radius-lg);
-    box-shadow:
-        0 1px 0 rgba(255, 255, 255, 0.55) inset,
-        0 1px 3px rgba(15, 42, 61, 0.04),
-        0 18px 50px rgba(15, 42, 61, 0.12);
-    isolation: isolate;
-    overflow: hidden;
-    position: relative;
-    /* Pointer-driven 3D tilt; vars set inline from Projects.jsx (useTilt) */
-    transform:
-        perspective(900px)
-        rotateX(var(--tilt-x, 0deg))
-        rotateY(var(--tilt-y, 0deg))
-        scale(var(--tilt-scale, 1));
-    transform-style: preserve-3d;
-    transition: transform 0.3s cubic-bezier(0.22, 1, 0.36, 1),
-                box-shadow 0.3s cubic-bezier(0.22, 1, 0.36, 1);
-    will-change: transform;
-}
-
-.cs-stage-frame:hover {
-    box-shadow:
-        0 1px 0 rgba(255, 255, 255, 0.55) inset,
-        0 1px 3px rgba(15, 42, 61, 0.04),
-        0 28px 70px rgba(15, 42, 61, 0.18);
-}
-
-/* Cursor-following sheen, lights up only while the pointer is over the frame */
-.cs-stage-frame::after {
-    background: radial-gradient(
-        circle at var(--glow-x, 50%) var(--glow-y, 0%),
-        rgba(255, 255, 255, 0.38),
-        transparent 42%
-    );
-    content: "";
-    inset: 0;
-    mix-blend-mode: screen;
-    opacity: 0;
-    pointer-events: none;
-    position: absolute;
-    transition: opacity 0.3s ease;
-    z-index: 2;
-}
-
-.cs-stage-frame:hover::after {
-    opacity: 1;
-}
-
-@media (prefers-reduced-motion: reduce) {
-    .cs-stage-frame {
-        transform: none;
-        transition: none;
-    }
-    .cs-stage-frame::after { display: none; }
-}
-
-/* Subtle accent halo on the active screenshot's frame */
-.cs-stage-frame::before {
-    background:
-        radial-gradient(circle at 88% -10%, color-mix(in oklch, var(--project-accent) 18%, transparent), transparent 55%),
-        radial-gradient(circle at -10% 110%, color-mix(in oklch, var(--project-accent) 10%, transparent), transparent 60%);
-    content: "";
-    inset: 0;
-    opacity: 0.6;
-    pointer-events: none;
-    position: absolute;
-    z-index: 2;
-}
-
-.cs-stage-label {
-    align-items: center;
-    background: rgba(10, 22, 40, 0.78);
-    backdrop-filter: blur(8px);
-    border: 1px solid rgba(255, 255, 255, 0.08);
-    border-radius: 999px;
-    bottom: 0.85rem;
-    color: #d6f5ee;
-    display: inline-flex;
-    font-family: var(--font-display);
-    font-size: 0.7rem;
-    font-variant-numeric: tabular-nums;
-    font-weight: 800;
-    gap: 0.5rem;
-    left: 0.85rem;
-    letter-spacing: 0.12em;
-    padding: 0.3rem 0.7rem;
-    position: absolute;
-    text-transform: uppercase;
-    /* Floats toward the viewer while the stage is tilted, for parallax depth */
-    transform: translateZ(calc(var(--tilt-active, 0) * 55px));
-    transition: transform 0.3s cubic-bezier(0.22, 1, 0.36, 1);
-    z-index: 3;
-}
-
-.cs-stage-count {
-    color: color-mix(in oklch, var(--project-accent) 60%, white);
-    font-variant-numeric: tabular-nums;
-    opacity: 0.95;
-}
-
-.cs-stage-count::after {
-    background: rgba(255, 255, 255, 0.18);
-    content: "";
-    display: inline-block;
-    height: 0.8em;
-    margin-left: 0.5rem;
-    vertical-align: -0.05em;
-    width: 1px;
-}
-
-.cs-stage-img {
-    height: 100%;
-    left: 0;
-    object-fit: cover;
-    object-position: center top;
-    opacity: 0;
-    position: absolute;
-    top: 0;
-    transform: scale(1.012);
-    transition: opacity 0.5s ease, transform 0.7s ease;
-    width: 100%;
-    z-index: 1;
-}
-
-.cs-stage-img.is-active {
-    opacity: 1;
-    transform: scale(1);
-}
-
-@media (prefers-reduced-motion: reduce) {
-    .cs-stage-img,
-    .cs-stage-img.is-active {
-        transform: none;
-        transition: opacity 0.15s linear;
-    }
-}
-
-/* Scene progress rail: fills as the active scene advances through the five
-   blocks. Mirrors the pip stepper as a continuous, animated indicator. */
-.cs-stage-progress {
-    background: var(--c-border);
-    border-radius: 999px;
-    height: 3px;
-    overflow: hidden;
-    width: 100%;
-}
-
-.cs-stage-progress-fill {
-    background: var(--project-accent);
-    border-radius: 999px;
-    display: block;
-    height: 100%;
-    transition: width 0.55s cubic-bezier(0.22, 1, 0.36, 1);
-    width: var(--p, 0%);
-}
-
-@media (prefers-reduced-motion: reduce) {
-    .cs-stage-progress-fill { transition: width 0.15s linear; }
-}
-
-.cs-stage-pips {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.45rem;
-    list-style: none;
-    margin: 0;
-    padding: 0;
-}
-
-.cs-stage-pip {
-    background: rgba(255, 255, 255, 0.7);
-    border: 1px solid var(--c-border);
-    border-radius: 999px;
-    color: var(--c-text-muted);
-    cursor: pointer;
-    font-family: var(--font-display);
-    font-size: 0.82rem;
-    font-weight: 700;
-    padding: 0.42rem 0.95rem;
-    transition: background var(--transition), border-color var(--transition),
-                color var(--transition), transform var(--transition);
-}
-
-.cs-stage-pip:hover {
-    border-color: var(--c-text);
-    color: var(--c-text);
-    transform: translateY(-1px);
-}
-
-.cs-stage-pip:focus-visible {
-    outline: 2px solid var(--project-accent);
-    outline-offset: 2px;
-}
-
-.cs-stage-pip.is-active {
-    background: color-mix(in oklch, var(--project-accent) 14%, transparent);
-    border-color: color-mix(in oklch, var(--project-accent) 32%, transparent);
-    color: var(--project-accent);
-}
-
-.cs-stage-pip.is-active:hover {
-    color: var(--project-accent);
-}
-
-/* Scrolling scenes (RIGHT column) */
-.cs-scenes {
-    display: flex;
-    flex-direction: column;
-}
-
-.cs-scene {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    opacity: 1;
-    padding: 0.75rem 0;
-    transition: opacity 0.45s ease;
-}
-
-@media (min-width: 992px) {
-    .cs-scene {
-        min-height: 68vh;
-        opacity: 0.32;
-        padding: 3rem 0;
-    }
-    .cs-scene.is-active {
-        opacity: 1;
-    }
-}
-
-.cs-scene-label {
-    align-items: center;
-    color: var(--project-accent);
-    display: inline-flex;
-    font-family: var(--font-display);
-    font-size: 0.76rem;
-    font-weight: 800;
-    gap: 0.6rem;
-    letter-spacing: 0.18em;
-    margin: 0 0 0.85rem;
-    text-transform: uppercase;
-}
-
-/* Leading accent rule that grows in when the scene becomes active (desktop). */
-.cs-scene-label::before {
-    background: var(--project-accent);
-    border-radius: 999px;
-    content: "";
-    height: 2px;
-    transition: width 0.45s cubic-bezier(0.22, 1, 0.36, 1);
-    width: 0;
-}
-
-@media (min-width: 992px) {
-    .cs-scene.is-active .cs-scene-label::before { width: 1.8rem; }
-}
-
-@media (max-width: 991.98px) {
-    .cs-scene-label::before { width: 1.8rem; }
-}
-
-@media (prefers-reduced-motion: reduce) {
-    .cs-scene-label::before { transition: none; }
-}
-
-.cs-scene-title {
-    color: var(--c-text);
-    font-family: var(--font-display);
-    font-size: clamp(1.55rem, 2.7vw, 2.1rem);
-    font-weight: 900;
-    letter-spacing: -0.02em;
-    line-height: 1.15;
-    margin: 0 0 1rem;
-}
-
-.cs-scene-body {
-    color: var(--c-text-muted);
-    font-size: 1rem;
-    line-height: 1.72;
-    margin: 0;
-    max-width: 52ch;
-}
-
-/* Inline figure inside each scene, shown only on mobile */
-.cs-scene-fig {
-    background: var(--c-surface);
-    border: 1px solid var(--c-border);
-    border-radius: var(--radius);
-    box-shadow: var(--shadow-sm);
-    margin: 0 0 1.1rem;
-    overflow: hidden;
-}
-
-.cs-scene-fig img {
-    display: block;
-    height: auto;
-    width: 100%;
-}
-
-@media (min-width: 992px) {
-    .cs-scene-fig { display: none; }
-}
-
-/* Feature index: 8 areas as a typographic grid, no icons, no cards */
-.cs-areas {
-    border-top: 1px solid var(--c-border);
-    margin: 0;
-    padding-top: clamp(1.75rem, 3vw, 2.25rem);
-}
-
-.cs-areas-lede {
-    color: var(--c-text);
-    font-family: var(--font-display);
-    font-size: clamp(1.15rem, 2vw, 1.45rem);
-    font-weight: 800;
-    letter-spacing: -0.01em;
-    line-height: 1.3;
-    margin: 0 0 1.5rem;
-}
-
-.cs-areas-list {
-    display: grid;
-    gap: 0.5rem clamp(2rem, 5vw, 4rem);
-    grid-template-columns: 1fr 1fr;
-    list-style: none;
-    margin: 0;
-    padding: 0;
-}
-
-@media (min-width: 768px) {
-    .cs-areas-list { grid-template-columns: repeat(4, 1fr); }
-}
-
-.cs-areas-list li {
-    color: var(--c-text);
-    font-size: 1rem;
-    font-weight: 600;
-    padding: 0.42rem 0;
-}
-
-/* Case-study article wrappers */
-.cs {
-    /* --project-accent set inline per article */
-}
-
-.cs--primary {
-    margin: 0;
-}
-
-/* Scroll-reveal entrance: blocks rise and fade in once the case study first
-   enters the viewport (driven by useInView in Projects.jsx). Staggered so the
-   intro lands first, then the meta strip, then the showcase. Final state is
-   transform: none so the sticky stage inside .cs-showcase is never trapped in
-   a transformed ancestor after the entrance completes. */
-.cs .cs-intro,
-.cs .cs-meta,
-.cs .cs-showcase,
-.cs .cs-areas,
-.cs .cs-notes,
-.cs .cs-proof-shot {
-    opacity: 0;
-    transform: translateY(24px);
-    transition: opacity 0.7s cubic-bezier(0.22, 1, 0.36, 1),
-                transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
-}
-
-.cs.is-revealed .cs-intro,
-.cs.is-revealed .cs-meta,
-.cs.is-revealed .cs-showcase,
-.cs.is-revealed .cs-areas,
-.cs.is-revealed .cs-notes,
-.cs.is-revealed .cs-proof-shot {
-    opacity: 1;
-    transform: none;
-}
-
-.cs.is-revealed .cs-meta { transition-delay: 0.09s; }
-.cs.is-revealed .cs-showcase { transition-delay: 0.18s; }
-.cs.is-revealed .cs-areas { transition-delay: 0.12s; }
-.cs.is-revealed .cs-notes { transition-delay: 0.09s; }
-.cs.is-revealed .cs-proof-shot { transition-delay: 0.18s; }
-
-@media (prefers-reduced-motion: reduce) {
-    .cs .cs-intro,
-    .cs .cs-meta,
-    .cs .cs-showcase,
-    .cs .cs-areas,
-    .cs .cs-notes,
-    .cs .cs-proof-shot {
-        opacity: 1;
-        transform: none;
-        transition: none;
-    }
-}
-
-/* Divider between primary and secondary case studies */
-.cs-divider {
-    background: var(--c-border);
-    border: 0;
-    height: 1px;
-    margin: clamp(3rem, 6vw, 5rem) 0 clamp(3rem, 6vw, 5rem);
-}
-
-/* Secondary case study: a quieter treatment for the source-only build.
-   Same .cs-* tokens, scaled-down headline, one proof image, and no
-   interactive showcase. Polish Violet accent. */
-.cs--secondary .cs-name {
-    font-size: clamp(2rem, 4.4vw, 3.25rem);
-}
-
-.cs--secondary .cs-tagline {
-    font-size: clamp(1rem, 1.6vw, 1.2rem);
-}
-
-.cs--secondary .cs-description {
-    font-size: 1rem;
-}
-
-.cs--secondary .cs-intro {
-    max-width: 60ch;
-}
-
-/* Secondary status: no pulsing dot, neutral pill weight */
-.cs-meta-status--quiet {
-    color: var(--c-text);
-}
-
-/* Notes grid for the secondary case study */
-.cs-notes {
-    display: grid;
-    gap: clamp(1.5rem, 3vw, 2.25rem);
-    grid-template-columns: 1fr;
-    margin: 0 0 clamp(1.8rem, 4vw, 2.5rem);
-}
-
-@media (min-width: 768px) {
-    .cs-notes { grid-template-columns: repeat(3, minmax(0, 1fr)); }
-}
-
-.cs-note {
-    border-top: 2px solid var(--project-accent);
-    padding-top: 1.1rem;
-}
-
-.cs-note-title {
-    color: var(--c-text);
-    font-family: var(--font-display);
-    font-size: clamp(1.05rem, 1.6vw, 1.2rem);
-    font-weight: 800;
-    letter-spacing: -0.005em;
-    line-height: 1.25;
-    margin: 0 0 0.55rem;
-}
-
-.cs-note-body {
-    color: var(--c-text-muted);
-    font-size: 0.96rem;
-    line-height: 1.7;
-    margin: 0;
-}
-
-.cs-proof-shot {
-    background: var(--c-surface);
-    border: 1px solid var(--c-border);
-    border-radius: var(--radius-lg);
-    box-shadow:
-        0 1px 0 rgba(255, 255, 255, 0.55) inset,
-        0 14px 44px rgba(15, 42, 61, 0.1);
-    margin: 0;
-    overflow: hidden;
-    /* Establishes the 3D space for the image tilt (vars set by useTilt) */
-    perspective: 1100px;
-    position: relative;
-    transition: box-shadow 0.3s cubic-bezier(0.22, 1, 0.36, 1);
-}
-
-.cs-proof-shot:hover {
-    box-shadow:
-        0 1px 0 rgba(255, 255, 255, 0.55) inset,
-        0 22px 60px rgba(15, 42, 61, 0.16);
-}
-
-.cs-proof-shot img {
-    display: block;
-    height: auto;
-    transform:
-        rotateX(var(--tilt-x, 0deg))
-        rotateY(var(--tilt-y, 0deg))
-        scale(var(--tilt-scale, 1));
-    transition: transform 0.3s cubic-bezier(0.22, 1, 0.36, 1);
-    width: 100%;
-    will-change: transform;
-}
-
-/* Cursor-following sheen on the proof shot, lit only while hovered */
-.cs-proof-shot::after {
-    background: radial-gradient(
-        circle at var(--glow-x, 50%) var(--glow-y, 0%),
-        rgba(255, 255, 255, 0.32),
-        transparent 45%
-    );
-    border-radius: inherit;
-    content: "";
-    inset: 0;
-    mix-blend-mode: screen;
-    opacity: 0;
-    pointer-events: none;
-    position: absolute;
-    transition: opacity 0.3s ease;
-    z-index: 2;
-}
-
-.cs-proof-shot:hover::after { opacity: 1; }
-
-@media (prefers-reduced-motion: reduce) {
-    .cs-proof-shot img {
-        transform: none;
-        transition: none;
-    }
-    .cs-proof-shot::after { display: none; }
-}
-
-/* Mobile tuning */
-@media (max-width: 575.98px) {
-    .cs-meta {
-        align-items: flex-start;
-        flex-direction: column;
-        gap: 1.5rem;
-    }
-    .cs-actions .cs-action {
-        justify-content: center;
-        width: 100%;
-    }
-    .cs-areas-list { grid-template-columns: 1fr; }
-}
 
 /* =========================================================================
    Resume overlay
@@ -1774,7 +486,7 @@ footer a:hover { color: var(--c-accent-deep) !important; }
 
 .resume-overlay {
     --resume-accent: #1f3a60;
-    align-items: stretch;
+    align-items: center;
     background: rgba(15, 32, 51, 0.58);
     backdrop-filter: blur(8px) saturate(140%);
     -webkit-backdrop-filter: blur(8px) saturate(140%);
@@ -1800,8 +512,9 @@ footer a:hover { color: var(--c-accent-deep) !important; }
     box-shadow: 0 32px 80px rgba(15, 42, 61, 0.32);
     display: flex;
     flex-direction: column;
-    margin: auto;
-    max-width: 920px;
+    margin: 0;
+    max-width: 1120px;
+    max-height: 100%;
     overflow: hidden;
     width: 100%;
     animation: resumeOverlayRise 0.22s cubic-bezier(0.16, 0.84, 0.32, 1);
@@ -1825,9 +538,10 @@ footer a:hover { color: var(--c-accent-deep) !important; }
     background: linear-gradient(180deg, #ffffff 0%, #f8fafd 100%);
     border-bottom: 1px solid var(--c-border);
     display: flex;
+    flex: none;
     gap: 1rem;
     justify-content: space-between;
-    padding: 0.75rem 1rem 0.75rem 1.25rem;
+    padding: 0.4rem 0.75rem 0.4rem 1rem;
 }
 
 .resume-overlay-bar-title {
@@ -1860,13 +574,13 @@ footer a:hover { color: var(--c-accent-deep) !important; }
     color: var(--c-text);
     cursor: pointer;
     display: inline-flex;
-    font-size: 1.35rem;
-    height: 36px;
+    font-size: 1.2rem;
+    height: 30px;
     justify-content: center;
     line-height: 1;
     transition: background var(--transition), border-color var(--transition),
                 color var(--transition);
-    width: 36px;
+    width: 30px;
 }
 
 .resume-overlay-close:hover {
@@ -1882,7 +596,8 @@ footer a:hover { color: var(--c-accent-deep) !important; }
 /* Scroll container holding the resume document */
 .resume-overlay-scroll {
     background: var(--c-surface);
-    max-height: calc(100vh - 6rem);
+    flex: 1;
+    min-height: 0;
     overflow-y: auto;
 }
 
@@ -1893,7 +608,7 @@ footer a:hover { color: var(--c-accent-deep) !important; }
     font-size: 0.95rem;
     line-height: 1.55;
     margin: 0 auto;
-    max-width: 780px;
+    max-width: 960px;
     padding: clamp(1.75rem, 4vw, 2.75rem) clamp(1.25rem, 4vw, 2.5rem) clamp(2rem, 5vw, 3rem);
 }
 
@@ -1908,6 +623,9 @@ footer a:hover { color: var(--c-accent-deep) !important; }
 
 .resume-head {
     margin-bottom: 1.25rem;
+    /* Mirror the LaTeX header (\begin{center}): name + contacts centered, while
+       the sections below stay left-aligned. */
+    text-align: center;
 }
 
 .resume-name {
@@ -1991,6 +709,11 @@ footer a:hover { color: var(--c-accent-deep) !important; }
     font-weight: 500;
     white-space: nowrap;
 }
+
+/* Project links can be multiple (e.g. site / portal): let them wrap right-
+   aligned instead of overflowing, with a quiet separator. */
+.resume-entry-links { white-space: normal; text-align: right; }
+.resume-link-sep { color: var(--c-text-muted); }
 
 .resume-entry-aside-sub {
     color: var(--c-text);
@@ -2078,3 +801,956 @@ footer a:hover { color: var(--c-accent-deep) !important; }
         margin: 0 0.35rem;
     }
 }
+
+/* ============================================================
+   PROJECTS  -  a desktop of two shipped apps
+   A light macOS-style screen, themed to match the rest of the
+   page: CareFlow and RoleFit AI open as app windows on a soft
+   tinted wallpaper, with a menubar, a magnifying dock, and basic
+   window controls (focus, minimize to dock, restore). Hand-written,
+   reduced-motion gated, AA contrast.
+   ============================================================ */
+
+.projects-section {
+    --pj-line: rgba(15, 42, 61, 0.10);
+    --pj-line-hard: rgba(15, 42, 61, 0.16);
+    --pj-text: #102033;
+    --pj-muted: #607083;
+    --pj-window: #ffffff;
+    --pj-bar: #f1f6f9;
+    position: relative;
+    isolation: isolate;
+    overflow: hidden;
+    padding: clamp(3rem, 6vw, 5rem) 0;
+    color: var(--pj-text);
+    /* Transparent so the section flows into the consistent page background with
+       no seam between sections (the desktop "screen" carries the visual weight). */
+    background: transparent;
+}
+
+/* Static dot field over the wallpaper */
+.pj-grain {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+    background-image: radial-gradient(rgba(15, 42, 61, 0.05) 1px, transparent 1.4px);
+    background-size: 26px 26px;
+    -webkit-mask-image: linear-gradient(to bottom, transparent 0%, #000 22%, #000 74%, transparent 100%);
+    mask-image: linear-gradient(to bottom, transparent 0%, #000 22%, #000 74%, transparent 100%);
+}
+
+.pj-inner {
+    position: relative;
+    z-index: 1;
+}
+
+.pj-sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+}
+
+/* The screen: a light display sitting on the page */
+.pj-os {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    min-height: clamp(46rem, 88vh, 66rem);
+    border: 1px solid var(--pj-line);
+    /* Dissolve the bottom edge so the screen melts into the page rather than
+       cutting a hard Work->Contacts seam (border + shadow stay on top/sides). */
+    border-bottom-color: transparent;
+    border-radius: 18px;
+    background:
+        radial-gradient(120% 80% at 10% 0%, rgba(20, 184, 166, 0.12), transparent 55%),
+        radial-gradient(120% 90% at 100% 100%, rgba(124, 58, 237, 0.09), transparent 55%),
+        linear-gradient(160deg, #e9f4f3 0%, #eef2fb 100%);
+    box-shadow: 0 18px 48px rgba(15, 42, 61, 0.09), inset 0 1px 0 rgba(255, 255, 255, 0.6);
+    overflow: hidden;
+    /* The desktop is an app surface, not a document: no text selection, so
+       dragging windows and clicking around never leaves a stray highlight. */
+    -webkit-user-select: none;
+    user-select: none;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+    .pj-os {
+        opacity: 0;
+        transform: translateY(26px) scale(0.992);
+        transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .pj-os.is-revealed { opacity: 1; transform: none; }
+}
+
+/* Menubar (decorative chrome) */
+.pj-menubar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex: none;
+    height: 30px;
+    padding: 0 0.9rem;
+    background: rgba(255, 255, 255, 0.6);
+    border-bottom: 1px solid var(--pj-line);
+    font-size: 0.76rem;
+    color: var(--pj-muted);
+    -webkit-backdrop-filter: blur(8px);
+    backdrop-filter: blur(8px);
+}
+
+.pj-menubar-left, .pj-menubar-right { display: flex; align-items: center; gap: 0.9rem; }
+.pj-menubar-logo { display: block; width: 16px; height: 16px; border-radius: 4px; }
+.pj-menubar-brand { color: var(--pj-text); font-weight: 700; }
+.pj-menubar-btn {
+    appearance: none;
+    -webkit-appearance: none;
+    border: none;
+    background: none;
+    font: inherit;
+    font-weight: 600;
+    color: var(--pj-text);
+    padding: 0.1rem 0.45rem;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background 0.12s ease;
+}
+.pj-menubar-btn:hover, .pj-menubar-btn:focus-visible { background: var(--c-accent-lite); outline: none; }
+@media (prefers-reduced-motion: reduce) { .pj-menubar-btn { transition: none; } }
+.pj-menubar-status { display: inline-flex; align-items: center; gap: 0.4rem; color: #0f766e; }
+.pj-menubar-status-dot { width: 6px; height: 6px; border-radius: 50%; background: #14b8a6; }
+.pj-menubar-clock { font-variant-numeric: tabular-nums; }
+
+/* Desktop area: free-floating windows when there is room, stacked otherwise */
+.pj-desktop {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: clamp(1.25rem, 4vw, 2rem);
+    padding: clamp(1rem, 4vw, 1.5rem);
+}
+
+.pj-desktop.is-floating {
+    display: block;
+    position: relative;
+    padding: 0;
+    overflow: hidden;
+}
+
+.pj-desktop.is-floating .pj-win { position: absolute; }
+
+/* App window */
+.pj-win {
+    --enter-dir: 1;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    border-radius: 12px;
+    border: none;
+    background: var(--pj-window);
+    overflow: hidden;
+    box-shadow: 0 12px 34px rgba(15, 42, 61, 0.12);
+    transition: box-shadow 0.3s ease, border-color 0.3s ease, opacity 0.35s ease,
+                transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), visibility 0s,
+                left 0.42s cubic-bezier(0.16, 1, 0.3, 1), top 0.42s cubic-bezier(0.16, 1, 0.3, 1),
+                width 0.42s cubic-bezier(0.16, 1, 0.3, 1), height 0.42s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Drag/resize update geometry every frame, so suppress the geometry easing then
+   (it stays on for the zoom/maximize toggle, which is a single jump). */
+body.pj-grabbing .pj-win { transition: none; }
+
+.pj-win:not(.is-active) { box-shadow: 0 9px 24px rgba(15, 42, 61, 0.09); }
+
+/* Floating windows fill their frame. The screenshot panes letterbox the real
+   screenshots (object-fit: contain) so the app UI always shows whole and
+   correctly proportioned, never cropped, at any window size. */
+.pj-win--floating .pj-win-bar { cursor: grab; }
+.pj-win--floating .pj-screens,
+.pj-win--floating .pj-screens--static { flex: 1; min-height: 90px; aspect-ratio: auto; background: var(--pj-bar); }
+.pj-win--floating .pj-screen,
+.pj-win--floating .pj-screens--static img {
+    object-fit: contain;
+    object-position: center;
+}
+.pj-win--floating .pj-app-status { padding: 0.6rem 0.8rem 0.7rem; gap: 0.3rem; }
+.pj-win--floating .pj-app-desc {
+    min-height: 0;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+/* Resize handles on every edge and corner (thin transparent hit areas, inset at
+   the corners so they clear the title-bar controls). */
+.pj-rz { position: absolute; z-index: 6; }
+.pj-rz-n { top: 0; left: 12px; right: 12px; height: 6px; cursor: ns-resize; }
+.pj-rz-s { bottom: 0; left: 12px; right: 12px; height: 6px; cursor: ns-resize; }
+.pj-rz-e { right: 0; top: 12px; bottom: 12px; width: 6px; cursor: ew-resize; }
+.pj-rz-w { left: 0; top: 12px; bottom: 12px; width: 6px; cursor: ew-resize; }
+.pj-rz-ne { top: 0; right: 0; width: 12px; height: 12px; cursor: nesw-resize; }
+.pj-rz-nw { top: 0; left: 0; width: 12px; height: 12px; cursor: nwse-resize; }
+.pj-rz-se { bottom: 0; right: 0; width: 14px; height: 14px; cursor: nwse-resize; }
+.pj-rz-sw { bottom: 0; left: 0; width: 12px; height: 12px; cursor: nesw-resize; }
+
+body.pj-grabbing, body.pj-grabbing * { cursor: grabbing !important; user-select: none; }
+
+.pj-win.is-active {
+    box-shadow: 0 22px 54px rgba(15, 42, 61, 0.18), 0 0 0 1px color-mix(in oklch, var(--accent) 30%, transparent);
+}
+
+/* Minimized collapses toward the dock; closed fades in place. Both drop out of
+   the tab order and the accessibility tree via visibility once the animation
+   has finished. */
+.pj-win.is-min,
+.pj-win.is-closed {
+    opacity: 0;
+    pointer-events: none;
+    visibility: hidden;
+    transition: box-shadow 0.3s ease, border-color 0.3s ease, opacity 0.35s ease,
+                transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), visibility 0s linear 0.35s;
+}
+
+.pj-win.is-min { transform: scale(0.4) translateY(60px); }
+.pj-win.is-closed { transform: scale(0.94); }
+
+@media (prefers-reduced-motion: reduce) {
+    .pj-win { transition: opacity 0.15s linear, border-color 0.15s linear, visibility 0s; }
+    .pj-win.is-min, .pj-win.is-closed { transform: none; transition: opacity 0.15s linear, visibility 0s linear 0.15s; }
+}
+
+/* Title bar + traffic lights */
+.pj-win-bar {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    padding: 0.55rem 0.8rem;
+    background: var(--pj-bar);
+    border-bottom: 1px solid var(--pj-line);
+}
+
+.pj-traffic { display: inline-flex; gap: 0.45rem; flex: none; }
+
+.pj-light {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+}
+
+.pj-light--close { background: #ff5f57; }
+.pj-light--min { background: #febc2e; }
+.pj-light--zoom { background: #28c840; }
+.pj-light:focus-visible { outline: 2px solid var(--pj-text); outline-offset: 2px; }
+
+.pj-win-title { font-family: var(--font-display); font-weight: 700; font-size: 0.92rem; color: var(--pj-text); flex: none; }
+.pj-win-sub {
+    font-size: 0.78rem;
+    color: var(--pj-muted);
+    flex: 0 1 auto;
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+/* Right side of the title bar: project link buttons */
+.pj-win-bar-right {
+    margin-left: auto;
+    flex: none;
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+}
+
+.pj-win-action {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.3rem;
+    height: 26px;
+    padding: 0 0.55rem;
+    border-radius: 7px;
+    border: 1px solid var(--pj-line-hard);
+    background: var(--pj-window);
+    color: var(--pj-text);
+    font-family: var(--font-display);
+    font-size: 0.76rem;
+    font-weight: 700;
+    text-decoration: none;
+    white-space: nowrap;
+    transition: background 0.2s ease, border-color 0.2s ease, color 0.2s ease, filter 0.2s ease;
+}
+
+/* Icon-only button (e.g. GitHub): a constant small square, identical per app. */
+.pj-win-action--icon { width: 26px; padding: 0; font-size: 0.95rem; }
+
+.pj-win-action:hover { border-color: var(--accent); background: var(--accent-soft); color: var(--accent); }
+.pj-win-action--solid { background: var(--accent); border-color: var(--accent); color: #ffffff; }
+.pj-win-action--solid:hover { background: var(--accent); color: #ffffff; filter: brightness(1.06); }
+.pj-win-action:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+/* App body: the screenshot pane */
+.pj-screens {
+    position: relative;
+    aspect-ratio: 16 / 10;
+    overflow: hidden;
+}
+
+.pj-screens--static {
+    aspect-ratio: 16 / 10.4;
+}
+
+.pj-screens--static img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center top;
+}
+
+/* Directional focus-pull swap between screens */
+.pj-screen {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center top;
+    opacity: 0;
+    z-index: 1;
+    transform: translateY(calc(var(--enter-dir, 1) * 4%)) scale(1.05);
+    filter: blur(8px);
+    transition:
+        opacity 0.55s cubic-bezier(0.16, 1, 0.3, 1),
+        transform 0.68s cubic-bezier(0.16, 1, 0.3, 1),
+        filter 0.55s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.pj-screen.is-active {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+    filter: blur(0);
+    z-index: 2;
+}
+
+.pj-screen.is-prev {
+    opacity: 0;
+    transform: translateY(calc(var(--enter-dir, 1) * -4%)) scale(1.03);
+    filter: blur(6px);
+    transition:
+        opacity 0.42s cubic-bezier(0.22, 1, 0.36, 1),
+        transform 0.46s cubic-bezier(0.22, 1, 0.36, 1),
+        filter 0.42s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .pj-screen,
+    .pj-screen.is-active,
+    .pj-screen.is-prev {
+        transform: none;
+        filter: none;
+        transition: opacity 0.15s linear;
+    }
+}
+
+/* App status bar: live route + the active module's description */
+.pj-app-status {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+    padding: 0.8rem 0.9rem 0.95rem;
+    border-top: 1px solid var(--pj-line);
+    background: #f7fafc;
+}
+
+.pj-app-path {
+    font-family: var(--font-display);
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    color: var(--accent);
+}
+
+.pj-app-desc {
+    margin: 0;
+    color: var(--pj-muted);
+    font-size: 0.9rem;
+    line-height: 1.55;
+}
+
+@media (min-width: 600px) {
+    /* Reserve space for the longest module description so the window does not
+       jump height as the visitor switches modules. */
+    .pj-app-desc { min-height: 3.1em; }
+}
+
+/* Guided-demo scrubber: fills once over the dwell time, then the demo advances.
+   Rendered only while the auto-demo is live, so it disappears the moment the
+   visitor takes control or under reduced motion. */
+.pj-progress {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 2px;
+    background: rgba(15, 42, 61, 0.10);
+    overflow: hidden;
+    z-index: 3;
+}
+
+.pj-progress-fill {
+    display: block;
+    height: 100%;
+    width: 0;
+    background: var(--accent);
+    animation: pj-fill var(--demo-ms, 5200ms) linear forwards;
+}
+
+.pj-progress-fill.is-paused { animation-play-state: paused; }
+
+@keyframes pj-fill {
+    from { width: 0; }
+    to { width: 100%; }
+}
+
+/* Screen selector: a real tablist so keyboard, touch, and reduced-motion
+   visitors can reach every CareFlow screen (autoplay's hover-pause is mouse
+   only). Focusing a tab pauses autoplay via the wrapper's focus handlers. */
+.pj-tabs {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.35rem;
+    margin-top: 0.15rem;
+}
+
+.pj-tab {
+    appearance: none;
+    border: 1px solid var(--pj-line);
+    background: #ffffff;
+    color: var(--pj-muted);
+    font-family: var(--font-display);
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.01em;
+    padding: 0.28rem 0.6rem;
+    border-radius: 999px;
+    cursor: pointer;
+    transition: color 0.15s ease, border-color 0.15s ease, background 0.15s ease;
+}
+
+.pj-tab:hover { color: var(--accent); border-color: var(--accent); }
+
+.pj-tab:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 2px;
+}
+
+.pj-tab.is-active {
+    color: #ffffff;
+    background: var(--accent);
+    border-color: var(--accent);
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .pj-tab { transition: none; }
+}
+
+/* About.app: identity + the former Skills groups as an "About This Mac" spec list */
+/* About window: an "About This Mac"-style system readout for the engineer.
+   Quiet by default; the single bold moment is the gradient identity mark + the
+   name. Buttons scope to the teal brand accent (the window chrome is slate). */
+.pj-about {
+    --accent: #0f766e;
+    --accent-soft: rgba(15, 118, 110, 0.12);
+    display: flex;
+    flex-direction: column;
+    gap: 1.05rem;
+    padding: 1.3rem 1.35rem 1.35rem;
+}
+
+.pj-win--floating .pj-about { flex: 1; min-height: 0; overflow: auto; }
+
+/* Identity: gradient monogram (the one color moment) + a confident name. */
+.pj-about-head { display: flex; align-items: center; gap: 1rem; }
+
+.pj-about-avatar {
+    flex: none;
+    width: 60px;
+    height: 60px;
+    border-radius: 17px;
+    background: linear-gradient(140deg, #189a8c 0%, #0f766e 50%, #7a5fc0 100%);
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--font-display);
+    font-weight: 800;
+    font-size: 1.32rem;
+    letter-spacing: 0.01em;
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 10px 24px rgba(15, 118, 110, 0.30);
+}
+
+.pj-about-id { min-width: 0; }
+
+.pj-about-name {
+    margin: 0;
+    font-family: var(--font-display);
+    font-weight: 800;
+    font-size: 1.5rem;
+    letter-spacing: -0.022em;
+    line-height: 1.04;
+    color: var(--pj-text);
+}
+
+.pj-about-role { margin: 0.22rem 0 0; color: var(--pj-muted); font-size: 0.86rem; font-weight: 500; }
+
+/* The one allowed status dot: a real availability flag, with a soft live pulse. */
+.pj-about-status {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    margin: 0;
+    color: var(--c-accent-deep);
+    font-size: 0.8rem;
+    font-weight: 700;
+}
+.pj-about-status-dot {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: var(--c-accent);
+    box-shadow: 0 0 0 0 rgba(20, 184, 166, 0.4);
+    animation: aboutPulse 2.6s cubic-bezier(0.22, 1, 0.36, 1) infinite;
+}
+@keyframes aboutPulse {
+    0% { box-shadow: 0 0 0 0 rgba(20, 184, 166, 0.4); }
+    70%, 100% { box-shadow: 0 0 0 7px rgba(20, 184, 166, 0); }
+}
+
+.pj-about-bio {
+    margin: 0;
+    color: var(--pj-text);
+    font-size: 0.92rem;
+    line-height: 1.62;
+}
+.pj-about-bio strong { color: var(--c-accent-deep); font-weight: 700; }
+
+/* System readout: aligned label -> value rows, hairline-separated. Not cards.
+   The value column carries the weight; the stack group sits below a divider. */
+.pj-about-readout { margin: 0; display: flex; flex-direction: column; }
+.pj-about-readout--stack {
+    margin-top: 0.25rem;
+    padding-top: 0.85rem;
+    border-top: 1px solid var(--pj-line-hard);
+}
+
+.pj-about-row {
+    display: grid;
+    grid-template-columns: 6.25rem 1fr;
+    gap: 0.85rem;
+    align-items: baseline;
+    padding: 0.46rem 0;
+    border-top: 1px solid var(--pj-line);
+}
+.pj-about-row:first-child { border-top: none; padding-top: 0; }
+.pj-about-readout--stack .pj-about-row:first-child { padding-top: 0; }
+
+.pj-about-row dt {
+    margin: 0;
+    color: var(--pj-muted);
+    font-size: 0.78rem;
+    font-weight: 600;
+}
+.pj-about-row dd {
+    margin: 0;
+    color: var(--pj-text);
+    font-size: 0.85rem;
+    font-weight: 600;
+    line-height: 1.45;
+}
+
+.pj-about-actions { display: flex; gap: 0.55rem; margin-top: 0.3rem; }
+
+.pj-about-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    height: 36px;
+    padding: 0 1.05rem;
+    border-radius: 9px;
+    border: 1px solid var(--pj-line-hard);
+    background: var(--pj-window);
+    color: var(--pj-text);
+    font-family: var(--font-display);
+    font-size: 0.83rem;
+    font-weight: 700;
+    text-decoration: none;
+    cursor: pointer;
+    transition: background 0.2s ease, border-color 0.2s ease, color 0.2s ease, filter 0.2s ease;
+}
+.pj-about-btn:hover { border-color: var(--accent); background: var(--accent-soft); color: var(--accent); }
+.pj-about-btn--solid {
+    background: linear-gradient(135deg, #0f766e, #7a5fc0);
+    border-color: transparent;
+    color: #ffffff;
+    box-shadow: 0 6px 16px rgba(15, 118, 110, 0.26);
+}
+.pj-about-btn--solid:hover { color: #ffffff; filter: brightness(1.06); }
+.pj-about-btn:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+@media (prefers-reduced-motion: reduce) {
+    .pj-about-btn { transition: none; }
+    .pj-about-status-dot { animation: none; }
+}
+
+/* Dock: floats over the desktop wallpaper (macOS-style), so the whole screen
+   below the menubar is one continuous desktop. */
+.pj-dock {
+    position: absolute;
+    bottom: clamp(0.9rem, 2vw, 1.5rem);
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 20;
+    display: inline-flex;
+    align-items: flex-end;
+    gap: 0.75rem;
+    padding: 0.5rem 0.7rem;
+    border-radius: 18px;
+    border: 1px solid var(--pj-line);
+    background: rgba(255, 255, 255, 0.7);
+    box-shadow: 0 10px 30px rgba(15, 42, 61, 0.12);
+    -webkit-backdrop-filter: blur(12px);
+    backdrop-filter: blur(12px);
+}
+
+.pj-dock-item {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.3rem;
+    padding: 0;
+    background: none;
+    border: none;
+    cursor: pointer;
+    text-decoration: none;
+    transform-origin: bottom center;
+    transition: transform 0.18s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.pj-dock-item:hover, .pj-dock-item:focus-visible { transform: scale(1.16) translateY(-5px); }
+.pj-dock-item:focus-visible { outline: none; }
+
+.pj-dock-icon {
+    width: 42px;
+    height: 42px;
+    border-radius: 11px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--font-display);
+    font-weight: 800;
+    font-size: 1.15rem;
+}
+
+.pj-dock-icon--link { background: #1f2d3d; color: #ffffff; font-size: 1.2rem; }
+/* Favicon-based dock icon: fills the tile; its own bg matches the icon accent. */
+.pj-dock-img { display: block; width: 100%; height: 100%; }
+.pj-dock-app.is-active .pj-dock-icon { box-shadow: 0 0 0 2px rgba(15, 42, 61, 0.2); }
+
+.pj-dock-run { width: 4px; height: 4px; border-radius: 50%; background: transparent; }
+.pj-dock-run.is-open { background: #5b6b7e; }
+
+.pj-dock-sep { width: 1px; align-self: stretch; margin: 0.25rem 0.1rem; background: var(--pj-line); }
+
+.pj-dock-tip {
+    position: absolute;
+    bottom: calc(100% + 8px);
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 0.25rem 0.55rem;
+    border-radius: 6px;
+    white-space: nowrap;
+    background: rgba(16, 32, 51, 0.92);
+    color: #ffffff;
+    font-size: 0.72rem;
+    font-weight: 600;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.15s ease;
+}
+
+.pj-dock-item:hover .pj-dock-tip, .pj-dock-item:focus-visible .pj-dock-tip { opacity: 1; }
+
+@media (prefers-reduced-motion: reduce) {
+    .pj-dock-item, .pj-dock-tip { transition: none; }
+    .pj-dock-item:hover, .pj-dock-item:focus-visible { transform: none; }
+}
+
+/* Right-click menu for a dock app (portaled to <body>; positioned via inline
+   left/top + transform). */
+.pj-ctx {
+    position: fixed;
+    z-index: 5000;
+    min-width: 170px;
+    display: flex;
+    flex-direction: column;
+    gap: 1px;
+    padding: 0.3rem;
+    border-radius: 12px;
+    border: 1px solid var(--pj-line);
+    background: rgba(255, 255, 255, 0.97);
+    box-shadow: 0 18px 44px rgba(15, 42, 61, 0.22);
+    -webkit-backdrop-filter: blur(14px);
+    backdrop-filter: blur(14px);
+    animation: pjCtxIn 0.12s ease;
+    -webkit-user-select: none;
+    user-select: none;
+}
+.pj-ctx:focus { outline: none; }
+@keyframes pjCtxIn { from { opacity: 0; } to { opacity: 1; } }
+
+.pj-ctx-title {
+    margin: 0;
+    padding: 0.3rem 0.6rem 0.4rem;
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.02em;
+    color: var(--pj-muted);
+}
+
+.pj-ctx-item {
+    appearance: none;
+    -webkit-appearance: none;
+    border: none;
+    background: none;
+    text-align: left;
+    padding: 0.42rem 0.6rem;
+    border-radius: 8px;
+    font: inherit;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--pj-text);
+    cursor: pointer;
+    transition: background 0.12s ease;
+}
+.pj-ctx-item:hover, .pj-ctx-item:focus-visible {
+    background: var(--c-accent-lite);
+    outline: none;
+}
+.pj-ctx-item--danger { color: #dc2626; }
+.pj-ctx-item--danger:hover, .pj-ctx-item--danger:focus-visible { background: rgba(220, 38, 38, 0.1); }
+
+.pj-ctx-sep { height: 1px; margin: 0.25rem 0.3rem; background: var(--pj-line); }
+
+@media (prefers-reduced-motion: reduce) {
+    .pj-ctx { animation: none; }
+    .pj-ctx-item { transition: none; }
+}
+
+/* Stacked app cards (no dock, lights/resize decorative): below the float
+   breakpoint OR for reduced-motion users at any width (they get the flat layout,
+   so the floating dock/menubar must not render over the stacked content). */
+@media (max-width: 991.98px), (prefers-reduced-motion: reduce) {
+    .pj-os { min-height: 0; border-radius: 14px; }
+    .pj-menubar { display: none; }
+    .pj-win.is-min, .pj-win.is-closed {
+        opacity: 1;
+        transform: none;
+        visibility: visible;
+        pointer-events: auto;
+    }
+    /* Decorative lights (disabled + aria-hidden below the float breakpoint):
+       keep them looking identical to the interactive ones, not UA-faded. */
+    .pj-light { pointer-events: none; opacity: 1; cursor: default; }
+    .pj-rz { display: none; }
+    .pj-dock { display: none; }
+}
+
+/* ============================================================
+   Cinematic landing: a FULL-SCREEN loading splash that auto-
+   animates into the framed macOS-style desktop "window app".
+   The hero is the desktop wallpaper; the apps start closed.
+   Wide + motion-allowed only (mobile/reduced get the flat layout).
+   ============================================================ */
+
+/* The desktop occupies one viewport, then scrolls normally to Contacts (no pin).
+   `.desk-pin` stays a relative, clipped 100vh box that hosts the absolute stage. */
+.desk-scene {
+    position: relative;
+    height: 100vh;
+}
+.desk-pin {
+    position: relative;
+    height: 100vh;
+    overflow: hidden;
+}
+
+/* Two-step entrance: after loading, `.is-revealed` fades in the FULL hero (over-
+   scanned, chrome hidden) and it holds for the pause; then `.is-framed` slowly
+   zooms back into the framed desktop "window app" (chrome fades in). */
+.desk-stage {
+    position: absolute;
+    inset: 0;
+    transform-origin: center center;
+    transform: scale(1.03);
+    opacity: 0;
+    pointer-events: none;
+    will-change: transform, opacity;
+    transition: opacity 0.5s ease, transform 3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.desk-stage.is-revealed { opacity: 1; }
+.desk-stage.is-framed {
+    transform: scale(0.9);
+    pointer-events: auto;
+}
+
+/* Desktop chrome stays hidden through the full-hero hold, then fades in as the
+   camera zooms into the window app. */
+.desk-stage .pj-menubar,
+.desk-stage .pj-dock {
+    opacity: 0;
+    transition: opacity 0.9s ease;
+}
+.desk-stage.is-framed .pj-menubar,
+.desk-stage.is-framed .pj-dock {
+    opacity: 1;
+}
+
+/* Hero = desktop WALLPAPER: behind the chrome (z 0), clipped to the screen
+   shape, always visible (the apps open over it). */
+.desk-wallpaper {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    border-radius: 18px;
+    overflow: hidden;
+}
+.desk-wallpaper .hero-section { min-height: 100%; height: 100%; }
+
+/* Desktop chrome (menubar + windows + dock) sits ABOVE the wallpaper; .pj-os is
+   transparent so the hero shows through. The framed look comes from the stage. */
+.projects-section.is-cinematic {
+    position: relative;
+    z-index: 1;
+    display: block;
+    width: 100%;
+    height: 100%;
+    padding: 0;
+    overflow: visible;
+}
+.projects-section.is-cinematic .pj-grain { display: none; }
+.projects-section.is-cinematic .pj-inner {
+    width: 100%;
+    max-width: none;
+    height: 100%;
+    padding: 0;
+}
+.projects-section.is-cinematic .pj-os {
+    width: 100%;
+    height: 100%;
+    min-height: 0;
+    opacity: 1;
+    transform: none;
+    border-bottom-color: var(--pj-line);
+    background: transparent;
+}
+
+/* ----- Full-screen loading splash ----- */
+.boot {
+    position: fixed;
+    inset: 0;
+    z-index: 4000;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 1.4rem;
+    /* Same wash as the page so the hand-off reads cleanly. */
+    background: linear-gradient(180deg, #edf9f7 0%, #f0f7ff 45%, var(--c-bg) 100%);
+    transition: opacity 0.5s ease, transform 0.5s ease;
+}
+.boot.is-leaving {
+    opacity: 0;
+    transform: scale(1.04);
+    pointer-events: none;
+}
+
+.boot-stage {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.4rem;
+}
+
+.boot-logo {
+    width: 84px;
+    height: 84px;
+    /* drop-shadow follows the favicon's rounded shape (vs a square box-shadow). */
+    filter: drop-shadow(0 16px 36px rgba(15, 23, 42, 0.26));
+    animation: bootPop 0.6s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.boot-name {
+    color: var(--c-text);
+    font-size: 1.05rem;
+    font-weight: 700;
+    letter-spacing: 0.01em;
+    opacity: 0;
+    animation: bootFade 0.5s ease 0.25s both;
+}
+
+.boot-bar {
+    width: 184px;
+    height: 4px;
+    border-radius: 999px;
+    background: rgba(15, 42, 61, 0.1);
+    overflow: hidden;
+}
+
+.boot-bar-fill {
+    display: block;
+    height: 100%;
+    width: 0;
+    border-radius: inherit;
+    background: linear-gradient(90deg, var(--c-accent), var(--c-accent-deep));
+    animation: bootFill var(--boot-ms, 3000ms) cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+.boot-skip {
+    position: absolute;
+    bottom: clamp(1.4rem, 4vh, 2.4rem);
+    right: clamp(1.4rem, 4vw, 2.4rem);
+    padding: 0.42rem 0.95rem;
+    background: transparent;
+    border: 1px solid var(--c-border-hard);
+    border-radius: 999px;
+    color: var(--c-text-muted);
+    font-size: 0.8rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: color 0.15s ease, border-color 0.15s ease;
+}
+.boot-skip:hover,
+.boot-skip:focus-visible {
+    color: var(--c-text);
+    border-color: var(--c-accent);
+    outline: none;
+}
+
+@keyframes bootPop {
+    from { transform: scale(0.82); opacity: 0; }
+    to   { transform: scale(1);    opacity: 1; }
+}
+@keyframes bootFade { to { opacity: 1; } }
+@keyframes bootFill { from { width: 0; } to { width: 100%; } }

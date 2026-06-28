@@ -74,8 +74,8 @@ Before finishing:
   backend APIs, global toast/banner systems, or fake loading states.
 - Do not silently hide failures with fallback behavior.
 - Do not print secrets, tokens, broad environment dumps, or private data beyond
-  what already lives in tracked files; treat the `gh-pages` deploy token as
-  sensitive.
+  what already lives in tracked files; the Pages deploy uses the built-in
+  Actions `GITHUB_TOKEN` (no stored deploy token), so never add or echo one.
 - Do not ask the user to paste secrets.
 
 Pause and ask before deploying, changing `CNAME` or routing entry points,
@@ -182,7 +182,8 @@ Never:
 - use destructive git operations without explicit instruction
 - rebase, amend, force-push, push, or switch branches unless requested
 - stage unrelated files
-- run `npm run deploy` or `npm run predeploy` without explicit instruction
+- merge to `main`, push to `main`, or run the Pages deploy workflow without
+  explicit instruction (a merge to `main` auto-deploys to the live site)
 
 Always:
 
@@ -232,9 +233,12 @@ Run commands from the project root.
 - Build: `npm run build`
 - Dev: `npm run dev`
 - Preview: `npm run preview`
-- Deploy: `npm run deploy` only on explicit user instruction; publishes to the
-  live custom domain (`xinyiklin.com`), and `predeploy` runs `npm run build`
-  automatically.
+- Deploy: automated via GitHub Actions (`.github/workflows/deploy.yml`). Every
+  push to `main` builds and publishes `dist/` to GitHub Pages (Pages source is
+  "GitHub Actions"); the custom domain (`xinyiklin.com`) rides along via
+  `public/CNAME` -> `dist/CNAME`. There is no `npm run deploy`. The workflow can
+  also be triggered manually from the Actions tab. Merging to `main` publishes
+  to the live site, so treat a merge as a deploy.
 
 Canonical port `5184` (reserved `5184-5185`); `vite.config.js` sets
 `strictPort: true`, so Vite will not silently choose another port. If `5184` is

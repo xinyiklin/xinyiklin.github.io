@@ -106,11 +106,11 @@ A two-accent system over a near-white drafting surface. Accents stay rare and pr
 
 ### Primary
 
-- **Operating Teal** (`#0f766e`, `oklch(45% 0.075 180)`): the brand's load-bearing color. Primary CTA backgrounds (Live demo button), the CareFlow case-study accent, link hovers in the navbar, hero badge text, contact-section pulse, sticky-stage halo, active pip pill, scene labels, status dot pulse.
+- **Operating Teal** (`#0f766e`, `oklch(45% 0.075 180)`): the brand's load-bearing color. Primary CTA backgrounds (Live demo button), the CareFlow case-study accent, hero badge text, dock tooltip and tile states, contact-section pulse, sticky-stage halo, active pip pill, scene labels, status dot pulse.
 
 ### Secondary
 
-- **Polish Violet** (`#7c3aed`, `oklch(50% 0.25 290)`): the RoleFit AI case-study accent. Used on the RoleFit tagline, the View source CTA, and the 2px top divider above each RoleFit note. The cross-project signal that more than one shipped build lives in the catalogue. Polish Violet never appears in the CareFlow case study, never in the navbar, never in the hero.
+- **Polish Violet** (`#7c3aed`, `oklch(50% 0.25 290)`): the RoleFit AI case-study accent. Used on the RoleFit tagline, the View source CTA, and the 2px top divider above each RoleFit note. The cross-project signal that more than one shipped build lives in the catalogue. Polish Violet never appears in the CareFlow case study, never in the hero.
 
 ### Tertiary
 
@@ -236,11 +236,14 @@ The secondary case study deliberately has no `.cs-showcase`, no `.cs-areas` feat
 - **Shadow Strategy:** shadow-sm at rest. These are passive cards, not interactive.
 - **Border:** none. Shadow + background contrast carries separation.
 
-### Navigation
+### Navigation (desktop dock)
 
-- **Style:** a fixed, centered dot constellation. The section links sit in a frosted translucent-white pill (`backdrop-filter` blur, hairline border, soft shadow), with the brand wordmark on the left and the Resume CTA on the right. Always present, not a full-width bar.
-- **Typography:** brand name 800, nav labels 700, all in Chart Ink.
-- **States:** the active dot and hover are Operating Teal; each dot reveals its section label on hover or focus; the Resume CTA is a Chart Ink pill button with white text.
+The fixed dot-constellation navbar was removed with the desktop redesign. On wide, motion-allowed viewports the landing is a cinematic macOS-style desktop (`DesktopScene`): the hero is the wallpaper and the case studies open as draggable windows. There is no standalone About/Skills section and no separate navigation bar; the Resume CTA now lives inside the desktop's About window.
+
+- **Style:** a floating bottom dock (`.pj-dock`) with one tile per app, About, CareFlow, and RoleFit AI. The dock fades in as the camera settles into the framed desktop. Apps open fullscreen (maximized) by default; clicking an open app focuses it.
+- **States:** hovering or focusing a tile lifts it with a small magnify (`scale(1.16) translateY(-5px)`) and reveals its label tooltip; CareFlow uses its own favicon tile, About a Lucide `User` glyph, RoleFit AI a lettered "R" tile. Motion is suppressed under `prefers-reduced-motion`.
+- **Right-click menu:** right-clicking an app tile opens a context menu (`.pj-ctx`, portaled to `<body>`) whose actions mirror the window's traffic lights and adapt to state, Open / Show, Zoom or Restore, Minimize, Close. Dismisses on Escape, outside-click, or blur. Link tiles keep the browser's native menu.
+- **Mobile / reduced-motion:** the flat stacked layout has no dock; the windows render as static stacked cards and their traffic-light controls are decorative (non-interactive, removed from the tab order and the accessibility tree).
 
 ## 6. Do's and Don'ts
 

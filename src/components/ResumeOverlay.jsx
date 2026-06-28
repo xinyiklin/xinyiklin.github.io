@@ -152,15 +152,18 @@ function ResumeOverlay({ open, onClose }) {
                                 <div key={project.name} className="resume-entry">
                                     <div className="resume-entry-row">
                                         <span className="resume-entry-primary">{project.name}</span>
-                                        {project.link && (
-                                            <span className="resume-entry-aside">
-                                                <a
-                                                    href={project.link.href}
-                                                    target="_blank"
-                                                    rel="noreferrer"
-                                                >
-                                                    {project.link.label}
-                                                </a>
+                                        {project.links?.length > 0 && (
+                                            <span className="resume-entry-aside resume-entry-links">
+                                                {project.links.map((link, index) => (
+                                                    <span key={link.href}>
+                                                        {index > 0 && (
+                                                            <span className="resume-link-sep" aria-hidden="true"> / </span>
+                                                        )}
+                                                        <a href={link.href} target="_blank" rel="noreferrer">
+                                                            {link.label}
+                                                        </a>
+                                                    </span>
+                                                ))}
                                             </span>
                                         )}
                                     </div>
