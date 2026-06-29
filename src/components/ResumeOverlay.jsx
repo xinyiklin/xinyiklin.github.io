@@ -93,10 +93,7 @@ function ResumeOverlay({ open, onClose }) {
         >
             <div className="resume-overlay-dialog" ref={dialogRef}>
                 <div className="resume-overlay-bar">
-                    <div className="resume-overlay-bar-title">
-                        <span className="resume-overlay-bar-label">Resume</span>
-                        <span className="resume-overlay-bar-meta">{RESUME_HEADER.name}, 2026</span>
-                    </div>
+                    <span className="resume-overlay-bar-label">Resume</span>
                     <button
                         type="button"
                         className="resume-overlay-close"
