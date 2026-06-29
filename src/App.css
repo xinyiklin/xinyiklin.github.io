@@ -258,8 +258,10 @@ footer {
 
 .typewriter-cursor {
     color: var(--c-accent-deep);
-    font-weight: 800;
+    font-weight: 700;
     margin-left: 0.1rem;
+    display: inline-block;
+    transform: translateY(1px);
     animation: caretBlink 0.85s steps(1) infinite;
 }
 
@@ -294,15 +296,6 @@ footer {
     gap: 0.42rem;
     letter-spacing: 0.01em;
     padding: 0.46rem 0.9rem;
-    transition: background var(--transition), border-color var(--transition), box-shadow var(--transition), transform var(--transition);
-}
-
-.hero-chip:hover {
-    animation: none;
-    background: #ffffff;
-    border-color: var(--c-accent);
-    box-shadow: 0 6px 20px rgba(20,184,166,0.18);
-    transform: translateY(-4px);
 }
 
 .hero-chip-icon {
@@ -496,7 +489,7 @@ footer a:hover { color: var(--c-accent-deep) !important; }
     inset: 0;
     justify-content: center;
     overflow-y: auto;
-    padding: clamp(0.75rem, 3vw, 2.5rem);
+    padding: clamp(0.25rem, 1vw, 0.5rem);
     position: fixed;
     z-index: 1050;
     animation: resumeOverlayFade 0.18s ease-out;
@@ -510,12 +503,14 @@ footer a:hover { color: var(--c-accent-deep) !important; }
 .resume-overlay-dialog {
     background: var(--c-surface);
     border: 1px solid var(--c-border);
+    border-top-color: transparent;
+    border-bottom-color: transparent;
     border-radius: var(--radius-lg);
     box-shadow: 0 32px 80px rgba(15, 42, 61, 0.32);
     display: flex;
     flex-direction: column;
     margin: 0;
-    max-width: 1120px;
+    max-width: 1140px;
     max-height: 100%;
     overflow: hidden;
     width: 100%;
@@ -541,17 +536,8 @@ footer a:hover { color: var(--c-accent-deep) !important; }
     border-bottom: 1px solid var(--c-border);
     display: flex;
     flex: none;
-    gap: 1rem;
     justify-content: space-between;
-    padding: 0.4rem 0.75rem 0.4rem 1rem;
-}
-
-.resume-overlay-bar-title {
-    display: flex;
-    flex-direction: column;
-    gap: 0.1rem;
-    line-height: 1.2;
-    min-width: 0;
+    padding: 0.25rem 0.5rem 0.25rem 0.75rem;
 }
 
 .resume-overlay-bar-label {
@@ -560,12 +546,6 @@ footer a:hover { color: var(--c-accent-deep) !important; }
     font-weight: 800;
     letter-spacing: 0.16em;
     text-transform: uppercase;
-}
-
-.resume-overlay-bar-meta {
-    color: var(--c-text);
-    font-size: 0.88rem;
-    font-weight: 700;
 }
 
 .resume-overlay-close {
@@ -610,7 +590,7 @@ footer a:hover { color: var(--c-accent-deep) !important; }
     font-size: 0.95rem;
     line-height: 1.55;
     margin: 0 auto;
-    max-width: 960px;
+    max-width: 1120px;
     padding: clamp(1.75rem, 4vw, 2.75rem) clamp(1.25rem, 4vw, 2.5rem) clamp(2rem, 5vw, 3rem);
 }
 
@@ -785,10 +765,6 @@ footer a:hover { color: var(--c-accent-deep) !important; }
         padding: 0.6rem 0.75rem 0.6rem 1rem;
     }
 
-    .resume-overlay-bar-meta {
-        display: none;
-    }
-
     .resume-entry-row {
         flex-direction: column;
         gap: 0.1rem;
@@ -866,16 +842,14 @@ footer a:hover { color: var(--c-accent-deep) !important; }
     display: flex;
     flex-direction: column;
     min-height: clamp(46rem, 88vh, 66rem);
-    border: 1px solid var(--pj-line);
-    /* Dissolve the bottom edge so the screen melts into the page rather than
-       cutting a hard Work->Contacts seam (border + shadow stay on top/sides). */
+    border: 1px solid var(--pj-line-hard);
     border-bottom-color: transparent;
     border-radius: 18px;
     background:
         radial-gradient(120% 80% at 10% 0%, rgba(20, 184, 166, 0.12), transparent 55%),
         radial-gradient(120% 90% at 100% 100%, rgba(124, 58, 237, 0.09), transparent 55%),
         linear-gradient(160deg, #e9f4f3 0%, #eef2fb 100%);
-    box-shadow: 0 18px 48px rgba(15, 42, 61, 0.09), inset 0 1px 0 rgba(255, 255, 255, 0.6);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.6);
     overflow: hidden;
     /* The desktop is an app surface, not a document: no text selection, so
        dragging windows and clicking around never leaves a stray highlight. */
@@ -1888,11 +1862,11 @@ body.pj-grabbing .cf-appt:hover { transform: none; }
    `.desk-pin` stays a relative, clipped 100vh box that hosts the absolute stage. */
 .desk-scene {
     position: relative;
-    height: 100vh;
+    height: var(--desk-h, 100vh);
 }
 .desk-pin {
     position: relative;
-    height: 100vh;
+    height: var(--desk-h, 100vh);
     overflow: hidden;
 }
 
@@ -1911,7 +1885,7 @@ body.pj-grabbing .cf-appt:hover { transform: none; }
 }
 .desk-stage.is-revealed { opacity: 1; }
 .desk-stage.is-framed {
-    transform: scale(0.9);
+    transform: scale(0.94);
     pointer-events: auto;
 }
 
@@ -1937,6 +1911,17 @@ body.pj-grabbing .cf-appt:hover { transform: none; }
     overflow: hidden;
 }
 .desk-wallpaper .hero-section { min-height: 100%; height: 100%; }
+
+/* Inside the desktop wallpaper, lock hero fonts to their max values so they
+   don't scale with viewport width (the desktop is a fixed-size "monitor"). */
+.desk-wallpaper .hero-title { font-size: 7rem; }
+.desk-wallpaper .Typewriter,
+.desk-wallpaper .typewriter { font-size: 1.22rem; }
+.desk-wallpaper .hero-subtitle { font-size: 1.15rem; }
+/* Offset the vertical center so the hero sits in the middle of the usable
+   area ABOVE the dock (menubar 30px top + dock ~95px bottom). */
+.desk-wallpaper .hero-content { padding-top: 0; padding-bottom: 5rem; }
+.desk-wallpaper .hero-section.d-flex { justify-content: center; }
 
 /* Desktop chrome (menubar + windows + dock) sits ABOVE the wallpaper; .pj-os is
    transparent so the hero shows through. The framed look comes from the stage. */

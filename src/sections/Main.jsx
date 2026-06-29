@@ -58,7 +58,10 @@ function Main({ sectionId = "home", deferTyping = false }) {
             const pauseFor = (s) => 700 + s.length * 50;
             phrases.reduce(
               (chain, phrase) =>
-                chain.typeString(phrase).pauseFor(pauseFor(phrase)).deleteAll(),
+                chain
+                  .typeString(phrase)
+                  .pauseFor(pauseFor(phrase))
+                  .deleteChars(phrase.length),
               tw
             );
             // Cinematic path waits for `desktop-settled`; otherwise start now.

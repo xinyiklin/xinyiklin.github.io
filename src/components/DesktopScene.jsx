@@ -19,6 +19,14 @@ const PAUSE_MS = 1200; // hold on the full hero before zooming into the desktop
 const SETTLE_MS = 1200;
 
 function DesktopScene() {
+  const [deskH, setDeskH] = useState(() => window.innerHeight);
+  // Track the tallest viewport seen so the desktop never shrinks on resize,
+  // but grows if the user maximizes the browser after loading at half-height.
+  useEffect(() => {
+    const onResize = () => setDeskH((prev) => Math.max(prev, window.innerHeight));
+    window.addEventListener("resize", onResize);
+    return () => window.removeEventListener("resize", onResize);
+  }, []);
   const [booting, setBooting] = useState(true); // splash mounted
   const [leaving, setLeaving] = useState(false); // splash fading out
   const [revealed, setRevealed] = useState(false); // full hero shown (splash gone)
@@ -112,7 +120,12 @@ function DesktopScene() {
           inert: out of the tab order and the accessibility tree, so the boot
           status isn't announced alongside the hidden desktop's controls AND the
           Resume overlay can't open while we still hold the body.overflow lock. */}
-      <section className="desk-scene" aria-label="Desktop" inert={settled ? undefined : ""}>
+      <section
+        className="desk-scene"
+        aria-label="Desktop"
+        inert={settled ? undefined : ""}
+        style={{ "--desk-h": `${deskH}px` }}
+      >
         <div className="desk-pin">
           <div className={stageClass}>
             {/* Hero is the desktop wallpaper, behind the chrome. No `home`/
