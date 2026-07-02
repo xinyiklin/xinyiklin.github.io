@@ -28,6 +28,47 @@ const RESUME = {
       ],
     },
     {
+      id: "skills",
+      heading: "Technical Skills",
+      entries: [
+        { title: "Languages", sub: "Python, C++, JavaScript, TypeScript, SQL, HTML/CSS", bullets: [] },
+        { title: "Frontend", sub: "React, Vite, React Query, React Router, Tailwind CSS", bullets: [] },
+        { title: "Backend & Data", sub: "Django REST, Node.js, REST APIs, OpenAPI, JWT/CSRF, PostgreSQL", bullets: [] },
+        { title: "Testing & Quality", sub: "Django TestCase, GitHub Actions CI, ESLint, TypeScript, regression evals", bullets: [] },
+        { title: "Tooling & Cloud", sub: "Git, Docker, AWS (Amplify, RDS, EC2), Render, Cloudflare R2", bullets: [] },
+      ],
+    },
+    {
+      id: "projects",
+      heading: "Projects",
+      entries: [
+        {
+          title: "CareFlow",
+          sub: "React 19 · Django REST · PostgreSQL · AWS",
+          date: "careflow.xinyiklin.com",
+          bullets: [
+            "Built and deployed a React + Django clinic platform: 10+ apps, 45+ models, 250+ endpoints, with the frontend on AWS Amplify and PostgreSQL on Amazon RDS.",
+            "Role-based access scoped to org/facility, audit logging, Fernet-encrypted SSNs, and 400+ Django tests in CI.",
+          ],
+        },
+        {
+          title: "RoleFit AI",
+          sub: "React 19 · Node.js · LLM APIs",
+          date: "xinyiklin.com/rolefit-ai",
+          bullets: [
+            "Local-first resume tailor that scores fit to a posting without inventing experience — structured editor + Tectonic PDF export.",
+            "Recruiter-style review engine over 10+ AI backends with grounded-output guards and 120+ anti-fabrication eval probes.",
+          ],
+        },
+        {
+          title: "JakeForge",
+          sub: "React 19 · Node.js · Docker · AWS EC2",
+          date: "jakeforge.xinyiklin.com",
+          bullets: ["Jake's-style resume editor forked from RoleFit AI: LaTeX/Tectonic export, DOCX import, Dockerized EC2 deploy via GitHub Actions."],
+        },
+      ],
+    },
+    {
       id: "experience",
       heading: "Experience",
       entries: [
@@ -37,59 +78,18 @@ const RESUME = {
           sub: "Colden Heart Center",
           date: "Mar 2023 – Present",
           bullets: [
-            "Turned recurring EHR, scheduling, and clinical workflow issues into practical requirements for physicians and staff.",
+            "Translated recurring EHR, scheduling, and clinical workflow issues into practical requirements for physicians and staff.",
             "Led an EHR migration — data transfer, validation, and workflow continuity across clinic systems.",
-            "Redesigned room assignment, cutting patient wait times by over 50%.",
+            "Revised the room-assignment process, reducing patient wait times by over 50%.",
           ],
         },
         {
-          title: "Teaching Assistant, Intro Java",
+          title: "Teaching Assistant — Intro Java",
           side: "New York, NY",
           sub: "Hunter College",
           date: "Jul – Aug 2022",
           bullets: ["Supported intro Java students through labs, code reviews, and debugging — OOP, data structures, algorithms."],
         },
-      ],
-    },
-    {
-      id: "projects",
-      heading: "Projects",
-      entries: [
-        {
-          title: "CareFlow",
-          sub: "React 19 · Django REST · PostgreSQL",
-          date: "careflow.xinyiklin.com",
-          bullets: [
-            "Built and deployed a React + Django clinic platform: 10+ apps, 45+ models, 200+ endpoints for scheduling, charting, billing, and records.",
-            "Role-based access scoped to org/facility, audit logging, Fernet-encrypted SSNs, and 400+ Django tests in CI.",
-          ],
-        },
-        {
-          title: "RoleFit AI",
-          sub: "React 19 · Node.js · LLM APIs",
-          date: "github.com/xinyiklin/rolefit-ai",
-          bullets: [
-            "Local-first resume tailor that scores fit to a posting without inventing experience — structured editor + Tectonic PDF export.",
-            "Recruiter-style review engine over 10+ AI backends with grounded-output guards and 35+ anti-fabrication evals.",
-          ],
-        },
-        {
-          title: "Catch the Ball",
-          sub: "C++17 · OpenGL · GLFW",
-          date: "github.com/xinyiklin/catch-the-ball",
-          bullets: ["C++17 game with separate engine and game modules: GLFW input, OpenGL rendering, collision, scoring, CMake build."],
-        },
-      ],
-    },
-    {
-      id: "skills",
-      heading: "Technical Skills",
-      entries: [
-        { title: "Languages", sub: "Python, C++, JavaScript, TypeScript, SQL, HTML/CSS", bullets: [] },
-        { title: "Frontend", sub: "React, Vite, React Query, React Router, Tailwind CSS", bullets: [] },
-        { title: "Backend & Data", sub: "Django REST, Node.js, REST APIs, OpenAPI, JWT/CSRF, PostgreSQL", bullets: [] },
-        { title: "Testing & Quality", sub: "Django TestCase, GitHub Actions CI, ESLint, TypeScript, regression evals", bullets: [] },
-        { title: "Tooling & Cloud", sub: "Git, Docker, CMake, OpenGL, GLFW, Render, Vercel, Cloudflare R2", bullets: [] },
       ],
     },
   ],

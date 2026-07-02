@@ -1,35 +1,20 @@
 import { useCallback, useEffect, useLayoutEffect, useRef, useState } from "react";
-import { createPortal } from "react-dom";
-import { ArrowUpRight, Mail } from "lucide-react";
-import { FaGithub, FaLinkedin } from "react-icons/fa";
+import { ArrowUpRight } from "lucide-react";
+import { FaGithub } from "react-icons/fa";
 import { useInView, useMediaQuery, useReducedMotion, WIDE_QUERY } from "../hooks/useMotion";
-import { GITHUB, LINKEDIN, NAME } from "../constants/app";
+import { NAME } from "../constants/app";
 import { PROJECT_LINKS } from "../constants/projects";
 import CareFlowDemo from "../components/CareFlowDemo";
 import RoleFitDemo from "../components/RoleFitDemo";
-import careflowFavicon from "../assets/careflow-favicon.svg";
-import rolefitFavicon from "../assets/rolefit-favicon.svg";
+import JakeForgeDemo from "../components/JakeForgeDemo";
+import Dock, { DOCK_APPS, DockContextMenu, appMenuItems } from "../components/DesktopDock";
 
 const CAREFLOW = PROJECT_LINKS.careflow;
 const ROLEFIT = PROJECT_LINKS.rolefitAi;
-
-// The three desktop apps shown in the dock (and targeted by the right-click menu).
-const DOCK_APPS = [
-  { id: "about", label: "About", accent: "linear-gradient(140deg, #189a8c 0%, #0f766e 50%, #7a5fc0 100%)", onText: "#ffffff", glyph: "XL" },
-  { id: "careflow", label: "CareFlow", accent: "#2a3847", onText: "#ffffff", iconSrc: careflowFavicon },
-  { id: "rolefit", label: "RoleFit AI", accent: "#eef2ef", onText: "#23664f", iconSrc: rolefitFavicon },
-];
-
-// External links open a real URL; the Contact tile (no href) just scrolls to
-// the Contacts section in-page, without writing a hash to the URL.
-const DOCK_LINKS = [
-  { id: "github", label: "GitHub", href: GITHUB, external: true, accent: "#181717", icon: <FaGithub aria-hidden="true" /> },
-  { id: "linkedin", label: "LinkedIn", href: LINKEDIN, external: true, accent: "#0a66c2", icon: <FaLinkedin aria-hidden="true" /> },
-  { id: "contact", label: "Contact", target: "contacts", accent: "#0f766e", icon: <Mail size={20} aria-hidden="true" /> },
-];
+const JAKEFORGE = PROJECT_LINKS.jakeforge;
 
 // Smallest each window may be dragged/resized to, so content never gets crushed.
-const MIN_SIZE = { about: { w: 300, h: 300 }, careflow: { w: 400, h: 340 }, rolefit: { w: 320, h: 320 } };
+const MIN_SIZE = { about: { w: 300, h: 300 }, careflow: { w: 400, h: 340 }, rolefit: { w: 320, h: 320 }, jakeforge: { w: 380, h: 340 } };
 
 // About + Skills, merged into one "About This Mac"-style window. Profile facts
 // render as key/value rows; the former Skills groups render as tag rows. All
@@ -43,7 +28,7 @@ const ABOUT_PROFILE = [
 const ABOUT_STACK = [
   { label: "Frontend", items: ["React", "TypeScript", "Vite"] },
   { label: "Backend", items: ["Django", "Python", "Node.js"] },
-  { label: "Data & tooling", items: ["PostgreSQL", "Git", "Docker", "Vercel"] },
+  { label: "Data & tooling", items: ["PostgreSQL", "Git", "Docker", "AWS"] },
   { label: "AI / LLM", items: ["Claude Code", "Codex", "Antigravity"] },
 ];
 // Bottom strip the floating dock occupies; default and maximized windows stay
@@ -86,10 +71,13 @@ function defaultLayout(w, h) {
   // collapse media query forces them visible as stacked cards regardless.
   const base = { min: false, closed: true, max: false, prev: null };
   // About fills the left column; CareFlow and RoleFit stack in the right column.
+  // JakeForge cascades over the right column (windows open maximized anyway, so
+  // this is only its un-zoomed restore position).
   return {
     about: { ...base, x: pad, y: pad, w: aboutW, h: colH },
     careflow: { ...base, x: rightX, y: pad, w: rightW, h: cfH },
     rolefit: { ...base, x: rightX, y: pad + cfH + gap, w: rightW, h: rfH },
+    jakeforge: { ...base, x: rightX + 26, y: pad + 26, w: Math.max(420, rightW - 52), h: clamp(Math.round(colH * 0.62), 320, 520) },
   };
 }
 
@@ -103,23 +91,24 @@ function WinAction({ href, solid, icon, ariaLabel, children }) {
   );
 }
 
-const CAREFLOW_ACTIONS = (
-  <>
-    <WinAction href={CAREFLOW.live} solid>
-      Live demo <ArrowUpRight size={13} aria-hidden="true" />
-    </WinAction>
-    <WinAction href={CAREFLOW.portal}>Portal</WinAction>
-    <WinAction href={CAREFLOW.github} icon ariaLabel="Source on GitHub">
-      <FaGithub aria-hidden="true" />
-    </WinAction>
-  </>
-);
+// Title-bar actions shared by every project window: a solid Live demo link plus
+// a GitHub source button, driven by the PROJECT_LINKS registry entry.
+function projectActions({ live, github }) {
+  return (
+    <>
+      <WinAction href={live} solid>
+        Live demo <ArrowUpRight size={13} aria-hidden="true" />
+      </WinAction>
+      <WinAction href={github} icon ariaLabel="Source on GitHub">
+        <FaGithub aria-hidden="true" />
+      </WinAction>
+    </>
+  );
+}
 
-const ROLEFIT_ACTIONS = (
-  <WinAction href={ROLEFIT.github} icon ariaLabel="Source on GitHub">
-    <FaGithub aria-hidden="true" />
-  </WinAction>
-);
+const CAREFLOW_ACTIONS = projectActions(CAREFLOW);
+const ROLEFIT_ACTIONS = projectActions(ROLEFIT);
+const JAKEFORGE_ACTIONS = projectActions(JAKEFORGE);
 
 // About.app: a macOS "About This Mac"-style system readout. One bold moment (the
 // gradient monogram + name); identity, then an aligned label -> value spec sheet.
@@ -260,164 +249,6 @@ function AppWindow({
   );
 }
 
-function Dock({ wins, activeId, onActivate, onContextMenu }) {
-  return (
-    <div className="pj-dock" role="group" aria-label="Project dock">
-      {DOCK_APPS.map((app) => {
-        const w = wins?.[app.id];
-        const running = w ? !w.closed : true;
-        const hidden = w ? w.closed || w.min : false;
-        return (
-          <button
-            key={app.id}
-            type="button"
-            className={`pj-dock-item pj-dock-app${activeId === app.id && !hidden ? " is-active" : ""}`}
-            aria-label={`${hidden ? "Open" : "Focus"} ${app.label}`}
-            onClick={() => onActivate(app.id)}
-            onContextMenu={(e) => {
-              e.preventDefault();
-              onContextMenu(app.id, e.clientX, e.clientY);
-            }}
-          >
-            <span className="pj-dock-tip">{app.label}</span>
-            <span className="pj-dock-icon" style={{ background: app.accent, color: app.onText }}>
-              {app.iconSrc ? (
-                <img className="pj-dock-img" src={app.iconSrc} alt="" aria-hidden="true" />
-              ) : (
-                app.glyph
-              )}
-            </span>
-            <span className={running ? "pj-dock-run is-open" : "pj-dock-run"} aria-hidden="true" />
-          </button>
-        );
-      })}
-      <span className="pj-dock-sep" aria-hidden="true" />
-      {DOCK_LINKS.map((link) => {
-        const inner = (
-          <>
-            <span className="pj-dock-tip">{link.label}</span>
-            <span className="pj-dock-icon pj-dock-icon--link" style={{ background: link.accent }}>
-              {link.icon}
-            </span>
-            <span className="pj-dock-run" aria-hidden="true" />
-          </>
-        );
-        return link.external ? (
-          <a key={link.id} className="pj-dock-item pj-dock-link" href={link.href} target="_blank" rel="noreferrer" aria-label={link.label}>
-            {inner}
-          </a>
-        ) : (
-          <button
-            key={link.id}
-            type="button"
-            className="pj-dock-item pj-dock-link"
-            aria-label={link.label}
-            onClick={() => document.getElementById(link.target)?.scrollIntoView({ behavior: "smooth" })}
-          >
-            {inner}
-          </button>
-        );
-      })}
-    </div>
-  );
-}
-
-// Right-click menu for a dock app: actions mirror the window's traffic lights,
-// shaped by its current state (closed / minimized / open).
-function appMenuItems(state, actions) {
-  const g = state ?? {};
-  if (g.closed) return [{ label: "Open", run: actions.open }];
-  if (g.min) {
-    return [
-      { label: "Show", run: actions.open },
-      { sep: true },
-      { label: "Close", run: actions.close, danger: true },
-    ];
-  }
-  return [
-    { label: g.max ? "Restore" : "Zoom", run: actions.zoom },
-    { label: "Minimize", run: actions.minimize },
-    { sep: true },
-    { label: "Close", run: actions.close, danger: true },
-  ];
-}
-
-// Floating menu portaled to <body> so the desktop's camera scale doesn't warp
-// it. Anchored bottom-left at the cursor (grows upward, away from the dock) and
-// flipped left near the right edge. Closes on Escape, outside-click, or blur.
-function DockContextMenu({ menu, title, items, onClose }) {
-  const ref = useRef(null);
-  const menuItems = () => Array.from(ref.current?.querySelectorAll('[role="menuitem"]') ?? []);
-  useEffect(() => {
-    // Focus the first item (not the wrapper) so the menu opens ready for keyboard
-    // use, per the role="menu" contract.
-    menuItems()[0]?.focus();
-    const onKey = (e) => e.key === "Escape" && onClose();
-    const onDown = (e) => ref.current && !ref.current.contains(e.target) && onClose();
-    window.addEventListener("keydown", onKey);
-    window.addEventListener("pointerdown", onDown, true);
-    window.addEventListener("blur", onClose);
-    window.addEventListener("resize", onClose);
-    return () => {
-      window.removeEventListener("keydown", onKey);
-      window.removeEventListener("pointerdown", onDown, true);
-      window.removeEventListener("blur", onClose);
-      window.removeEventListener("resize", onClose);
-    };
-  }, [onClose]);
-
-  // Arrow / Home / End move focus between items (wrapping), the expected menu
-  // keyboard model.
-  const onMenuKey = (e) => {
-    const items = menuItems();
-    if (!items.length) return;
-    const cur = items.indexOf(document.activeElement);
-    let nextIdx = null;
-    if (e.key === "ArrowDown") nextIdx = (cur + 1) % items.length;
-    else if (e.key === "ArrowUp") nextIdx = (cur - 1 + items.length) % items.length;
-    else if (e.key === "Home") nextIdx = 0;
-    else if (e.key === "End") nextIdx = items.length - 1;
-    if (nextIdx !== null) {
-      e.preventDefault();
-      items[nextIdx].focus();
-    }
-  };
-
-  const x = `translateX(${menu.flipX ? "-100%" : "0"})`;
-  return createPortal(
-    <div
-      ref={ref}
-      className="pj-ctx"
-      role="menu"
-      aria-label={`${title} actions`}
-      tabIndex={-1}
-      onKeyDown={onMenuKey}
-      style={{ left: menu.x, top: menu.y, transform: `${x} translateY(calc(-100% - 8px))` }}
-    >
-      <p className="pj-ctx-title">{title}</p>
-      {items.map((it, i) =>
-        it.sep ? (
-          <div key={`sep-${i}`} className="pj-ctx-sep" role="separator" />
-        ) : (
-          <button
-            key={it.label}
-            type="button"
-            role="menuitem"
-            className={`pj-ctx-item${it.danger ? " pj-ctx-item--danger" : ""}`}
-            onClick={() => {
-              it.run();
-              onClose();
-            }}
-          >
-            {it.label}
-          </button>
-        )
-      )}
-    </div>,
-    document.body
-  );
-}
-
 function Projects({ sectionId = "projects", cinematic = false }) {
   const reduced = useReducedMotion();
   // Reduced-motion users always get the flat stacked layout (never the floating
@@ -429,7 +260,7 @@ function Projects({ sectionId = "projects", cinematic = false }) {
   const [osRef, osIn] = useInView();
   const clock = useClock();
 
-  const [order, setOrder] = useState(["about", "rolefit", "careflow"]);
+  const [order, setOrder] = useState(["about", "jakeforge", "rolefit", "careflow"]);
   const [wins, setWins] = useState(null);
   const [menu, setMenu] = useState(null); // dock right-click menu: { id, x, y, flipX } | null
   const deskSizeRef = useRef({ w: 0, h: 0 });
@@ -689,6 +520,18 @@ function Projects({ sectionId = "projects", cinematic = false }) {
               {...windowProps("rolefit")}
             >
               <RoleFitDemo />
+            </AppWindow>
+
+            <AppWindow
+              className="pj-win--jf"
+              accent="#1b674c"
+              accentSoft="rgba(27,103,76,0.14)"
+              title="JakeForge"
+              subtitle="Resume editor"
+              actions={JAKEFORGE_ACTIONS}
+              {...windowProps("jakeforge")}
+            >
+              <JakeForgeDemo />
             </AppWindow>
           </div>
 

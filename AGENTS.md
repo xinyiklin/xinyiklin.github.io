@@ -12,8 +12,9 @@ The app is content-driven: sections (`Main`, `Projects`, `Contacts`) under
 `src/sections/`, plus desktop/demo components and `Footer` in `src/components/`.
 There are no standalone `AboutMe`, `Skills`, or `Navigation` components; About
 and Skills are folded into the desktop's About window. The rendered Projects
-section shows exactly two case-study windows: CareFlow as the primary
-interactive showcase and RoleFit AI as the quieter secondary study.
+section shows exactly three case-study windows: CareFlow as the primary
+interactive showcase, with RoleFit AI and JakeForge as the quieter secondary
+studies.
 
 ---
 
@@ -88,13 +89,14 @@ changing workflow-critical UI patterns, or taking destructive actions.
 
 - Keep copy concrete, recruiter-oriented, and free of marketing fluff.
 - `src/constants/projects.js` is only the link registry used by project window
-  actions. For CareFlow or RoleFit AI claim/copy updates in components, resume
-  data, or docs, cross-check sibling repo `README` and `CONTINUITY` files under
-  `../careflow/` and `../role-fit-ai/`.
+  actions. For CareFlow, RoleFit AI, or JakeForge claim/copy updates in
+  components, resume data, or docs, cross-check sibling repo `README` and
+  `CONTINUITY` files under `../careflow/`, `../role-fit-ai/`, and
+  `../jakeforge/`.
 - `src/constants/resume.js` mirrors the user's LaTeX resume and is the source
   of truth for resume and skills copy. When the user provides an updated
   resume, mirror it directly and align `Main.jsx`, the desktop About window,
-  `ResumeOverlay.jsx`, and the RoleFit demo resume with it.
+  `ResumeOverlay.jsx`, and the RoleFit and JakeForge demo resumes with it.
 - If resume facts conflict with sibling repo facts, follow the user's explicit
   instruction on which source wins and record meaningful divergence in
   `CONTINUITY.md`.

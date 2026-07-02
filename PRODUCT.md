@@ -13,15 +13,16 @@ seconds, and decide whether to read deeper or move on. Typical context: open in
 one of many tabs during a screening sprint, on a laptop, sometimes mobile.
 A small secondary audience is engineering peers and prospective collaborators.
 
-The job to be done: read enough credible signal about two real builds
-(CareFlow as the primary, RoleFit AI as a smaller second) and the person
-behind them to decide whether to invite a conversation.
+The job to be done: read enough credible signal about three real builds
+(CareFlow as the primary, RoleFit AI and JakeForge as smaller seconds) and the
+person behind them to decide whether to invite a conversation.
 
 ## Product Purpose
 
 Present a primary production-grade engineering build (CareFlow) with
-case-study depth, plus a quieter secondary build (RoleFit AI) that signals
-breadth without distracting from CareFlow. A busy reviewer should be able to
+case-study depth, plus quieter secondary builds (RoleFit AI and JakeForge)
+that signal breadth without distracting from CareFlow. A busy reviewer should
+be able to
 answer "is this person worth a screen?" within a minute, then go deeper if
 interested. Make the engineering decisions visible without demanding the
 reader read every line.
@@ -29,11 +30,13 @@ reader read every line.
 The Projects section is a two-tier desktop showcase. CareFlow leads as the
 primary interactive app window: a clinic-workspace shell with Schedule,
 Documents, Billing, Refills, Admin, a Patient hub path, draggable appointments,
-and working demo controls. RoleFit AI sits beside it as the quieter secondary
-window: a resume-tailor workspace with Resume, Materials, Applications, and
-Analytics tabs, source-linked rather than live-demo linked. The contrast in
-treatment is intentional: CareFlow is the primary proof; RoleFit AI is the
-signal that more than one shipped build lives in the catalogue. The interaction
+and working demo controls. RoleFit AI and JakeForge sit beside it as the
+quieter secondary windows: a resume-tailor workspace with Resume, Materials,
+Applications, and Analytics tabs, and a Jake's-style resume editor with an
+editable page and layout controls, each linking to its hosted build and
+source. The contrast in treatment is intentional: CareFlow is the primary
+proof; RoleFit AI and JakeForge are the signal that more than one shipped
+build lives in the catalogue. The interaction
 itself is part of the proof: the candidate ships frontend workflows, not just
 static images. Success is qualified inbound for full-time software engineering
 roles.

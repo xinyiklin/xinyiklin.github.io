@@ -25,24 +25,27 @@ export const RESUME_EDUCATION = [
 export const RESUME_PROJECTS = [
     {
         name: "CareFlow",
-        stack: "React 19, TypeScript, Django REST Framework, PostgreSQL, React Query, Tailwind CSS v4",
+        stack: "React 19, TypeScript, Django REST Framework, PostgreSQL, React Query, Tailwind CSS v4, AWS",
         links: [
             { label: "careflow.xinyiklin.com", href: "https://careflow.xinyiklin.com" },
-            { label: "portal.careflow.xinyiklin.com", href: "https://portal.careflow.xinyiklin.com" },
         ],
         bullets: [
             {
                 segments: [
                     { text: "Built and deployed a " },
                     { text: "React + Django REST", bold: true },
-                    { text: " clinic platform spanning 10+ domain apps, 45+ PostgreSQL models, and 200+ endpoints for scheduling, charting, billing, and patient records." },
+                    { text: " clinic platform spanning 10+ domain apps, 45+ PostgreSQL models, and 250+ endpoints for scheduling, charting, billing, and patient records, with the frontend on " },
+                    { text: "AWS Amplify", bold: true },
+                    { text: " and PostgreSQL on " },
+                    { text: "Amazon RDS", bold: true },
+                    { text: "." },
                 ],
             },
             {
                 segments: [
                     { text: "Implemented clinician and patient workflows on a " },
                     { text: "React Query", bold: true },
-                    { text: " data layer of 60+ mutations, with role-based access scoped to org and facility, audit logging on sensitive actions, and Fernet-encrypted SSNs." },
+                    { text: " data layer of 90+ mutations, with role-based access scoped to org and facility, audit logging on sensitive actions, and Fernet-encrypted SSNs." },
                 ],
             },
             {
@@ -66,7 +69,7 @@ export const RESUME_PROJECTS = [
     {
         name: "RoleFit AI",
         stack: "React 19, TypeScript, Vite, Node.js, LLM APIs, LaTeX/Tectonic",
-        links: [{ label: "github.com/xinyiklin/rolefit-ai", href: "https://github.com/xinyiklin/rolefit-ai" }],
+        links: [{ label: "xinyiklin.com/rolefit-ai", href: "https://xinyiklin.com/rolefit-ai/" }],
         bullets: [
             {
                 segments: [
@@ -77,9 +80,9 @@ export const RESUME_PROJECTS = [
             },
             {
                 segments: [
-                    { text: "Built a " },
+                    { text: "Designed a " },
                     { text: "recruiter-style review engine", bold: true },
-                    { text: " that scores resume-to-role fit without grading above grounded evidence, on a provider adapter spanning " },
+                    { text: " that scores resume-to-role fit, capping scores at what the resume actually evidences, on a provider adapter spanning " },
                     { text: "10+ AI backends", bold: true },
                     { text: " with a deterministic local fallback." },
                 ],
@@ -94,20 +97,33 @@ export const RESUME_PROJECTS = [
             {
                 segments: [
                     { text: "Hardened the AI pipeline with prompt-injection fencing, SSRF-guarded job import, DOCX zip-slip validation, a grounded-output sanitizer, and " },
-                    { text: "35+ offline anti-fabrication evals", bold: true },
+                    { text: "120+ offline anti-fabrication eval probes", bold: true },
                     { text: "." },
                 ],
             },
         ],
     },
     {
-        name: "Catch the Ball",
-        stack: "C++17, OpenGL, GLFW, CMake",
-        links: [{ label: "github.com/xinyiklin/catch-the-ball", href: "https://github.com/xinyiklin/catch-the-ball" }],
+        name: "JakeForge",
+        stack: "React 19, TypeScript, Node.js, Docker, AWS EC2, GitHub Actions, LaTeX/Tectonic",
+        links: [{ label: "jakeforge.xinyiklin.com", href: "https://jakeforge.xinyiklin.com" }],
         bullets: [
             {
                 segments: [
-                    { text: "Built a C++17 game with separate engine and game modules: GLFW input handling, OpenGL rendering with shaders and sprites, collision detection, score tracking, and a CMake build." },
+                    { text: "Forked RoleFit AI's editor and rendering core into a self-hosted " },
+                    { text: "drag-and-drop resume editor", bold: true },
+                    { text: " with a live LaTeX/Tectonic export pipeline and DOCX import." },
+                ],
+            },
+            {
+                segments: [
+                    { text: "Containerized the app with " },
+                    { text: "Docker", bold: true },
+                    { text: " and deployed it to an " },
+                    { text: "AWS EC2", bold: true },
+                    { text: " instance with a custom domain and HTTPS via a " },
+                    { text: "GitHub Actions", bold: true },
+                    { text: " CI/CD pipeline, with a host/origin allowlist guard on the server before exposing it publicly." },
                 ],
             },
         ],
@@ -147,7 +163,7 @@ export const RESUME_EXPERIENCE = [
         ],
     },
     {
-        role: "Teaching Assistant, Introductory Java Programming",
+        role: "Teaching Assistant — Introductory Java Programming",
         org: "Hunter College",
         location: "New York, NY",
         dates: "Jul 2022 - Aug 2022",
@@ -168,5 +184,5 @@ export const RESUME_SKILLS = [
     { label: "Frontend", value: "React, Vite, React Query, React Router, Tailwind CSS" },
     { label: "Backend & Data", value: "Django REST Framework, Node.js, REST APIs, OpenAPI, JWT/CSRF auth, PostgreSQL" },
     { label: "Testing & Quality", value: "Django TestCase, GitHub Actions CI, ESLint, TypeScript typecheck, regression evals" },
-    { label: "Tooling & Cloud", value: "Git, Docker, CMake, OpenGL, GLFW, Render, Vercel, Cloudflare R2" },
+    { label: "Tooling & Cloud", value: "Git, Docker, AWS (Amplify, RDS, EC2), Render, Cloudflare R2" },
 ];

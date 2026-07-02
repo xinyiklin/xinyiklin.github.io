@@ -692,7 +692,7 @@ footer a:hover { color: var(--c-accent-deep) !important; }
     white-space: nowrap;
 }
 
-/* Project links can be multiple (e.g. site / portal): let them wrap right-
+/* Project links can be multiple (e.g. site / repo): let them wrap right-
    aligned instead of overflowing, with a quiet separator. */
 .resume-entry-links { white-space: normal; text-align: right; }
 .resume-link-sep { color: var(--c-text-muted); }
@@ -949,7 +949,8 @@ body.pj-grabbing .pj-win { transition: none; }
    the space below the title bar, and scrolls internally at small sizes. */
 .pj-win--floating .pj-win-bar { cursor: grab; }
 .pj-win--floating .cf-app,
-.pj-win--floating .rf-app { flex: 1; min-height: 0; height: auto; }
+.pj-win--floating .rf-app,
+.pj-win--floating .jf-app { flex: 1; min-height: 0; height: auto; }
 
 /* Resize handles on every edge and corner (thin transparent hit areas, inset at
    the corners so they clear the title-bar controls). */
@@ -1421,7 +1422,9 @@ body.pj-grabbing .cf-appt:hover { transform: none; }
 }
 .rf-zoom { display: inline-flex; align-items: center; gap: 0.3rem; }
 .rf-zoom-label { font-size: 0.56rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; color: var(--pj-muted); }
-.rf-zoom-select {
+/* Shared by the RoleFit and JakeForge demo zoom selects (accent-agnostic). */
+.rf-zoom-select,
+.jf-zoom-select {
     appearance: none; -webkit-appearance: none;
     border: 1px solid var(--pj-line-hard); border-radius: 7px; background: #fff;
     padding: 0.22rem 1.3rem 0.22rem 0.5rem; font: inherit; font-size: 0.64rem; font-weight: 700; color: var(--pj-text);
@@ -1429,8 +1432,8 @@ body.pj-grabbing .cf-appt:hover { transform: none; }
     background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='10' viewBox='0 0 24 24' fill='none' stroke='%23607083' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
     background-repeat: no-repeat; background-position: right 0.45rem center; background-size: 9px;
 }
-.rf-zoom-select:hover { border-color: var(--accent); }
-.rf-zoom-select:focus-visible { outline: 2px solid var(--accent); outline-offset: 1px; }
+.rf-zoom-select:hover, .jf-zoom-select:hover { border-color: var(--accent); }
+.rf-zoom-select:focus-visible, .jf-zoom-select:focus-visible { outline: 2px solid var(--accent); outline-offset: 1px; }
 .rf-tool-btn:hover { border-color: var(--accent); color: var(--accent); }
 .rf-tool-btn--solid { background: var(--accent); border-color: var(--accent); color: #fff; }
 .rf-tool-btn--solid:hover { color: #fff; filter: brightness(1.07); }
@@ -1533,8 +1536,80 @@ body.pj-grabbing .cf-appt:hover { transform: none; }
 .rf-bar-fill--rejected { background: #d9745f; }
 .rf-bar-val { font-weight: 700; text-align: right; font-variant-numeric: tabular-nums; }
 
+/* ============================================================
+   JakeForge body: the Jake's-style resume editor (forest-green --accent)
+   Sidebar = the real app's controls; the serif page is contentEditable,
+   with spacing presets driving --jf-* rhythm variables on the page.
+   ============================================================ */
+.jf-app { display: flex; height: 340px; background: #f6f8f6; font-size: 0.78rem; color: var(--pj-text); overflow: hidden; }
+.jf-side {
+    width: 148px; flex: none; padding: 0.85rem 0.75rem; background: #fff;
+    border-right: 1px solid var(--pj-line); display: flex; flex-direction: column; gap: 0.85rem;
+    overflow: auto;
+}
+.jf-group { display: flex; flex-direction: column; gap: 0.3rem; }
+.jf-group-head { margin: 0; font-size: 0.54rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--pj-muted); }
+.jf-export {
+    appearance: none; display: inline-flex; align-items: center; gap: 0.35rem;
+    border: 1px solid var(--pj-line-hard); border-radius: 7px; background: #fff;
+    padding: 0.28rem 0.5rem; font: inherit; font-size: 0.64rem; font-weight: 700; cursor: pointer;
+    color: var(--pj-text); text-decoration: none; transition: color 0.15s ease, border-color 0.15s ease;
+}
+.jf-export:hover { border-color: var(--accent); color: var(--accent); }
+.jf-export:focus-visible { outline: 2px solid var(--accent); outline-offset: 1px; }
+.jf-export svg { flex: none; color: var(--accent); }
+.jf-seg { display: flex; flex-direction: column; border: 1px solid var(--pj-line); border-radius: 7px; overflow: hidden; }
+.jf-seg-btn {
+    appearance: none; border: none; background: #fff; font: inherit; font-size: 0.62rem; font-weight: 700;
+    padding: 0.24rem 0.5rem; cursor: pointer; color: var(--pj-muted); text-align: left;
+    border-top: 1px solid var(--pj-line); transition: background 0.15s ease, color 0.15s ease;
+}
+.jf-seg-btn:first-child { border-top: none; }
+.jf-seg-btn:hover { color: var(--pj-text); }
+.jf-seg-btn.is-active { background: var(--accent); color: #fff; }
+.jf-seg-btn:focus-visible { outline: 2px solid var(--accent); outline-offset: -2px; }
+.jf-hint { margin: auto 0 0; font-size: 0.58rem; color: var(--pj-muted); }
+/* Reset sits with the hint at the sidebar foot: quiet text button, accent on hover. */
+.jf-reset {
+    appearance: none; border: none; background: none; padding: 0; margin-top: 0.3rem;
+    font: inherit; font-size: 0.6rem; font-weight: 700; color: var(--pj-muted);
+    cursor: pointer; text-align: left; text-decoration: underline;
+}
+.jf-reset:hover { color: var(--accent); }
+.jf-reset:focus-visible { outline: 2px solid var(--accent); outline-offset: 1px; }
+
+/* The page: Jake's single-column serif document. Spacing presets set the
+   --jf-* variables inline; heading case is a class on the page. */
+.jf-doc-wrap { flex: 1; overflow: auto; padding: 1.25rem 1.1rem; }
+.jf-doc {
+    --jf-lh: 1.42; --jf-sec: 0.55rem; --jf-entry: 0.34rem;
+    max-width: 640px; margin: 0 auto; background: #fff; border: 1px solid var(--pj-line);
+    box-shadow: var(--shadow-sm); border-radius: 4px; padding: 1.35rem 1.5rem;
+    font-family: Georgia, "Times New Roman", serif; line-height: var(--jf-lh);
+    cursor: text;
+}
+.jf-doc:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.jf-name { margin: 0; text-align: center; font-weight: 700; font-size: 1.25rem; }
+.jf-contact { margin: 0.12rem 0 0.7rem; text-align: center; font-size: 0.62rem; color: var(--pj-muted); }
+.jf-sec { margin-bottom: var(--jf-sec); }
+.jf-sec-title {
+    margin: 0 0 0.28rem; font-weight: 700; font-size: 0.82rem;
+    border-bottom: 1px solid var(--c-text); padding-bottom: 1px;
+}
+.jf-case-sc .jf-sec-title { font-variant-caps: small-caps; letter-spacing: 0.02em; }
+.jf-case-upper .jf-sec-title { text-transform: uppercase; font-size: 0.74rem; letter-spacing: 0.04em; }
+.jf-entry { margin-bottom: var(--jf-entry); }
+.jf-line { display: flex; justify-content: space-between; gap: 0.5rem; font-size: 0.74rem; }
+.jf-line--sub { font-size: 0.68rem; }
+.jf-line--sub em { font-style: italic; }
+.jf-side-txt { font-style: italic; white-space: nowrap; font-size: 0.66rem; color: var(--pj-muted); }
+.jf-bullets { margin: 0.1rem 0 0; padding-left: 1.05rem; }
+.jf-bullets li { font-size: 0.7rem; margin-bottom: 0.08rem; }
+.jf-skill { margin: 0 0 0.12rem; font-size: 0.7rem; }
+.jf-skill strong { font-weight: 700; }
+
 @media (prefers-reduced-motion: reduce) {
-    .rf-sec, .cf-chip, .cf-grant, .cf-btn, .cf-appt, .cf-nav-item, .rf-rail-item, .rf-chip, .rf-mat-toggle, .rf-tool-btn { transition: none; }
+    .rf-sec, .cf-chip, .cf-grant, .cf-btn, .cf-appt, .cf-nav-item, .rf-rail-item, .rf-chip, .rf-mat-toggle, .rf-tool-btn, .jf-seg-btn, .jf-export { transition: none; }
     .cf-appt:hover { transform: none; }
     .cf-modal-backdrop { animation: none; }
 }
@@ -1719,11 +1794,23 @@ body.pj-grabbing .cf-appt:hover { transform: none; }
     cursor: pointer;
     text-decoration: none;
     transform-origin: bottom center;
+    /* The transform transition settles a released drag back into its slot. */
     transition: transform 0.18s cubic-bezier(0.16, 1, 0.3, 1);
+    /* Touch drags must reach the reorder handler as pointermoves, not be
+       claimed by the browser for scrolling (which would fire pointercancel). */
+    touch-action: none;
 }
 
-.pj-dock-item:hover, .pj-dock-item:focus-visible { transform: scale(1.16) translateY(-5px); }
+/* No hover magnify — tiles stay put; only the label tooltip appears (below).
+   Keyboard focus gets a ring on the icon so it stays visible without motion. */
 .pj-dock-item:focus-visible { outline: none; }
+.pj-dock-item:focus-visible .pj-dock-icon { outline: 2px solid var(--pj-text); outline-offset: 2px; }
+
+/* While dragging to reorder, the grabbed tile is moved horizontally by JS to
+   follow the pointer (it stays put vertically). It only reads as picked up here:
+   raised stacking + a deeper shadow, no scale. */
+.pj-dock-item.is-dragging { z-index: 3; }
+.pj-dock-item.is-dragging .pj-dock-icon { box-shadow: 0 12px 26px rgba(15, 42, 61, 0.3); }
 
 .pj-dock-icon {
     width: 42px;
@@ -1768,7 +1855,6 @@ body.pj-grabbing .cf-appt:hover { transform: none; }
 
 @media (prefers-reduced-motion: reduce) {
     .pj-dock-item, .pj-dock-tip { transition: none; }
-    .pj-dock-item:hover, .pj-dock-item:focus-visible { transform: none; }
 }
 
 /* Right-click menu for a dock app (portaled to <body>; positioned via inline
