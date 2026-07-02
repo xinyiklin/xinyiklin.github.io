@@ -144,6 +144,17 @@ function ResumeOverlay({ open, onClose }) {
                         </section>
 
                         <section className="resume-section">
+                            <h2 className="resume-section-title">Technical Skills</h2>
+                            <ul className="resume-skills">
+                                {RESUME_SKILLS.map((skill) => (
+                                    <li key={skill.label}>
+                                        <strong>{skill.label}:</strong> {skill.value}
+                                    </li>
+                                ))}
+                            </ul>
+                        </section>
+
+                        <section className="resume-section">
                             <h2 className="resume-section-title">Projects</h2>
                             {RESUME_PROJECTS.map((project) => (
                                 <div key={project.name} className="resume-entry">
@@ -195,17 +206,6 @@ function ResumeOverlay({ open, onClose }) {
                                     </ul>
                                 </div>
                             ))}
-                        </section>
-
-                        <section className="resume-section">
-                            <h2 className="resume-section-title">Technical Skills</h2>
-                            <ul className="resume-skills">
-                                {RESUME_SKILLS.map((skill) => (
-                                    <li key={skill.label}>
-                                        <strong>{skill.label}:</strong> {skill.value}
-                                    </li>
-                                ))}
-                            </ul>
                         </section>
                     </article>
                 </div>

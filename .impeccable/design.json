@@ -34,6 +34,21 @@
           "oklch(96% 0.02 290)"
         ]
       },
+      "forge-green": {
+        "role": "secondary",
+        "displayName": "Forge Green",
+        "canonical": "oklch(45% 0.09 163)",
+        "tonalRamp": [
+          "oklch(15% 0.04 163)",
+          "oklch(25% 0.06 163)",
+          "oklch(35% 0.08 163)",
+          "oklch(45% 0.09 163)",
+          "oklch(58% 0.09 163)",
+          "oklch(72% 0.08 163)",
+          "oklch(85% 0.05 163)",
+          "oklch(96% 0.015 163)"
+        ]
+      },
       "beacon-teal": {
         "role": "tertiary",
         "displayName": "Beacon Teal",
@@ -207,18 +222,18 @@
   ],
   "narrative": {
     "northStar": "An Engineer's Desktop, Interactive",
-    "overview": "This portfolio reads like a working engineer presenting two builds with care, not a marketing site. On wide, motion-allowed viewports the landing becomes a cinematic macOS-style desktop: the hero is the wallpaper, the dock opens app windows, and the project proof lives inside interactive product-like demos. CareFlow leads as the primary clinic-workspace window with Schedule, Documents, Billing, Refills, Admin, a Patient hub path, draggable appointments, and working local state. RoleFit AI is the quieter secondary window with Resume, Materials, Applications, and Analytics tabs, a source CTA, and no live-demo promise. Mobile and reduced-motion users get the same content as flat stacked windows.\n\nThe system rejects the AI-generated SaaS landing template that has flooded the internet by 2026 (purple gradients, four-card icon grids, hero metric tiles, Inter on white, glass cards). It also rejects the editorial-magazine reflex (italic Cormorant, ruled columns, lowercase tracked metadata) that has saturated tech brand sites. The right register is engineer-pragmatic with quiet authority and one moment of confident interactivity.",
+    "overview": "This portfolio reads like a working engineer presenting three builds with care, not a marketing site. On wide, motion-allowed viewports the landing becomes a cinematic macOS-style desktop: the hero is the wallpaper, the dock opens app windows, and the project proof lives inside interactive product-like demos. CareFlow leads as the primary clinic-workspace window with Schedule, Documents, Billing, Refills, Admin, a Patient hub path, draggable appointments, and working local state. RoleFit AI is a quieter secondary window with Resume, Materials, Applications, and Analytics tabs, linked to its hosted build and source. JakeForge is the compact third window: the Jake's-style resume editor with export, spacing, and heading-case controls over an editable serif page, linked to the live app and source. Mobile and reduced-motion users get the same content as flat stacked windows.\n\nThe system rejects the AI-generated SaaS landing template that has flooded the internet by 2026 (purple gradients, four-card icon grids, hero metric tiles, Inter on white, glass cards). It also rejects the editorial-magazine reflex (italic Cormorant, ruled columns, lowercase tracked metadata) that has saturated tech brand sites. The right register is engineer-pragmatic with quiet authority and one moment of confident interactivity.",
     "keyCharacteristics": [
-      "Two project windows, one desktop. CareFlow as the primary interactive app, RoleFit AI as the quieter secondary source-linked app.",
+      "Three project windows, one desktop. CareFlow as the primary interactive app, RoleFit AI and JakeForge as the quieter secondary apps.",
       "Cinematic desktop on wide screens. The dock opens, focuses, minimizes, closes, and right-clicks app windows.",
       "Flat fallback on mobile and reduced motion. No hidden project content, no motion dependence.",
-      "Scoped accents. Operating Teal for CareFlow, Polish Violet for RoleFit AI. Accents are supplied through window CSS variables.",
-      "Show, don't tell. Both project windows are real DOM prototypes with interactive state, not static image plates.",
+      "Scoped accents. Operating Teal for CareFlow, Polish Violet for RoleFit AI, Forge Green for JakeForge. Accents are supplied through window CSS variables.",
+      "Show, don't tell. All project windows are real DOM prototypes with interactive state, not static image plates.",
       "No invented claims. Every spec maps to something shipping or explicitly demo-only."
     ],
     "rules": [
-      { "name": "The One-Accent-Per-App Rule", "body": "Each project window commits to exactly one accent and the shared neutral envelope. CareFlow uses Operating Teal across title-bar action, nav state, schedule blocks, chips, and primary buttons. RoleFit AI uses Polish Violet across window action, rail state, fit score, chips, and segmented controls.", "section": "colors" },
-      { "name": "The Color-Mix Rule", "body": "Accent-tinted backgrounds derive from the current window accent (--accent / --accent-soft) rather than hand-tuned one-offs. The recipe scales across both project apps.", "section": "colors" },
+      { "name": "The One-Accent-Per-App Rule", "body": "Each project window commits to exactly one accent and the shared neutral envelope. CareFlow uses Operating Teal across title-bar action, nav state, schedule blocks, chips, and primary buttons. RoleFit AI uses Polish Violet across window action, rail state, fit score, chips, and segmented controls. JakeForge uses Forge Green across window action, export buttons, segmented controls, and the page focus ring.", "section": "colors" },
+      { "name": "The Color-Mix Rule", "body": "Accent-tinted backgrounds derive from the current window accent (--accent / --accent-soft) rather than hand-tuned one-offs. The recipe scales across all project apps.", "section": "colors" },
       { "name": "The No-Gradient-Text Rule", "body": "Text is always one solid color. background-clip: text with a gradient is forbidden.", "section": "colors" },
       { "name": "The Single-Family Rule", "body": "One typeface family across the whole portfolio. A serif companion is forbidden.", "section": "typography" },
       { "name": "The Tracking-Out-Loud Rule", "body": "Uppercase labels always use letter-spacing 0.14em or more. Tightly-set uppercase reads as shouty.", "section": "typography" },
@@ -231,7 +246,7 @@
     "dos": [
       "Do lead the case study with working product-like UI and real product copy from the live demo/source.",
       "Do commit fully on identity moments while keeping app-window headings compact.",
-      "Do derive tinted surfaces from --accent / --accent-soft so the recipe scales across both apps.",
+      "Do derive tinted surfaces from --accent / --accent-soft so the recipe scales across all apps.",
       "Do keep neutrals tinted toward the brand teal. Drafting Paper (#f5f9fc) is the right base; never use #fff or #000.",
       "Do use ≥1.25 ratios between Headline → Title → Subtitle → Body → Label.",
       "Do cap body line length at 60-65ch.",
