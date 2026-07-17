@@ -475,8 +475,8 @@ footer a:hover { color: var(--c-accent-deep) !important; }
 
 /* =========================================================================
    Resume overlay
-   Modal frame + inline HTML/CSS rendition of the LaTeX resume.
-   Navy accent matches the LaTeX template's section rule.
+   Modal frame + inline HTML/CSS rendition of the resume (mirrors
+   the Typeset .resume source). Navy accent matches its section rule.
    ========================================================================= */
 
 .resume-overlay {
@@ -605,7 +605,7 @@ footer a:hover { color: var(--c-accent-deep) !important; }
 
 .resume-head {
     margin-bottom: 1.25rem;
-    /* Mirror the LaTeX header (\begin{center}): name + contacts centered, while
+    /* Mirror the resume header: name + contacts centered, while
        the sections below stay left-aligned. */
     text-align: center;
 }
@@ -781,10 +781,10 @@ footer a:hover { color: var(--c-accent-deep) !important; }
 }
 
 /* ============================================================
-   PROJECTS  -  a desktop of two shipped apps
+   PROJECTS  -  a desktop of three shipped apps
    A light macOS-style screen, themed to match the rest of the
-   page: CareFlow and RoleFit AI open as app windows on a soft
-   tinted wallpaper, with a menubar, a magnifying dock, and basic
+   page: CareFlow, RoleFit AI, and Typeset open as app windows on
+   a soft tinted wallpaper, with a menubar, a dock, and basic
    window controls (focus, minimize to dock, restore). Hand-written,
    reduced-motion gated, AA contrast.
    ============================================================ */
@@ -1422,7 +1422,7 @@ body.pj-grabbing .cf-appt:hover { transform: none; }
 }
 .rf-zoom { display: inline-flex; align-items: center; gap: 0.3rem; }
 .rf-zoom-label { font-size: 0.56rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; color: var(--pj-muted); }
-/* Shared by the RoleFit and JakeForge demo zoom selects (accent-agnostic). */
+/* Shared by the RoleFit and Typeset demo zoom selects (accent-agnostic). */
 .rf-zoom-select,
 .jf-zoom-select {
     appearance: none; -webkit-appearance: none;
@@ -1537,7 +1537,7 @@ body.pj-grabbing .cf-appt:hover { transform: none; }
 .rf-bar-val { font-weight: 700; text-align: right; font-variant-numeric: tabular-nums; }
 
 /* ============================================================
-   JakeForge body: the Jake's-style resume editor (forest-green --accent)
+   Typeset body: the single-column resume editor (teal-green --accent)
    Sidebar = the real app's controls; the serif page is contentEditable,
    with spacing presets driving --jf-* rhythm variables on the page.
    ============================================================ */
@@ -1578,7 +1578,7 @@ body.pj-grabbing .cf-appt:hover { transform: none; }
 .jf-reset:hover { color: var(--accent); }
 .jf-reset:focus-visible { outline: 2px solid var(--accent); outline-offset: 1px; }
 
-/* The page: Jake's single-column serif document. Spacing presets set the
+/* The page: a single-column serif document. Spacing presets set the
    --jf-* variables inline; heading case is a class on the page. */
 .jf-doc-wrap { flex: 1; overflow: auto; padding: 1.25rem 1.1rem; }
 .jf-doc {

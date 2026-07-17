@@ -1,6 +1,6 @@
-// Resume content mirrors the LaTeX source (RoleFit AI general SDE resume,
-// base-resume-general-sde.tex). Keep this file and the LaTeX in sync when
-// content changes.
+// Resume content mirrors the Typeset .resume source (general SDE resume,
+// ../role-fit-ai/apps/role-fit-ai/job-search-workspace/base-resume-general-sde.resume).
+// Keep this file and the .resume in sync when content changes.
 
 export const RESUME_HEADER = {
     name: "Xinyi Lin",
@@ -34,96 +34,97 @@ export const RESUME_PROJECTS = [
                 segments: [
                     { text: "Built and deployed a " },
                     { text: "React + Django REST", bold: true },
-                    { text: " clinic platform spanning 10+ domain apps, 45+ PostgreSQL models, and 250+ endpoints for scheduling, charting, billing, and patient records, with the frontend on " },
+                    { text: " clinic platform with " },
+                    { text: "250+ API endpoints", bold: true },
+                    { text: " for scheduling, charting, billing, and patient records — frontend on " },
                     { text: "AWS Amplify", bold: true },
-                    { text: " and PostgreSQL on " },
+                    { text: ", PostgreSQL on " },
                     { text: "Amazon RDS", bold: true },
                     { text: "." },
                 ],
             },
             {
                 segments: [
-                    { text: "Implemented clinician and patient workflows on a " },
-                    { text: "React Query", bold: true },
-                    { text: " data layer of 90+ mutations, with role-based access scoped to org and facility, audit logging on sensitive actions, and Fernet-encrypted SSNs." },
+                    { text: "Implemented clinician and patient workflows with " },
+                    { text: "role-based access", bold: true },
+                    { text: " scoped to org and facility, audit logging on sensitive actions, and Fernet-encrypted SSNs." },
                 ],
             },
             {
                 segments: [
                     { text: "Maintained " },
                     { text: "GitHub Actions CI", bold: true },
-                    { text: " across two React apps and the Django backend, running lint/typecheck/build, migration checks, and " },
+                    { text: " across two React apps and the Django backend, running lint, typecheck, and migration checks plus " },
                     { text: "400+ Django tests", bold: true },
                     { text: " for auth, validation, and facility isolation." },
-                ],
-            },
-            {
-                segments: [
-                    { text: "Built a separate " },
-                    { text: "patient-portal React app", bold: true },
-                    { text: " backed by a dedicated /v1/portal/ API namespace, with generated OpenAPI types keeping both frontends type-safe against the backend contract." },
                 ],
             },
         ],
     },
     {
         name: "RoleFit AI",
-        stack: "React 19, TypeScript, Vite, Node.js, LLM APIs, LaTeX/Tectonic",
+        stack: "React 19, TypeScript, Vite, Node.js, LLM APIs, WebExtensions",
         links: [{ label: "xinyiklin.com/rolefit-ai", href: "https://xinyiklin.com/rolefit-ai/" }],
         bullets: [
             {
                 segments: [
-                    { text: "Built a " },
-                    { text: "local-first React + Node.js", bold: true },
-                    { text: " app that tailors resumes to a posting without inventing experience, with a structured editor, server-side Tectonic PDF export, and an on-disk tracker." },
+                    { text: "Built an " },
+                    { text: "AI resume-tailoring workbench", bold: true },
+                    { text: " on the Typeset engine that grounds every suggested edit in the user's real experience and surfaces it as reviewable diffs — enforced by prompt-injection fencing, output sanitization, and an " },
+                    { text: "offline anti-fabrication eval suite", bold: true },
+                    { text: "." },
                 ],
             },
             {
                 segments: [
                     { text: "Designed a " },
                     { text: "recruiter-style review engine", bold: true },
-                    { text: " that scores resume-to-role fit, capping scores at what the resume actually evidences, on a provider adapter spanning " },
-                    { text: "10+ AI backends", bold: true },
-                    { text: " with a deterministic local fallback." },
-                ],
-            },
-            {
-                segments: [
-                    { text: "Constrained AI edits to " },
-                    { text: "schema-validated, section-scoped suggestions", bold: true },
-                    { text: " surfaced as accept/edit/discard diffs in the editor." },
-                ],
-            },
-            {
-                segments: [
-                    { text: "Hardened the AI pipeline with prompt-injection fencing, SSRF-guarded job import, DOCX zip-slip validation, a grounded-output sanitizer, and " },
-                    { text: "120+ offline anti-fabrication eval probes", bold: true },
+                    { text: " that scores resume-to-role fit and refuses to score above what the resume evidences, across " },
+                    { text: "10+ hosted, local, and CLI AI providers", bold: true },
                     { text: "." },
+                ],
+            },
+            {
+                segments: [
+                    { text: "Shipped a companion " },
+                    { text: "Chrome/Firefox extension", bold: true },
+                    { text: " that scores any job posting against the base resume in-page and imports it in one click." },
                 ],
             },
         ],
     },
     {
-        name: "JakeForge",
-        stack: "React 19, TypeScript, Node.js, Docker, AWS EC2, GitHub Actions, LaTeX/Tectonic",
-        links: [{ label: "jakeforge.xinyiklin.com", href: "https://jakeforge.xinyiklin.com" }],
+        name: "Typeset",
+        stack: "React 19, TypeScript, Vite, pdf-lib, npm workspaces, Docker, AWS EC2, GitHub Actions",
+        links: [{ label: "typeset.xinyiklin.com", href: "https://typeset.xinyiklin.com" }],
         bullets: [
             {
                 segments: [
-                    { text: "Forked RoleFit AI's editor and rendering core into a self-hosted " },
-                    { text: "drag-and-drop resume editor", bold: true },
-                    { text: " with a live LaTeX/Tectonic export pipeline and DOCX import." },
+                    { text: "Built a " },
+                    { text: "WYSIWYG resume editor", bold: true },
+                    { text: " on a from-scratch " },
+                    { text: "deterministic typesetting engine", bold: true },
+                    { text: " with " },
+                    { text: "client-side PDF export", bold: true },
+                    { text: "; the editor and the exported PDF render glyph-identically, verified by an automated font-parity suite." },
                 ],
             },
             {
                 segments: [
-                    { text: "Containerized the app with " },
-                    { text: "Docker", bold: true },
-                    { text: " and deployed it to an " },
+                    { text: "Implemented direct editing on the engine-rendered page — structured document model, full undo/redo history, and a strict versioned " },
+                    { text: ".resume", bold: true },
+                    { text: " file format with autosave." },
+                ],
+            },
+            {
+                segments: [
+                    { text: "Extracted the engine and editor into shared " },
+                    { text: "npm workspace packages", bold: true },
+                    { text: " powering two production apps, deployed with " },
+                    { text: "Docker + GitHub Actions", bold: true },
+                    { text: " to " },
                     { text: "AWS EC2", bold: true },
-                    { text: " instance with a custom domain and HTTPS via a " },
-                    { text: "GitHub Actions", bold: true },
-                    { text: " CI/CD pipeline, with a host/origin allowlist guard on the server before exposing it publicly." },
+                    { text: "." },
                 ],
             },
         ],
@@ -158,21 +159,6 @@ export const RESUME_EXPERIENCE = [
                     { text: " that " },
                     { text: "reduced patient wait times by over 50%", bold: true },
                     { text: " and improved clinic throughput." },
-                ],
-            },
-        ],
-    },
-    {
-        role: "Teaching Assistant — Introductory Java Programming",
-        org: "Hunter College",
-        location: "New York, NY",
-        dates: "Jul 2022 - Aug 2022",
-        bullets: [
-            {
-                segments: [
-                    { text: "Supported students in introductory Java through labs, code reviews, and debugging, covering " },
-                    { text: "object-oriented programming, data structures, and algorithmic problem-solving", bold: true },
-                    { text: "." },
                 ],
             },
         ],

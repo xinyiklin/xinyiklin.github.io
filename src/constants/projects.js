@@ -3,12 +3,12 @@ export const PROJECT_LINKS = {
     github: "https://github.com/xinyiklin/careflow",
     live: "https://careflow.xinyiklin.com/",
   },
-  rolefitAi: {
+  rolefit: {
     github: "https://github.com/xinyiklin/rolefit-ai",
     live: "https://xinyiklin.com/rolefit-ai/",
   },
-  jakeforge: {
-    github: "https://github.com/xinyiklin/jakeforge",
-    live: "https://jakeforge.xinyiklin.com/",
+  typeset: {
+    github: "https://github.com/xinyiklin/typeset",
+    live: "https://typeset.xinyiklin.com/",
   },
 };

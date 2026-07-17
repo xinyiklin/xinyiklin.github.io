@@ -13,7 +13,7 @@ The app is content-driven: sections (`Main`, `Projects`, `Contacts`) under
 There are no standalone `AboutMe`, `Skills`, or `Navigation` components; About
 and Skills are folded into the desktop's About window. The rendered Projects
 section shows exactly three case-study windows: CareFlow as the primary
-interactive showcase, with RoleFit AI and JakeForge as the quieter secondary
+interactive showcase, with RoleFit AI and Typeset as the quieter secondary
 studies.
 
 ---
@@ -89,18 +89,20 @@ changing workflow-critical UI patterns, or taking destructive actions.
 
 - Keep copy concrete, recruiter-oriented, and free of marketing fluff.
 - `src/constants/projects.js` is only the link registry used by project window
-  actions. For CareFlow, RoleFit AI, or JakeForge claim/copy updates in
+  actions. For CareFlow, RoleFit AI, or Typeset claim/copy updates in
   components, resume data, or docs, cross-check sibling repo `README` and
-  `CONTINUITY` files under `../careflow/`, `../role-fit-ai/`, and
-  `../jakeforge/`.
-- `src/constants/resume.js` mirrors the user's LaTeX resume and is the source
-  of truth for resume and skills copy. When the user provides an updated
-  resume, mirror it directly and align `Main.jsx`, the desktop About window,
-  `ResumeOverlay.jsx`, and the RoleFit and JakeForge demo resumes with it.
+  `CONTINUITY` files under `../careflow/` and `../role-fit-ai/` (the Typeset
+  Workspace monorepo holding `apps/role-fit-ai/` and `apps/typeset/`).
+- `src/constants/resume.js` mirrors the user's Typeset resume (the
+  `base-resume-general-sde.resume` file in the monorepo's
+  `apps/role-fit-ai/job-search-workspace/`) and is the source of truth for
+  resume and skills copy. When the user provides an updated resume, mirror it
+  directly and align `Main.jsx`, the desktop About window,
+  `ResumeOverlay.jsx`, and the RoleFit and Typeset demo resumes with it.
 - If resume facts conflict with sibling repo facts, follow the user's explicit
   instruction on which source wins and record meaningful divergence in
   `CONTINUITY.md`.
-- Keep hero, desktop About, RoleFit resume, Projects demos, and Contacts
+- Keep hero, desktop About, RoleFit demo resume, Projects demos, and Contacts
   aligned with facts the user has stated. Do not invent hobbies, locations,
   role types, tech, or contact channels; confirm any new contact channel with
   the user before adding it.
@@ -123,7 +125,8 @@ snippets).
 - Match the existing Manrope-only typography and teal-accented palette.
 - Use plain CSS in `src/App.css`: `.container`, small utilities, desktop
   window classes (`.pj-*`), CareFlow demo classes (`.cf-*`), RoleFit demo
-  classes (`.rf-*`), and resume overlay classes.
+  classes (`.rf-*`), Typeset demo classes (`.jf-*`, the legacy JakeForge
+  prefix), and resume overlay classes.
 - Do not add Bootstrap, react-bootstrap, Tailwind, or a component library.
 - Reuse existing Lucide React and React Icons imports when appropriate.
 - Keep sections compact and recruiter-friendly; density beats decoration.
@@ -171,7 +174,7 @@ lines, Done to 7 bullets, Working Set to 12 paths, and Receipts to the last
 Durable decisions use this shape:
 
 ```text
-D001 ACTIVE: Projects renders CareFlow plus RoleFit AI windows only.
+D001 ACTIVE: Projects renders CareFlow, RoleFit AI, and Typeset windows only.
 ```
 
 ---

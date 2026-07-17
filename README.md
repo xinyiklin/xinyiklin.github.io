@@ -2,7 +2,7 @@
 
 A focused portfolio site for full-stack engineering roles with a healthcare
 software angle. The site leads with CareFlow as the primary case study, then
-uses RoleFit AI and JakeForge as compact secondary builds to show breadth.
+uses RoleFit AI and Typeset as compact secondary builds to show breadth.
 
 Live: https://xinyiklin.com
 
@@ -13,7 +13,7 @@ is content-driven: Main (hero), Projects, and Contacts under `src/sections/`,
 plus Footer. On wide, motion-allowed viewports the landing is a cinematic
 macOS-style desktop (`src/components/DesktopScene.jsx`) where the hero is the
 wallpaper and apps open from a dock; mobile and reduced-motion get a flat
-stacked layout. The CareFlow and JakeForge dock tiles link straight to the
+stacked layout. The CareFlow and Typeset dock tiles link straight to the
 live apps in a new tab; their in-desktop demo windows are kept as reference
 and still open from the tile's right-click menu (and as stacked cards on
 mobile). About and Skills are merged into the desktop's About window, so
@@ -22,21 +22,21 @@ There is no backend, database, auth, CMS, or analytics layer.
 
 The Projects section renders three case studies as interactive desktop windows
 with hand-built, fake-data mock UIs (`src/components/CareFlowDemo.jsx`,
-`src/components/RoleFitDemo.jsx`, and `src/components/JakeForgeDemo.jsx`), not
+`src/components/RoleFitDemo.jsx`, and `src/components/TypesetDemo.jsx`), not
 screenshots:
 
 - CareFlow: the primary window, a clinic-workspace app shell with a sidebar
   (Schedule, Documents, Billing, Refills, Admin). Schedule has draggable
   appointment blocks that open a details modal linking to a Patient hub; Refills
   and Admin carry working approve/deny and permission toggles.
-- RoleFit AI: a quieter window mocking the resume tailor — a rail (Resume,
-  Materials, Applications, Analytics), section Tailor/Include/Off controls with
-  a derived fit score, and a zoom selector. Links to the hosted build at
-  xinyiklin.com/rolefit-ai and the source.
-- JakeForge: a compact window mocking the Jake's-style resume editor — a
+- RoleFit AI: a quieter window mocking the resume-tailoring workbench — a rail
+  (Resume, Materials, Applications, Analytics), section Tailor/Include/Off
+  controls with a derived fit score, and a zoom selector. Links to the hosted
+  build at xinyiklin.com/rolefit-ai and the source.
+- Typeset: a compact window mocking the single-column resume editor — a
   sidebar with export buttons, Compact/Normal/Relaxed spacing presets, a
   heading-case control, and zoom, over a serif resume page that is editable
-  directly in the demo. Links to the live app at jakeforge.xinyiklin.com and
+  directly in the demo. Links to the live app at typeset.xinyiklin.com and
   the source.
 
 `src/constants/projects.js` now holds only the external action URLs used by the
@@ -81,18 +81,17 @@ There is no manual `npm run deploy` step anymore.
 Project claims in the demo components, resume overlay, and docs should be
 cross-checked against:
 
-- `../careflow/README.md`
-- `../careflow/CONTINUITY.md`
-- `../role-fit-ai/README.md`
-- `../role-fit-ai/CONTINUITY.md`
-- `../jakeforge/README.md`
-- `../jakeforge/CONTINUITY.md`
+- `../careflow/README.md` and `../careflow/CONTINUITY.md`
+- `../role-fit-ai/README.md` and `../role-fit-ai/CONTINUITY.md` — the Typeset
+  Workspace monorepo, which contains both secondary projects
+  (`apps/role-fit-ai/` and `apps/typeset/`, over shared `packages/`)
 
-The inline resume (`src/constants/resume.js`) mirrors the user's LaTeX resume
-(currently RoleFit AI's general SDE resume,
-`../role-fit-ai/job-search-workspace/base-resume-general-sde.tex`) and is the
-source of truth for resume and skills copy. The rendered hero, the desktop
-About window, and RoleFit demo resume should stay aligned with it.
+The inline resume (`src/constants/resume.js`) mirrors the user's Typeset
+resume (currently the general SDE variant,
+`../role-fit-ai/apps/role-fit-ai/job-search-workspace/base-resume-general-sde.resume`)
+and is the source of truth for resume and skills copy. The rendered hero, the
+desktop About window, and the RoleFit and Typeset demo resumes should stay
+aligned with it.
 
 Do not invent employers, dates, metrics, education, tools, or project scope.
 When a stronger claim depends on a missing fact, ask first or use a bracketed

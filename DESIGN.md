@@ -1,10 +1,10 @@
 ---
 name: Xinyi Lin Portfolio
-description: A working engineer's portfolio. CareFlow, RoleFit AI, and JakeForge presented as interactive desktop app windows, with CareFlow as the primary clinic-workspace proof.
+description: A working engineer's portfolio. CareFlow, RoleFit AI, and Typeset presented as interactive desktop app windows, with CareFlow as the primary clinic-workspace proof.
 colors:
   operating-teal: "#0f766e"
   polish-violet: "#7c3aed"
-  forge-green: "#1b674c"
+  typeset-green: "#176b5c"
   beacon-teal: "#14b8a6"
   drafting-paper: "#f5f9fc"
   specimen-white: "#ffffff"
@@ -88,16 +88,16 @@ components:
 
 **Creative North Star: "An engineer's desktop, interactive"**
 
-This portfolio reads like a working engineer presenting three builds with care, not a marketing site. On wide, motion-allowed viewports the landing becomes a cinematic macOS-style desktop: the hero is the wallpaper, the dock opens app windows, and the project proof lives inside interactive product-like demos. CareFlow leads as the primary clinic-workspace window with Schedule, Documents, Billing, Refills, Admin, a Patient hub path, draggable appointments, and working local state. RoleFit AI is a quieter secondary window: a resume-tailor workspace with Resume, Materials, Applications, and Analytics tabs, linked to its hosted build and source. JakeForge is the compact third window: the Jake's-style resume editor with export, spacing, and heading-case controls over an editable serif page, linked to the live app and source. Mobile and reduced-motion users get the same content as flat stacked windows. The contrast in treatment is intentional, CareFlow earns the primary proof; RoleFit AI and JakeForge signal breadth without competing with it.
+This portfolio reads like a working engineer presenting three builds with care, not a marketing site. On wide, motion-allowed viewports the landing becomes a cinematic macOS-style desktop: the hero is the wallpaper, the dock opens app windows, and the project proof lives inside interactive product-like demos. CareFlow leads as the primary clinic-workspace window with Schedule, Documents, Billing, Refills, Admin, a Patient hub path, draggable appointments, and working local state. RoleFit AI is a quieter secondary window: a resume-tailor workspace with Resume, Materials, Applications, and Analytics tabs, linked to its hosted build and source. Typeset is the compact third window: the single-column resume editor with export, spacing, and heading-case controls over an editable serif page, linked to the live app and source. Mobile and reduced-motion users get the same content as flat stacked windows. The contrast in treatment is intentional, CareFlow earns the primary proof; RoleFit AI and Typeset signal breadth without competing with it.
 
 The system rejects the AI-generated SaaS landing template that flooded the internet by 2026 (purple gradients, four-card icon grids, hero metric tiles, gradient text, glass cards, Inter on white). It also rejects the editorial-magazine reflex (italic Cormorant, ruled columns, lowercase tracked metadata, drop caps) that has saturated tech brand sites. The right register is engineer-pragmatic with quiet authority and one moment of confident interactivity.
 
 **Key Characteristics:**
-- **Three project windows, one desktop.** CareFlow as the primary interactive app, RoleFit AI and JakeForge as the quieter secondary apps.
+- **Three project windows, one desktop.** CareFlow as the primary interactive app, RoleFit AI and Typeset as the quieter secondary apps.
 - **Cinematic desktop on wide screens.** The dock opens, focuses, minimizes, closes, and right-clicks app windows. The window manager is the showcase.
 - **Flat fallback on mobile and reduced motion.** No hidden project content, no motion dependence.
-- **Quiet secondary treatment.** The RoleFit and JakeForge windows show their workflows with local demo data; title-bar actions link to the real hosted builds and source.
-- **Scoped accents.** Operating Teal for CareFlow, Polish Violet for RoleFit AI, Forge Green for JakeForge. Accents are supplied through window CSS variables and do not bleed across apps.
+- **Quiet secondary treatment.** The RoleFit AI and Typeset windows show their workflows with local demo data; title-bar actions link to the real hosted builds and source.
+- **Scoped accents.** Operating Teal for CareFlow, Polish Violet for RoleFit AI, Typeset Green for Typeset. Accents are supplied through window CSS variables and do not bleed across apps.
 - **Show, don't tell.** All project windows are real DOM prototypes with interactive state, not static image plates.
 - **No invented claims.** Every spec maps to something shipping or explicitly demo-only.
 
@@ -111,7 +111,7 @@ A two-accent system over a near-white drafting surface. Accents stay rare and pr
 
 ### Secondary
 
-- **Polish Violet** (`#7c3aed`, `oklch(50% 0.25 290)`): the RoleFit AI window accent. Used on the RoleFit title-bar action, rail state, fit score, chips, and segmented controls. Polish Violet never appears in the CareFlow window or the hero.
+- **Polish Violet** (`#7c3aed`, `oklch(50% 0.25 290)`): the RoleFit AI window accent. Used on the RoleFit AI title-bar action, rail state, fit score, chips, and segmented controls. Polish Violet never appears in the CareFlow window or the hero.
 
 ### Tertiary
 
@@ -215,9 +215,9 @@ as static cards and their traffic-light controls are decorative.
   rail navigation, resume section controls, derived fit score, zoom selector,
   Materials, Applications, and Analytics. It links to the hosted build and
   source.
-- **JakeForge window.** `JakeForgeDemo.jsx` is the compact third surface: a
+- **Typeset window.** `TypesetDemo.jsx` is the compact third surface: a
   sidebar with export buttons, spacing presets, heading-case control, and zoom
-  over a Jake's-style serif page that is editable in place. It links to the
+  over a single-column serif page that is editable in place. It links to the
   live app and source.
 - **Action URLs.** `src/constants/projects.js` stores only the external URLs
   used by the window title-bar actions. Case-study copy belongs in the demo
@@ -234,9 +234,9 @@ as static cards and their traffic-light controls are decorative.
 
 The fixed dot-constellation navbar was removed with the desktop redesign. On wide, motion-allowed viewports the landing is a cinematic macOS-style desktop (`DesktopScene`): the hero is the wallpaper and the case studies open as draggable windows. There is no standalone About/Skills section and no separate navigation bar; the Resume CTA now lives inside the desktop's About window.
 
-- **Style:** a floating bottom dock (`.pj-dock`) with one tile per app, About, JakeForge, CareFlow, and RoleFit AI, then a separator and the link tiles (GitHub, LinkedIn, Contact). The dock fades in as the camera settles into the framed desktop. CareFlow and JakeForge tiles link straight to the live products in a new tab; About and RoleFit AI open their windows fullscreen (maximized) by default, and clicking an open app focuses it. The CareFlow and JakeForge demo windows are kept as reference: they still open from the tile's right-click menu and render as stacked cards on mobile/reduced-motion.
+- **Style:** a floating bottom dock (`.pj-dock`) with one tile per app, About, Typeset, CareFlow, and RoleFit AI, then a separator and the link tiles (GitHub, LinkedIn, Contact). The dock fades in as the camera settles into the framed desktop. CareFlow and Typeset tiles link straight to the live products in a new tab; About and RoleFit AI open their windows fullscreen (maximized) by default, and clicking an open app focuses it. The CareFlow and Typeset demo windows are kept as reference: they still open from the tile's right-click menu and render as stacked cards on mobile/reduced-motion.
 - **Reordering:** tiles can be dragged to reposition, but only within their own side of the separator — app tiles stay on the left, link tiles on the right. The order is session-local (not persisted). The grabbed tile follows the pointer directly (reads as picked up via a deeper shadow, no scale) while the other tiles slide out of the way with a short FLIP; on release the grabbed tile settles into its slot. A real drag suppresses the tile's trailing click/navigation.
-- **States:** hovering or focusing a tile reveals its label tooltip; the tile itself stays put (no magnify). Keyboard focus adds a ring on the icon. About uses the gradient "XL" brand tile, and CareFlow, RoleFit AI, and JakeForge each use their own favicon tile. Motion is suppressed under `prefers-reduced-motion`.
+- **States:** hovering or focusing a tile reveals its label tooltip; the tile itself stays put (no magnify). Keyboard focus adds a ring on the icon. About uses the gradient "XL" brand tile, and CareFlow, RoleFit AI, and Typeset each use their own favicon tile. Motion is suppressed under `prefers-reduced-motion`.
 - **Right-click menu:** right-clicking an app tile opens a context menu (`.pj-ctx`, portaled to `<body>`) whose actions mirror the window's traffic lights and adapt to state, Open / Show, Zoom or Restore, Minimize, Close. Dismisses on Escape, outside-click, or blur. Link tiles keep the browser's native menu.
 - **Mobile / reduced-motion:** the flat stacked layout has no dock; the windows render as static stacked cards and their traffic-light controls are decorative (non-interactive, removed from the tab order and the accessibility tree).
 
@@ -244,8 +244,8 @@ The fixed dot-constellation navbar was removed with the desktop redesign. On wid
 
 ### Do:
 - **Do** lead the primary case study with working product-like UI and real product copy from the live demo/source.
-- **Do** keep one accent per project app. Operating Teal for CareFlow; Polish Violet for RoleFit AI; Forge Green for JakeForge. No accent rotation between pages, no accent bleeding between apps.
-- **Do** keep the secondary RoleFit and JakeForge windows quieter: locally interactive demos whose title-bar actions link to the real builds and source, without competing with CareFlow's depth.
+- **Do** keep one accent per project app. Operating Teal for CareFlow; Polish Violet for RoleFit AI; Typeset Green for Typeset. No accent rotation between pages, no accent bleeding between apps.
+- **Do** keep the secondary RoleFit AI and Typeset windows quieter: locally interactive demos whose title-bar actions link to the real builds and source, without competing with CareFlow's depth.
 - **Do** derive tinted surfaces from `--accent` / `--accent-soft` so the recipe scales across all apps.
 - **Do** keep neutrals tinted toward teal. Drafting Paper (`#f5f9fc`) is the right base; never `#fff` or `#000`.
 - **Do** use ≥1.25 ratios between Headline, Title, Subtitle, Body, Label. Flat scales read as uncommitted.

@@ -1,10 +1,11 @@
 import { useMemo, useState } from "react";
 
-// RoleFit AI — an interactive, fake-data mock of the local-first resume tailor.
-// A left rail switches between four pages: Resume (a tailoring workspace with a
-// live fit score), Materials (the source documents it draws from), Applications
-// (a tracked pipeline), and Analytics (a small summary). No backend, no invented
-// experience — the numbers are illustrative and derived in-component.
+// RoleFit AI — an interactive, fake-data mock of the local-first resume
+// tailoring workbench. A left rail switches between four pages: Resume (a
+// tailoring workspace with a live fit score), Materials (the source documents
+// it draws from), Applications (a tracked pipeline), and Analytics (a small
+// summary). No backend, no invented experience — the numbers are illustrative
+// and derived in-component.
 
 const RF_NAV = [
   { group: "Draft", items: [{ n: "01", id: "resume", label: "Resume" }, { n: "02", id: "materials", label: "Materials" }] },
@@ -14,8 +15,9 @@ const RF_NAV = [
 const MODES = ["Tailor", "Include", "Off"];
 const ZOOMS = [80, 90, 100, 110, 125, 150];
 
-// Mirrors src/constants/resume.js (the LaTeX source of truth), condensed to one
-// tight line per bullet for the demo. Keep in sync if resume.js changes.
+// Mirrors src/constants/resume.js (which mirrors the .resume source of truth),
+// condensed to one tight line per bullet for the demo. Keep in sync if
+// resume.js changes.
 const RESUME = {
   name: "Xinyi Lin",
   contact: ["xinyiklin@gmail.com", "linkedin.com/in/xinyiklin", "github.com/xinyiklin", "New York, NY"],
@@ -47,24 +49,24 @@ const RESUME = {
           sub: "React 19 · Django REST · PostgreSQL · AWS",
           date: "careflow.xinyiklin.com",
           bullets: [
-            "Built and deployed a React + Django clinic platform: 10+ apps, 45+ models, 250+ endpoints, with the frontend on AWS Amplify and PostgreSQL on Amazon RDS.",
+            "Built and deployed a React + Django REST clinic platform with 250+ API endpoints for scheduling, charting, billing, and patient records.",
             "Role-based access scoped to org/facility, audit logging, Fernet-encrypted SSNs, and 400+ Django tests in CI.",
           ],
         },
         {
           title: "RoleFit AI",
-          sub: "React 19 · Node.js · LLM APIs",
+          sub: "React 19 · Node.js · LLM APIs · WebExtensions",
           date: "xinyiklin.com/rolefit-ai",
           bullets: [
-            "Local-first resume tailor that scores fit to a posting without inventing experience — structured editor + Tectonic PDF export.",
-            "Recruiter-style review engine over 10+ AI backends with grounded-output guards and 120+ anti-fabrication eval probes.",
+            "AI resume-tailoring workbench on the Typeset engine — every suggested edit grounded in real experience and surfaced as reviewable diffs.",
+            "Recruiter-style review engine over 10+ AI providers that refuses to score above what the resume evidences, plus a Chrome/Firefox extension.",
           ],
         },
         {
-          title: "JakeForge",
-          sub: "React 19 · Node.js · Docker · AWS EC2",
-          date: "jakeforge.xinyiklin.com",
-          bullets: ["Jake's-style resume editor forked from RoleFit AI: LaTeX/Tectonic export, DOCX import, Dockerized EC2 deploy via GitHub Actions."],
+          title: "Typeset",
+          sub: "React 19 · pdf-lib · Docker · AWS EC2",
+          date: "typeset.xinyiklin.com",
+          bullets: ["WYSIWYG editor on a from-scratch deterministic typesetting engine — glyph-identical client-side PDF export and a versioned .resume format."],
         },
       ],
     },
@@ -82,13 +84,6 @@ const RESUME = {
             "Led an EHR migration — data transfer, validation, and workflow continuity across clinic systems.",
             "Revised the room-assignment process, reducing patient wait times by over 50%.",
           ],
-        },
-        {
-          title: "Teaching Assistant — Intro Java",
-          side: "New York, NY",
-          sub: "Hunter College",
-          date: "Jul – Aug 2022",
-          bullets: ["Supported intro Java students through labs, code reviews, and debugging — OOP, data structures, algorithms."],
         },
       ],
     },
@@ -187,7 +182,7 @@ function ResumeView({ modes, setMode, score, tier }) {
 /* ---------- Materials ---------- */
 
 const RF_MATERIALS = [
-  { id: "master", title: "Master résumé", meta: "PDF · 18 bullets parsed", tag: "Source" },
+  { id: "master", title: "Master résumé", meta: ".resume · 12 bullets parsed", tag: "Source" },
   { id: "jd", title: "Job description", meta: "Software Engineer · pasted", tag: "Target" },
   { id: "notes", title: "Brag doc", meta: "12 accomplishments", tag: "Source" },
   { id: "cover", title: "Cover letter", meta: "Draft · 1 version", tag: "Output" },
