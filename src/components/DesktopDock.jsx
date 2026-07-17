@@ -6,7 +6,7 @@ import { GITHUB, LINKEDIN } from "../constants/app";
 import { PROJECT_LINKS } from "../constants/projects";
 import careflowFavicon from "../assets/careflow-favicon.svg";
 import rolefitFavicon from "../assets/rolefit-favicon.svg";
-import jakeforgeFavicon from "../assets/jakeforge-favicon.svg";
+import typesetFavicon from "../assets/typeset-favicon.svg";
 
 // The desktop's floating dock: app tiles (left of the separator), link tiles
 // (right), drag-to-reorder within each side, and the right-click app menu.
@@ -18,7 +18,7 @@ import jakeforgeFavicon from "../assets/jakeforge-favicon.svg";
 // (and render as stacked cards on mobile/reduced-motion).
 export const DOCK_APPS = [
   { id: "about", label: "About", accent: "linear-gradient(140deg, #189a8c 0%, #0f766e 50%, #7a5fc0 100%)", onText: "#ffffff", glyph: "XL" },
-  { id: "jakeforge", label: "JakeForge", href: PROJECT_LINKS.jakeforge.live, accent: "#1b674c", onText: "#ffffff", iconSrc: jakeforgeFavicon },
+  { id: "typeset", label: "Typeset", href: PROJECT_LINKS.typeset.live, accent: "#176b5c", onText: "#ffffff", iconSrc: typesetFavicon },
   { id: "careflow", label: "CareFlow", href: PROJECT_LINKS.careflow.live, accent: "#2a3847", onText: "#ffffff", iconSrc: careflowFavicon },
   { id: "rolefit", label: "RoleFit AI", accent: "#eef2ef", onText: "#23664f", iconSrc: rolefitFavicon },
 ];

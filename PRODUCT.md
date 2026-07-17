@@ -14,13 +14,13 @@ one of many tabs during a screening sprint, on a laptop, sometimes mobile.
 A small secondary audience is engineering peers and prospective collaborators.
 
 The job to be done: read enough credible signal about three real builds
-(CareFlow as the primary, RoleFit AI and JakeForge as smaller seconds) and the
+(CareFlow as the primary, RoleFit AI and Typeset as smaller seconds) and the
 person behind them to decide whether to invite a conversation.
 
 ## Product Purpose
 
 Present a primary production-grade engineering build (CareFlow) with
-case-study depth, plus quieter secondary builds (RoleFit AI and JakeForge)
+case-study depth, plus quieter secondary builds (RoleFit AI and Typeset)
 that signal breadth without distracting from CareFlow. A busy reviewer should
 be able to
 answer "is this person worth a screen?" within a minute, then go deeper if
@@ -30,12 +30,12 @@ reader read every line.
 The Projects section is a two-tier desktop showcase. CareFlow leads as the
 primary interactive app window: a clinic-workspace shell with Schedule,
 Documents, Billing, Refills, Admin, a Patient hub path, draggable appointments,
-and working demo controls. RoleFit AI and JakeForge sit beside it as the
+and working demo controls. RoleFit AI and Typeset sit beside it as the
 quieter secondary windows: a resume-tailor workspace with Resume, Materials,
-Applications, and Analytics tabs, and a Jake's-style resume editor with an
+Applications, and Analytics tabs, and a single-column resume editor with an
 editable page and layout controls, each linking to its hosted build and
 source. The contrast in treatment is intentional: CareFlow is the primary
-proof; RoleFit AI and JakeForge are the signal that more than one shipped
+proof; RoleFit AI and Typeset are the signal that more than one shipped
 build lives in the catalogue. The interaction
 itself is part of the proof: the candidate ships frontend workflows, not just
 static images. Success is qualified inbound for full-time software engineering
@@ -114,11 +114,11 @@ project unless an explicit brand reason overrides them.
 
 1. **Show, don't tell.** The case study leads with working product-like
    surfaces: CareFlow's schedule, documents, billing, refills, permissions, and
-   patient hub; RoleFit's resume workspace, materials, applications, and
+   patient hub; RoleFit AI's resume workspace, materials, applications, and
    analytics. Copy supports the interface, not the other way around.
 2. **Interaction is part of the proof.** The Projects section is a desktop
    workspace. The dock opens app windows; the CareFlow schedule can be dragged
-   and opened into a details modal; RoleFit tabs and controls update local
+   and opened into a details modal; RoleFit AI tabs and controls update local
    state. The interaction itself is evidence the candidate ships frontend work.
 3. **Truthful claims only.** Every spec corresponds to something that is
    actually shipped. No fabricated outcomes, no "10x" copy, no inflated tech

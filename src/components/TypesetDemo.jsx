@@ -2,14 +2,14 @@ import { useState } from "react";
 import { FileCode2, FileDown, Printer } from "lucide-react";
 import { PROJECT_LINKS } from "../constants/projects";
 
-// JakeForge — an interactive, fake-data mock of the Jake's-style resume editor.
-// The sidebar mirrors the real app's controls (exports, spacing presets,
-// heading case, zoom); the page is the real resume condensed into the Jake
-// template layout and editable directly on the page, like the live app. The
-// export buttons link to the live app, where the real pipelines run.
+// Typeset — an interactive, fake-data mock of the local-first resume editor.
+// The sidebar mirrors the real app's controls (exports, spacing, heading case,
+// zoom); the page is the real resume condensed into a single-column template
+// layout and editable directly on the page, like the live app. The export
+// buttons link to the live app, where the real engine and PDF emitter run.
 
 // Spacing presets set the document's rhythm via CSS custom properties, the
-// same lever the real app's Compact/Normal/Relaxed presets pull.
+// same lever the real app's Spacing menu pulls.
 const JF_SPACING = {
   Compact: { "--jf-lh": 1.28, "--jf-sec": "0.34rem", "--jf-entry": "0.22rem" },
   Normal: { "--jf-lh": 1.42, "--jf-sec": "0.55rem", "--jf-entry": "0.34rem" },
@@ -22,9 +22,9 @@ const JF_CASES = [
 ];
 const JF_ZOOMS = [80, 90, 100, 110, 125];
 
-// Mirrors src/constants/resume.js (the LaTeX source of truth) — same section
-// order, condensed to one tight line per bullet for the demo. Keep in sync if
-// resume.js changes.
+// Mirrors src/constants/resume.js (which mirrors the .resume source of truth)
+// — same section order, condensed to one tight line per bullet for the demo.
+// Keep in sync if resume.js changes.
 const JF_RESUME = {
   name: "Xinyi Lin",
   contact: ["xinyiklin@gmail.com", "linkedin.com/in/xinyiklin", "github.com/xinyiklin", "New York, NY"],
@@ -49,19 +49,19 @@ const JF_RESUME = {
           title: "CareFlow",
           side: "careflow.xinyiklin.com",
           sub: "React 19 · Django REST · PostgreSQL · AWS",
-          bullets: ["Clinic platform: 10+ apps, 45+ models, 250+ endpoints, 400+ Django tests in CI."],
+          bullets: ["Clinic platform with 250+ API endpoints and 400+ Django tests in CI."],
         },
         {
           title: "RoleFit AI",
           side: "xinyiklin.com/rolefit-ai",
-          sub: "React 19 · Node.js · LLM APIs",
-          bullets: ["Local-first resume tailor that scores fit to a posting without inventing experience."],
+          sub: "React 19 · Node.js · LLM APIs · WebExtensions",
+          bullets: ["AI resume-tailoring workbench on the Typeset engine that never invents experience."],
         },
         {
-          title: "JakeForge",
-          side: "jakeforge.xinyiklin.com",
-          sub: "React 19 · Node.js · Docker · AWS EC2",
-          bullets: ["This editor: LaTeX/Tectonic export pipeline, DOCX import, Dockerized EC2 deploy."],
+          title: "Typeset",
+          side: "typeset.xinyiklin.com",
+          sub: "React 19 · pdf-lib · Docker · AWS EC2",
+          bullets: ["This editor: a deterministic typesetting engine with glyph-identical client-side PDF export."],
         },
       ],
     },
@@ -75,15 +75,9 @@ const JF_RESUME = {
           subSide: "Queens, NY",
           bullets: [
             "Translated recurring EHR, scheduling, and clinical workflow issues into practical requirements.",
+            "Led an EHR migration — data transfer, validation, and workflow continuity across clinic systems.",
             "Revised the room-assignment process, reducing patient wait times by over 50%.",
           ],
-        },
-        {
-          title: "Teaching Assistant — Intro Java",
-          side: "Jul – Aug 2022",
-          sub: "Hunter College",
-          subSide: "New York, NY",
-          bullets: ["Supported intro Java students through labs, code reviews, and debugging."],
         },
       ],
     },
@@ -91,12 +85,12 @@ const JF_RESUME = {
 };
 
 const JF_EXPORTS = [
-  { label: "PDF · LaTeX", icon: FileDown },
-  { label: "LaTeX source", icon: FileCode2 },
-  { label: "Clean PDF", icon: Printer },
+  { label: "Export PDF", icon: FileDown },
+  { label: "Save .resume", icon: FileCode2 },
+  { label: "Print", icon: Printer },
 ];
 const JF_SPACING_OPTS = Object.keys(JF_SPACING).map((k) => ({ id: k, label: k }));
-const JF_LIVE = PROJECT_LINKS.jakeforge.live;
+const JF_LIVE = PROJECT_LINKS.typeset.live;
 
 function Seg({ options, value, onChange, label }) {
   return (
@@ -116,7 +110,7 @@ function Seg({ options, value, onChange, label }) {
   );
 }
 
-export default function JakeForgeDemo() {
+export default function TypesetDemo() {
   const [preset, setPreset] = useState("Normal");
   const [hCase, setHCase] = useState("sc");
   const [zoom, setZoom] = useState(100);

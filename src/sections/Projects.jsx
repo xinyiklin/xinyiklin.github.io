@@ -6,15 +6,15 @@ import { NAME } from "../constants/app";
 import { PROJECT_LINKS } from "../constants/projects";
 import CareFlowDemo from "../components/CareFlowDemo";
 import RoleFitDemo from "../components/RoleFitDemo";
-import JakeForgeDemo from "../components/JakeForgeDemo";
+import TypesetDemo from "../components/TypesetDemo";
 import Dock, { DOCK_APPS, DockContextMenu, appMenuItems } from "../components/DesktopDock";
 
 const CAREFLOW = PROJECT_LINKS.careflow;
-const ROLEFIT = PROJECT_LINKS.rolefitAi;
-const JAKEFORGE = PROJECT_LINKS.jakeforge;
+const ROLEFIT = PROJECT_LINKS.rolefit;
+const TYPESET = PROJECT_LINKS.typeset;
 
 // Smallest each window may be dragged/resized to, so content never gets crushed.
-const MIN_SIZE = { about: { w: 300, h: 300 }, careflow: { w: 400, h: 340 }, rolefit: { w: 320, h: 320 }, jakeforge: { w: 380, h: 340 } };
+const MIN_SIZE = { about: { w: 300, h: 300 }, careflow: { w: 400, h: 340 }, rolefit: { w: 320, h: 320 }, typeset: { w: 380, h: 340 } };
 
 // About + Skills, merged into one "About This Mac"-style window. Profile facts
 // render as key/value rows; the former Skills groups render as tag rows. All
@@ -71,13 +71,13 @@ function defaultLayout(w, h) {
   // collapse media query forces them visible as stacked cards regardless.
   const base = { min: false, closed: true, max: false, prev: null };
   // About fills the left column; CareFlow and RoleFit stack in the right column.
-  // JakeForge cascades over the right column (windows open maximized anyway, so
+  // Typeset cascades over the right column (windows open maximized anyway, so
   // this is only its un-zoomed restore position).
   return {
     about: { ...base, x: pad, y: pad, w: aboutW, h: colH },
     careflow: { ...base, x: rightX, y: pad, w: rightW, h: cfH },
     rolefit: { ...base, x: rightX, y: pad + cfH + gap, w: rightW, h: rfH },
-    jakeforge: { ...base, x: rightX + 26, y: pad + 26, w: Math.max(420, rightW - 52), h: clamp(Math.round(colH * 0.62), 320, 520) },
+    typeset: { ...base, x: rightX + 26, y: pad + 26, w: Math.max(420, rightW - 52), h: clamp(Math.round(colH * 0.62), 320, 520) },
   };
 }
 
@@ -108,7 +108,7 @@ function projectActions({ live, github }) {
 
 const CAREFLOW_ACTIONS = projectActions(CAREFLOW);
 const ROLEFIT_ACTIONS = projectActions(ROLEFIT);
-const JAKEFORGE_ACTIONS = projectActions(JAKEFORGE);
+const TYPESET_ACTIONS = projectActions(TYPESET);
 
 // About.app: a macOS "About This Mac"-style system readout. One bold moment (the
 // gradient monogram + name); identity, then an aligned label -> value spec sheet.
@@ -260,7 +260,7 @@ function Projects({ sectionId = "projects", cinematic = false }) {
   const [osRef, osIn] = useInView();
   const clock = useClock();
 
-  const [order, setOrder] = useState(["about", "jakeforge", "rolefit", "careflow"]);
+  const [order, setOrder] = useState(["about", "typeset", "rolefit", "careflow"]);
   const [wins, setWins] = useState(null);
   const [menu, setMenu] = useState(null); // dock right-click menu: { id, x, y, flipX } | null
   const deskSizeRef = useRef({ w: 0, h: 0 });
@@ -524,14 +524,14 @@ function Projects({ sectionId = "projects", cinematic = false }) {
 
             <AppWindow
               className="pj-win--jf"
-              accent="#1b674c"
-              accentSoft="rgba(27,103,76,0.14)"
-              title="JakeForge"
+              accent="#176b5c"
+              accentSoft="rgba(23,107,92,0.14)"
+              title="Typeset"
               subtitle="Resume editor"
-              actions={JAKEFORGE_ACTIONS}
-              {...windowProps("jakeforge")}
+              actions={TYPESET_ACTIONS}
+              {...windowProps("typeset")}
             >
-              <JakeForgeDemo />
+              <TypesetDemo />
             </AppWindow>
           </div>
 
