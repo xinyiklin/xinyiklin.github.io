@@ -592,6 +592,9 @@ footer a:hover { color: var(--c-accent-deep) !important; }
     margin: 0 auto;
     max-width: 1120px;
     padding: clamp(1.75rem, 4vw, 2.75rem) clamp(1.25rem, 4vw, 2.5rem) clamp(2rem, 5vw, 3rem);
+    /* Left inset for section entries + skills (matches the .resume source's
+       entryIndentPt 10.8pt); trimmed on mobile so bullets don't sit too deep. */
+    --resume-indent: 1rem;
 }
 
 .resume-doc a {
@@ -654,6 +657,9 @@ footer a:hover { color: var(--c-accent-deep) !important; }
 
 .resume-entry {
     margin-bottom: 0.85rem;
+    /* Entry content sits inset under the full-width section rule; the heading
+       rule stays flush. Indent value lives on .resume-doc (--resume-indent). */
+    padding-left: var(--resume-indent);
 }
 
 .resume-entry:last-child {
@@ -733,7 +739,8 @@ footer a:hover { color: var(--c-accent-deep) !important; }
     line-height: 1.6;
     list-style: none;
     margin: 0;
-    padding: 0;
+    /* Match the entry indent so skill rows align with the other sections. */
+    padding: 0 0 0 var(--resume-indent);
 }
 
 .resume-skills li {
@@ -763,6 +770,11 @@ footer a:hover { color: var(--c-accent-deep) !important; }
 
     .resume-overlay-bar {
         padding: 0.6rem 0.75rem 0.6rem 1rem;
+    }
+
+    .resume-doc {
+        /* Tighter indent on small screens so bullets don't sit too deep. */
+        --resume-indent: 0.5rem;
     }
 
     .resume-entry-row {

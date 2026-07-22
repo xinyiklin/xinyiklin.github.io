@@ -32,15 +32,9 @@ export const RESUME_PROJECTS = [
         bullets: [
             {
                 segments: [
-                    { text: "Built and deployed a " },
-                    { text: "React + Django REST", bold: true },
-                    { text: " clinic platform with " },
-                    { text: "250+ API endpoints", bold: true },
-                    { text: " for scheduling, charting, billing, and patient records — frontend on " },
-                    { text: "AWS Amplify", bold: true },
-                    { text: ", PostgreSQL on " },
-                    { text: "Amazon RDS", bold: true },
-                    { text: "." },
+                    { text: "Designed and deployed a clinic platform with two React clients, a Django REST backend, PostgreSQL, and " },
+                    { text: "240+ documented OpenAPI operations", bold: true },
+                    { text: "; generated shared TypeScript API contracts to prevent client-server drift." },
                 ],
             },
             {
@@ -54,8 +48,8 @@ export const RESUME_PROJECTS = [
                 segments: [
                     { text: "Maintained " },
                     { text: "GitHub Actions CI", bold: true },
-                    { text: " across two React apps and the Django backend, running lint, typecheck, and migration checks plus " },
-                    { text: "400+ Django tests", bold: true },
+                    { text: " across two React apps and the Django backend, running lint, typecheck, build, and migration gates plus " },
+                    { text: "480+ Django tests", bold: true },
                     { text: " for auth, validation, and facility isolation." },
                 ],
             },
@@ -63,32 +57,28 @@ export const RESUME_PROJECTS = [
     },
     {
         name: "RoleFit AI",
-        stack: "React 19, TypeScript, Vite, Node.js, LLM APIs, WebExtensions",
+        stack: "TypeScript, React 19, Node.js, Electron, IPC, CLI process orchestration",
         links: [{ label: "rolefit.xinyiklin.com", href: "https://rolefit.xinyiklin.com" }],
         bullets: [
             {
                 segments: [
-                    { text: "Built an " },
-                    { text: "AI resume-tailoring workbench", bold: true },
-                    { text: " on the Typeset engine that grounds every suggested edit in the user's real experience and surfaces it as reviewable diffs — enforced by prompt-injection fencing, output sanitization, and an " },
-                    { text: "offline anti-fabrication eval suite", bold: true },
-                    { text: "." },
+                    { text: "Designed a browser-primary local application with a loopback Node server and Electron companion, separating resume and job orchestration, provider management, and deterministic document rendering across explicit trust boundaries." },
                 ],
             },
             {
                 segments: [
-                    { text: "Designed a " },
-                    { text: "recruiter-style review engine", bold: true },
-                    { text: " that scores resume-to-role fit and refuses to score above what the resume evidences, across " },
-                    { text: "10+ hosted, local, and CLI AI providers", bold: true },
-                    { text: "." },
+                    { text: "Integrated three provider-owned CLI sessions plus optional OpenAI and Claude API connections through " },
+                    { text: "typed IPC", bold: true },
+                    { text: "; encrypted API keys with OS safeStorage and isolated provider credentials from browser and HTTP boundaries." },
                 ],
             },
             {
                 segments: [
-                    { text: "Shipped a companion " },
-                    { text: "Chrome/Firefox extension", bold: true },
-                    { text: " that scores any job posting against the base resume in-page and imports it in one click." },
+                    { text: "Hardened a fail-closed " },
+                    { text: "Distill - Tailor - Review", bold: true },
+                    { text: " workflow with prompt-injection fencing, grounded-output sanitization, request cancellation, and " },
+                    { text: "30+ offline regression evals", bold: true },
+                    { text: "." },
                 ],
             },
         ],
@@ -102,16 +92,14 @@ export const RESUME_PROJECTS = [
                 segments: [
                     { text: "Built a " },
                     { text: "WYSIWYG resume editor", bold: true },
-                    { text: " on a from-scratch " },
-                    { text: "deterministic typesetting engine", bold: true },
-                    { text: " with " },
+                    { text: " on a deterministic typesetting engine with " },
                     { text: "client-side PDF export", bold: true },
-                    { text: "; the editor and the exported PDF render glyph-identically, verified by an automated font-parity suite." },
+                    { text: "; 633,456 shaping checks verify identical font metrics across the editor and PDF for 18 font faces." },
                 ],
             },
             {
                 segments: [
-                    { text: "Implemented direct editing on the engine-rendered page — structured document model, full undo/redo history, and a strict versioned " },
+                    { text: "Implemented direct editing on the engine-rendered page with a structured document model, full undo/redo history, and a strict versioned " },
                     { text: ".resume", bold: true },
                     { text: " file format with autosave." },
                 ],
@@ -120,7 +108,7 @@ export const RESUME_PROJECTS = [
                 segments: [
                     { text: "Extracted the engine and editor into shared " },
                     { text: "npm workspace packages", bold: true },
-                    { text: " powering two production apps, deployed with " },
+                    { text: " powering Typeset and RoleFit, then deployed Typeset with " },
                     { text: "Docker + GitHub Actions", bold: true },
                     { text: " to " },
                     { text: "AWS EC2", bold: true },
@@ -140,9 +128,9 @@ export const RESUME_EXPERIENCE = [
         bullets: [
             {
                 segments: [
-                    { text: "Translated recurring " },
+                    { text: "Translate recurring " },
                     { text: "EHR, scheduling, and clinical workflow issues", bold: true },
-                    { text: " into practical requirements for physicians and staff in a high-volume cardiovascular clinic." },
+                    { text: " into concrete requirements and troubleshooting steps for physicians and staff in a high-volume cardiovascular clinic." },
                 ],
             },
             {
@@ -154,11 +142,9 @@ export const RESUME_EXPERIENCE = [
             },
             {
                 segments: [
-                    { text: "Identified patient-flow bottlenecks in intake and testing; proposed and implemented a revised " },
-                    { text: "room-assignment process", bold: true },
-                    { text: " that " },
-                    { text: "reduced patient wait times by over 50%", bold: true },
-                    { text: " and improved clinic throughput." },
+                    { text: "Redesigned room assignments after analyzing intake and testing bottlenecks, " },
+                    { text: "reducing patient wait times by over 50%", bold: true },
+                    { text: " and improving clinic throughput." },
                 ],
             },
         ],
@@ -166,9 +152,9 @@ export const RESUME_EXPERIENCE = [
 ];
 
 export const RESUME_SKILLS = [
-    { label: "Languages", value: "Python, C++, JavaScript, TypeScript, SQL, HTML/CSS" },
-    { label: "Frontend", value: "React, Vite, React Query, React Router, Tailwind CSS" },
-    { label: "Backend & Data", value: "Django REST Framework, Node.js, REST APIs, OpenAPI, JWT/CSRF auth, PostgreSQL" },
+    { label: "Languages", value: "Python, TypeScript, JavaScript, C++, SQL, HTML/CSS" },
+    { label: "Frameworks & Runtime", value: "React, Django REST Framework, Node.js, Electron, REST APIs, OpenAPI" },
+    { label: "Data & Cloud", value: "PostgreSQL, AWS (Amplify, RDS, EC2), Cloudflare R2, Render" },
     { label: "Testing & Quality", value: "Django TestCase, GitHub Actions CI, ESLint, TypeScript typecheck, regression evals" },
-    { label: "Tooling & Cloud", value: "Git, Docker, AWS (Amplify, RDS, EC2), Render, Cloudflare R2" },
+    { label: "Tooling", value: "Git, Docker, Vite, React Query, React Router, Tailwind CSS" },
 ];
