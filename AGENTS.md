@@ -45,12 +45,15 @@ Before acting:
 3. Inspect the files you will touch.
 4. For UI work, open the relevant file under `src/sections/` and the matching
    styles in `src/App.css`.
-5. For non-trivial work, decide the verification path before editing.
+5. For non-trivial work, define the desired outcome and verification path
+   before editing.
 
 While working:
 
 - Keep every changed line tied to the request, required cleanup, or
   verification.
+- For ambiguity that would materially change scope or claims, state the
+  assumption and ask before choosing a direction.
 - Match local patterns before introducing new ones.
 - Prefer focused in-place edits for content changes.
 - Surface meaningful blockers, assumptions, and skipped checks.

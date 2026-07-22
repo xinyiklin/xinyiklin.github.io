@@ -89,7 +89,9 @@ components:
 
 This portfolio reads like a working engineer presenting three builds with care, not a marketing site. On wide, motion-allowed viewports the landing becomes a cinematic macOS-style desktop: the hero is the wallpaper, the About window carries identity, and the dock launches CareFlow, RoleFit AI, and Typeset directly. A launcher context menu exposes each source repository without duplicating product UI inside the portfolio. Mobile and reduced-motion users get the same destinations as compact project rows. CareFlow remains the primary project in the resume and positioning; RoleFit AI and Typeset signal breadth without competing with it.
 
-The system rejects the AI-generated SaaS landing template that flooded the internet by 2026 (purple gradients, four-card icon grids, hero metric tiles, gradient text, glass cards, Inter on white). It also rejects the editorial-magazine reflex (italic Cormorant, ruled columns, lowercase tracked metadata, drop caps) that has saturated tech brand sites. The right register is engineer-pragmatic with quiet authority and one moment of confident interactivity.
+The visual register is engineer-pragmatic: a restrained teal palette, strong
+typographic hierarchy, and one confident interactive surface. Avoid generic
+SaaS styling, editorial ornament, and motion without a clear interaction role.
 
 **Key Characteristics:**
 - **One About window, three product launchers.** CareFlow, RoleFit AI, and Typeset open their real hosted products from the dock.
@@ -194,18 +196,10 @@ three external product launchers. On wide, motion-allowed viewports the dock is
 the primary project navigation. On mobile and reduced motion the About window
 becomes static and the products render as direct Live and Source rows.
 
-- **Desktop scene.** `DesktopScene` owns the cinematic boot, scroll lock, hero
-  wallpaper, and camera framing. It must release scroll and interactivity
-  together so the resume overlay cannot capture stale body overflow state.
-- **Window manager.** `Projects.jsx` owns About window geometry, z-order,
-  context menus, dragging, resizing, maximizing, minimizing, and closing.
 - **Product launchers.** CareFlow, RoleFit AI, and Typeset open their hosted
   products from the dock. Right-click exposes one-word Live and Source actions.
 - **Fallback project rows.** Mobile and reduced-motion layouts show the same
   products as compact rows with explicit Live and GitHub actions.
-- **Action URLs.** `src/constants/projects.js` stores only the external URLs
-  used by the dock and fallback rows. Short launcher descriptors live next to
-  the component that renders them.
 
 ### Cards (skills, contact, about)
 
@@ -216,10 +210,14 @@ becomes static and the products render as direct Live and Source rows.
 
 ### Navigation (desktop dock)
 
-The fixed dot-constellation navbar was removed with the desktop redesign. On wide, motion-allowed viewports the landing is a cinematic macOS-style desktop (`DesktopScene`): the hero is the wallpaper, About is a draggable window, and the project tiles launch hosted products. There is no standalone About/Skills section and no separate navigation bar; the Resume CTA lives inside the desktop's About window.
+On wide, motion-allowed viewports the landing is a cinematic desktop: the hero
+is the wallpaper, About is a draggable window, and project tiles launch hosted
+products. The resume action lives in the About window.
 
 - **Style:** a floating bottom dock (`.pj-dock`) with About, Typeset, CareFlow, and RoleFit AI, then a separator and GitHub, LinkedIn, and Contact. The dock fades in as the camera settles. Product tiles launch live sites in a new tab; About opens its local window fullscreen.
-- **Reordering:** tiles can be dragged to reposition, but only within their own side of the separator — app tiles stay on the left, link tiles on the right. The order is session-local (not persisted). The grabbed tile follows the pointer directly (reads as picked up via a deeper shadow, no scale) while the other tiles slide out of the way with a short FLIP; on release the grabbed tile settles into its slot. A real drag suppresses the tile's trailing click/navigation.
+- **Reordering:** tiles can be dragged within their side of the separator; app
+  tiles stay on the left and link tiles on the right. A completed drag must not
+  trigger the tile's link.
 - **States:** hovering or focusing a tile reveals its label tooltip; the tile itself stays put (no magnify). Keyboard focus adds a ring on the icon. About uses the gradient "XL" brand tile, and CareFlow, RoleFit AI, and Typeset each use their own favicon tile. Motion is suppressed under `prefers-reduced-motion`.
 - **Right-click menu:** right-clicking About opens state-aware window actions. Right-clicking a product offers Live and Source links. Menus dismiss on Escape, outside-click, or blur; link tiles keep the browser's native menu.
 - **Mobile / reduced-motion:** the flat layout has no dock. About renders as a static window with decorative traffic lights, followed by direct project rows.
@@ -239,19 +237,9 @@ The fixed dot-constellation navbar was removed with the desktop redesign. On wid
 - **Do** keep the project launch path explicit on both cinematic and fallback layouts.
 
 ### Don't:
-- **Don't** ever use the em-dash character (`,` or `:` is the replacement) anywhere user-visible: headlines, taglines, blurbs, eyebrows, status pills, button labels, captions, alt text. Also no en-dash as a separator. The em-dash is the single most-violated AI tell.
-- **Don't** use section-numbering eyebrows. `01 / Scheduling`, `001, Capabilities`, `04, Security` are banned. The note's Subtitle is enough.
-- **Don't** stamp giant folio numerals (`01`, `02`) as a section anchor. Use the project name as the anchor.
-- **Don't** overlay decorative pills or labels on top of an app surface (`Plate, 02`, `Field notes`). Caption goes below, or the interface speaks alone.
-- **Don't** spend more than 1 middle-dot per line in a metadata strip. Reach for line breaks, commas, or columns first.
-- **Don't** use the AI-slop SaaS template: purple gradients, four-card icon grids, hero-metric blocks, gradient text, glass cards, Inter on white. Visitor must not be able to say "AI made that" without doubt.
-- **Don't** drift into the editorial-magazine reflex: italic Cormorant or Recoleta or Fraunces, ruled columns, lowercase tracked metadata, drop caps. Currently saturated; wrong register.
-- **Don't** add a second typeface family. Manrope alone, weight contrast does the work.
-- **Don't** use `border-left` or `border-right` greater than 1px as a colored accent. Side-stripe borders are an absolute ban.
-- **Don't** use `background-clip: text` with a gradient anywhere. Text is one solid color.
-- **Don't** use decorative status dots on every nav link, list row, or badge. Acceptable only when conveying real semantic state, one per page section.
-- **Don't** invent metrics or outcomes in project copy. If it is not in the hosted product or source repo, it is not in the case study.
-- **Don't** apply bounce or elastic easings. Ease-out exponential curves only.
-- **Don't** repeat identical card grids (four cards, same size, icon + heading + body). If a layout starts looking like a SaaS feature row, restructure.
-- **Don't** add scroll-driven showcase code without a real need. The current proof surface is the dock/window interaction, not page-scroll choreography.
-- **Don't** reintroduce screenshot-only project panes when a small real-DOM prototype can show the workflow more honestly.
+- **Don't** invent project claims, metrics, or outcomes.
+- **Don't** add generic feature-card grids, decorative overlays, or gradients as
+  a substitute for hierarchy.
+- **Don't** add a second typeface family, colored side-stripe borders, or
+  decorative status dots.
+- **Don't** use bounce or elastic easing, or add motion without a clear purpose.

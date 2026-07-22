@@ -36,9 +36,6 @@ resume copy; RoleFit AI and Typeset show breadth without asking a recruiter to
 operate duplicate portfolio-only demos. Success is qualified inbound for
 full-time software engineering roles.
 
-This is a brand surface, not an app. Design IS the product. The visitor's
-impression is the deliverable.
-
 ## Brand Personality
 
 Practical · Crafted · Confident.
@@ -55,55 +52,6 @@ Practical · Crafted · Confident.
 
 Voice: first-person, concrete, free of marketing fluff. "I build" beats "I am
 passionate about building." Specifics beat superlatives.
-
-## Anti-references
-
-- **Generic SaaS landing-page template.** Purple gradients, four-card icon
-  grids, hero-metric blocks, gradient text, glass cards, Inter on white. The
-  modal AI-generated landing page that flooded the internet by 2026. The
-  visitor must not be able to say "AI made that" without doubt.
-- **Editorial-magazine reflex.** Display serif italic, ruled columns,
-  lowercase tracked metadata. Currently saturated; lands on every
-  Notion-adjacent and Stripe-adjacent brand site. Not the right register for
-  an engineering portfolio.
-- **Brutalist or acid-maximalist art-project aesthetics.** Reads as
-  "art student" rather than "hireable engineer with judgment."
-- **Crypto/web3 dark-neon hacker palette.** Wrong audience.
-- **Decorative animation that has no informational purpose.** Bounce easings,
-  parallax for the sake of parallax, scroll-jacking with no payoff.
-
-## AI Tells to Avoid
-
-The visitor must not be able to say "AI made that" without doubt. These are
-the specific patterns that flag AI output in 2026. All are forbidden in this
-project unless an explicit brand reason overrides them.
-
-- **No em-dashes (`,` or `:` instead).** The em-dash character is the single
-  most-violated AI tell in production design tests. Zero em-dashes in any
-  user-visible string: headlines, eyebrows, pills, body, quotes, attribution,
-  captions, buttons, alt text. Also no en-dash as a separator. Hyphens only
-  for compound words and number ranges.
-- **No section-numbering eyebrows.** `01 / Scheduling`, `001, Capabilities`,
-  `06, how it works` are banned. Eyebrows should name the topic in plain
-  language. Better: drop the eyebrow entirely if the section heading is
-  clear.
-- **Eyebrow restraint.** Maximum 1 small uppercase tracked label per 3
-  sections across the whole page. The portfolio has 5 sections (Main, About,
-  Skills, Projects, Contacts) so the page may carry at most 2 eyebrows.
-  Reusing eyebrows on every chapter or feature block is banned.
-- **No decorative status dots.** The colored dot before every list item, nav
-  link, or badge is a tell. Acceptable only when conveying real semantic
-  state (the live availability flag on the CareFlow status pill, for
-  example) and limited to one per page section.
-- **No pill-on-media overlays.** No tag overlays painted on top of an app
-  surface ("Plate, 02", "Field notes"). Caption goes below, or the interface
-  speaks alone.
-- **The middle-dot (`·`) is rationed.** Maximum 1 per line in any metadata
-  strip. The reflex to use it as the default separator for everything is a
-  tell.
-- **No section-numbering folio numerals.** Giant 01 / 02 / 03 anchored to
-  the side of a section reads as templated. Use the project name as the
-  anchor, not its index.
 
 ## Design Principles
 
