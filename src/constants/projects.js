@@ -5,7 +5,7 @@ export const PROJECT_LINKS = {
   },
   rolefit: {
     github: "https://github.com/xinyiklin/rolefit-ai",
-    live: "https://xinyiklin.com/rolefit-ai/",
+    live: "https://rolefit.xinyiklin.com/",
   },
   typeset: {
     github: "https://github.com/xinyiklin/typeset",

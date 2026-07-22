@@ -13,14 +13,15 @@ import typesetFavicon from "../assets/typeset-favicon.svg";
 // Extracted from Projects.jsx, which owns the window manager.
 
 // The four desktop apps shown in the dock (and targeted by the right-click menu).
-// Apps with a `href` link straight to the live product on click; their in-desktop
-// demo windows are kept as reference and still open from the right-click menu
-// (and render as stacked cards on mobile/reduced-motion).
+// Product apps carry `href` (live site) + `github` (source): clicking a tile
+// launches the live product, and its right-click menu opens the live site or the
+// source. Only About is a real in-desktop window (it has no live site); on
+// mobile/reduced-motion the products render as link cards instead (see Projects).
 export const DOCK_APPS = [
   { id: "about", label: "About", accent: "linear-gradient(140deg, #189a8c 0%, #0f766e 50%, #7a5fc0 100%)", onText: "#ffffff", glyph: "XL" },
-  { id: "typeset", label: "Typeset", href: PROJECT_LINKS.typeset.live, accent: "#176b5c", onText: "#ffffff", iconSrc: typesetFavicon },
-  { id: "careflow", label: "CareFlow", href: PROJECT_LINKS.careflow.live, accent: "#2a3847", onText: "#ffffff", iconSrc: careflowFavicon },
-  { id: "rolefit", label: "RoleFit AI", accent: "#eef2ef", onText: "#23664f", iconSrc: rolefitFavicon },
+  { id: "typeset", label: "Typeset", href: PROJECT_LINKS.typeset.live, github: PROJECT_LINKS.typeset.github, accent: "#176b5c", onText: "#ffffff", iconSrc: typesetFavicon },
+  { id: "careflow", label: "CareFlow", href: PROJECT_LINKS.careflow.live, github: PROJECT_LINKS.careflow.github, accent: "#2a3847", onText: "#ffffff", iconSrc: careflowFavicon },
+  { id: "rolefit", label: "RoleFit AI", href: PROJECT_LINKS.rolefit.live, github: PROJECT_LINKS.rolefit.github, accent: "#eef2ef", onText: "#23664f", iconSrc: rolefitFavicon },
 ];
 
 // External links open a real URL; the Contact tile (no href) just scrolls to
@@ -213,8 +214,10 @@ export default function Dock({ wins, activeId, onActivate, onContextMenu }) {
       {appOrder.map((id) => {
         const app = DOCK_APPS.find((a) => a.id === id);
         const w = wins?.[app.id];
-        const running = w ? !w.closed : true;
-        const hidden = w ? w.closed || w.min : false;
+        // Launcher tiles (a live-site link) never carry window run/hidden state;
+        // only real windows (About) do.
+        const running = app.href ? false : w ? !w.closed : true;
+        const hidden = app.href ? false : w ? w.closed || w.min : false;
         return (
           <DockTile
             key={app.id}
@@ -276,6 +279,15 @@ export default function Dock({ wins, activeId, onActivate, onContextMenu }) {
       })}
     </div>
   );
+}
+
+// Right-click menu for a launcher app (a live product): open the live site or
+// its source. Both are link items ({ label, href }) opened in a new tab.
+export function launcherMenuItems({ href, github }) {
+  return [
+    { label: "Live", href },
+    ...(github ? [{ label: "Source", href: github }] : []),
+  ];
 }
 
 // Right-click menu for a dock app: actions mirror the window's traffic lights,
@@ -354,6 +366,18 @@ export function DockContextMenu({ menu, title, items, onClose }) {
       {items.map((it, i) =>
         it.sep ? (
           <div key={`sep-${i}`} className="pj-ctx-sep" role="separator" />
+        ) : it.href ? (
+          <a
+            key={it.label}
+            role="menuitem"
+            className="pj-ctx-item"
+            href={it.href}
+            target="_blank"
+            rel="noreferrer"
+            onClick={onClose}
+          >
+            {it.label}
+          </a>
         ) : (
           <button
             key={it.label}

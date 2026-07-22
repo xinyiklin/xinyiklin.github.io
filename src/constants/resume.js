@@ -64,7 +64,7 @@ export const RESUME_PROJECTS = [
     {
         name: "RoleFit AI",
         stack: "React 19, TypeScript, Vite, Node.js, LLM APIs, WebExtensions",
-        links: [{ label: "xinyiklin.com/rolefit-ai", href: "https://xinyiklin.com/rolefit-ai/" }],
+        links: [{ label: "rolefit.xinyiklin.com", href: "https://rolefit.xinyiklin.com" }],
         bullets: [
             {
                 segments: [

@@ -3,18 +3,29 @@ import { ArrowUpRight } from "lucide-react";
 import { FaGithub } from "react-icons/fa";
 import { useInView, useMediaQuery, useReducedMotion, WIDE_QUERY } from "../hooks/useMotion";
 import { NAME } from "../constants/app";
-import { PROJECT_LINKS } from "../constants/projects";
-import CareFlowDemo from "../components/CareFlowDemo";
-import RoleFitDemo from "../components/RoleFitDemo";
-import TypesetDemo from "../components/TypesetDemo";
-import Dock, { DOCK_APPS, DockContextMenu, appMenuItems } from "../components/DesktopDock";
+import Dock, { DOCK_APPS, DockContextMenu, appMenuItems, launcherMenuItems } from "../components/DesktopDock";
 
-const CAREFLOW = PROJECT_LINKS.careflow;
-const ROLEFIT = PROJECT_LINKS.rolefit;
-const TYPESET = PROJECT_LINKS.typeset;
+// Products have no in-desktop demo window — they launch from the dock (live site)
+// and, on mobile/reduced-motion, render as the link cards below. Subtitles are
+// short, factual descriptors drawn from each project's own copy.
+const PROJECT_SUB = {
+  careflow: "Clinic workflow platform",
+  rolefit: "Resume-tailoring workbench",
+  typeset: "Resume editor + typesetting engine",
+};
+const PROJECT_CARDS = DOCK_APPS.filter((a) => a.href).map((a) => ({
+  id: a.id,
+  title: a.label,
+  sub: PROJECT_SUB[a.id],
+  live: a.href,
+  github: a.github,
+  iconSrc: a.iconSrc,
+  accent: a.accent,
+  onText: a.onText,
+}));
 
-// Smallest each window may be dragged/resized to, so content never gets crushed.
-const MIN_SIZE = { about: { w: 300, h: 300 }, careflow: { w: 400, h: 340 }, rolefit: { w: 320, h: 320 }, typeset: { w: 380, h: 340 } };
+// Smallest the About window may be dragged/resized to, so content never gets crushed.
+const MIN_SIZE = { about: { w: 300, h: 300 } };
 
 // About + Skills, merged into one "About This Mac"-style window. Profile facts
 // render as key/value rows; the former Skills groups render as tag rows. All
@@ -55,60 +66,17 @@ function useClock() {
   return time;
 }
 
-// Initial window geometry, derived from the measured desktop size so the two
-// windows open scattered but in bounds.
+// Initial geometry for the sole in-desktop window (About), derived from the
+// measured desktop size so it opens in-bounds above the floating dock.
 function defaultLayout(w, h) {
   const pad = 28;
-  const gap = 22;
-  const eh = h - DOCK_RESERVE; // usable height above the floating dock
-  const colH = eh - pad * 2;
-  const aboutW = clamp(Math.round(w * 0.3), 300, 360);
-  const rightX = pad + aboutW + gap;
-  const rightW = Math.max(420, w - rightX - pad);
-  const cfH = clamp(Math.round((colH - gap) * 0.56), 300, 480);
-  const rfH = Math.max(220, colH - gap - cfH);
-  // Apps start CLOSED by default (open them from the dock); on mobile the
-  // collapse media query forces them visible as stacked cards regardless.
-  const base = { min: false, closed: true, max: false, prev: null };
-  // About fills the left column; CareFlow and RoleFit stack in the right column.
-  // Typeset cascades over the right column (windows open maximized anyway, so
-  // this is only its un-zoomed restore position).
-  return {
-    about: { ...base, x: pad, y: pad, w: aboutW, h: colH },
-    careflow: { ...base, x: rightX, y: pad, w: rightW, h: cfH },
-    rolefit: { ...base, x: rightX, y: pad + cfH + gap, w: rightW, h: rfH },
-    typeset: { ...base, x: rightX + 26, y: pad + 26, w: Math.max(420, rightW - 52), h: clamp(Math.round(colH * 0.62), 320, 520) },
-  };
+  const colH = h - DOCK_RESERVE - pad * 2; // usable height above the floating dock
+  const aboutW = clamp(Math.round(w * 0.34), 320, 400);
+  // Desktop starts CLEAN: About is closed and opens from the dock (products
+  // launch straight to their live sites). On mobile the collapse media query
+  // still forces About visible as a stacked card (wins stays null there).
+  return { about: { min: false, closed: true, max: false, prev: null, x: pad, y: pad, w: aboutW, h: colH } };
 }
-
-// A compact link button that lives in a window's title bar.
-function WinAction({ href, solid, icon, ariaLabel, children }) {
-  const cls = `pj-win-action${solid ? " pj-win-action--solid" : ""}${icon ? " pj-win-action--icon" : ""}`;
-  return (
-    <a className={cls} href={href} target="_blank" rel="noreferrer" aria-label={ariaLabel}>
-      {children}
-    </a>
-  );
-}
-
-// Title-bar actions shared by every project window: a solid Live demo link plus
-// a GitHub source button, driven by the PROJECT_LINKS registry entry.
-function projectActions({ live, github }) {
-  return (
-    <>
-      <WinAction href={live} solid>
-        Live demo <ArrowUpRight size={13} aria-hidden="true" />
-      </WinAction>
-      <WinAction href={github} icon ariaLabel="Source on GitHub">
-        <FaGithub aria-hidden="true" />
-      </WinAction>
-    </>
-  );
-}
-
-const CAREFLOW_ACTIONS = projectActions(CAREFLOW);
-const ROLEFIT_ACTIONS = projectActions(ROLEFIT);
-const TYPESET_ACTIONS = projectActions(TYPESET);
 
 // About.app: a macOS "About This Mac"-style system readout. One bold moment (the
 // gradient monogram + name); identity, then an aligned label -> value spec sheet.
@@ -181,7 +149,6 @@ function AppWindow({
   accentSoft,
   title,
   subtitle,
-  actions,
   floating,
   geom,
   z,
@@ -230,7 +197,6 @@ function AppWindow({
         </span>
         <span className="pj-win-title">{title}</span>
         {subtitle && <span className="pj-win-sub">{subtitle}</span>}
-        <span className="pj-win-bar-right">{actions}</span>
       </div>
       {children}
       {floating && (
@@ -260,7 +226,7 @@ function Projects({ sectionId = "projects", cinematic = false }) {
   const [osRef, osIn] = useInView();
   const clock = useClock();
 
-  const [order, setOrder] = useState(["about", "typeset", "rolefit", "careflow"]);
+  const [order, setOrder] = useState(["about"]);
   const [wins, setWins] = useState(null);
   const [menu, setMenu] = useState(null); // dock right-click menu: { id, x, y, flipX } | null
   const deskSizeRef = useRef({ w: 0, h: 0 });
@@ -360,8 +326,9 @@ function Projects({ sectionId = "projects", cinematic = false }) {
   };
 
   const beginDrag = (id) => (event) => {
-    if (!floating || event.target.closest("button, a")) return;
+    if (!floating || event.button !== 0 || event.target.closest("button, a")) return;
     focusWin(id);
+    const pid = event.pointerId;
     const el = deskRef.current;
     // Layout size (transform-independent) for bounds; getBoundingClientRect is
     // scaled by the cinematic camera, so derive the live scale to convert the
@@ -376,6 +343,7 @@ function Projects({ sectionId = "projects", cinematic = false }) {
     const baseY = g.y;
     document.body.classList.add("pj-grabbing");
     const move = (ev) => {
+      if (ev.pointerId !== pid) return;
       const dx = (ev.clientX - startX) / scale;
       const dy = (ev.clientY - startY) / scale;
       // Any window — full-size or not — can be dragged partly past the desktop
@@ -387,19 +355,23 @@ function Projects({ sectionId = "projects", cinematic = false }) {
       };
       patch(id, next);
     };
-    const up = () => {
+    const up = (ev) => {
+      if (ev.pointerId !== pid) return;
       window.removeEventListener("pointermove", move);
       window.removeEventListener("pointerup", up);
+      window.removeEventListener("pointercancel", up);
       document.body.classList.remove("pj-grabbing");
     };
     window.addEventListener("pointermove", move);
     window.addEventListener("pointerup", up);
+    window.addEventListener("pointercancel", up);
   };
 
   const beginResize = (id, dir) => (event) => {
-    if (!floating) return;
+    if (!floating || event.button !== 0) return;
     event.stopPropagation();
     focusWin(id);
+    const pid = event.pointerId;
     const g = wins[id];
     const min = MIN_SIZE[id];
     const el = deskRef.current;
@@ -417,6 +389,7 @@ function Projects({ sectionId = "projects", cinematic = false }) {
     const south = dir.includes("s");
     document.body.classList.add("pj-grabbing");
     const move = (ev) => {
+      if (ev.pointerId !== pid) return;
       const dx = (ev.clientX - startX) / scale;
       const dy = (ev.clientY - startY) / scale;
       let { x, y, w, h } = base;
@@ -432,13 +405,16 @@ function Projects({ sectionId = "projects", cinematic = false }) {
       }
       patch(id, { max: false, x, y, w, h });
     };
-    const up = () => {
+    const up = (ev) => {
+      if (ev.pointerId !== pid) return;
       window.removeEventListener("pointermove", move);
       window.removeEventListener("pointerup", up);
+      window.removeEventListener("pointercancel", up);
       document.body.classList.remove("pj-grabbing");
     };
     window.addEventListener("pointermove", move);
     window.addEventListener("pointerup", up);
+    window.addEventListener("pointercancel", up);
   };
 
   const windowProps = (id) => ({
@@ -498,60 +474,58 @@ function Projects({ sectionId = "projects", cinematic = false }) {
               <AboutApp />
             </AppWindow>
 
-            <AppWindow
-              className="pj-win--cf"
-              accent="#0f766e"
-              accentSoft="rgba(15,118,110,0.14)"
-              title="CareFlow"
-              subtitle="Clinic workspace"
-              actions={CAREFLOW_ACTIONS}
-              {...windowProps("careflow")}
-            >
-              <CareFlowDemo />
-            </AppWindow>
-
-            <AppWindow
-              className="pj-win--rf"
-              accent="#7c3aed"
-              accentSoft="rgba(124,58,237,0.14)"
-              title="RoleFit AI"
-              subtitle="Resume workspace"
-              actions={ROLEFIT_ACTIONS}
-              {...windowProps("rolefit")}
-            >
-              <RoleFitDemo />
-            </AppWindow>
-
-            <AppWindow
-              className="pj-win--jf"
-              accent="#176b5c"
-              accentSoft="rgba(23,107,92,0.14)"
-              title="Typeset"
-              subtitle="Resume editor"
-              actions={TYPESET_ACTIONS}
-              {...windowProps("typeset")}
-            >
-              <TypesetDemo />
-            </AppWindow>
+            {/* Products have no window; on mobile/reduced-motion (the stacked
+                layout) they render as link cards. On the floating desktop they
+                live in the dock, so this is hidden there. */}
+            {!floating && (
+              <ul className="pj-links" aria-label="Projects">
+                {PROJECT_CARDS.map((p) => (
+                  <li key={p.id} className="pj-link">
+                    <span className="pj-link-icon" style={{ background: p.accent, color: p.onText }}>
+                      <img src={p.iconSrc} alt="" aria-hidden="true" />
+                    </span>
+                    <span className="pj-link-info">
+                      <span className="pj-link-title">{p.title}</span>
+                      <span className="pj-link-sub">{p.sub}</span>
+                    </span>
+                    <span className="pj-link-actions">
+                      <a className="pj-link-btn pj-link-btn--solid" href={p.live} target="_blank" rel="noreferrer">
+                        Live <ArrowUpRight size={13} aria-hidden="true" />
+                      </a>
+                      <a
+                        className="pj-link-btn pj-link-btn--icon"
+                        href={p.github}
+                        target="_blank"
+                        rel="noreferrer"
+                        aria-label={`${p.title} source on GitHub`}
+                      >
+                        <FaGithub aria-hidden="true" />
+                      </a>
+                    </span>
+                  </li>
+                ))}
+              </ul>
+            )}
           </div>
 
           <Dock wins={wins} activeId={activeId} onActivate={dockActivate} onContextMenu={openMenu} />
         </div>
       </div>
 
-      {menu && (
-        <DockContextMenu
-          menu={menu}
-          title={DOCK_APPS.find((a) => a.id === menu.id)?.label ?? ""}
-          items={appMenuItems(wins?.[menu.id], {
-            open: () => dockActivate(menu.id),
-            zoom: () => zoomWin(menu.id),
-            minimize: () => minimizeWin(menu.id),
-            close: () => closeWin(menu.id),
-          })}
-          onClose={closeMenu}
-        />
-      )}
+      {menu && (() => {
+        const app = DOCK_APPS.find((a) => a.id === menu.id);
+        // Launcher apps (live products) get link items (open live site / source);
+        // About (a real window) gets the window-control actions.
+        const items = app?.href
+          ? launcherMenuItems(app)
+          : appMenuItems(wins?.[menu.id], {
+              open: () => dockActivate(menu.id),
+              zoom: () => zoomWin(menu.id),
+              minimize: () => minimizeWin(menu.id),
+              close: () => closeWin(menu.id),
+            });
+        return <DockContextMenu menu={menu} title={app?.label ?? ""} items={items} onClose={closeMenu} />;
+      })()}
     </section>
   );
 }
