@@ -19,21 +19,6 @@
           "oklch(96% 0.008 180)"
         ]
       },
-      "polish-violet": {
-        "role": "secondary",
-        "displayName": "Polish Violet",
-        "canonical": "oklch(50% 0.25 290)",
-        "tonalRamp": [
-          "oklch(15% 0.1 290)",
-          "oklch(25% 0.16 290)",
-          "oklch(35% 0.22 290)",
-          "oklch(50% 0.25 290)",
-          "oklch(62% 0.22 290)",
-          "oklch(75% 0.16 290)",
-          "oklch(86% 0.08 290)",
-          "oklch(96% 0.02 290)"
-        ]
-      },
       "typeset-green": {
         "role": "secondary",
         "displayName": "Typeset Green",
@@ -198,12 +183,12 @@
       "css": ".ds-chip-neutral { align-items: center; background: rgba(255,255,255,0.5); border: 1px solid rgba(15,42,61,0.17); border-radius: 999px; color: #607083; display: inline-flex; font-family: 'Manrope', system-ui, sans-serif; font-size: 0.74rem; font-weight: 700; gap: 0.45rem; letter-spacing: 0.03em; padding: 0.32rem 0.8rem; }"
     },
     {
-      "name": "Desktop App Window",
+      "name": "Desktop Product Launcher",
       "kind": "card",
       "refersTo": "project-window",
-      "description": "The signature interactive component. Project proof lives in draggable app windows with title-bar actions and real-DOM demo bodies, then stacks as static cards under mobile and reduced motion.",
-      "html": "<section class=\"pj-win pj-win--cf is-active\" style=\"--accent:#0f766e;--accent-soft:rgba(15,118,110,0.14)\"><div class=\"pj-win-bar\"><span class=\"pj-traffic\" aria-hidden=\"true\"></span><span class=\"pj-win-title\">CareFlow</span><span class=\"pj-win-sub\">Clinic workspace</span><span class=\"pj-win-bar-right\"><a class=\"pj-win-action pj-win-action--solid\" href=\"#\">Live demo</a></span></div><div class=\"cf-app\"><aside class=\"cf-side\">CareFlow</aside><main class=\"cf-main\">Schedule</main></div></section>",
-      "css": ".pj-win { background:#fff; border:1px solid rgba(15,42,61,0.16); border-radius:16px; box-shadow:0 24px 64px rgba(15,42,61,0.14); overflow:hidden; display:flex; flex-direction:column; } .pj-win-bar { align-items:center; background:#f7fafc; border-bottom:1px solid rgba(15,42,61,0.09); display:flex; gap:.5rem; min-height:42px; padding:.45rem .7rem; } .pj-win-title { color:#102033; font-weight:800; } .pj-win-sub { color:#607083; font-size:.75rem; } .pj-win-action { border:1px solid rgba(15,42,61,0.16); border-radius:7px; color:#102033; font-size:.68rem; font-weight:700; padding:.25rem .55rem; text-decoration:none; } .pj-win-action--solid { background:var(--accent); border-color:var(--accent); color:#fff; } .cf-app { display:flex; min-height:340px; } .cf-side { background:#11202f; color:#fff; flex:0 0 140px; padding:.8rem; } .cf-main { flex:1; min-width:0; overflow:auto; padding:.9rem 1rem; }"
+      "description": "The signature project affordance. Product tiles launch hosted apps and expose source links through a context menu; mobile and reduced motion use compact Live and GitHub rows.",
+      "html": "<a class=\"pj-dock-item pj-dock-app\" href=\"https://careflow.xinyiklin.com/\" target=\"_blank\" rel=\"noreferrer\" aria-label=\"Open CareFlow live site\"><span class=\"pj-dock-tip\">CareFlow</span><span class=\"pj-dock-icon\"><img class=\"pj-dock-img\" src=\"careflow-favicon.svg\" alt=\"\" aria-hidden=\"true\"></span></a>",
+      "css": ".pj-dock-item { align-items:center; background:none; border:0; color:inherit; display:flex; flex-direction:column; text-decoration:none; touch-action:none; } .pj-dock-icon { border-radius:12px; box-shadow:0 3px 10px rgba(15,42,61,0.18); display:grid; height:46px; overflow:hidden; place-items:center; width:46px; } .pj-dock-item:focus-visible .pj-dock-icon { outline:2px solid #102033; outline-offset:2px; } .pj-dock-img { display:block; height:100%; width:100%; }"
     },
     {
       "name": "Tech Pill",
@@ -222,36 +207,34 @@
   ],
   "narrative": {
     "northStar": "An Engineer's Desktop, Interactive",
-    "overview": "This portfolio reads like a working engineer presenting three builds with care, not a marketing site. On wide, motion-allowed viewports the landing becomes a cinematic macOS-style desktop: the hero is the wallpaper, the dock opens app windows, and the project proof lives inside interactive product-like demos. CareFlow leads as the primary clinic-workspace window with Schedule, Documents, Billing, Refills, Admin, a Patient hub path, draggable appointments, and working local state. RoleFit AI is a quieter secondary window with Resume, Materials, Applications, and Analytics tabs, linked to its hosted build and source. Typeset is the compact third window: the single-column resume editor with export, spacing, and heading-case controls over an editable serif page, linked to the live app and source. Mobile and reduced-motion users get the same content as flat stacked windows.\n\nThe system rejects the AI-generated SaaS landing template that has flooded the internet by 2026 (purple gradients, four-card icon grids, hero metric tiles, Inter on white, glass cards). It also rejects the editorial-magazine reflex (italic Cormorant, ruled columns, lowercase tracked metadata) that has saturated tech brand sites. The right register is engineer-pragmatic with quiet authority and one moment of confident interactivity.",
+    "overview": "This portfolio reads like a working engineer presenting three builds with care, not a marketing site. On wide, motion-allowed viewports the landing becomes a cinematic macOS-style desktop: the hero is the wallpaper, About is the one local app window, and the dock launches CareFlow, RoleFit AI, and Typeset directly. Product context menus expose the matching source repositories. Mobile and reduced-motion users get the same destinations as compact project rows.\n\nThe system rejects the AI-generated SaaS landing template that has flooded the internet by 2026 (purple gradients, four-card icon grids, hero metric tiles, Inter on white, glass cards). It also rejects the editorial-magazine reflex (italic Cormorant, ruled columns, lowercase tracked metadata) that has saturated tech brand sites. The right register is engineer-pragmatic with quiet authority and one moment of confident interactivity.",
     "keyCharacteristics": [
-      "Three project windows, one desktop. CareFlow as the primary interactive app, RoleFit AI and Typeset as the quieter secondary apps.",
-      "Cinematic desktop on wide screens. The dock opens, focuses, minimizes, closes, and right-clicks app windows.",
-      "Flat fallback on mobile and reduced motion. No hidden project content, no motion dependence.",
-      "Scoped accents. Operating Teal for CareFlow, Polish Violet for RoleFit AI, Typeset Green for Typeset. Accents are supplied through window CSS variables.",
-      "Show, don't tell. All project windows are real DOM prototypes with interactive state, not static image plates.",
-      "No invented claims. Every spec maps to something shipping or explicitly demo-only."
+      "One About window and three product launchers on a cinematic desktop.",
+      "Cinematic desktop on wide screens. The dock launches hosted products and exposes source links.",
+      "Flat fallback on mobile and reduced motion. No hidden project destinations, no motion dependence.",
+      "Product-owned identity. Launchers use real favicons and restrained supporting colors.",
+      "No invented claims. Every statement maps to a hosted product, source repository, or resume fact."
     ],
     "rules": [
-      { "name": "The One-Accent-Per-App Rule", "body": "Each project window commits to exactly one accent and the shared neutral envelope. CareFlow uses Operating Teal across title-bar action, nav state, schedule blocks, chips, and primary buttons. RoleFit AI uses Polish Violet across window action, rail state, fit score, chips, and segmented controls. Typeset uses Typeset Green across window action, export buttons, segmented controls, and the page focus ring.", "section": "colors" },
-      { "name": "The Color-Mix Rule", "body": "Accent-tinted backgrounds derive from the current window accent (--accent / --accent-soft) rather than hand-tuned one-offs. The recipe scales across all project apps.", "section": "colors" },
+      { "name": "The Product-Identity Rule", "body": "Product launchers use their real favicons and one supporting tile color. Portfolio chrome stays within the shared neutral and teal system.", "section": "colors" },
+      { "name": "The Color-Mix Rule", "body": "Accent-tinted About actions derive from the window accent (--accent / --accent-soft) rather than hand-tuned one-offs.", "section": "colors" },
       { "name": "The No-Gradient-Text Rule", "body": "Text is always one solid color. background-clip: text with a gradient is forbidden.", "section": "colors" },
       { "name": "The Single-Family Rule", "body": "One typeface family across the whole portfolio. A serif companion is forbidden.", "section": "typography" },
       { "name": "The Tracking-Out-Loud Rule", "body": "Uppercase labels always use letter-spacing 0.14em or more. Tightly-set uppercase reads as shouty.", "section": "typography" },
       { "name": "The Headline-Anchor Rule", "body": "Every section has one Headline and only one. App-window headings stay compact and functional.", "section": "typography" },
       { "name": "The Flat-By-Default Rule", "body": "Surfaces are flat at rest. Shadows appear only as a response to state.", "section": "elevation" },
       { "name": "The No-Side-Stripe Rule", "body": "border-left or border-right greater than 1px as a colored accent is forbidden.", "section": "elevation" },
-      { "name": "The Window-Manager Rule", "body": "Project proof lives in the dock/window interaction and the app bodies, with flat stacked windows under mobile and reduced motion.", "section": "components" },
-      { "name": "The Real-DOM Demo Rule", "body": "Prefer small interactive DOM prototypes over screenshot-only panes when a workflow can be shown honestly with fake data.", "section": "components" }
+      { "name": "The Launcher Rule", "body": "Project depth lives in the hosted products. The portfolio provides direct Live and Source paths on every layout.", "section": "components" }
     ],
     "dos": [
-      "Do lead the case study with working product-like UI and real product copy from the live demo/source.",
+      "Do lead visitors to the real hosted products and source repositories.",
       "Do commit fully on identity moments while keeping app-window headings compact.",
-      "Do derive tinted surfaces from --accent / --accent-soft so the recipe scales across all apps.",
+      "Do derive About action tints from --accent / --accent-soft.",
       "Do keep neutrals tinted toward the brand teal. Drafting Paper (#f5f9fc) is the right base; never use #fff or #000.",
       "Do use ≥1.25 ratios between Headline → Title → Subtitle → Body → Label.",
       "Do cap body line length at 60-65ch.",
-      "Do respect prefers-reduced-motion: skip the cinematic desktop and render the flat stacked layout.",
-      "Do keep project demos in real DOM where possible so content, controls, and states remain inspectable."
+      "Do respect prefers-reduced-motion: skip the cinematic desktop and render direct project rows.",
+      "Do keep both Live and Source destinations available on every layout."
     ],
     "donts": [
       "Don't ever generate the AI-slop SaaS template described in PRODUCT.md: purple gradients, four-card icon grids, hero-metric blocks, gradient text, glass cards, Inter on white.",
@@ -260,10 +243,10 @@
       "Don't use border-left or border-right greater than 1px as a colored accent. Side-stripe borders are an absolute ban.",
       "Don't use background-clip: text with a gradient anywhere.",
       "Don't use decorative status dots on every nav link, list row, or badge. Acceptable only when conveying real semantic state, one per page section.",
-      "Don't invent metrics or outcomes in project copy. If it isn't in the live demo, local demo surface, or source repo, it isn't in the case study.",
+      "Don't invent metrics or outcomes in project copy. If it isn't in the hosted product or source repo, it isn't in the case study.",
       "Don't apply bounce or elastic easings. Ease-out exponential curves only.",
-      "Don't add scroll-driven showcase code without a real need. The current proof surface is the dock/window interaction.",
-      "Don't reintroduce screenshot-only project panes when a small real-DOM prototype can show the workflow more honestly."
+      "Don't add scroll-driven showcase code without a real need. The current proof surface is the desktop launcher interaction.",
+      "Don't reintroduce portfolio-only product demos that duplicate the hosted apps."
     ]
   }
 }

@@ -9,12 +9,12 @@ no backend, database, authentication, CMS, blog engine, or analytics surface.
 Framework and dependency versions live in `package.json`.
 
 The app is content-driven: sections (`Main`, `Projects`, `Contacts`) under
-`src/sections/`, plus desktop/demo components and `Footer` in `src/components/`.
+`src/sections/`, plus desktop components and `Footer` in `src/components/`.
 There are no standalone `AboutMe`, `Skills`, or `Navigation` components; About
-and Skills are folded into the desktop's About window. The rendered Projects
-section shows exactly three case-study windows: CareFlow as the primary
-interactive showcase, with RoleFit AI and Typeset as the quieter secondary
-studies.
+and Skills are folded into the desktop's About window. The Projects section
+shows that one window plus three product launchers: CareFlow as the primary
+project, with RoleFit AI and Typeset as quieter secondary studies. Product
+depth lives in the hosted apps and source repositories, not embedded demos.
 
 ---
 
@@ -123,10 +123,8 @@ snippets).
 - Reuse tokens from `src/App.css`, especially CSS custom properties under
   `:root`.
 - Match the existing Manrope-only typography and teal-accented palette.
-- Use plain CSS in `src/App.css`: `.container`, small utilities, desktop
-  window classes (`.pj-*`), CareFlow demo classes (`.cf-*`), RoleFit demo
-  classes (`.rf-*`), Typeset demo classes (`.jf-*`, the legacy JakeForge
-  prefix), and resume overlay classes.
+- Use plain CSS in `src/App.css`: `.container`, small utilities, desktop and
+  launcher classes (`.pj-*`), and resume overlay classes.
 - Do not add Bootstrap, react-bootstrap, Tailwind, or a component library.
 - Reuse existing Lucide React and React Icons imports when appropriate.
 - Keep sections compact and recruiter-friendly; density beats decoration.

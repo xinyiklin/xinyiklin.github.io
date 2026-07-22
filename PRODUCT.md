@@ -27,19 +27,14 @@ answer "is this person worth a screen?" within a minute, then go deeper if
 interested. Make the engineering decisions visible without demanding the
 reader read every line.
 
-The Projects section is a two-tier desktop showcase. CareFlow leads as the
-primary interactive app window: a clinic-workspace shell with Schedule,
-Documents, Billing, Refills, Admin, a Patient hub path, draggable appointments,
-and working demo controls. RoleFit AI and Typeset sit beside it as the
-quieter secondary windows: a resume-tailor workspace with Resume, Materials,
-Applications, and Analytics tabs, and a single-column resume editor with an
-editable page and layout controls, each linking to its hosted build and
-source. The contrast in treatment is intentional: CareFlow is the primary
-proof; RoleFit AI and Typeset are the signal that more than one shipped
-build lives in the catalogue. The interaction
-itself is part of the proof: the candidate ships frontend workflows, not just
-static images. Success is qualified inbound for full-time software engineering
-roles.
+The Projects section is a focused desktop launcher. CareFlow, RoleFit AI, and
+Typeset open their real hosted products directly, while each context menu also
+offers its source repository. About remains the one local app window. Mobile
+and reduced-motion visitors receive the same three destinations as compact
+project rows. CareFlow stays the primary proof through its positioning and
+resume copy; RoleFit AI and Typeset show breadth without asking a recruiter to
+operate duplicate portfolio-only demos. Success is qualified inbound for
+full-time software engineering roles.
 
 This is a brand surface, not an app. Design IS the product. The visitor's
 impression is the deliverable.
@@ -49,8 +44,8 @@ impression is the deliverable.
 Practical · Crafted · Confident.
 
 - **Practical**: a working engineer's portfolio, not a marketing campaign. Real
-  GitHub links, real product flow, interactive demos. No invented metrics, no
-  fictional case studies.
+  GitHub links and real hosted products. No invented metrics or fictional case
+  studies.
 - **Crafted**: attention to detail is visible. Type hierarchy, color
   commitment, motion restraint, micro-copy all suggest the same hand that
   builds clinic-workflow software with care.
@@ -112,23 +107,19 @@ project unless an explicit brand reason overrides them.
 
 ## Design Principles
 
-1. **Show, don't tell.** The case study leads with working product-like
-   surfaces: CareFlow's schedule, documents, billing, refills, permissions, and
-   patient hub; RoleFit AI's resume workspace, materials, applications, and
-   analytics. Copy supports the interface, not the other way around.
-2. **Interaction is part of the proof.** The Projects section is a desktop
-   workspace. The dock opens app windows; the CareFlow schedule can be dragged
-   and opened into a details modal; RoleFit AI tabs and controls update local
-   state. The interaction itself is evidence the candidate ships frontend work.
+1. **Show the real work.** The project launchers lead to the hosted CareFlow,
+   RoleFit AI, and Typeset products, with source one context-menu action away.
+   Portfolio copy supports those products instead of duplicating them.
+2. **Interaction has a job.** The cinematic desktop makes the portfolio
+   memorable; the dock launches real work, the About window carries identity,
+   and mobile or reduced-motion visitors get direct project rows.
 3. **Truthful claims only.** Every spec corresponds to something that is
    actually shipped. No fabricated outcomes, no "10x" copy, no inflated tech
-   stack lists. If a feature is not in the live demo, local demo surface, or
-   source repo, it is not in the write-up. RoleFit AI uses a source-linked mock
-   of the real resume workflow, not a fabricated product claim.
-4. **One commitment per case study.** CareFlow commits to Operating Teal;
-   RoleFit AI commits to Polish Violet. Each case study uses its accent
-   end to end (tagline, status, primary CTA, note dividers). Accents do
-   not bleed across case studies.
+   stack lists. If a feature is not in the hosted product or source repo, it is
+   not in the write-up.
+4. **Identity over duplicate UI.** Product favicons and restrained launcher
+   accents distinguish the three destinations without recreating their
+   interfaces inside the portfolio.
 5. **Quiet by default, bold on identity.** Backgrounds and supporting copy
    stay restrained. Identity moments (the project name, the primary CTA,
    the desktop window and primary CTA) commit fully to scale and accent.
@@ -144,13 +135,11 @@ Default target: WCAG 2.1 AA.
   light backgrounds. Accent colors used for decoration also pass against
   backgrounds at the sizes they appear.
 - All actionable elements are keyboard-reachable and have visible focus
-  states. Tab order follows the visual reading order. Dock tiles, window
-  actions, modal controls, filters, and segmented controls are real buttons or
-  links with current state exposed where appropriate.
+  states. Tab order follows the visual reading order. Dock tiles, About window
+  actions, project rows, and modal controls are real buttons or links.
 - The cinematic desktop is skipped under `prefers-reduced-motion`; reduced
   motion and mobile users receive the flat stacked layout.
-- Hash-based navigation (`#projects`, `#about`, etc.) preserves history and
-  works with screen-reader skip links.
-- Decorative favicon images are hidden from assistive tech. Interactive demo
-  state is expressed through visible labels, button text, and ARIA state instead
-  of image alt text.
+- In-page navigation uses real section targets and preserves a predictable
+  reading order.
+- Decorative favicon images are hidden from assistive tech. Launcher purpose is
+  expressed through visible labels and accessible link names.

@@ -13,35 +13,23 @@ is content-driven: Main (hero), Projects, and Contacts under `src/sections/`,
 plus Footer. On wide, motion-allowed viewports the landing is a cinematic
 macOS-style desktop (`src/components/DesktopScene.jsx`) where the hero is the
 wallpaper and apps open from a dock; mobile and reduced-motion get a flat
-stacked layout. The CareFlow and Typeset dock tiles link straight to the
-live apps in a new tab; their in-desktop demo windows are kept as reference
-and still open from the tile's right-click menu (and as stacked cards on
-mobile). About and Skills are merged into the desktop's About window, so
+stacked layout. The CareFlow, RoleFit AI, and Typeset dock tiles launch their
+live apps in a new tab. Their context menus provide direct Live and Source
+links, while mobile and reduced-motion layouts expose the same destinations as
+compact project rows. About and Skills are merged into the desktop's About window, so
 there are no standalone About/Skills sections or a separate Navigation bar.
 There is no backend, database, auth, CMS, or analytics layer.
 
-The Projects section renders three case studies as interactive desktop windows
-with hand-built, fake-data mock UIs (`src/components/CareFlowDemo.jsx`,
-`src/components/RoleFitDemo.jsx`, and `src/components/TypesetDemo.jsx`), not
-screenshots:
+The Projects section keeps the portfolio focused and sends visitors to the
+real products for depth:
 
-- CareFlow: the primary window, a clinic-workspace app shell with a sidebar
-  (Schedule, Documents, Billing, Refills, Admin). Schedule has draggable
-  appointment blocks that open a details modal linking to a Patient hub; Refills
-  and Admin carry working approve/deny and permission toggles.
-- RoleFit AI: a quieter window mocking the resume-tailoring workbench — a rail
-  (Resume, Materials, Applications, Analytics), section Tailor/Include/Off
-  controls with a derived fit score, and a zoom selector. Links to the hosted
-  build at xinyiklin.com/rolefit-ai and the source.
-- Typeset: a compact window mocking the single-column resume editor — a
-  sidebar with export buttons, Compact/Normal/Relaxed spacing presets, a
-  heading-case control, and zoom, over a serif resume page that is editable
-  directly in the demo. Links to the live app at typeset.xinyiklin.com and
-  the source.
+- CareFlow: the primary healthcare workflow platform.
+- RoleFit AI: the resume-tailoring workbench at rolefit.xinyiklin.com.
+- Typeset: the resume editor and deterministic typesetting engine at
+  typeset.xinyiklin.com.
 
 `src/constants/projects.js` now holds only the external action URLs used by the
-window chrome; resume/project copy lives in the relevant components and
-`src/constants/resume.js`.
+dock and fallback project rows; resume copy lives in `src/constants/resume.js`.
 
 ## Tech Stack
 
@@ -78,7 +66,7 @@ There is no manual `npm run deploy` step anymore.
 
 ## Content Sources
 
-Project claims in the demo components, resume overlay, and docs should be
+Project claims in the launcher copy, resume overlay, and docs should be
 cross-checked against:
 
 - `../careflow/README.md` and `../careflow/CONTINUITY.md`
@@ -89,9 +77,8 @@ cross-checked against:
 The inline resume (`src/constants/resume.js`) mirrors the user's Typeset
 resume (currently the general SDE variant,
 `../role-fit-ai/apps/role-fit-ai/job-search-workspace/base-resume-general-sde.resume`)
-and is the source of truth for resume and skills copy. The rendered hero, the
-desktop About window, and the RoleFit and Typeset demo resumes should stay
-aligned with it.
+and is the source of truth for resume and skills copy. The rendered hero,
+desktop About window, and resume overlay should stay aligned with it.
 
 Do not invent employers, dates, metrics, education, tools, or project scope.
 When a stronger claim depends on a missing fact, ask first or use a bracketed
