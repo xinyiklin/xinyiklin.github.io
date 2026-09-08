@@ -267,7 +267,7 @@ export default function Dock({ wins, activeId, onActivate, onContextMenu }) {
             ariaLabel={link.label}
             movedRef={movedRef}
             onPointerDown={beginReorder("link", link.id)}
-            onActivate={() => document.getElementById(link.target)?.scrollIntoView({ behavior: "smooth" })}
+            onActivate={() => document.getElementById(link.target)?.scrollIntoView()}
           >
             <span className="pj-dock-tip">{link.label}</span>
             <span className="pj-dock-icon pj-dock-icon--link" style={{ background: link.accent }}>

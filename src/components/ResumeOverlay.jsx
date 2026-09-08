@@ -128,33 +128,6 @@ function ResumeOverlay({ open, onClose }) {
                         </header>
 
                         <section className="resume-section">
-                            <h2 className="resume-section-title">Education</h2>
-                            {RESUME_EDUCATION.map((entry) => (
-                                <div key={entry.school} className="resume-entry">
-                                    <div className="resume-entry-row">
-                                        <span className="resume-entry-primary">{entry.school}</span>
-                                        <span className="resume-entry-aside">{entry.dates}</span>
-                                    </div>
-                                    <div className="resume-entry-row resume-entry-row-sub">
-                                        <span className="resume-entry-secondary">{entry.degree}</span>
-                                        <span className="resume-entry-aside-sub">{entry.location}</span>
-                                    </div>
-                                </div>
-                            ))}
-                        </section>
-
-                        <section className="resume-section">
-                            <h2 className="resume-section-title">Technical Skills</h2>
-                            <ul className="resume-skills">
-                                {RESUME_SKILLS.map((skill) => (
-                                    <li key={skill.label}>
-                                        <strong>{skill.label}:</strong> {skill.value}
-                                    </li>
-                                ))}
-                            </ul>
-                        </section>
-
-                        <section className="resume-section">
                             <h2 className="resume-section-title">Projects</h2>
                             {RESUME_PROJECTS.map((project) => (
                                 <div key={project.name} className="resume-entry">
@@ -204,6 +177,33 @@ function ResumeOverlay({ open, onClose }) {
                                             <li key={index}>{renderSegments(bullet.segments)}</li>
                                         ))}
                                     </ul>
+                                </div>
+                            ))}
+                        </section>
+
+                        <section className="resume-section">
+                            <h2 className="resume-section-title">Technical Skills</h2>
+                            <ul className="resume-skills">
+                                {RESUME_SKILLS.map((skill) => (
+                                    <li key={skill.label}>
+                                        <strong>{skill.label}:</strong> {skill.value}
+                                    </li>
+                                ))}
+                            </ul>
+                        </section>
+
+                        <section className="resume-section">
+                            <h2 className="resume-section-title">Education</h2>
+                            {RESUME_EDUCATION.map((entry) => (
+                                <div key={entry.school} className="resume-entry">
+                                    <div className="resume-entry-row">
+                                        <span className="resume-entry-primary">{entry.school}</span>
+                                        <span className="resume-entry-aside">{entry.dates}</span>
+                                    </div>
+                                    <div className="resume-entry-row resume-entry-row-sub">
+                                        <span className="resume-entry-secondary">{entry.degree}</span>
+                                        <span className="resume-entry-aside-sub">{entry.location}</span>
+                                    </div>
                                 </div>
                             ))}
                         </section>

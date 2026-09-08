@@ -3,6 +3,7 @@ import Typewriter from "typewriter-effect";
 import { FaReact, FaPython } from "react-icons/fa";
 import { SiDjango, SiPostgresql, SiTypescript } from "react-icons/si";
 import { NAME } from "../constants/app";
+import { useReducedMotion } from "../hooks/useMotion";
 
 const TECH = [
   { label: "React",      Icon: FaReact,      delay: "0s"    },
@@ -13,17 +14,22 @@ const TECH = [
 ];
 
 function Main({ sectionId = "home", deferTyping = false }) {
+  const reduced = useReducedMotion();
   const typewriterRef = useRef(null);
 
   // In the cinematic path the hero is the desktop wallpaper; hold the typewriter
   // until the zoom settles (DesktopScene fires `desktop-settled`) so it starts
   // typing only once the desktop has finished arriving, not behind the splash.
   useEffect(() => {
+    if (reduced) {
+      typewriterRef.current = null;
+      return undefined;
+    }
     if (!deferTyping) return undefined;
     const start = () => typewriterRef.current?.start();
     window.addEventListener("desktop-settled", start);
     return () => window.removeEventListener("desktop-settled", start);
-  }, [deferTyping]);
+  }, [deferTyping, reduced]);
 
   return (
     <section
@@ -38,36 +44,42 @@ function Main({ sectionId = "home", deferTyping = false }) {
 
         <h1 className="hero-title">{NAME}</h1>
 
-        <Typewriter
-          options={{
-            cursor: "|",
-            delay: 50,
-            deleteSpeed: 26,
-            loop: true,
-            skipAddStyles: true,
-            wrapperClassName: "lead typewriter",
-            cursorClassName: "typewriter-cursor",
-          }}
-          onInit={(tw) => {
-            typewriterRef.current = tw;
-            const phrases = [
-              "React + Django.",
-              "Healthcare workflow software.",
-              "Clear data. Clean UI.",
-            ];
-            const pauseFor = (s) => 700 + s.length * 50;
-            phrases.reduce(
-              (chain, phrase) =>
-                chain
-                  .typeString(phrase)
-                  .pauseFor(pauseFor(phrase))
-                  .deleteChars(phrase.length),
-              tw
-            );
-            // Cinematic path waits for `desktop-settled`; otherwise start now.
-            if (!deferTyping) tw.start();
-          }}
-        />
+        {reduced ? (
+          <div className="Typewriter">
+            <span className="lead typewriter">Healthcare workflow software.</span>
+          </div>
+        ) : (
+          <Typewriter
+            options={{
+              cursor: "|",
+              delay: 50,
+              deleteSpeed: 26,
+              loop: true,
+              skipAddStyles: true,
+              wrapperClassName: "lead typewriter",
+              cursorClassName: "typewriter-cursor",
+            }}
+            onInit={(tw) => {
+              typewriterRef.current = tw;
+              const phrases = [
+                "React + Django.",
+                "Healthcare workflow software.",
+                "Clear data. Clean UI.",
+              ];
+              const pauseFor = (s) => 700 + s.length * 50;
+              phrases.reduce(
+                (chain, phrase) =>
+                  chain
+                    .typeString(phrase)
+                    .pauseFor(pauseFor(phrase))
+                    .deleteChars(phrase.length),
+                tw
+              );
+              // Cinematic path waits for `desktop-settled`; otherwise start now.
+              if (!deferTyping) tw.start();
+            }}
+          />
+        )}
 
         <p className="hero-subtitle mt-4">
           I build React and Django applications for healthcare workflows,
