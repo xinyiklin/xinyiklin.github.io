@@ -131,7 +131,7 @@ function AboutApp() {
         <button
           type="button"
           className="pj-about-btn"
-          onClick={() => document.getElementById("contacts")?.scrollIntoView({ behavior: "smooth" })}
+          onClick={() => document.getElementById("contacts")?.scrollIntoView()}
         >
           Get in touch
         </button>
@@ -489,7 +489,7 @@ function Projects({ sectionId = "projects", cinematic = false }) {
                       <span className="pj-link-sub">{p.sub}</span>
                     </span>
                     <span className="pj-link-actions">
-                      <a className="pj-link-btn pj-link-btn--solid" href={p.live} target="_blank" rel="noreferrer">
+                      <a className="pj-link-btn pj-link-btn--solid" href={p.live} target="_blank" rel="noreferrer" aria-label={`Open ${p.title} live site`}>
                         Live <ArrowUpRight size={13} aria-hidden="true" />
                       </a>
                       <a

@@ -198,6 +198,10 @@ footer {
 }
 
 @media (prefers-reduced-motion: reduce) {
+    html, body {
+        scroll-behavior: auto;
+    }
+
     .hero-blob,
     .hero-chip,
     .typewriter-cursor {
@@ -971,7 +975,7 @@ footer a:hover { color: var(--c-accent-deep) !important; }
     display: inline-flex;
     align-items: center;
     gap: 0.3rem;
-    height: 34px;
+    min-height: 44px;
     padding: 0 0.75rem;
     border-radius: 9px;
     border: 1px solid var(--pj-line-hard);
