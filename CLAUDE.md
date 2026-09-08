@@ -18,23 +18,30 @@ guidance; it must not override its priority order or project constraints.
 
 ## Visual QA
 
-Verify major UI changes in a browser when feasible (`AGENTS.md` default).
-Pick the tool by what you're verifying:
+**Flag-first, skip by default.** Do not run browser QA unsolicited. This is a
+live public site, so when a change touches the cinematic desktop, breakpoints,
+reduced-motion fallback, or scroll-reveal behavior, say so and let the user
+decide. Run it when asked.
 
-- **Content / computed styles / tokens / console** (this project's common case:
-  design and token work) → **Claude Preview** (`mcp__Claude_Preview`),
-  preferred here:
-  1. `preview_start` with name `portfolio` (in `.claude/launch.json`).
-  2. `preview_snapshot` / `preview_inspect` for text + computed styles — more
-     reliable than screenshots for content/CSS.
-  3. `preview_screenshot` for regressions; if blank, fall back to
-     `preview_snapshot` + `preview_inspect`.
-  4. Check `preview_console_logs` / `preview_logs` before reporting done.
-- **Layout / responsive / visual fidelity** (desktop/tablet/mobile breakpoints,
-  full-width render) → **Claude in Chrome** (`mcp__Claude_in_Chrome`) with
-  `resize_window` (e.g. 1440 / 768 / 375); Preview's embedded viewport is too
-  cramped for this.
-- If the chosen tool's bridge isn't connected, use the other and note the gap.
+When you do run it:
+
+- **Default: the in-app browser pane** (`mcp__Claude_Browser__*`).
+  `preview_start` with name `portfolio` (`.claude/launch.json`, port `5184`).
+- Prefer `read_page` / `get_page_text` for content and structure,
+  `javascript_tool` for computed styles and tokens, and
+  `read_console_messages` before reporting done. Use `computer` for
+  screenshots and `resize_window` for breakpoints (1440 / 768 / 375).
+- **Claude in Chrome** (`mcp__claude-in-chrome__*`) for a real window when
+  full-width fidelity matters, or to sanity-check a layout the pane renders
+  cramped. If a bridge isn't connected, use the other and note the gap.
+- **The pane is paint-gated.** `IntersectionObserver`, `ResizeObserver`, rAF,
+  and CSS transitions do **not** fire while it is occluded — which silently
+  breaks QA of the scroll-driven Projects chapters and any reveal animation.
+  Force frames with a real scroll or screenshot gesture, or force the end state
+  and inspect the wiring instead.
+- The user browses in Firefox; a bug they report may be Firefox-specific even
+  when Chrome looks fine. Fix the layout so it genuinely fits (flexible text
+  columns yield) rather than trusting one engine's rendering.
 
 ## Design Context
 

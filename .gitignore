@@ -11,11 +11,9 @@
 /coverage
 
 # environment
-.env.local
-.env.development.local
-.env.test.local
-.env.production.local
 .env
+.env.*
+!.env.example
 
 # logs
 npm-debug.log*
@@ -35,3 +33,9 @@ yarn-error.log*
 CONTINUITY.md
 .claude/
 .playwright-cli/
+
+# Added by machine-bootstrap project initializer
+CLAUDE.local.md
+.claude/settings.local.json
+.agent-work/
+Thumbs.db

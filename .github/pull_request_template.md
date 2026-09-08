@@ -27,8 +27,16 @@ self-review and portfolio/code-history clarity.
 ## Verification
 - [ ] Frontend lint/build
 - [ ] Chrome visual QA, if UI changed
+- [ ] Implementer self-review completed
+- [ ] Fresh independent review completed, or user waiver recorded
+- [ ] Exact PR head, required CI, mergeability, and review threads confirmed before merge
 - [ ] Not applicable; reason:
 - [ ] Not run; reason:
 
 ## Notes / Follow-ups
 - 
+
+## Publication
+- Base branch:
+- Merge strategy:
+- Release / deploy impact:

@@ -8,13 +8,12 @@ Icons, and Lucide React, deployed to GitHub Pages on a custom domain. There is
 no backend, database, authentication, CMS, blog engine, or analytics surface.
 Framework and dependency versions live in `package.json`.
 
-The app is content-driven: sections (`Main`, `Projects`, `Contacts`) under
-`src/sections/`, plus desktop components and `Footer` in `src/components/`.
-There are no standalone `AboutMe`, `Skills`, or `Navigation` components; About
-and Skills are folded into the desktop's About window. The Projects section
-shows that one window plus three product launchers: CareFlow as the primary
-project, with RoleFit AI and Typeset as quieter secondary studies. Product
-depth lives in the hosted apps and source repositories, not embedded demos.
+The app is content-driven: sections under `src/sections/`, desktop components
+and `Footer` under `src/components/`. Two things the file tree won't tell you:
+there are **no** standalone `AboutMe`, `Skills`, or `Navigation` components —
+About and Skills fold into the desktop's About window — and product depth
+belongs in the hosted apps and source repos, not embedded demos. Projects
+frames CareFlow as primary, with RoleFit AI and Typeset as quieter studies.
 
 ---
 
@@ -38,49 +37,62 @@ or leave a bracketed placeholder.
 
 ## Start Here
 
-Before acting:
+Before acting: read `CONTINUITY.md`; check `git status --short` so unrelated
+work stays visible; inspect the files you will touch — for UI that means the
+`src/sections/` file *and* its styles in `src/App.css`; and for non-trivial work
+define the outcome and verification path before editing.
 
-1. Read `CONTINUITY.md`.
-2. Check `git status --short` so unrelated work is visible.
-3. Inspect the files you will touch.
-4. For UI work, open the relevant file under `src/sections/` and the matching
-   styles in `src/App.css`.
-5. For non-trivial work, define the desired outcome and verification path
-   before editing.
+While working, keep every changed line tied to the request, its cleanup, or
+verification. Match local patterns before introducing new ones, and prefer
+focused in-place edits for content. When ambiguity would materially change
+scope or a claim, state the assumption and ask before picking a direction.
 
-While working:
+Before finishing: run the verification checklist below, update `CONTINUITY.md`
+only if state changed meaningfully, leave unrelated work untouched, and open
+non-trivial replies with a Goal / Now / Next / Open Questions snapshot.
 
-- Keep every changed line tied to the request, required cleanup, or
-  verification.
-- For ambiguity that would materially change scope or claims, state the
-  assumption and ask before choosing a direction.
-- Match local patterns before introducing new ones.
-- Prefer focused in-place edits for content changes.
-- Surface meaningful blockers, assumptions, and skipped checks.
+---
 
-Before finishing:
+## Delivery Workflow
 
-- Run the relevant verification checklist below.
-- Update `CONTINUITY.md` only if the state changed meaningfully.
-- Leave unrelated work untouched.
-- For non-trivial tasks, start the final reply with a brief ledger snapshot:
-  Goal, Now, Next, and Open Questions. Trivial Q&A may skip it.
+Non-trivial work runs through the portable `product-delivery` workflow
+(Product Partner → Delivery Lead → Verifier) installed at
+`~/.agents/workflows/product-delivery/`. That package owns the process: the two
+exact user-approval gates, Change Request escalation, and honest verification
+reporting. Do not copy it here. This repo may strengthen it, never weaken it.
+
+- **Independent review:** after the implementer's own verification, one fresh
+  reviewer by default. Only the user may waive it for a specific change. If the
+  user asks for more reviewers, give a firm risk-based recommendation first,
+  then honor the request.
+- **Expect a second reviewer** for resume or project-claim copy, anything that
+  changes what the live site asserts about the user's experience, and any
+  change landing on `main` (which auto-deploys).
+- **Extra Change Request triggers** beyond the portable list: a claim that no
+  longer traces to `src/constants/resume.js` or a sibling repo's own docs.
+- **Task artifacts** live under `.agent-work/tasks/<task-id>/` and stay local,
+  like `CONTINUITY.md` and `.claude/`. Keep continuity entries self-contained
+  so they remain useful without those files, and tag them `[TASK <task-id>]`.
+
+The seven workflow templates are building blocks, not mandatory files. A normal
+task uses Product Brief, Delivery Plan, Alignment Review, Implementation
+Report, and Verification Report; create a Decision Log or Change Request only
+when its trigger occurs.
 
 ---
 
 ## Non-Negotiables
 
-- `CONTINUITY.md` is the canonical workspace memory; do not rely on prior chat
-  context unless the durable fact is recorded there.
-- Do not overwrite unrelated work or user-edited files.
-- Do not broaden the app scope without justification.
-- Do not add speculative systems such as routing, CMS, auth, analytics,
-  backend APIs, global toast/banner systems, or fake loading states.
+- `CONTINUITY.md` is the canonical memory; do not rely on prior chat context
+  unless the durable fact is recorded there.
+- Do not overwrite unrelated work or user-edited files, or broaden app scope
+  without justification.
+- Do not add speculative systems: routing, CMS, auth, analytics, backend APIs,
+  global toast/banner systems, or fake loading states.
 - Do not silently hide failures with fallback behavior.
-- Do not print secrets, tokens, broad environment dumps, or private data beyond
-  what already lives in tracked files; the Pages deploy uses the built-in
-  Actions `GITHUB_TOKEN` (no stored deploy token), so never add or echo one.
-- Do not ask the user to paste secrets.
+- Do not print secrets or broad environment dumps, and never ask the user to
+  paste one. The Pages deploy uses the built-in Actions `GITHUB_TOKEN` — there
+  is no stored deploy token, so never add or echo one.
 
 Pause and ask before deploying, changing `CNAME` or routing entry points,
 reworking the Projects structure, introducing paid/vendor dependencies,
@@ -96,9 +108,9 @@ changing workflow-critical UI patterns, or taking destructive actions.
   components, resume data, or docs, cross-check sibling repo `README` and
   `CONTINUITY` files under `../careflow/` and `../role-fit-ai/` (the Typeset
   Workspace monorepo holding `apps/role-fit-ai/` and `apps/typeset/`).
-- `src/constants/resume.js` mirrors the user's Typeset resume (the
-  `base-resume-general-sde.resume` file in the monorepo's
-  `apps/role-fit-ai/job-search-workspace/`) and is the source of truth for
+- `src/constants/resume.js` mirrors the user's Typeset resume (the base
+  `.resume` files in the monorepo's local job-search workspace,
+  `apps/role-fit-ai/workspace/resumes/`) and is the source of truth for
   resume and skills copy. When the user provides an updated resume, mirror it
   directly and align `Main.jsx`, the desktop About window,
   `ResumeOverlay.jsx`, and the RoleFit and Typeset demo resumes with it.
@@ -116,25 +128,21 @@ changing workflow-critical UI patterns, or taking destructive actions.
 
 ## Frontend Rules
 
-Before any UI work, read the design specs committed at the project root:
-`PRODUCT.md` (strategic context: register, users, brand, design principles,
-accessibility), `DESIGN.md` (visual spec: color tokens, typography, elevation,
-components; its frontmatter is normative), and `.impeccable/design.json`
-(extended sidecar with tonal ramps, motion tokens, breakpoints, and component
-snippets).
+Before any UI work read the root design specs: `PRODUCT.md` (users, brand,
+design principles, accessibility), `DESIGN.md` (color, typography, elevation,
+components — its frontmatter is normative), and `.impeccable/design.json`
+(tonal ramps, motion tokens, breakpoints, component snippets).
 
-- Reuse tokens from `src/App.css`, especially CSS custom properties under
-  `:root`.
-- Match the existing Manrope-only typography and teal-accented palette.
-- Use plain CSS in `src/App.css`: `.container`, small utilities, desktop and
-  launcher classes (`.pj-*`), and resume overlay classes.
-- Do not add Bootstrap, react-bootstrap, Tailwind, or a component library.
-- Reuse existing Lucide React and React Icons imports when appropriate.
+- Reuse `:root` custom properties in `src/App.css`; match the Manrope-only
+  typography and teal-accented palette.
+- Plain CSS only, in `src/App.css`. No Bootstrap, react-bootstrap, Tailwind, or
+  component library. Reuse the existing Lucide/React Icons imports.
 - Keep sections compact and recruiter-friendly; density beats decoration.
 - Respect the existing breakpoints, cinematic desktop gate, and reduced-motion
   stacked fallback. Do not add a parallel mobile system.
-- For major UI changes, run the app on the canonical port and visually inspect
-  the changed section in the preview browser when feasible.
+- Browser QA is flag-first: skip it by default, and when a change carries real
+  layout, breakpoint, motion, or theming risk, say so and let the user decide
+  rather than starting a dev server unasked (`CLAUDE.md` has the mechanics).
 
 `App.css` is a single tokens-and-section stylesheet, exempt from size-splitting.
 
@@ -142,86 +150,72 @@ snippets).
 
 ## Refactors And Modularity
 
-Refactor only when the current task requires it, the existing structure blocks
-correctness, or the change clearly reduces future complexity and can be
-verified safely.
+Refactor only when the task requires it, the structure blocks correctness, or
+the change clearly reduces future complexity and can be verified safely. Prefer
+local improvements over rewrites; no drive-by refactors during content updates.
+Soft target ~300 LOC per logic file; past ~400 while already touching it,
+justify the cohesion or propose a focused split into `src/components/`, hooks,
+or utilities.
 
-Prefer local improvements over architectural rewrites. Do not perform drive-by
-refactors during content updates.
+Keep implementation scope literal. An improvement you notice but the request
+does not require gets presented to the user and waits for approval — including
+copy polish in a section you are already editing.
 
-Soft target for hand-written logic files is about 300 LOC. If one crosses
-about 400 LOC while the task already touches it, either justify keeping it
-together or propose a focused split into `src/components/`, hooks, or utilities.
+Before adding or upgrading a dependency, read `package.json` and
+`package-lock.json` for the runtime and range policy already in force, then
+verify the current stable release from npm or the maintainer's release notes.
+Never choose a version from memory. Prefer the latest compatible stable
+release, update the lockfile, and explain any deliberate pin to an older or
+prerelease version. The no-CSS-framework and no-analytics rules above still
+apply — a version check is not permission to add a dependency.
+
+Comment only for non-obvious rationale, constraints, or safety. Do not narrate
+self-explanatory code; durable rationale belongs in `PRODUCT.md`, `DESIGN.md`,
+or this guide.
 
 ---
 
 ## Continuity
 
-`CONTINUITY.md` is local-only and gitignored. It exists to keep multi-agent
-handoffs factual.
+`CONTINUITY.md` is local-only and gitignored; it keeps multi-agent handoffs
+factual. Update it only for meaningful state changes: active risks, durable
+decisions, current state and next steps, important verification receipts,
+persistent user instructions, and source-of-truth divergence.
 
-Update it only for meaningful state changes:
-
-- active risks, durable decisions, current state, and next steps
-- important verification receipts
-- user instructions that should persist across sessions
-- source-of-truth changes or known divergence
-
-Use compact ISO-timestamped entries tagged `[USER]`, `[CODE]`, `[TOOL]`, or
-`[ASSUMPTION]`. Use `UNCONFIRMED` instead of guessing. Keep Snapshot to 25
-lines, Done to 7 bullets, Working Set to 12 paths, and Receipts to the last
-10-20 entries; compress older entries when they get noisy.
-
-Durable decisions use this shape:
-
-```text
-D001 ACTIVE: Projects renders CareFlow, RoleFit AI, and Typeset windows only.
-```
+Compact ISO-timestamped entries tagged `[USER]`, `[CODE]`, `[TOOL]`, or
+`[ASSUMPTION]`; `UNCONFIRMED` rather than a guess. Keep Snapshot ~25 lines,
+Done ~7 bullets, Working Set ~12 paths, Receipts to the last 10-20; compress
+older entries. Durable decisions take the form
+`D001 ACTIVE: Projects renders CareFlow, RoleFit AI, and Typeset windows only.`
 
 ---
 
 ## Git And Publishing
 
-Default to local-only work unless the user explicitly asks to stage, commit,
-push, open a PR, or deploy.
+Read `docs/engineering/git-workflow.md` before branch, commit, PR, exact-head
+review, merge, cleanup, release, or deployment work.
 
-Never:
+Default to local-only work. Do not stage, commit, push, rebase, amend,
+force-push, switch branches, open a PR, or deploy unless asked — and **a merge
+to `main` auto-deploys the live site**, so treat one as a deploy needing
+explicit authorization.
 
-- use destructive git operations without explicit instruction
-- rebase, amend, force-push, push, or switch branches unless requested
-- stage unrelated files
-- merge to `main`, push to `main`, or run the Pages deploy workflow without
-  explicit instruction (a merge to `main` auto-deploys to the live site)
-
-Always:
-
-- keep patches reviewable and scoped
-- stage and commit `AGENTS.md` and `CLAUDE.md` like any other tracked file when
-  they're part of the change; do not single them out to exclude (`CONTINUITY.md`
-  and `.claude/` are gitignored and won't appear as staging candidates)
-- check `git status --short` before staging
-- use non-interactive git commands
-- use Conventional Commit subjects by default when asked to name a branch,
-  commit, or push
-- PR titles: human-readable sentence case by default (uppercase first letter,
-  verb first, no trailing punctuation); use the Conventional Commit subject
-  form when squash-merge takes the PR title as the commit subject. (This repo
-  squash-merges, so commit-style titles are the norm for merged PRs.)
-
-Examples:
-
-```text
-docs(projects): refresh careflow chapter copy
-fix(projects): keep dock actions keyboard-safe
-```
+- Check `git status --short` before staging; stage only related paths; use
+  non-interactive commands; keep patches reviewable.
+- Stage `AGENTS.md`/`CLAUDE.md` like any other tracked file when they're part of
+  the change. `CONTINUITY.md` and `.claude/` are gitignored here.
+- Conventional Commit subjects by default: `docs(projects): refresh careflow
+  chapter copy`. This repo squash-merges, so PR titles use the same
+  commit-subject form.
 
 ---
 
 ## Verification
 
 - UI: no console errors, stable layout at existing breakpoints, no cinematic
-  desktop, reduced-motion, or in-page contact-scroll regression. Major UI
-  changes need `npm run dev` plus visual QA on the canonical port when feasible.
+  desktop, reduced-motion, or in-page contact-scroll regression. Reason these
+  through by reading the changed CSS and markup; browser QA stays flag-first
+  (above), so name the risk and let the user call it.
 - Build: `npm run build` succeeds when source or config changed.
 - Content: re-read changed copy in full and confirm it matches the source of
   truth.
@@ -241,22 +235,15 @@ Run commands from the project root.
 - Build: `npm run build`
 - Dev: `npm run dev`
 - Preview: `npm run preview`
-- Deploy: automated via GitHub Actions (`.github/workflows/deploy.yml`). Every
-  push to `main` builds and publishes `dist/` to GitHub Pages (Pages source is
-  "GitHub Actions"); the custom domain (`xinyiklin.com`) rides along via
-  `public/CNAME` -> `dist/CNAME`. There is no `npm run deploy`. The workflow can
-  also be triggered manually from the Actions tab. Merging to `main` publishes
-  to the live site, so treat a merge as a deploy.
+- Deploy: automated via GitHub Actions (`.github/workflows/deploy.yml`); every
+  push to `main` builds and publishes `dist/` to Pages, custom domain
+  `xinyiklin.com` riding along via `public/CNAME` -> `dist/CNAME`. There is no
+  `npm run deploy`. Can also be run manually from the Actions tab.
 
-Canonical port `5184` (reserved `5184-5185`); `vite.config.js` sets
-`strictPort: true`, so Vite will not silently choose another port. If `5184` is
-bound, the app is already running, connect to it rather than starting another
-dev server, and do not switch ports to sidestep the conflict.
-
-Sibling reservations:
-
-- CareFlow: `5173-5180`
-- RoleFit AI: `5181-5183`
+Canonical port `5184` (reserved `5184-5185`), `strictPort` in `vite.config.js`.
+A bound `5184` means the app is already running — connect to it; never switch
+ports to sidestep a conflict. Siblings: careflow `5173-5180`, role-fit-ai
+`5181-5183` + `5186`, token-dashboard `5187-5189`.
 
 Do not commit `node_modules/`, `dist/`, `.env`, or local credentials. Do not
 edit `public/CNAME` unless explicitly requested.
@@ -265,10 +252,8 @@ edit `public/CNAME` unless explicitly requested.
 
 ## Communication
 
-- Think privately.
-- Skip preambles unless they add useful context.
-- Report actions, blockers, verification, and final outputs.
-- Keep final responses concise, but include residual risks and skipped checks.
+Think privately; skip preambles. Report actions, blockers, verification,
+skipped checks, and residual risks. Keep final responses concise.
 
 ---
 
