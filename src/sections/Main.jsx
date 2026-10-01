@@ -62,9 +62,9 @@ function Main({ sectionId = "home", deferTyping = false }) {
             onInit={(tw) => {
               typewriterRef.current = tw;
               const phrases = [
-                "React + Django.",
+                "TypeScript, React, Django.",
                 "Healthcare workflow software.",
-                "Clear data. Clean UI.",
+                "Local-first AI tooling.",
               ];
               const pauseFor = (s) => 700 + s.length * 50;
               phrases.reduce(
@@ -82,9 +82,26 @@ function Main({ sectionId = "home", deferTyping = false }) {
         )}
 
         <p className="hero-subtitle mt-4">
-          I build React and Django applications for healthcare workflows,
-          with practical interfaces and PostgreSQL-backed data models.
+          I build full-stack software for healthcare workflows, from React and
+          TypeScript interfaces to Django APIs and PostgreSQL data models.
         </p>
+
+        <div className="hero-actions mt-4">
+          <button
+            type="button"
+            className="hero-btn hero-btn--solid"
+            onClick={() => window.dispatchEvent(new Event("open-resume"))}
+          >
+            Resume
+          </button>
+          <button
+            type="button"
+            className="hero-btn"
+            onClick={() => document.getElementById("contacts")?.scrollIntoView()}
+          >
+            Get in touch
+          </button>
+        </div>
 
         <div className="hero-stack mt-5">
           {TECH.map(({ label, Icon, delay }) => (

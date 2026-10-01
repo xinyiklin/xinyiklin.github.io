@@ -1,5 +1,5 @@
 import { FaEnvelope, FaGithub, FaLinkedin } from "react-icons/fa";
-import { EMAIL, GITHUB, LINKEDIN, LOCATION, AVAILABILITY } from "../constants/app";
+import { EMAIL, GITHUB, LINKEDIN, LOCATION } from "../constants/app";
 
 const CHANNELS = [
   {
@@ -67,7 +67,7 @@ function Contacts() {
         </div>
 
         <p className="contact-location text-center mt-5 mb-0">
-          {LOCATION} · {AVAILABILITY}
+          Based in {LOCATION}
         </p>
       </div>
     </section>

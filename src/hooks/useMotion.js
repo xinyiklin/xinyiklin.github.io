@@ -4,7 +4,7 @@ import { useEffect, useRef, useState } from "react";
 // degrade to no-ops under prefers-reduced-motion or on the server.
 
 // The single breakpoint that gates the cinematic intro (App.jsx) and the
-// floating window manager (Projects.jsx). Shared so the two gates can't drift.
+// floating desktop (Projects.jsx). Shared so the two gates can't drift.
 export const WIDE_QUERY = "(min-width: 992px)";
 
 // Reduced-motion is just a media-query subscription; reuse useMediaQuery so the
@@ -43,7 +43,7 @@ export function useInView({ threshold = 0, rootMargin = "0px 0px -12% 0px" } = {
 }
 
 // Tracks a CSS media query and re-renders when it flips. Used to gate the
-// floating-desktop window manager and the cinematic boot/zoom scene on width.
+// floating desktop and the cinematic boot/zoom scene on width.
 export function useMediaQuery(query) {
   const [matches, setMatches] = useState(
     () => typeof window !== "undefined" && window.matchMedia(query).matches

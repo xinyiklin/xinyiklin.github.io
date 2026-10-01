@@ -10,8 +10,8 @@ Framework and dependency versions live in `package.json`.
 
 The app is content-driven: sections under `src/sections/`, desktop components
 and `Footer` under `src/components/`. Two things the file tree won't tell you:
-there are **no** standalone `AboutMe`, `Skills`, or `Navigation` components —
-About and Skills fold into the desktop's About window — and product depth
+there are **no** `AboutMe`, `Skills`, or `Navigation` components or About
+window — identity lives in the hero and the Resume overlay — and product depth
 belongs in the hosted apps and source repos, not embedded demos. Projects
 frames CareFlow as primary, with RoleFit AI and Typeset as quieter studies.
 
@@ -112,13 +112,12 @@ changing workflow-critical UI patterns, or taking destructive actions.
   `.resume` files in the monorepo's local job-search workspace,
   `apps/role-fit-ai/workspace/resumes/`) and is the source of truth for
   resume and skills copy. When the user provides an updated resume, mirror it
-  directly and align `Main.jsx`, the desktop About window,
-  `ResumeOverlay.jsx`, and the RoleFit and Typeset demo resumes with it.
+  directly and align `Main.jsx`, the desktop widget copy
+  (`DesktopWidgets.jsx`), and `ResumeOverlay.jsx` with it.
 - If resume facts conflict with sibling repo facts, follow the user's explicit
   instruction on which source wins and record meaningful divergence in
   `CONTINUITY.md`.
-- Keep hero, desktop About, RoleFit demo resume, Projects demos, and Contacts
-  aligned with facts the user has stated. Do not invent hobbies, locations,
+- Keep hero, desktop widgets, project rows, and Contacts aligned with facts the user has stated. Do not invent hobbies, locations,
   role types, tech, or contact channels; confirm any new contact channel with
   the user before adding it.
 - Keep interface labels short and obvious. Do not add multi-sentence in-app
