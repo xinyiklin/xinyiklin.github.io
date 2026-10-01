@@ -3,4 +3,3 @@ export const EMAIL = "xinyiklin@gmail.com";
 export const GITHUB = "https://github.com/xinyiklin";
 export const LINKEDIN = "https://www.linkedin.com/in/xinyiklin/";
 export const LOCATION = "New York";
-export const AVAILABILITY = "Open to relocate for the right full-time role";

@@ -14,8 +14,8 @@ function App() {
     // mobile and reduced-motion get the plain stacked layout (no intro).
     const cinematic = wide && !reduced;
 
-    // The navbar is gone, but the About window's Resume button still opens the
-    // overlay via the `open-resume` event, so keep that wiring at the app root.
+    // The hero and menubar Resume buttons open the overlay via the `open-resume`
+    // event, so keep that wiring at the app root.
     const [resumeOpen, setResumeOpen] = useState(false);
     const closeResume = useCallback(() => setResumeOpen(false), []);
     useEffect(() => {

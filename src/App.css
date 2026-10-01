@@ -279,6 +279,39 @@ footer {
     margin-right: auto;
 }
 
+.hero-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.6rem;
+    justify-content: center;
+}
+
+.hero-btn {
+    display: inline-flex;
+    align-items: center;
+    min-height: 44px;
+    padding: 0.6rem 1.05rem;
+    border-radius: var(--radius);
+    border: 1px solid var(--c-border-hard);
+    background: var(--c-surface);
+    color: var(--c-text);
+    font-family: var(--font-display);
+    font-size: 0.92rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background var(--transition), border-color var(--transition), color var(--transition), filter var(--transition);
+}
+.hero-btn:hover { border-color: var(--c-accent-deep); color: var(--c-accent-deep); }
+.hero-btn:focus-visible { outline: 2px solid var(--c-accent-deep); outline-offset: 2px; }
+.hero-btn--solid {
+    background: var(--c-accent-deep);
+    border-color: transparent;
+    color: var(--c-white);
+    box-shadow: 0 6px 16px rgba(15, 118, 110, 0.22);
+}
+.hero-btn--solid:hover { color: var(--c-white); filter: brightness(1.08); }
+@media (prefers-reduced-motion: reduce) { .hero-btn { transition: none; } }
+
 .hero-stack {
     display: flex;
     flex-wrap: wrap;
@@ -799,10 +832,9 @@ footer a:hover { color: var(--c-accent-deep) !important; }
 /* ============================================================
    PROJECTS  -  a desktop of three shipped apps
    A light macOS-style screen, themed to match the rest of the
-   page: CareFlow, RoleFit AI, and Typeset open as app windows on
-   a soft tinted wallpaper, with a menubar, a dock, and basic
-   window controls (focus, minimize to dock, restore). Hand-written,
-   reduced-motion gated, AA contrast.
+   page: CareFlow, RoleFit AI, and Typeset show as widgets on a
+   soft tinted wallpaper, with a menubar and a launcher dock.
+   Hand-written, reduced-motion gated, AA contrast.
    ============================================================ */
 
 .projects-section {
@@ -811,7 +843,6 @@ footer a:hover { color: var(--c-accent-deep) !important; }
     --pj-text: #102033;
     --pj-muted: #607083;
     --pj-window: #ffffff;
-    --pj-bar: #f1f6f9;
     position: relative;
     isolation: isolate;
     overflow: hidden;
@@ -868,7 +899,7 @@ footer a:hover { color: var(--c-accent-deep) !important; }
     box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.6);
     overflow: hidden;
     /* The desktop is an app surface, not a document: no text selection, so
-       dragging windows and clicking around never leaves a stray highlight. */
+       dragging dock tiles and clicking around never leaves a stray highlight. */
     -webkit-user-select: none;
     user-select: none;
 }
@@ -920,7 +951,7 @@ footer a:hover { color: var(--c-accent-deep) !important; }
 .pj-menubar-status-dot { width: 6px; height: 6px; border-radius: 50%; background: #14b8a6; }
 .pj-menubar-clock { font-variant-numeric: tabular-nums; }
 
-/* Desktop area: free-floating windows when there is room, stacked otherwise */
+/* Desktop area: widgets when there is room, stacked link cards otherwise */
 .pj-desktop {
     flex: 1;
     display: flex;
@@ -936,11 +967,10 @@ footer a:hover { color: var(--c-accent-deep) !important; }
     overflow: hidden;
 }
 
-.pj-desktop.is-floating .pj-win { position: absolute; }
 
 /* Project link cards: the products' surface on mobile / reduced-motion (they have
-   no in-desktop window). Only rendered in the stacked layout; on the floating
-   desktop the dock launches the products instead. */
+   no in-desktop window). Only rendered in the stacked layout; the floating
+   desktop shows the widgets below instead. */
 .pj-links {
     list-style: none;
     margin: 0;
@@ -999,255 +1029,170 @@ footer a:hover { color: var(--c-accent-deep) !important; }
 .pj-link-btn--icon { padding: 0 0.55rem; }
 .pj-link-btn--icon svg { width: 15px; height: 15px; }
 @media (prefers-reduced-motion: reduce) { .pj-link-btn { transition: none; } }
+.pj-link-demos { display: flex; flex-wrap: wrap; gap: 0 0.8rem; margin-top: 0.1rem; }
+.pj-link-demos a {
+    display: inline-flex;
+    align-items: center;
+    min-height: 26px;
+    font-size: 0.78rem;
+    font-weight: 700;
+    color: var(--c-accent-deep);
+    text-decoration: underline;
+    text-decoration-color: rgba(15, 118, 110, 0.35);
+    text-underline-offset: 3px;
+}
+.pj-link-demos a:hover { text-decoration-color: currentColor; }
+.pj-link-demos a:focus-visible { outline: 2px solid var(--c-accent-deep); outline-offset: 2px; border-radius: 4px; }
 
-/* App window */
-.pj-win {
-    --enter-dir: 1;
-    position: relative;
+/* Desktop widgets: the floating desktop's always-visible project surface, a
+   right-hand column above the dock (106px clears the dock and its bottom
+   offset). CareFlow is the large primary widget. */
+.pj-widgets {
+    position: absolute;
+    z-index: 1;
+    top: 0;
+    bottom: 106px;
+    right: var(--widget-r, 3rem);
+    width: var(--widget-w, 420px);
     display: flex;
     flex-direction: column;
-    border-radius: 12px;
-    border: none;
-    background: var(--pj-window);
-    overflow: hidden;
-    box-shadow: 0 12px 34px rgba(15, 42, 61, 0.12);
-    transition: box-shadow 0.3s ease, border-color 0.3s ease, opacity 0.35s ease,
-                transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), visibility 0s,
-                left 0.42s cubic-bezier(0.16, 1, 0.3, 1), top 0.42s cubic-bezier(0.16, 1, 0.3, 1),
-                width 0.42s cubic-bezier(0.16, 1, 0.3, 1), height 0.42s cubic-bezier(0.16, 1, 0.3, 1);
+    justify-content: center;
+    gap: 0.75rem;
+    padding: 1rem 0;
 }
+.pj-widgets-pair { display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem; }
 
-/* Drag/resize update geometry every frame, so suppress the geometry easing then
-   (it stays on for the zoom/maximize toggle, which is a single jump). */
-body.pj-grabbing .pj-win { transition: none; }
-
-.pj-win:not(.is-active) { box-shadow: 0 9px 24px rgba(15, 42, 61, 0.09); }
-
-/* Floating windows: the title bar is the drag handle. */
-.pj-win--floating .pj-win-bar { cursor: grab; }
-
-/* Resize handles on every edge and corner (thin transparent hit areas, inset at
-   the corners so they clear the title-bar controls). */
-.pj-rz { position: absolute; z-index: 6; }
-.pj-rz-n { top: 0; left: 12px; right: 12px; height: 6px; cursor: ns-resize; }
-.pj-rz-s { bottom: 0; left: 12px; right: 12px; height: 6px; cursor: ns-resize; }
-.pj-rz-e { right: 0; top: 12px; bottom: 12px; width: 6px; cursor: ew-resize; }
-.pj-rz-w { left: 0; top: 12px; bottom: 12px; width: 6px; cursor: ew-resize; }
-.pj-rz-ne { top: 0; right: 0; width: 12px; height: 12px; cursor: nesw-resize; }
-.pj-rz-nw { top: 0; left: 0; width: 12px; height: 12px; cursor: nwse-resize; }
-.pj-rz-se { bottom: 0; right: 0; width: 14px; height: 14px; cursor: nwse-resize; }
-.pj-rz-sw { bottom: 0; left: 0; width: 12px; height: 12px; cursor: nesw-resize; }
-
-body.pj-grabbing, body.pj-grabbing * { cursor: grabbing !important; user-select: none; }
-
-.pj-win.is-active {
-    box-shadow: 0 22px 54px rgba(15, 42, 61, 0.18), 0 0 0 1px color-mix(in oklch, var(--accent) 30%, transparent);
-}
-
-/* Minimized collapses toward the dock; closed fades in place. Both drop out of
-   the tab order and the accessibility tree via visibility once the animation
-   has finished. */
-.pj-win.is-min,
-.pj-win.is-closed {
-    opacity: 0;
-    pointer-events: none;
-    visibility: hidden;
-    transition: box-shadow 0.3s ease, border-color 0.3s ease, opacity 0.35s ease,
-                transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), visibility 0s linear 0.35s;
-}
-
-.pj-win.is-min { transform: scale(0.4) translateY(60px); }
-.pj-win.is-closed { transform: scale(0.94); }
-
-@media (prefers-reduced-motion: reduce) {
-    .pj-win { transition: opacity 0.15s linear, border-color 0.15s linear, visibility 0s; }
-    .pj-win.is-min, .pj-win.is-closed { transform: none; transition: opacity 0.15s linear, visibility 0s linear 0.15s; }
-}
-
-/* Title bar + traffic lights */
-.pj-win-bar {
+.pj-widget {
     display: flex;
-    align-items: center;
-    gap: 0.6rem;
-    padding: 0.55rem 0.8rem;
-    background: var(--pj-bar);
-    border-bottom: 1px solid var(--pj-line);
+    flex-direction: column;
+    min-width: 0;
+    padding: 0.85rem 0.9rem 0.9rem;
+    border-radius: 18px;
+    border: 1px solid rgba(255, 255, 255, 0.7);
+    background: rgba(255, 255, 255, 0.8);
+    box-shadow: 0 1px 0 rgba(255, 255, 255, 0.8) inset, 0 14px 34px rgba(15, 42, 61, 0.11);
+    -webkit-backdrop-filter: blur(16px) saturate(1.2);
+    backdrop-filter: blur(16px) saturate(1.2);
 }
 
-.pj-traffic { display: inline-flex; gap: 0.45rem; flex: none; }
+.pj-widget-head { display: flex; align-items: center; gap: 0.65rem; }
+.pj-widget-icon {
+    flex: none;
+    display: grid;
+    place-items: center;
+    width: 34px;
+    height: 34px;
+    border-radius: 9px;
+    box-shadow: 0 0 0 1px rgba(15, 42, 61, 0.08);
+}
+.pj-widget-icon img { width: 22px; height: 22px; display: block; }
+.pj-widget-id { min-width: 0; display: flex; flex-direction: column; }
+.pj-widget-title {
+    margin: 0;
+    font-family: var(--font-display);
+    font-size: 0.98rem;
+    font-weight: 800;
+    line-height: 1.2;
+    color: var(--pj-text);
+}
+.pj-widget-sub {
+    font-size: 0.74rem;
+    font-weight: 600;
+    line-height: 1.3;
+    color: var(--pj-muted);
+}
 
-.pj-light {
-    width: 12px;
-    height: 12px;
-    border-radius: 50%;
+.pj-widget-media {
+    position: relative;
+    margin-top: 0.7rem;
+    aspect-ratio: 16 / 9;
+    border-radius: 10px;
+    overflow: hidden;
+    background: #0f1b2a;
+    box-shadow: 0 0 0 1px rgba(15, 42, 61, 0.1);
+}
+.pj-widget-media video { display: block; width: 100%; height: 100%; object-fit: cover; }
+.pj-widget-media-btn {
+    position: absolute;
+    right: 0.5rem;
+    bottom: 0.5rem;
+    display: grid;
+    place-items: center;
+    width: 28px;
+    height: 28px;
+    padding: 0;
     border: none;
+    border-radius: 50%;
+    background: rgba(16, 32, 51, 0.72);
+    color: #ffffff;
     cursor: pointer;
+    opacity: 0.85;
+    transition: opacity 0.15s ease, background 0.15s ease;
+}
+.pj-widget-media-btn:hover { opacity: 1; background: rgba(16, 32, 51, 0.9); }
+.pj-widget-media-btn:focus-visible { opacity: 1; outline: 2px solid #ffffff; outline-offset: -4px; }
+
+.pj-widget-blurb {
+    margin: 0.6rem 0 0;
+    font-size: 0.8rem;
+    font-weight: 500;
+    line-height: 1.5;
+    color: var(--pj-muted);
+}
+.pj-widget-tags {
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.3rem;
+    margin: 0.6rem 0 0;
     padding: 0;
 }
-
-.pj-light--close { background: #ff5f57; }
-.pj-light--min { background: #febc2e; }
-.pj-light--zoom { background: #28c840; }
-.pj-light:focus-visible { outline: 2px solid var(--pj-text); outline-offset: 2px; }
-
-.pj-win-title { font-family: var(--font-display); font-weight: 700; font-size: 0.92rem; color: var(--pj-text); flex: none; }
-.pj-win-sub {
-    font-size: 0.78rem;
-    color: var(--pj-muted);
-    flex: 0 1 auto;
-    min-width: 0;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-}
-
-/* About.app: identity + the former Skills groups as an "About This Mac" spec list */
-/* About window: an "About This Mac"-style system readout for the engineer.
-   Quiet by default; the single bold moment is the gradient identity mark + the
-   name. Buttons scope to the teal brand accent (the window chrome is slate). */
-.pj-about {
-    --accent: #0f766e;
-    --accent-soft: rgba(15, 118, 110, 0.12);
-    display: flex;
-    flex-direction: column;
-    gap: 1.05rem;
-    padding: 1.3rem 1.35rem 1.35rem;
-}
-
-.pj-win--floating .pj-about { flex: 1; min-height: 0; overflow: auto; }
-
-/* Identity: gradient monogram (the one color moment) + a confident name. */
-.pj-about-head { display: flex; align-items: center; gap: 1rem; }
-
-.pj-about-avatar {
-    flex: none;
-    width: 60px;
-    height: 60px;
-    border-radius: 17px;
-    background: linear-gradient(140deg, #189a8c 0%, #0f766e 50%, #7a5fc0 100%);
-    color: #fff;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-family: var(--font-display);
-    font-weight: 800;
-    font-size: 1.32rem;
-    letter-spacing: 0.01em;
-    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 10px 24px rgba(15, 118, 110, 0.30);
-}
-
-.pj-about-id { min-width: 0; }
-
-.pj-about-name {
-    margin: 0;
-    font-family: var(--font-display);
-    font-weight: 800;
-    font-size: 1.5rem;
-    letter-spacing: -0.022em;
-    line-height: 1.04;
+.pj-widget-tags li {
+    padding: 0.14rem 0.5rem;
+    border-radius: 999px;
+    background: var(--c-surface-2);
     color: var(--pj-text);
-}
-
-.pj-about-role { margin: 0.22rem 0 0; color: var(--pj-muted); font-size: 0.86rem; font-weight: 500; }
-
-/* The one allowed status dot: a real availability flag, with a soft live pulse. */
-.pj-about-status {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.45rem;
-    margin: 0;
-    color: var(--c-accent-deep);
-    font-size: 0.8rem;
+    font-size: 0.68rem;
     font-weight: 700;
 }
-.pj-about-status-dot {
-    width: 7px;
-    height: 7px;
-    border-radius: 50%;
-    background: var(--c-accent);
-    box-shadow: 0 0 0 0 rgba(20, 184, 166, 0.4);
-    animation: aboutPulse 2.6s cubic-bezier(0.22, 1, 0.36, 1) infinite;
-}
-@keyframes aboutPulse {
-    0% { box-shadow: 0 0 0 0 rgba(20, 184, 166, 0.4); }
-    70%, 100% { box-shadow: 0 0 0 7px rgba(20, 184, 166, 0); }
-}
-
-.pj-about-bio {
-    margin: 0;
-    color: var(--pj-text);
-    font-size: 0.92rem;
-    line-height: 1.62;
-}
-.pj-about-bio strong { color: var(--c-accent-deep); font-weight: 700; }
-
-/* System readout: aligned label -> value rows, hairline-separated. Not cards.
-   The value column carries the weight; the stack group sits below a divider. */
-.pj-about-readout { margin: 0; display: flex; flex-direction: column; }
-.pj-about-readout--stack {
-    margin-top: 0.25rem;
-    padding-top: 0.85rem;
-    border-top: 1px solid var(--pj-line-hard);
-}
-
-.pj-about-row {
-    display: grid;
-    grid-template-columns: 6.25rem 1fr;
-    gap: 0.85rem;
-    align-items: baseline;
-    padding: 0.46rem 0;
-    border-top: 1px solid var(--pj-line);
-}
-.pj-about-row:first-child { border-top: none; padding-top: 0; }
-.pj-about-readout--stack .pj-about-row:first-child { padding-top: 0; }
-
-.pj-about-row dt {
-    margin: 0;
-    color: var(--pj-muted);
-    font-size: 0.78rem;
-    font-weight: 600;
-}
-.pj-about-row dd {
-    margin: 0;
-    color: var(--pj-text);
-    font-size: 0.85rem;
-    font-weight: 600;
-    line-height: 1.45;
-}
-
-.pj-about-actions { display: flex; gap: 0.55rem; margin-top: 0.3rem; }
-
-.pj-about-btn {
-    display: inline-flex;
+.pj-widget-actions {
+    display: flex;
+    flex-wrap: wrap;
     align-items: center;
-    justify-content: center;
-    height: 36px;
-    padding: 0 1.05rem;
-    border-radius: 9px;
-    border: 1px solid var(--pj-line-hard);
-    background: var(--pj-window);
-    color: var(--pj-text);
-    font-family: var(--font-display);
-    font-size: 0.83rem;
-    font-weight: 700;
-    text-decoration: none;
-    cursor: pointer;
-    transition: background 0.2s ease, border-color 0.2s ease, color 0.2s ease, filter 0.2s ease;
+    gap: 0.4rem;
+    margin-top: auto;
+    padding-top: 0.7rem;
 }
-.pj-about-btn:hover { border-color: var(--accent); background: var(--accent-soft); color: var(--accent); }
-.pj-about-btn--solid {
-    background: linear-gradient(135deg, #0f766e, #7a5fc0);
-    border-color: transparent;
-    color: #ffffff;
-    box-shadow: 0 6px 16px rgba(15, 118, 110, 0.26);
-}
-.pj-about-btn--solid:hover { color: #ffffff; filter: brightness(1.06); }
-.pj-about-btn:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.pj-widget .pj-link-btn { min-height: 32px; padding: 0 0.65rem; font-size: 0.76rem; border-radius: 8px; }
+.pj-widget .pj-link-btn--icon { padding: 0 0.5rem; }
+.pj-widget .pj-link-btn--solid { box-shadow: 0 4px 12px rgba(15, 118, 110, 0.2); }
 
-@media (prefers-reduced-motion: reduce) {
-    .pj-about-btn { transition: none; }
-    .pj-about-status-dot { animation: none; }
+/* Short screens (e.g. 1366x768 laptops): shed secondary copy so the column
+   still fits between the menubar and the dock. */
+@media (max-height: 840px) {
+    .pj-widget-tags { display: none; }
 }
+@media (max-height: 740px) {
+    .pj-widgets-pair .pj-widget-blurb { display: none; }
+}
+@media (max-height: 620px) {
+    .pj-widget-blurb { display: none; }
+}
+
+/* Entrance: the widgets rise in, staggered, as the stage frames. Uses the
+   individual `translate` property so it never fights a `transform`. */
+.desk-stage:not(.is-framed) .pj-widget { opacity: 0; }
+.desk-stage.is-framed .pj-widget { animation: pjWidgetIn 0.7s cubic-bezier(0.16, 1, 0.3, 1) both; }
+.desk-stage.is-framed .pj-widget--primary { animation-delay: 0.12s; }
+.desk-stage.is-framed .pj-widgets-pair .pj-widget:nth-child(1) { animation-delay: 0.22s; }
+.desk-stage.is-framed .pj-widgets-pair .pj-widget:nth-child(2) { animation-delay: 0.3s; }
+@keyframes pjWidgetIn {
+    from { opacity: 0; translate: 0 18px; }
+    to   { opacity: 1; translate: 0 0; }
+}
+
+/* Dock reorder drag: grabbing cursor everywhere, no stray text selection. */
+body.pj-grabbing, body.pj-grabbing * { cursor: grabbing !important; user-select: none; }
 
 /* Dock: floats over the desktop wallpaper (macOS-style), so the whole screen
    below the menubar is one continuous desktop. */
@@ -1314,10 +1259,8 @@ body.pj-grabbing, body.pj-grabbing * { cursor: grabbing !important; user-select:
 .pj-dock-icon--link { background: #1f2d3d; color: #ffffff; font-size: 1.2rem; }
 /* Favicon-based dock icon: fills the tile; its own bg matches the icon accent. */
 .pj-dock-img { display: block; width: 100%; height: 100%; }
-.pj-dock-app.is-active .pj-dock-icon { box-shadow: 0 0 0 2px rgba(15, 42, 61, 0.2); }
 
 .pj-dock-run { width: 4px; height: 4px; border-radius: 50%; background: transparent; }
-.pj-dock-run.is-open { background: #5b6b7e; }
 
 .pj-dock-sep { width: 1px; align-self: stretch; margin: 0.25rem 0.1rem; background: var(--pj-line); }
 
@@ -1398,39 +1341,26 @@ body.pj-grabbing, body.pj-grabbing * { cursor: grabbing !important; user-select:
     background: var(--c-accent-lite);
     outline: none;
 }
-.pj-ctx-item--danger { color: #dc2626; }
-.pj-ctx-item--danger:hover, .pj-ctx-item--danger:focus-visible { background: rgba(220, 38, 38, 0.1); }
 
-.pj-ctx-sep { height: 1px; margin: 0.25rem 0.3rem; background: var(--pj-line); }
 
 @media (prefers-reduced-motion: reduce) {
     .pj-ctx { animation: none; }
     .pj-ctx-item { transition: none; }
 }
 
-/* Stacked app cards (no dock, lights/resize decorative): below the float
-   breakpoint OR for reduced-motion users at any width (they get the flat layout,
-   so the floating dock/menubar must not render over the stacked content). */
+/* Stacked project cards (no dock or menubar): below the float breakpoint OR for
+   reduced-motion users at any width (they get the flat layout, so the floating
+   dock/menubar must not render over the stacked content). */
 @media (max-width: 991.98px), (prefers-reduced-motion: reduce) {
     .pj-os { min-height: 0; border-radius: 14px; }
     .pj-menubar { display: none; }
-    .pj-win.is-min, .pj-win.is-closed {
-        opacity: 1;
-        transform: none;
-        visibility: visible;
-        pointer-events: auto;
-    }
-    /* Decorative lights (disabled + aria-hidden below the float breakpoint):
-       keep them looking identical to the interactive ones, not UA-faded. */
-    .pj-light { pointer-events: none; opacity: 1; cursor: default; }
-    .pj-rz { display: none; }
     .pj-dock { display: none; }
 }
 
 /* ============================================================
    Cinematic landing: a FULL-SCREEN loading splash that auto-
    animates into the framed macOS-style desktop "window app".
-   The hero is the desktop wallpaper; the apps start closed.
+   The hero is the desktop wallpaper; the widgets sit beside it.
    Wide + motion-allowed only (mobile/reduced get the flat layout).
    ============================================================ */
 
@@ -1450,6 +1380,9 @@ body.pj-grabbing, body.pj-grabbing * { cursor: grabbing !important; user-select:
    scanned, chrome hidden) and it holds for the pause; then `.is-framed` slowly
    zooms back into the framed desktop "window app" (chrome fades in). */
 .desk-stage {
+    /* Widget column geometry, shared by the widgets and the hero beside them. */
+    --widget-w: clamp(340px, 31vw, 450px);
+    --widget-r: clamp(1.5rem, 4vw, 4rem);
     position: absolute;
     inset: 0;
     transform-origin: center center;
@@ -1488,18 +1421,29 @@ body.pj-grabbing, body.pj-grabbing * { cursor: grabbing !important; user-select:
 }
 .desk-wallpaper .hero-section { min-height: 100%; height: 100%; }
 
-/* Inside the desktop wallpaper, lock hero fonts to their max values so they
-   don't scale with viewport width (the desktop is a fixed-size "monitor"). */
-.desk-wallpaper .hero-title { font-size: 7rem; }
+/* Inside the desktop wallpaper the hero is a left column beside the project
+   widgets (right). Supporting fonts lock to their max values (the desktop is a
+   fixed-size "monitor"); only the title scales so it fits the column at 992px. */
+.desk-wallpaper .hero-title { font-size: clamp(4.5rem, 7.2vw, 7rem); }
 .desk-wallpaper .Typewriter,
 .desk-wallpaper .typewriter { font-size: 1.22rem; }
-.desk-wallpaper .hero-subtitle { font-size: 1.15rem; }
+.desk-wallpaper .Typewriter { justify-content: flex-start; }
+.desk-wallpaper .hero-subtitle { font-size: 1.15rem; max-width: 34rem; margin-left: 0; }
+.desk-wallpaper .hero-stack,
+.desk-wallpaper .hero-actions { justify-content: flex-start; }
 /* Offset the vertical center so the hero sits in the middle of the usable
    area ABOVE the dock (menubar 30px top + dock ~95px bottom). */
-.desk-wallpaper .hero-content { padding-top: 0; padding-bottom: 5rem; }
-.desk-wallpaper .hero-section.d-flex { justify-content: center; }
+.desk-wallpaper .hero-content {
+    --hero-l: clamp(2.5rem, 6vw, 6.5rem);
+    text-align: left;
+    margin-left: var(--hero-l);
+    margin-right: 0;
+    max-width: calc(100% - var(--widget-w) - var(--widget-r) - var(--hero-l) - 2.5rem);
+    padding: 0 0 5rem;
+}
+.desk-wallpaper .hero-section.d-flex { justify-content: flex-start; }
 
-/* Desktop chrome (menubar + windows + dock) sits ABOVE the wallpaper; .pj-os is
+/* Desktop chrome (menubar + widgets + dock) sits ABOVE the wallpaper; .pj-os is
    transparent so the hero shows through. The framed look comes from the stage. */
 .projects-section.is-cinematic {
     position: relative;
@@ -1511,6 +1455,12 @@ body.pj-grabbing, body.pj-grabbing * { cursor: grabbing !important; user-select:
     overflow: visible;
 }
 .projects-section.is-cinematic .pj-grain { display: none; }
+/* The desktop layer covers the wallpaper; let clicks reach the hero (its Resume /
+   Get in touch buttons) everywhere except the desktop's own controls. */
+.projects-section.is-cinematic { pointer-events: none; }
+.projects-section.is-cinematic .pj-menubar,
+.projects-section.is-cinematic .pj-widgets,
+.projects-section.is-cinematic .pj-dock { pointer-events: auto; }
 .projects-section.is-cinematic .pj-inner {
     width: 100%;
     max-width: none;

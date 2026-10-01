@@ -27,11 +27,13 @@ answer "is this person worth a screen?" within a minute, then go deeper if
 interested. Make the engineering decisions visible without demanding the
 reader read every line.
 
-The Projects section is a focused desktop launcher. CareFlow, RoleFit AI, and
-Typeset open their real hosted products directly, while each context menu also
-offers its source repository. About remains the one local app window. Mobile
-and reduced-motion visitors receive the same three destinations as compact
-project rows. CareFlow stays the primary proof through its positioning and
+The Projects section is a focused desktop. Desktop widgets keep the three
+projects visible on landing: a large CareFlow widget with its recorded demo and
+Live, Clinician, Patient, and Source links, plus smaller RoleFit AI and Typeset
+widgets. The dock also launches each hosted product, and its context menu
+offers the same links. There are no in-desktop windows; the hero carries
+identity with Resume and Get in touch actions. Mobile and reduced-motion
+visitors receive the same destinations as compact project rows. CareFlow stays the primary proof through its positioning and
 resume copy; RoleFit AI and Typeset show breadth without asking a recruiter to
 operate duplicate portfolio-only demos. Success is qualified inbound for
 full-time software engineering roles.
@@ -55,12 +57,14 @@ passionate about building." Specifics beat superlatives.
 
 ## Design Principles
 
-1. **Show the real work.** The project launchers lead to the hosted CareFlow,
-   RoleFit AI, and Typeset products, with source one context-menu action away.
-   Portfolio copy supports those products instead of duplicating them.
+1. **Show the real work.** The widgets and launchers lead to the hosted
+   CareFlow, RoleFit AI, and Typeset products, with source one click away.
+   CareFlow's recorded demo plays in its widget. Portfolio copy supports those
+   products instead of duplicating them.
 2. **Interaction has a job.** The cinematic desktop makes the portfolio
-   memorable; the dock launches real work, the About window carries identity,
-   and mobile or reduced-motion visitors get direct project rows.
+   memorable; the widgets name the work at a glance, the dock launches it, the
+   hero carries identity and the Resume action, and mobile or reduced-motion
+   visitors get direct project rows.
 3. **Truthful claims only.** Every spec corresponds to something that is
    actually shipped. No fabricated outcomes, no "10x" copy, no inflated tech
    stack lists. If a feature is not in the hosted product or source repo, it is
@@ -83,8 +87,8 @@ Default target: WCAG 2.1 AA.
   light backgrounds. Accent colors used for decoration also pass against
   backgrounds at the sizes they appear.
 - All actionable elements are keyboard-reachable and have visible focus
-  states. Tab order follows the visual reading order. Dock tiles, About window
-  actions, project rows, and modal controls are real buttons or links.
+  states. Tab order follows the visual reading order. Hero actions, dock tiles,
+  widget links, project rows, and modal controls are real buttons or links.
 - The cinematic desktop is skipped under `prefers-reduced-motion`; reduced
   motion and mobile users receive the flat stacked layout.
 - In-page navigation uses real section targets and preserves a predictable

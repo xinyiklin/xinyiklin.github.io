@@ -6,8 +6,8 @@ import { NAME } from "../constants/app";
 // On wide, motion-allowed viewports the page opens with a FULL-SCREEN loading
 // splash. After loading it reveals the full hero, holds it briefly, then zooms
 // into the framed macOS-style desktop "window app" (the chrome fades in as it
-// zooms). The hero is the desktop wallpaper; the apps start closed (open from
-// the dock). The desktop is the landing; scrolling continues to Contacts.
+// zooms). The hero is the desktop wallpaper; project widgets sit beside it and
+// the dock launches the products. The desktop is the landing; scrolling continues to Contacts.
 // Mobile + reduced-motion get the flat layout (see App.jsx).
 
 // Total scroll-lock = BOOT + PAUSE + SETTLE = 4000ms (4s intro lock). There is no
@@ -130,7 +130,7 @@ function DesktopScene() {
           <div className={stageClass}>
             {/* Hero is the desktop wallpaper, behind the chrome. No `home`/
                 `projects` ids: nothing links to them. The only in-page jump is
-                the About window's "Get in touch" -> Contacts (id="contacts"),
+                the hero's "Get in touch" -> Contacts (id="contacts"),
                 which lives outside this stage. */}
             <div className="desk-wallpaper">
               <Main sectionId={null} deferTyping />

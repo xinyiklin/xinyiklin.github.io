@@ -129,11 +129,11 @@
       "headline": { "displayName": "Section Headline", "purpose": "Section-scale identity moments such as hero and contact headings." },
       "title": { "displayName": "Project Title", "purpose": "Reserved for large identity moments, not compact app chrome." },
       "subtitle": { "displayName": "App Page Title", "purpose": "Compact headings inside the desktop windows, sized to fit app surfaces." },
-      "body": { "displayName": "Body", "purpose": "Description copy, About copy, and contact copy. Max line 60-65ch." },
+      "body": { "displayName": "Body", "purpose": "Description copy, hero copy, and contact copy. Max line 60-65ch." },
       "label": { "displayName": "Functional Label", "purpose": "Uppercase tracked labels for hero and compact app metadata. Always 0.14em+ tracking and rationed across the page." }
     },
     "shadows": [
-      { "name": "shadow-sm", "value": "0 2px 8px rgba(15,42,61,0.08)", "purpose": "Resting card surfaces (about, skills, contact). Almost invisible; suggests material." },
+      { "name": "shadow-sm", "value": "0 2px 8px rgba(15,42,61,0.08)", "purpose": "Resting card surfaces (contact). Almost invisible; suggests material." },
       { "name": "shadow-md", "value": "0 12px 32px rgba(15,42,61,0.1)", "purpose": "Hover lift on primary buttons and interactive surfaces. Used only as response to state." },
       { "name": "shadow-lg", "value": "0 24px 64px rgba(15,42,61,0.14)", "purpose": "Reserved for hero / floating prominent elements. Used sparingly." }
     ],
@@ -207,9 +207,9 @@
   ],
   "narrative": {
     "northStar": "An Engineer's Desktop, Interactive",
-    "overview": "This portfolio reads like a working engineer presenting three builds with care, not a marketing site. On wide, motion-allowed viewports the landing becomes a cinematic macOS-style desktop: the hero is the wallpaper, About is the one local app window, and the dock launches CareFlow, RoleFit AI, and Typeset directly. Product context menus expose the matching source repositories. Mobile and reduced-motion users get the same destinations as compact project rows.\n\nThe system rejects the AI-generated SaaS landing template that has flooded the internet by 2026 (purple gradients, four-card icon grids, hero metric tiles, Inter on white, glass cards). It also rejects the editorial-magazine reflex (italic Cormorant, ruled columns, lowercase tracked metadata) that has saturated tech brand sites. The right register is engineer-pragmatic with quiet authority and one moment of confident interactivity.",
+    "overview": "This portfolio reads like a working engineer presenting three builds with care, not a marketing site. On wide, motion-allowed viewports the landing becomes a cinematic macOS-style desktop: the hero is the wallpaper's left column, desktop widgets on the right keep CareFlow (large, with its recorded demo), RoleFit AI, and Typeset visible, the hero carries identity and the Resume action, and the dock launches each product directly. Widgets and product context menus expose the matching source repositories. Mobile and reduced-motion users get the same destinations as compact project rows.\n\nThe system rejects the AI-generated SaaS landing template that has flooded the internet by 2026 (purple gradients, four-card icon grids, hero metric tiles, Inter on white, glass cards). It also rejects the editorial-magazine reflex (italic Cormorant, ruled columns, lowercase tracked metadata) that has saturated tech brand sites. The right register is engineer-pragmatic with quiet authority and one moment of confident interactivity.",
     "keyCharacteristics": [
-      "One About window and three product launchers on a cinematic desktop.",
+      "Three project widgets and three product launchers on a cinematic desktop; no in-desktop windows.",
       "Cinematic desktop on wide screens. The dock launches hosted products and exposes source links.",
       "Flat fallback on mobile and reduced motion. No hidden project destinations, no motion dependence.",
       "Product-owned identity. Launchers use real favicons and restrained supporting colors.",
@@ -217,7 +217,7 @@
     ],
     "rules": [
       { "name": "The Product-Identity Rule", "body": "Product launchers use their real favicons and one supporting tile color. Portfolio chrome stays within the shared neutral and teal system.", "section": "colors" },
-      { "name": "The Color-Mix Rule", "body": "Accent-tinted About actions derive from the window accent (--accent / --accent-soft) rather than hand-tuned one-offs.", "section": "colors" },
+      { "name": "The Color-Mix Rule", "body": "Accent tints derive from the shared teal tokens rather than hand-tuned one-offs.", "section": "colors" },
       { "name": "The No-Gradient-Text Rule", "body": "Text is always one solid color. background-clip: text with a gradient is forbidden.", "section": "colors" },
       { "name": "The Single-Family Rule", "body": "One typeface family across the whole portfolio. A serif companion is forbidden.", "section": "typography" },
       { "name": "The Tracking-Out-Loud Rule", "body": "Uppercase labels always use letter-spacing 0.14em or more. Tightly-set uppercase reads as shouty.", "section": "typography" },
@@ -229,7 +229,7 @@
     "dos": [
       "Do lead visitors to the real hosted products and source repositories.",
       "Do commit fully on identity moments while keeping app-window headings compact.",
-      "Do derive About action tints from --accent / --accent-soft.",
+      "Do derive accent tints from the shared teal tokens.",
       "Do keep neutrals tinted toward the brand teal. Drafting Paper (#f5f9fc) is the right base; never use #fff or #000.",
       "Do use ≥1.25 ratios between Headline → Title → Subtitle → Body → Label.",
       "Do cap body line length at 60-65ch.",

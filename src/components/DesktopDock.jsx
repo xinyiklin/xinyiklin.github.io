@@ -9,19 +9,17 @@ import rolefitFavicon from "../assets/rolefit-favicon.svg";
 import typesetFavicon from "../assets/typeset-favicon.svg";
 
 // The desktop's floating dock: app tiles (left of the separator), link tiles
-// (right), drag-to-reorder within each side, and the right-click app menu.
-// Extracted from Projects.jsx, which owns the window manager.
+// (right), drag-to-reorder within each side, and the right-click product menu.
 
-// The four desktop apps shown in the dock (and targeted by the right-click menu).
-// Product apps carry `href` (live site) + `github` (source): clicking a tile
-// launches the live product, and its right-click menu opens the live site or the
-// source. Only About is a real in-desktop window (it has no live site); on
-// mobile/reduced-motion the products render as link cards instead (see Projects).
-export const DOCK_APPS = [
-  { id: "about", label: "About", accent: "linear-gradient(140deg, #189a8c 0%, #0f766e 50%, #7a5fc0 100%)", onText: "#ffffff", glyph: "XL" },
-  { id: "typeset", label: "Typeset", href: PROJECT_LINKS.typeset.live, github: PROJECT_LINKS.typeset.github, accent: "#176b5c", onText: "#ffffff", iconSrc: typesetFavicon },
-  { id: "careflow", label: "CareFlow", href: PROJECT_LINKS.careflow.live, github: PROJECT_LINKS.careflow.github, accent: "#2a3847", onText: "#ffffff", iconSrc: careflowFavicon },
-  { id: "rolefit", label: "RoleFit AI", href: PROJECT_LINKS.rolefit.live, github: PROJECT_LINKS.rolefit.github, accent: "#eef2ef", onText: "#23664f", iconSrc: rolefitFavicon },
+// The three products shown in the dock (and targeted by the right-click menu).
+// Each carries `href` (live site) + `github` (source), plus optional `demos`
+// (extra hosted surfaces): clicking a tile launches the live product, and its
+// right-click menu opens any of those links. CareFlow, the primary project,
+// leads; the same order drives the desktop widgets and the mobile link cards.
+export const PRODUCT_APPS = [
+  { id: "careflow", label: "CareFlow", sub: "Clinic workflow platform", href: PROJECT_LINKS.careflow.live, github: PROJECT_LINKS.careflow.github, demos: PROJECT_LINKS.careflow.demos, accent: "#2a3847", onText: "#ffffff", iconSrc: careflowFavicon },
+  { id: "rolefit", label: "RoleFit AI", sub: "Resume-tailoring workbench", href: PROJECT_LINKS.rolefit.live, github: PROJECT_LINKS.rolefit.github, accent: "#eef2ef", onText: "#23664f", iconSrc: rolefitFavicon },
+  { id: "typeset", label: "Typeset", sub: "Resume editor + typesetting engine", href: PROJECT_LINKS.typeset.live, github: PROJECT_LINKS.typeset.github, accent: "#176b5c", onText: "#ffffff", iconSrc: typesetFavicon },
 ];
 
 // External links open a real URL; the Contact tile (no href) just scrolls to
@@ -38,7 +36,7 @@ const DOCK_FLIP_MS = 200;
 const DOCK_EASE = "cubic-bezier(0.16, 1, 0.3, 1)";
 
 // One dock tile, rendered as a new-tab anchor when `href` is set and a button
-// otherwise, with the drag wiring (reorder pointerdown, native-drag suppression,
+// otherwise (the in-page Contact tile), with the drag wiring (reorder pointerdown, native-drag suppression,
 // and the moved-click swallow) identical across both shapes.
 function DockTile({ id, kind, href, className, ariaLabel, movedRef, onPointerDown, onActivate, onContextMenu, children }) {
   const shared = { "data-dock-id": id, "data-dock-kind": kind, className, onPointerDown, onContextMenu };
@@ -62,12 +60,12 @@ function DockTile({ id, kind, href, className, ariaLabel, movedRef, onPointerDow
   );
 }
 
-export default function Dock({ wins, activeId, onActivate, onContextMenu }) {
+export default function Dock({ onContextMenu }) {
   // Tiles can be dragged to reorder, but only within their own side of the
   // separator: app tiles stay on the left, link tiles on the right. Order is
   // session-local. A real drag (>6px) swallows the trailing click so it never
   // opens/navigates; the flag clears on a timeout after that click has fired.
-  const [appOrder, setAppOrder] = useState(() => DOCK_APPS.map((a) => a.id));
+  const [appOrder, setAppOrder] = useState(() => PRODUCT_APPS.map((a) => a.id));
   const [linkOrder, setLinkOrder] = useState(() => DOCK_LINKS.map((l) => l.id));
   const movedRef = useRef(false);
   const dockRef = useRef(null);
@@ -212,23 +210,17 @@ export default function Dock({ wins, activeId, onActivate, onContextMenu }) {
   return (
     <div ref={dockRef} className="pj-dock" role="group" aria-label="Project dock">
       {appOrder.map((id) => {
-        const app = DOCK_APPS.find((a) => a.id === id);
-        const w = wins?.[app.id];
-        // Launcher tiles (a live-site link) never carry window run/hidden state;
-        // only real windows (About) do.
-        const running = app.href ? false : w ? !w.closed : true;
-        const hidden = app.href ? false : w ? w.closed || w.min : false;
+        const app = PRODUCT_APPS.find((a) => a.id === id);
         return (
           <DockTile
             key={app.id}
             id={app.id}
             kind="app"
             href={app.href}
-            className={`pj-dock-item pj-dock-app${activeId === app.id && !hidden ? " is-active" : ""}`}
-            ariaLabel={app.href ? `Open ${app.label} live site` : `${hidden ? "Open" : "Focus"} ${app.label}`}
+            className="pj-dock-item pj-dock-app"
+            ariaLabel={`Open ${app.label} live site`}
             movedRef={movedRef}
             onPointerDown={beginReorder("app", app.id)}
-            onActivate={() => onActivate(app.id)}
             onContextMenu={(e) => {
               e.preventDefault();
               // Keyboard-invoked context menus (menu key / Shift+F10) report
@@ -244,13 +236,9 @@ export default function Dock({ wins, activeId, onActivate, onContextMenu }) {
           >
             <span className="pj-dock-tip">{app.label}</span>
             <span className="pj-dock-icon" style={{ background: app.accent, color: app.onText }}>
-              {app.iconSrc ? (
-                <img className="pj-dock-img" src={app.iconSrc} alt="" aria-hidden="true" draggable={false} />
-              ) : (
-                app.glyph
-              )}
+              <img className="pj-dock-img" src={app.iconSrc} alt="" aria-hidden="true" draggable={false} />
             </span>
-            <span className={running ? "pj-dock-run is-open" : "pj-dock-run"} aria-hidden="true" />
+            <span className="pj-dock-run" aria-hidden="true" />
           </DockTile>
         );
       })}
@@ -281,32 +269,13 @@ export default function Dock({ wins, activeId, onActivate, onContextMenu }) {
   );
 }
 
-// Right-click menu for a launcher app (a live product): open the live site or
-// its source. Both are link items ({ label, href }) opened in a new tab.
-export function launcherMenuItems({ href, github }) {
+// Right-click menu for a product: open the live site, any extra hosted demos, or
+// its source. All are link items ({ label, href }) opened in a new tab.
+export function launcherMenuItems({ href, github, demos = [] }) {
   return [
     { label: "Live", href },
+    ...demos,
     ...(github ? [{ label: "Source", href: github }] : []),
-  ];
-}
-
-// Right-click menu for a dock app: actions mirror the window's traffic lights,
-// shaped by its current state (closed / minimized / open).
-export function appMenuItems(state, actions) {
-  const g = state ?? {};
-  if (g.closed) return [{ label: "Open", run: actions.open }];
-  if (g.min) {
-    return [
-      { label: "Show", run: actions.open },
-      { sep: true },
-      { label: "Close", run: actions.close, danger: true },
-    ];
-  }
-  return [
-    { label: g.max ? "Restore" : "Zoom", run: actions.zoom },
-    { label: "Minimize", run: actions.minimize },
-    { sep: true },
-    { label: "Close", run: actions.close, danger: true },
   ];
 }
 
@@ -363,36 +332,19 @@ export function DockContextMenu({ menu, title, items, onClose }) {
       style={{ left: menu.x, top: menu.y, transform: `${x} translateY(calc(-100% - 8px))` }}
     >
       <p className="pj-ctx-title">{title}</p>
-      {items.map((it, i) =>
-        it.sep ? (
-          <div key={`sep-${i}`} className="pj-ctx-sep" role="separator" />
-        ) : it.href ? (
-          <a
-            key={it.label}
-            role="menuitem"
-            className="pj-ctx-item"
-            href={it.href}
-            target="_blank"
-            rel="noreferrer"
-            onClick={onClose}
-          >
-            {it.label}
-          </a>
-        ) : (
-          <button
-            key={it.label}
-            type="button"
-            role="menuitem"
-            className={`pj-ctx-item${it.danger ? " pj-ctx-item--danger" : ""}`}
-            onClick={() => {
-              it.run();
-              onClose();
-            }}
-          >
-            {it.label}
-          </button>
-        )
-      )}
+      {items.map((it) => (
+        <a
+          key={it.label}
+          role="menuitem"
+          className="pj-ctx-item"
+          href={it.href}
+          target="_blank"
+          rel="noreferrer"
+          onClick={onClose}
+        >
+          {it.label}
+        </a>
+      ))}
     </div>,
     document.body
   );

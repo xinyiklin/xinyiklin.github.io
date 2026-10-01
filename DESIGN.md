@@ -1,6 +1,6 @@
 ---
 name: Xinyi Lin Portfolio
-description: A working engineer's portfolio. CareFlow, RoleFit AI, and Typeset launch from a cinematic desktop, with one local About window and direct links to the real products and source.
+description: A working engineer's portfolio. CareFlow, RoleFit AI, and Typeset show as widgets on a cinematic desktop and launch from its dock, with direct links to the real products and source.
 colors:
   operating-teal: "#0f766e"
   typeset-green: "#176b5c"
@@ -87,14 +87,14 @@ components:
 
 **Creative North Star: "An engineer's desktop, interactive"**
 
-This portfolio reads like a working engineer presenting three builds with care, not a marketing site. On wide, motion-allowed viewports the landing becomes a cinematic macOS-style desktop: the hero is the wallpaper, the About window carries identity, and the dock launches CareFlow, RoleFit AI, and Typeset directly. A launcher context menu exposes each source repository without duplicating product UI inside the portfolio. Mobile and reduced-motion users get the same destinations as compact project rows. CareFlow remains the primary project in the resume and positioning; RoleFit AI and Typeset signal breadth without competing with it.
+This portfolio reads like a working engineer presenting three builds with care, not a marketing site. On wide, motion-allowed viewports the landing becomes a cinematic macOS-style desktop: the hero is the wallpaper's left column, desktop widgets on the right name CareFlow, RoleFit AI, and Typeset at a glance (CareFlow large, with its recorded demo), the hero carries identity with Resume and Get in touch actions, and the dock launches each product directly. Widgets and launcher context menus expose each source repository without duplicating product UI inside the portfolio. Mobile and reduced-motion users get the same destinations as compact project rows. CareFlow remains the primary project in the resume and positioning; RoleFit AI and Typeset signal breadth without competing with it.
 
 The visual register is engineer-pragmatic: a restrained teal palette, strong
 typographic hierarchy, and one confident interactive surface. Avoid generic
 SaaS styling, editorial ornament, and motion without a clear interaction role.
 
 **Key Characteristics:**
-- **One About window, three product launchers.** CareFlow, RoleFit AI, and Typeset open their real hosted products from the dock.
+- **Three project widgets, three product launchers, no windows.** CareFlow, RoleFit AI, and Typeset are visible on landing and open their real hosted products from the widgets or the dock.
 - **Cinematic desktop on wide screens.** The dock launches products, reorders within each side, and provides source links through app context menus.
 - **Flat fallback on mobile and reduced motion.** No hidden project destinations, no motion dependence.
 - **Product-owned identity.** Each launcher uses the real product favicon and restrained brand color.
@@ -115,18 +115,18 @@ A restrained teal system over a near-white drafting surface. Product favicons ca
 ### Neutral
 
 - **Drafting Paper** (`#f5f9fc`): the page background. Cool off-white tinted faintly toward teal so the page never reads as `#fff`.
-- **Specimen White** (`#ffffff`): surface color for cards, app windows, dialogs, and document previews.
+- **Specimen White** (`#ffffff`): surface color for cards, widgets, dialogs, and document previews.
 - **Trace Paper** (`#edf5f8`): the muted section background (skills section, hero gradient floor).
 - **Chart Ink** (`#102033`): primary text. A blue-leaning ink that pairs with teal.
 - **Quiet Slate** (`#607083`): secondary text. Used for meta lines, descriptions, eyebrow labels, tagline supporting text.
-- **Hairline** (`rgba(15,42,61,0.09)`): subtle dividers around app windows, title bars, document rows, tables, and the footer.
+- **Hairline** (`rgba(15,42,61,0.09)`): subtle dividers around widgets, the menubar, document rows, and the footer.
 - **Hard Edge** (`rgba(15,42,61,0.16)`): borders on secondary buttons, anywhere a more committed line is needed.
 
 ### Named Rules
 
 **The Product-Identity Rule.** Product launchers use their real favicons and a single supporting tile color. Portfolio chrome remains in the shared neutral and teal system.
 
-**The Color-Mix Rule.** Accent-tinted About actions derive from the current window accent (`--accent` / `--accent-soft`) rather than hand-tuned one-offs.
+**The Color-Mix Rule.** Accent tints derive from the shared tokens (`--c-accent-deep` / `--c-accent-lite`) rather than hand-tuned one-offs.
 
 **The No-Gradient-Text Rule.** Text is always one solid color. `background-clip: text` with a gradient is forbidden. Emphasis comes from scale, weight, and color.
 
@@ -144,7 +144,7 @@ A restrained teal system over a near-white drafting surface. Product favicons ca
 - **Title** (900, `clamp(2.1rem, 4.8vw, 3.5rem)`, line-height 1.04, tracking -0.025em): reserved for large identity moments, not compact app chrome.
 - **Subtitle** (800, `clamp(1.25rem, 2vw, 1.6rem)`, line-height 1.2, tracking -0.01em): secondary section-scale headings.
 - **Tagline** (700, `1.02rem`, line-height 1.5): concise positioning copy when a page-level identity moment needs support.
-- **Body** (400, `1rem`, line-height 1.7): blurbs, About copy, and contact copy. Max line length 60ch.
+- **Body** (400, `1rem`, line-height 1.7): blurbs, hero copy, and contact copy. Max line length 60ch.
 - **Label** (800, `0.78rem`, tracking 0.16em, uppercase): the hero kicker and compact app labels. Rationed: maximum 1 section eyebrow per 3 sections across the whole page; the desktop windows use short functional labels rather than decorative section eyebrows.
 
 ### Named Rules
@@ -191,17 +191,26 @@ When a button is hovered or focused, a subtle translate-Y appears. State, not st
 
 ### Desktop Launchers (the signature surface)
 
-The Projects section renders one desktop surface with an About window and
-three external product launchers. On wide, motion-allowed viewports the dock is
-the primary project navigation. On mobile and reduced motion the About window
-becomes static and the products render as direct Live and Source rows.
+The Projects section renders one desktop surface with three project widgets and
+three external product launchers; there are no in-desktop windows. On wide,
+motion-allowed viewports the widgets are the at-a-glance project surface and the
+dock is the launcher. On mobile and reduced motion the products render as direct
+Live and Source rows.
 
+- **Desktop widgets (`.pj-widgets`).** A right-hand column above the dock:
+  CareFlow as the large primary widget (muted demo loop
+  with a pause control, one-line description, stack tags, Live / Clinician /
+  Patient / Source), RoleFit AI and Typeset as a smaller pair. Frosted white
+  surface, 18px radius; they rise in, staggered, as the stage frames. Short
+  screens shed tags, then the small widgets' descriptions.
 - **Product launchers.** CareFlow, RoleFit AI, and Typeset open their hosted
-  products from the dock. Right-click exposes one-word Live and Source actions.
+  products from the dock. Right-click exposes one-word Live, demo (CareFlow:
+  Clinician, Patient), and Source actions.
 - **Fallback project rows.** Mobile and reduced-motion layouts show the same
-  products as compact rows with explicit Live and GitHub actions.
+  products as compact rows with explicit Live and GitHub actions; CareFlow's row
+  adds Clinician and Patient demo links.
 
-### Cards (skills, contact, about)
+### Cards (contact)
 
 - **Corner Style:** `var(--radius)` = 10px.
 - **Background:** Specimen White over the Trace Paper section background.
@@ -211,16 +220,16 @@ becomes static and the products render as direct Live and Source rows.
 ### Navigation (desktop dock)
 
 On wide, motion-allowed viewports the landing is a cinematic desktop: the hero
-is the wallpaper, About is a draggable window, and project tiles launch hosted
-products. The resume action lives in the About window.
+is the wallpaper and project tiles launch hosted products. The resume action
+lives in the hero (both layouts) and the desktop menubar.
 
-- **Style:** a floating bottom dock (`.pj-dock`) with About, Typeset, CareFlow, and RoleFit AI, then a separator and GitHub, LinkedIn, and Contact. The dock fades in as the camera settles. Product tiles launch live sites in a new tab; About opens its local window fullscreen.
+- **Style:** a floating bottom dock (`.pj-dock`) with CareFlow, RoleFit AI, and Typeset, then a separator and GitHub, LinkedIn, and Contact. The dock fades in as the camera settles. Product tiles launch live sites in a new tab.
 - **Reordering:** tiles can be dragged within their side of the separator; app
   tiles stay on the left and link tiles on the right. A completed drag must not
   trigger the tile's link.
-- **States:** hovering or focusing a tile reveals its label tooltip; the tile itself stays put (no magnify). Keyboard focus adds a ring on the icon. About uses the gradient "XL" brand tile, and CareFlow, RoleFit AI, and Typeset each use their own favicon tile. Motion is suppressed under `prefers-reduced-motion`.
-- **Right-click menu:** right-clicking About opens state-aware window actions. Right-clicking a product offers Live and Source links. Menus dismiss on Escape, outside-click, or blur; link tiles keep the browser's native menu.
-- **Mobile / reduced-motion:** the flat layout has no dock. About renders as a static window with decorative traffic lights, followed by direct project rows.
+- **States:** hovering or focusing a tile reveals its label tooltip; the tile itself stays put (no magnify). Keyboard focus adds a ring on the icon. CareFlow, RoleFit AI, and Typeset each use their own favicon tile. Motion is suppressed under `prefers-reduced-motion`.
+- **Right-click menu:** right-clicking a product offers Live, any demo, and Source links. Menus dismiss on Escape, outside-click, or blur; link tiles keep the browser's native menu.
+- **Mobile / reduced-motion:** the flat layout has no dock. Direct project rows replace the widgets and dock.
 
 ## 6. Do's and Don'ts
 
@@ -228,7 +237,7 @@ products. The resume action lives in the About window.
 - **Do** lead visitors to the real hosted products and source repositories.
 - **Do** keep product identity scoped to each launcher favicon and supporting tile color.
 - **Do** keep RoleFit AI and Typeset quieter than CareFlow in portfolio copy and ordering.
-- **Do** derive About action tints from `--accent` / `--accent-soft`.
+- **Do** derive accent tints from the shared teal tokens.
 - **Do** keep neutrals tinted toward teal. Drafting Paper (`#f5f9fc`) is the right base; never `#fff` or `#000`.
 - **Do** use ≥1.25 ratios between Headline, Title, Subtitle, Body, Label. Flat scales read as uncommitted.
 - **Do** cap body line length at 60ch. Wider lines lose recruiters fast.

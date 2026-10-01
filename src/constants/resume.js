@@ -1,135 +1,65 @@
 // Resume content mirrors the Typeset .resume source (general SDE resume,
 // ../role-fit-ai/apps/role-fit-ai/workspace/resumes/general-sde.resume).
 // RoleFit is canonical; update its general resume first, then sync this mirror.
+// Section order follows the source: Skills, Projects, Experience, Education.
+// The source's phone number is intentionally left off this public site.
 
 export const RESUME_HEADER = {
     name: "Xinyi (Kevin) Lin",
     location: "Queens, NY",
     links: [
-        { label: "linkedin.com/in/xinyiklin", href: "https://www.linkedin.com/in/xinyiklin/" },
         { label: "xinyiklin@gmail.com", href: "mailto:xinyiklin@gmail.com" },
-        { label: "xinyiklin.com", href: "https://xinyiklin.com/" },
+        { label: "linkedin.com/in/xinyiklin", href: "https://www.linkedin.com/in/xinyiklin" },
         { label: "github.com/xinyiklin", href: "https://github.com/xinyiklin" },
     ],
 };
 
-export const RESUME_EDUCATION = [
-    {
-        school: "City University of New York, Hunter College",
-        degree: "Bachelor of Arts in Computer Science, Daedalus Honors Scholar",
-        location: "New York, NY",
-        dates: "May 2024",
-    },
+export const RESUME_SKILLS = [
+    { label: "Languages", value: "Python, TypeScript, JavaScript, SQL, Java" },
+    { label: "Frontend", value: "React, React Query, HTML/CSS, Tailwind CSS" },
+    { label: "Backend & Data", value: "Django, Django REST Framework, Node.js, PostgreSQL, REST APIs, OpenAPI" },
+    { label: "Cloud & DevOps", value: "AWS (Amplify), Docker, GitHub Actions" },
+    { label: "Development & Testing", value: "Git, Django TestCase, Codex, Claude Code" },
 ];
 
 export const RESUME_PROJECTS = [
     {
         name: "CareFlow",
-        stack: "React 19, TypeScript, Django REST Framework, PostgreSQL, React Query, Tailwind CSS v4, AWS",
+        dates: "Apr 2026 – Present",
+        stack: "React, TypeScript, Django REST Framework, PostgreSQL",
         links: [
             { label: "careflow.xinyiklin.com", href: "https://careflow.xinyiklin.com" },
         ],
         bullets: [
-            {
-                segments: [
-                    { text: "Built a clinic platform where three React clients share one " },
-                    { text: "Django REST backend" },
-                    { text: ", generating their TypeScript API types from " },
-                    { text: "240+ documented OpenAPI operations" },
-                    { text: " so contract drift fails the build instead of production." },
-                ],
-            },
-            {
-                segments: [
-                    { text: "Scoped every clinician and patient workflow to an " },
-                    { text: "organization and facility" },
-                    { text: ", logged sensitive actions, encrypted SSNs with Fernet, and kept " },
-                    { text: "refresh tokens in HTTP-only cookies" },
-                    { text: " behind CSRF protection." },
-                ],
-            },
-            {
-                segments: [
-                    { text: "Gated merges in " },
-                    { text: "GitHub Actions" },
-                    { text: " on lint, typecheck, build, migration, and API-contract drift across all four apps, backed by " },
-                    { text: "480+ Django tests" },
-                    { text: " covering auth, validation, and facility isolation." },
-                ],
-            },
+            { segments: [{ text: "Built an independent full-stack healthcare application inspired by clinic workflows, connecting staff scheduling, patient records, and a patient booking portal." }] },
+            { segments: [{ text: "Implemented duration-aware appointment conflict checks with transactional database locking, allowing staff-confirmed overlaps while rejecting conflicting patient bookings." }] },
+            { segments: [{ text: "Enforced backend permissions and patient/facility-scoped access checks for booking workflows." }] },
+            { segments: [{ text: "Generated TypeScript types from Django OpenAPI schemas, with CI checks for API contract drift." }] },
+        ],
+    },
+    {
+        name: "Machine Bootstrap",
+        dates: "Jul 2026 – Present",
+        stack: "Node.js, JavaScript, GitHub Actions",
+        links: [
+            { label: "github.com/xinyiklin/machine-bootstrap", href: "https://github.com/xinyiklin/machine-bootstrap" },
+        ],
+        bullets: [
+            { segments: [{ text: "Built a Node.js CLI to standardize AI coding-agent setup across repositories, generating tool-specific adapters from shared workflow definitions." }] },
+            { segments: [{ text: "Preserved existing files through non-overwriting installation and pre-installation checks; added filesystem regression tests and configured CI for Linux, Windows, and macOS." }] },
         ],
     },
     {
         name: "RoleFit AI",
-        stack: "TypeScript, React 19, Node.js, Electron, typed IPC, OpenAI and Claude APIs, agent CLIs",
+        dates: "May 2026 – Present",
+        stack: "React, TypeScript, Node.js, Electron, LLM APIs",
         links: [
             { label: "rolefit.xinyiklin.com", href: "https://rolefit.xinyiklin.com" },
         ],
         bullets: [
-            {
-                segments: [
-                    { text: "Built a " },
-                    { text: "local-first workbench" },
-                    { text: " that tailors a resume to a job posting in the browser, served by a loopback Node server with an Electron companion that keeps provider credentials off the browser and HTTP boundaries." },
-                ],
-            },
-            {
-                segments: [
-                    { text: "Made the AI layer " },
-                    { text: "provider-agnostic across five backends" },
-                    { text: " (three account-backed agent CLIs plus the OpenAI and Claude APIs), so each of five prompt stages picks its own model and reasoning effort without pipeline changes." },
-                ],
-            },
-            {
-                segments: [
-                    { text: "Kept generated text honest by fencing job-posting input against " },
-                    { text: "prompt injection" },
-                    { text: " and dropping any suggestion the resume does not support, with " },
-                    { text: "105+ offline evals" },
-                    { text: " exercising the pipeline without network access." },
-                ],
-            },
-            {
-                segments: [
-                    { text: "Shipped a paired " },
-                    { text: "browser extension" },
-                    { text: " that imports a posting from the page in view, an application tracker for the lifecycle that follows, and macOS and Windows desktop builds as checksum-covered releases." },
-                ],
-            },
-        ],
-    },
-    {
-        name: "Typeset",
-        stack: "React 19, TypeScript, Vite, pdf-lib, npm workspaces, Docker, AWS EC2, GitHub Actions",
-        links: [
-            { label: "typeset.xinyiklin.com", href: "https://typeset.xinyiklin.com" },
-        ],
-        bullets: [
-            {
-                segments: [
-                    { text: "Built a " },
-                    { text: "WYSIWYG resume editor" },
-                    { text: " on a deterministic typesetting engine with " },
-                    { text: "client-side PDF export" },
-                    { text: "; 1,266,912 shaping checks verify editor/PDF shaping parity across 36 font faces." },
-                ],
-            },
-            {
-                segments: [
-                    { text: "Made the rendered page directly editable over a structured document model with undo/redo history, autosave, and a strict versioned " },
-                    { text: ".resume" },
-                    { text: " format that rejects malformed input instead of guessing." },
-                ],
-            },
-            {
-                segments: [
-                    { text: "Extracted the engine and editor into shared " },
-                    { text: "npm workspace packages" },
-                    { text: " that now power both Typeset and RoleFit, and shipped Typeset to " },
-                    { text: "AWS EC2" },
-                    { text: " with Docker and GitHub Actions." },
-                ],
-            },
+            { segments: [{ text: "Built a local-first job application platform with resume editing, job-posting intake, and application tracking, backed by a local Node.js server and an Electron companion." }] },
+            { segments: [{ text: "Integrated API- and CLI-based AI providers for resume tailoring, with server-side validation and user approval before applying suggested document changes." }] },
+            { segments: [{ text: "Extracted shared document-engine and React editor packages in an npm-workspaces monorepo, powering RoleFit and the standalone Typeset resume editor with deterministic layout and PDF export." }] },
         ],
     },
 ];
@@ -141,35 +71,27 @@ export const RESUME_EXPERIENCE = [
         location: "Queens, NY",
         dates: "Mar 2023 - Present",
         bullets: [
-            {
-                segments: [
-                    { text: "Turn recurring " },
-                    { text: "EHR, scheduling, and clinical workflow problems" },
-                    { text: " into concrete requirements and troubleshooting steps for physicians and staff at a high-volume cardiovascular clinic." },
-                ],
-            },
-            {
-                segments: [
-                    { text: "Led an " },
-                    { text: "EHR migration" },
-                    { text: " end to end, coordinating data transfer, validation checks, staff workflow continuity, and production troubleshooting across clinic systems." },
-                ],
-            },
-            {
-                segments: [
-                    { text: "Cut patient wait times by over 50%" },
-                    { text: " by tracing intake and testing bottlenecks and redesigning room assignments around them." },
-                ],
-            },
+            { segments: [{ text: "Led an EHR migration, coordinating data transfer, validation checks, staff workflow continuity, and troubleshooting across clinic systems." }] },
+            { segments: [{ text: "Troubleshoot EHR and scheduling issues with physicians and staff, translating workflow problems into requirements and explaining fixes to non-technical users." }] },
+            { segments: [{ text: "Redesigned room assignments to address intake and testing bottlenecks and improve patient flow." }] },
+        ],
+    },
+    {
+        role: "Undergraduate Teaching Assistant",
+        org: "Hunter College",
+        location: "New York, NY",
+        dates: "Jul 2022 - Aug 2022",
+        bullets: [
+            { segments: [{ text: "Supported Java and object-oriented programming instruction through office hours and debugging guidance." }] },
         ],
     },
 ];
 
-export const RESUME_SKILLS = [
-    { label: "Languages", value: "Python, TypeScript, JavaScript, C++, SQL, HTML/CSS" },
-    { label: "Frameworks & Runtime", value: "React, Django REST Framework, Node.js, Electron, REST APIs, OpenAPI" },
-    { label: "Data & Cloud", value: "PostgreSQL, AWS (Amplify, EC2), Render, Cloudflare R2" },
-    { label: "Testing & Quality", value: "Django TestCase, GitHub Actions CI, ESLint, TypeScript typecheck" },
-    { label: "AI Tooling", value: "Claude Code, OpenAI Codex, Antigravity" },
-    { label: "Tooling", value: "Git, Docker, Vite, React Query, React Router, Tailwind CSS" },
+export const RESUME_EDUCATION = [
+    {
+        school: "City University of New York, Hunter College",
+        degree: "Bachelor of Arts in Computer Science, Daedalus Honors Scholar",
+        location: "New York, NY",
+        dates: "May 2024",
+    },
 ];
