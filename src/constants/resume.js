@@ -18,7 +18,7 @@ export const RESUME_SKILLS = [
     { label: "Languages", value: "Python, TypeScript, JavaScript, SQL, Java" },
     { label: "Frontend", value: "React, React Query, HTML/CSS, Tailwind CSS" },
     { label: "Backend & Data", value: "Django, Django REST Framework, Node.js, PostgreSQL, REST APIs, OpenAPI" },
-    { label: "Cloud & DevOps", value: "AWS (Amplify), Docker, GitHub Actions" },
+    { label: "Cloud & DevOps", value: "AWS (Amplify, EC2), Docker, GitHub Actions" },
     { label: "Development & Testing", value: "Git, Django TestCase, Codex, Claude Code" },
 ];
 
@@ -31,10 +31,10 @@ export const RESUME_PROJECTS = [
             { label: "careflow.xinyiklin.com", href: "https://careflow.xinyiklin.com" },
         ],
         bullets: [
-            { segments: [{ text: "Built an independent full-stack healthcare application inspired by clinic workflows, connecting staff scheduling, patient records, and a patient booking portal." }] },
+            { segments: [{ text: "Built a full-stack healthcare app inspired by clinic workflows, connecting staff scheduling, patient records, and a patient booking portal." }] },
             { segments: [{ text: "Implemented duration-aware appointment conflict checks with transactional database locking, allowing staff-confirmed overlaps while rejecting conflicting patient bookings." }] },
             { segments: [{ text: "Enforced backend permissions and patient/facility-scoped access checks for booking workflows." }] },
-            { segments: [{ text: "Generated TypeScript types from Django OpenAPI schemas, with CI checks for API contract drift." }] },
+            { segments: [{ text: "Generated TypeScript types from Django OpenAPI schemas; CI fails on API contract drift and runs 480+ Django tests against PostgreSQL." }] },
         ],
     },
     {
@@ -45,8 +45,8 @@ export const RESUME_PROJECTS = [
             { label: "github.com/xinyiklin/machine-bootstrap", href: "https://github.com/xinyiklin/machine-bootstrap" },
         ],
         bullets: [
-            { segments: [{ text: "Built a Node.js CLI to standardize AI coding-agent setup across repositories, generating tool-specific adapters from shared workflow definitions." }] },
-            { segments: [{ text: "Preserved existing files through non-overwriting installation and pre-installation checks; added filesystem regression tests and configured CI for Linux, Windows, and macOS." }] },
+            { segments: [{ text: "Built a Node.js CLI that standardizes Claude Code and Codex setup across repositories from shared workflows." }] },
+            { segments: [{ text: "Added pre-installation checks and non-overwriting installs that preserve customized files; wrote 90+ filesystem regression tests and configured CI for Linux, Windows, and macOS." }] },
         ],
     },
     {
@@ -57,8 +57,8 @@ export const RESUME_PROJECTS = [
             { label: "rolefit.xinyiklin.com", href: "https://rolefit.xinyiklin.com" },
         ],
         bullets: [
-            { segments: [{ text: "Built a local-first job application platform with resume editing, job-posting intake, and application tracking, backed by a local Node.js server and an Electron companion." }] },
-            { segments: [{ text: "Integrated API- and CLI-based AI providers for resume tailoring, with server-side validation and user approval before applying suggested document changes." }] },
+            { segments: [{ text: "Built a local-first workspace that tailors resumes and cover letters with API and CLI AI providers, flags edits unsupported by the candidate's resume or profile, and applies changes only after user approval." }] },
+            { segments: [{ text: "Benchmarked prompts and models on real job applications with blinded pairwise judging by two model families and per-edit fact checks; 140+ offline evals run without network access." }] },
             { segments: [{ text: "Extracted shared document-engine and React editor packages in an npm-workspaces monorepo, powering RoleFit and the standalone Typeset resume editor with deterministic layout and PDF export." }] },
         ],
     },
@@ -69,9 +69,9 @@ export const RESUME_EXPERIENCE = [
         role: "Clinic Operations & IT Assistant",
         org: "Colden Heart Center",
         location: "Queens, NY",
-        dates: "Mar 2023 - Present",
+        dates: "Mar 2023 – Present",
         bullets: [
-            { segments: [{ text: "Led an EHR migration, coordinating data transfer, validation checks, staff workflow continuity, and troubleshooting across clinic systems." }] },
+            { segments: [{ text: "Led an EHR migration, coordinating data transfer, validation checks, and staff workflow continuity." }] },
             { segments: [{ text: "Troubleshoot EHR and scheduling issues with physicians and staff, translating workflow problems into requirements and explaining fixes to non-technical users." }] },
             { segments: [{ text: "Redesigned room assignments to address intake and testing bottlenecks and improve patient flow." }] },
         ],
@@ -80,7 +80,7 @@ export const RESUME_EXPERIENCE = [
         role: "Undergraduate Teaching Assistant",
         org: "Hunter College",
         location: "New York, NY",
-        dates: "Jul 2022 - Aug 2022",
+        dates: "Jul 2022 – Aug 2022",
         bullets: [
             { segments: [{ text: "Supported Java and object-oriented programming instruction through office hours and debugging guidance." }] },
         ],
