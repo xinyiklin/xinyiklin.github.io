@@ -1,6 +1,6 @@
-// Resume content mirrors the Typeset .resume source (general SDE resume,
-// ../role-fit-ai/apps/role-fit-ai/workspace/resumes/general-sde.resume).
-// RoleFit is canonical; update its general resume first, then sync this mirror.
+// Resume content mirrors the Typeset .resume source (the single base resume,
+// ../role-fit-ai/apps/role-fit-ai/workspace/resumes/default.resume).
+// RoleFit is canonical; update its base resume first, then sync this mirror.
 // Section order follows the source: Skills, Projects, Experience, Education.
 // The source's phone number is intentionally left off this public site.
 
@@ -31,22 +31,10 @@ export const RESUME_PROJECTS = [
             { label: "careflow.xinyiklin.com", href: "https://careflow.xinyiklin.com" },
         ],
         bullets: [
-            { segments: [{ text: "Built a full-stack healthcare app inspired by clinic workflows, connecting staff scheduling, patient records, and a patient booking portal." }] },
-            { segments: [{ text: "Implemented duration-aware appointment conflict checks with transactional database locking, allowing staff-confirmed overlaps while rejecting conflicting patient bookings." }] },
-            { segments: [{ text: "Enforced backend permissions and patient/facility-scoped access checks for booking workflows." }] },
-            { segments: [{ text: "Generated TypeScript types from Django OpenAPI schemas; CI fails on API contract drift and runs 480+ Django tests against PostgreSQL." }] },
-        ],
-    },
-    {
-        name: "Machine Bootstrap",
-        dates: "Jul 2026 – Present",
-        stack: "Node.js, JavaScript, GitHub Actions",
-        links: [
-            { label: "github.com/xinyiklin/machine-bootstrap", href: "https://github.com/xinyiklin/machine-bootstrap" },
-        ],
-        bullets: [
-            { segments: [{ text: "Built a Node.js CLI that standardizes Claude Code and Codex setup across repositories from shared workflows." }] },
-            { segments: [{ text: "Added pre-installation checks and non-overwriting installs that preserve customized files; wrote 90+ filesystem regression tests and configured CI for Linux, Windows, and macOS." }] },
+            { segments: [{ text: "Built a full-stack healthcare app connecting clinic staff scheduling, patient records, and a patient booking portal." }] },
+            { segments: [{ text: "Implemented duration-aware appointment conflict checks, re-run under a facility-row lock (select_for_update) in one transaction; patient bookings reject conflicts, while staff can confirm intentional overlaps." }] },
+            { segments: [{ text: "Scoped backend access by patient and facility; bookings derive patient identity from the signed-in account." }] },
+            { segments: [{ text: "Generated TypeScript types from the OpenAPI schema (240+ operations); CI fails on drift and runs 480+ tests." }] },
         ],
     },
     {
@@ -57,9 +45,23 @@ export const RESUME_PROJECTS = [
             { label: "rolefit.xinyiklin.com", href: "https://rolefit.xinyiklin.com" },
         ],
         bullets: [
-            { segments: [{ text: "Built a local-first workspace that tailors resumes and cover letters with API and CLI AI providers, flags edits unsupported by the candidate's resume or profile, and applies changes only after user approval." }] },
-            { segments: [{ text: "Benchmarked prompts and models on real job applications with blinded pairwise judging by two model families and per-edit fact checks; 140+ offline evals run without network access." }] },
+            { segments: [{ text: "Built a local-first job-application workspace that tailors resumes and cover letters with API and CLI AI providers, flags edits unsupported by the candidate's resume or profile, and applies only user-approved changes." }] },
+            { segments: [{ text: "Benchmarked prompts and models on personal job applications with blinded pairwise judging by two model families and per-edit fact checks; 170+ offline evals run without network access." }] },
+            { segments: [{ text: "Hardened the loopback-bound Node.js server started by an Electron companion, with Host/Origin checks against CSRF and DNS rebinding; the browser extension connects only after the user approves pairing." }] },
             { segments: [{ text: "Extracted shared document-engine and React editor packages in an npm-workspaces monorepo, powering RoleFit and the standalone Typeset resume editor with deterministic layout and PDF export." }] },
+        ],
+    },
+    {
+        name: "Machine Bootstrap",
+        dates: "Jul 2026 – Present",
+        stack: "Node.js, JavaScript, GitHub Actions",
+        links: [
+            { label: "github.com/xinyiklin/machine-bootstrap", href: "https://github.com/xinyiklin/machine-bootstrap" },
+        ],
+        bullets: [
+            { segments: [{ text: "Built a Node.js CLI and reusable agent skills that set up Claude Code and Codex across independent repositories, seeding, syncing, and auditing each project's agent guidance without overwriting local edits." }] },
+            { segments: [{ text: "Generated Claude Code and Codex agents from shared role contracts for a plan–implement–verify workflow." }] },
+            { segments: [{ text: "Pinned third-party skills to exact upstream revisions and SHA-256 content hashes, rejecting drifted content before installation; wrote 110+ filesystem regression tests and configured CI for Linux, Windows, and macOS." }] },
         ],
     },
 ];
