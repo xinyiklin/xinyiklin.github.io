@@ -13,7 +13,10 @@
     "scripts": {
         "dev": "vite",
         "build": "vite build",
-        "preview": "vite preview"
+        "preview": "vite preview",
+        "resume:sync": "node scripts/sync-resume.mjs",
+        "resume:check": "node scripts/sync-resume.mjs --check",
+        "resume:publish": "node scripts/sync-resume.mjs --publish"
     },
     "devDependencies": {
         "@vitejs/plugin-react": "^6.0.1",

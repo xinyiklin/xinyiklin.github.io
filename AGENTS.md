@@ -108,12 +108,17 @@ changing workflow-critical UI patterns, or taking destructive actions.
   components, resume data, or docs, cross-check sibling repo `README` and
   `CONTINUITY` files under `../careflow/` and `../role-fit-ai/` (the Typeset
   Workspace monorepo holding `apps/role-fit-ai/` and `apps/typeset/`).
-- `src/constants/resume.js` mirrors the user's Typeset resume (the base
-  `.resume` files in the monorepo's local job-search workspace,
-  `apps/role-fit-ai/workspace/resumes/`) and is the source of truth for
-  resume and skills copy. When the user provides an updated resume, mirror it
-  directly and align `Main.jsx`, the desktop widget copy
-  (`DesktopWidgets.jsx`), and `ResumeOverlay.jsx` with it.
+- `src/constants/resume.js` is generated from the user's Typeset base resume
+  (`apps/role-fit-ai/workspace/resumes/default.resume` in the monorepo's local
+  job-search workspace) and is the source of truth for resume and skills copy.
+  Never hand-edit it: `npm run resume:sync` regenerates it, `resume:check`
+  reports drift, and `resume:publish` syncs, builds, shows the diff, asks for
+  confirmation, and squash-merges a PR (a deploy; the user runs it or
+  explicitly asks). The user chose this flow on 2026-10-14: their confirmation
+  replaces the independent-review and second-reviewer steps for resume-only
+  syncs. Any other change, including widget or hero copy, follows the normal
+  review. When the resume changes, align `Main.jsx` and the desktop widget
+  copy (`DesktopWidgets.jsx`) with it.
 - If resume facts conflict with sibling repo facts, follow the user's explicit
   instruction on which source wins and record meaningful divergence in
   `CONTINUITY.md`.
@@ -234,10 +239,13 @@ Run commands from the project root.
 - Build: `npm run build`
 - Dev: `npm run dev`
 - Preview: `npm run preview`
+- Resume: `npm run resume:sync` / `resume:check` / `resume:publish` (see
+  Content Rules; `resume:publish` merges to `main`, so it deploys).
 - Deploy: automated via GitHub Actions (`.github/workflows/deploy.yml`); every
   push to `main` builds and publishes `dist/` to Pages, custom domain
   `xinyiklin.com` riding along via `public/CNAME` -> `dist/CNAME`. There is no
-  `npm run deploy`. Can also be run manually from the Actions tab.
+  `npm run deploy`; besides a normal PR merge, only `resume:publish` deploys.
+  Can also be run manually from the Actions tab.
 
 Canonical port `5184` (reserved `5184-5185`), `strictPort` in `vite.config.js`.
 A bound `5184` means the app is already running — connect to it; never switch
