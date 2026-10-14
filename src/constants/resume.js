@@ -1,6 +1,6 @@
-// Resume content mirrors the Typeset .resume source (the single base resume,
-// ../role-fit-ai/apps/role-fit-ai/workspace/resumes/default.resume).
-// RoleFit is canonical; update its base resume first, then sync this mirror.
+// Generated from the Typeset base resume by scripts/sync-resume.mjs
+// (npm run resume:sync). Edit the source, not this file:
+// ../role-fit-ai/apps/role-fit-ai/workspace/resumes/default.resume
 // Section order follows the source: Skills, Projects, Experience, Education.
 // The source's phone number is intentionally left off this public site.
 
