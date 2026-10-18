@@ -103,11 +103,12 @@ changing workflow-critical UI patterns, or taking destructive actions.
 ## Content Rules
 
 - Keep copy concrete, recruiter-oriented, and free of marketing fluff.
-- `src/constants/projects.js` is only the link registry used by project window
-  actions. For CareFlow, RoleFit AI, or Typeset claim/copy updates in
-  components, resume data, or docs, cross-check sibling repo `README` and
-  `CONTINUITY` files under `../careflow/` and `../role-fit-ai/` (the Typeset
-  Workspace monorepo holding `apps/role-fit-ai/` and `apps/typeset/`).
+- `src/constants/projects.js` is only the link registry used by the project
+  widget, dock, and link-row actions. For CareFlow, RoleFit AI, or Typeset
+  claim/copy updates in components, resume data, or docs, cross-check sibling
+  repo `README` and `CONTINUITY` files under `../careflow/` and
+  `../role-fit-ai/` (the RoleFit AI monorepo holding `apps/role-fit-ai/` and
+  `apps/typeset/`).
 - `src/constants/resume.js` is generated from the user's Typeset base resume
   (`apps/role-fit-ai/workspace/resumes/default.resume` in the monorepo's local
   job-search workspace) and is the source of truth for resume and skills copy.
@@ -190,7 +191,7 @@ Compact ISO-timestamped entries tagged `[USER]`, `[CODE]`, `[TOOL]`, or
 `[ASSUMPTION]`; `UNCONFIRMED` rather than a guess. Keep Snapshot ~25 lines,
 Done ~7 bullets, Working Set ~12 paths, Receipts to the last 10-20; compress
 older entries. Durable decisions take the form
-`D001 ACTIVE: Projects renders CareFlow, RoleFit AI, and Typeset windows only.`
+`D001 ACTIVE: Projects renders CareFlow, RoleFit AI, and Typeset widgets only.`
 
 ---
 

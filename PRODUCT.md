@@ -74,7 +74,7 @@ passionate about building." Specifics beat superlatives.
    interfaces inside the portfolio.
 5. **Quiet by default, bold on identity.** Backgrounds and supporting copy
    stay restrained. Identity moments (the project name, the primary CTA,
-   the desktop window and primary CTA) commit fully to scale and accent.
+   the desktop widgets) commit fully to scale and accent.
 6. **Density over decoration.** Tight typographic hierarchy and concrete
    copy beat decorative ornament. Every word and pill earns its place.
    Eyebrows are not free; spend them carefully.

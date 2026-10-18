@@ -106,11 +106,11 @@ A restrained teal system over a near-white drafting surface. Product favicons ca
 
 ### Primary
 
-- **Operating Teal** (`#0f766e`, `oklch(45% 0.075 180)`): the brand's load-bearing color. Primary CTA backgrounds, the CareFlow window accent, hero badge text, dock states, contact-section pulse, schedule blocks, active filters, and real availability/status dots.
+- **Operating Teal** (`#0f766e`, `oklch(45% 0.075 180)`): the brand's load-bearing color. Primary CTA backgrounds, hero kicker and availability badge text, menubar status text, and the dock Contact tile.
 
 ### Tertiary
 
-- **Beacon Teal** (`#14b8a6`, `oklch(72% 0.135 180)`): the brighter teal used on the hero badge, the "Open to Work" contact pill, and the nav scroll-progress glow. A more luminous variant of Operating Teal for high-luminance contexts.
+- **Beacon Teal** (`#14b8a6`, `oklch(72% 0.135 180)`): the brighter teal used on the hero badge, the contact-section pulse, and the menubar availability dot. A more luminous variant of Operating Teal for high-luminance contexts.
 
 ### Neutral
 
@@ -145,7 +145,7 @@ A restrained teal system over a near-white drafting surface. Product favicons ca
 - **Subtitle** (800, `clamp(1.25rem, 2vw, 1.6rem)`, line-height 1.2, tracking -0.01em): secondary section-scale headings.
 - **Tagline** (700, `1.02rem`, line-height 1.5): concise positioning copy when a page-level identity moment needs support.
 - **Body** (400, `1rem`, line-height 1.7): blurbs, hero copy, and contact copy. Max line length 60ch.
-- **Label** (800, `0.78rem`, tracking 0.16em, uppercase): the hero kicker and compact app labels. Rationed: maximum 1 section eyebrow per 3 sections across the whole page; the desktop windows use short functional labels rather than decorative section eyebrows.
+- **Label** (800, `0.78rem`, tracking 0.16em, uppercase): the hero kicker and compact app labels. Rationed: maximum 1 section eyebrow per 3 sections across the whole page; the desktop widgets use short functional labels rather than decorative section eyebrows.
 
 ### Named Rules
 
@@ -241,7 +241,7 @@ lives in the hero (both layouts) and the desktop menubar.
 - **Do** keep neutrals tinted toward teal. Drafting Paper (`#f5f9fc`) is the right base; never `#fff` or `#000`.
 - **Do** use ≥1.25 ratios between Headline, Title, Subtitle, Body, Label. Flat scales read as uncommitted.
 - **Do** cap body line length at 60ch. Wider lines lose recruiters fast.
-- **Do** ration eyebrows: maximum 1 per 3 sections across the whole page. App-window headings should be functional and compact.
+- **Do** ration eyebrows: maximum 1 per 3 sections across the whole page. Widget headings should be functional and compact.
 - **Do** respect `prefers-reduced-motion`: skip the cinematic boot/desktop manager and render the flat stacked layout.
 - **Do** keep the project launch path explicit on both cinematic and fallback layouts.
 
