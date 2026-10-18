@@ -128,7 +128,7 @@
     "typographyMeta": {
       "headline": { "displayName": "Section Headline", "purpose": "Section-scale identity moments such as hero and contact headings." },
       "title": { "displayName": "Project Title", "purpose": "Reserved for large identity moments, not compact app chrome." },
-      "subtitle": { "displayName": "App Page Title", "purpose": "Compact headings inside the desktop windows, sized to fit app surfaces." },
+      "subtitle": { "displayName": "App Page Title", "purpose": "Compact headings inside the desktop widgets, sized to fit app surfaces." },
       "body": { "displayName": "Body", "purpose": "Description copy, hero copy, and contact copy. Max line 60-65ch." },
       "label": { "displayName": "Functional Label", "purpose": "Uppercase tracked labels for hero and compact app metadata. Always 0.14em+ tracking and rationed across the page." }
     },
@@ -221,14 +221,14 @@
       { "name": "The No-Gradient-Text Rule", "body": "Text is always one solid color. background-clip: text with a gradient is forbidden.", "section": "colors" },
       { "name": "The Single-Family Rule", "body": "One typeface family across the whole portfolio. A serif companion is forbidden.", "section": "typography" },
       { "name": "The Tracking-Out-Loud Rule", "body": "Uppercase labels always use letter-spacing 0.14em or more. Tightly-set uppercase reads as shouty.", "section": "typography" },
-      { "name": "The Headline-Anchor Rule", "body": "Every section has one Headline and only one. App-window headings stay compact and functional.", "section": "typography" },
+      { "name": "The Headline-Anchor Rule", "body": "Every section has one Headline and only one. Widget headings stay compact and functional.", "section": "typography" },
       { "name": "The Flat-By-Default Rule", "body": "Surfaces are flat at rest. Shadows appear only as a response to state.", "section": "elevation" },
       { "name": "The No-Side-Stripe Rule", "body": "border-left or border-right greater than 1px as a colored accent is forbidden.", "section": "elevation" },
       { "name": "The Launcher Rule", "body": "Project depth lives in the hosted products. The portfolio provides direct Live and Source paths on every layout.", "section": "components" }
     ],
     "dos": [
       "Do lead visitors to the real hosted products and source repositories.",
-      "Do commit fully on identity moments while keeping app-window headings compact.",
+      "Do commit fully on identity moments while keeping widget headings compact.",
       "Do derive accent tints from the shared teal tokens.",
       "Do keep neutrals tinted toward the brand teal. Drafting Paper (#f5f9fc) is the right base; never use #fff or #000.",
       "Do use ≥1.25 ratios between Headline → Title → Subtitle → Body → Label.",
