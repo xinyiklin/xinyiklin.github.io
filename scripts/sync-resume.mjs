@@ -16,13 +16,43 @@ import { createInterface } from "node:readline/promises";
 import { fileURLToPath } from "node:url";
 
 const ROOT = resolve(dirname(fileURLToPath(import.meta.url)), "..");
-const SOURCE = resolve(ROOT, process.env.RESUME_SOURCE ?? "../role-fit-ai/apps/role-fit-ai/workspace/resumes/default.resume");
+// The sibling path is relative to the main checkout, so a git worktree under
+// .claude/worktrees/ resolves the same source and writes the same header.
+const CHECKOUT = (() => {
+    try {
+        const common = execFileSync("git", ["rev-parse", "--path-format=absolute", "--git-common-dir"], {
+            cwd: ROOT,
+            encoding: "utf8",
+            stdio: "pipe",
+        });
+        return dirname(common.trim());
+    } catch {
+        return ROOT;
+    }
+})();
+const SOURCE = resolve(CHECKOUT, process.env.RESUME_SOURCE ?? "../role-fit-ai/apps/role-fit-ai/workspace/resumes/default.resume");
 const TARGET_REL = "src/constants/resume.js";
 const TARGET = resolve(ROOT, TARGET_REL);
 const FLAGS = ["--check", "--publish", "--yes"];
 // Seven or more digits joined only by phone punctuation. Dates ("Jul 2022 –
 // Aug 2022") and counts ("480+") never match.
 const PHONE_DIGITS = /\d(?:[\s().+-]*\d){6,}/;
+
+// Typeset's typography and paragraph-layout spans carry no content, and the
+// site sets its own type, so they are dropped. The pattern mirrors Typeset's
+// tag grammar (@typeset/editor inlineTextEditing.ts); text that Typeset keeps
+// literal is left alone and then fails as unsupported markup.
+const LAYOUT_NAMES = "size|font|align|line-height|space-before|space-after|indent";
+const LAYOUT_TAG = new RegExp(
+    "<(?:(?:size|line-height|space-before|space-after|indent)=\\d+(?:\\.\\d+)?" +
+        "|align=(?:left|center|right|justify)|font=[a-z0-9]+(?:-[a-z0-9]+)*" +
+        `|\\/(?:${LAYOUT_NAMES}))>`,
+    "gi"
+);
+// Literal "<" or ">" beside a layout tag can join into new markup once the tag
+// is removed ("<<size=10>b>" -> "<b>"), so stripping must not change this count.
+const CONTENT_TAG = /<\/?(?:b|i)>|<link=[^>\s]+>|<\/link>/gi;
+const contentTags = (text) => text.match(CONTENT_TAG)?.length ?? 0;
 
 class ResumeError extends Error {}
 const reject = (message) => {
@@ -133,6 +163,19 @@ function convert(doc) {
     };
 }
 
+function stripLayout(value) {
+    if (typeof value === "string") {
+        const text = value.replace(LAYOUT_TAG, "");
+        if (contentTags(text) !== contentTags(value)) reject(`literal "<" or ">" beside a layout tag: ${value}`);
+        return text;
+    }
+    if (Array.isArray(value)) return value.map(stripLayout);
+    if (value && typeof value === "object") {
+        return Object.fromEntries(Object.entries(value).map(([k, v]) => [k, stripLayout(v)]));
+    }
+    return value;
+}
+
 // Last line of defense: no phone-like number anywhere in the public output.
 function assertNoPhone(value) {
     if (typeof value === "string") {
@@ -174,6 +217,7 @@ function render() {
     } catch (error) {
         reject(`cannot read ${SOURCE}: ${error.message}`);
     }
+    doc = stripLayout(doc);
     let data;
     try {
         data = convert(doc);
@@ -185,7 +229,7 @@ function render() {
     const head = [
         "// Generated from the Typeset base resume by scripts/sync-resume.mjs",
         "// (npm run resume:sync). Edit the source, not this file:",
-        `// ${relative(ROOT, SOURCE)}`,
+        `// ${relative(CHECKOUT, SOURCE)}`,
         "// Section order follows the source: Skills, Projects, Experience, Education.",
         "// The source's phone number is intentionally left off this public site.",
     ].join("\n");
